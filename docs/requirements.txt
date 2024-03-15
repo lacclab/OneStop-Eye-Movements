@@ -1,5 +1,4 @@
 # TODO add versions for
-sphinx
-myst-parser
-sphinx-book-theme
-python==3.12.*
+sphinx==7.2.6
+myst-parser==2.0.0
+sphinx-book-theme==1.1.2
