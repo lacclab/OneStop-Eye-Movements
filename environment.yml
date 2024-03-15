@@ -1,0 +1,12 @@
+name: onestop
+channels:
+  - defaults
+dependencies:
+  - python
+  - sphinx
+  - mypy
+  - pip
+  - pip:
+    - myst-parser
+    - sphinx-book-theme
+    - sphinx-autobuild docs docs/_build/html
