@@ -8,3 +8,6 @@ The experiment is conducted using extensively piloted reading comprehension mate
 
 OneStopGaze further includes controlled experimental manipulations of the difficulty level of the text, the presented questions, first reading versus re-reading, and ordinary reading versus information seeking. 
 <!--- The broad coverage and controlled experimental design of OneStopGaze aim to enable new research avenues in the cognitive study of reading and human language processing, and provide new possibilities for the integration of psycholinguistics with Natural Language Processing (NLP) and Artificial Intelligence (AI). --->
+
+## Example
+![](l6_187_ Trial_ 20.gif)
