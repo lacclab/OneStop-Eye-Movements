@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = "OneStop-Eye-Tracking"
-copyright = "2024, Yevgeni Berzak"
-author = "Yevgeni Berzak"
+copyright = "2024, LaCC Lab"
+author = "??"
 
 # The full version, including alpha/beta/rc tags
 release = "1.0"
@@ -52,3 +52,6 @@ html_theme = "sphinx_book_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+
+myst_enable_extensions = ["colon_fence", "dollarmath", "amsmath", "html_image"]

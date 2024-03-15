@@ -1,7 +1,8 @@
 # OneStop: A 360-Participant Eye-Tracking Dataset for Reading Comprehension, Readability and Re-Reading in Ordinary and Information-Seeking Reading
 
+:::{note}
 We present OneStop, a corpus of eye movements in reading, in which native (L1) English speakers read texts in English from the Guardian and answer reading comprehension questions about them.
-
+:::
 OneStop is the largest English eye-tracking dataset with L1 speakers to date, comprising eye movement recordings from 360 participants over 2.6 million word tokens.
 
 The experiment is conducted using extensively piloted reading comprehension materials with 486 multiple choice reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.
@@ -11,7 +12,7 @@ OneStopGaze further includes controlled experimental manipulations of the diffic
 
 ## Example
 
-![Trial GIF](l6_187_Trial_20.gif)
+![Trial GIF](_static/trial.gif)
 
 ## Obtaining the Data
 
@@ -24,7 +25,7 @@ There are several ways to obtain the data:
 
 ### Direct Download from OSF
 
-The data files are stored in an [OSF repository]() (TODO add link), and can be downloaded manually from the repository.
+The data files are stored in an [OSF repository](TODO add link), and can be downloaded manually from the repository.
 
 ### Python Script
 
@@ -62,69 +63,13 @@ dataset.download()
 
 TODO Copy values from paper.
 
-## Directory Structure
-
-**`data_[version]/`**
-
-SR DataViewer Interest Area and Fixation Reports, and syntactic annotations.
-
-- `sent_ia.tsv` Interest Area report.  
-- `sent_fix.tsv` Fixations report.
-- `annotations/` Syntactic annotations.
-
-**`participant_metadata/`**
-
-- `metadata.tsv` metadata on participants.
-- `languages.tsv` information on languages spoken besides English.
-- `test_scores/`
-  - `test_conversion.tsv` unofficial conversion table between standardized proficiency tests (used to convert TOEIC to TOEFL scores).
-  - `michigan-cefr.tsv` conversion table between form B and the newer forms D/E/F, as well as to CEFR levels.
-  - `michigan/` item level responses for the Michigan Placement Test (MPT).
-  - `comprehension/` item level responses for the reading comprehension during the eyetracking experiment.  
-
-**`splits/`**
-
-Trial and participant splits.
-
-- `trials/`
-  - `all_trials.txt` trial numbers for all the sentences (1-157).
-  - `shared_trials.txt` trial numbers of the Shared Text regime.
-  - `individual_trials.txt` trial number of the Individual Text regime.
-- `participants/[version]/`
-  - `random_order.csv` random participant order.
-  - `train.csv` train participants.
-  - `test.csv` test participants.
-
-<a name="docs">
-
-**`dataset_analyses.Rmd`**
-
-Analyses for the paper "CELER: A 365-Participant Corpus of Eye Movements in L1 and L2 English Reading".
-Note that this script requires:
-
-- CELER (in the folder `data_v2.0/`) and,
-- GECO Augmented (in the folder `geco/`). Download [GECO augmented](https://drive.google.com/file/d/1T4qgbwPkdzYmTvIqMUGJlvY-v22Ifinx/view?usp=sharing) with frequency and surprisal values and place `geco/` at the top level of this directory.
-
-## Documentation
-
-</a>
-
-- [Eyetracking Variables](documentation/data_variables.md) Description of the variables in the fixations and interest area reports.
-- [Metadata Variables](documentation/metadata_variables.md) Description of the variables in the participants metadata and languages files.
-- [Language Models](documentation/language_models.md) Details on language models for surprisal values.
-- [Syntactic Annotations](documentation/syntactic_annotations.md) Details on syntactic annotations (POS, phra`se structure trees, dependency trees).
-- [GECO Augmented](documentation/geco_augmented.md) Details on new fields added to GECO.
-- [Experiment Builder Programs](documentation/EB_programs.md) Information on the EB experiment.
-- [Known Issues](documentation/known_issues.md) Known issues with the dataset.
-
 
 ## Citation
 
 Paper: TODO
 
-```
+```bash
 TODO
-
 ```
 
 ## License

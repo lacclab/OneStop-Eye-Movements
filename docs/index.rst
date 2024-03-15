@@ -5,12 +5,15 @@
 
 Welcome to OneStop-Eye-Tracking's documentation!
 ================================================
+.. include:: ../README.md
+   :parser: myst_parser.sphinx_
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   README
+   directory_structure
+   variables/index
 
 
 

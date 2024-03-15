@@ -1,4 +1,4 @@
 # TODO add versions from
-- sphinx
-- myst-parser
-- sphinx-book-theme
+sphinx
+myst-parser
+sphinx-book-theme
