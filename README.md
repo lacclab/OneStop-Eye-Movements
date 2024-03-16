@@ -5,6 +5,12 @@
 We present OneStop, a corpus of eye movements in reading, in which native (L1) English speakers read texts in English from the Guardian and answer reading comprehension questions about them.
 :::
 
+:::{contents} On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+:::
+
 ## Example
 
 ![Trial GIF](_static/trial.gif)
