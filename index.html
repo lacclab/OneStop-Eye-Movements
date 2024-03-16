@@ -33,8 +33,13 @@
       Skip to content
     </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
 <div class="hidden mr-4 md:flex">
-<a class="flex items-center mr-6" href="#"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">OneStop 1.0 documentation</span>
-</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<a class="flex items-center mr-6" href="#">
+<img alt="Logo" class="mr-2 dark:invert" height="24" src="_static/lacc_logo.jpeg" width="24"/><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">OneStop 1.0 documentation</span>
+</a><nav class="flex items-center space-x-6 text-sm font-medium">
+<a class="transition-colors hover:text-foreground/80 text-foreground" href="/index.html">Docs</a>
+<a class="transition-colors hover:text-foreground/80 text-foreground" href="/index.html">About</a>
+<a class="transition-colors hover:text-foreground/80 text-foreground" href="/index.html">Changelog</a>
+</nav></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
 <svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
 <path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
 </svg>
@@ -50,6 +55,17 @@
 </form>
 </div>
 <nav class="flex items-center space-x-1">
+<a href="https://github.com/lacclab/OneStop-Eye-Movements" rel="noopener nofollow" title="Visit repository on GitHub">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg fill="currentColor" height="26px" style="margin-top:-2px;display:inline" viewbox="0 0 45 44" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M22.477.927C10.485.927.76 10.65.76 22.647c0 9.596 6.223 17.736 14.853 20.608 1.087.2 1.483-.47 1.483-1.047 0-.516-.019-1.881-.03-3.693-6.04 1.312-7.315-2.912-7.315-2.912-.988-2.51-2.412-3.178-2.412-3.178-1.972-1.346.149-1.32.149-1.32 2.18.154 3.327 2.24 3.327 2.24 1.937 3.318 5.084 2.36 6.321 1.803.197-1.403.759-2.36 1.379-2.903-4.823-.548-9.894-2.412-9.894-10.734 0-2.37.847-4.31 2.236-5.828-.224-.55-.969-2.759.214-5.748 0 0 1.822-.584 5.972 2.226 1.732-.482 3.59-.722 5.437-.732 1.845.01 3.703.25 5.437.732 4.147-2.81 5.967-2.226 5.967-2.226 1.185 2.99.44 5.198.217 5.748 1.392 1.517 2.232 3.457 2.232 5.828 0 8.344-5.078 10.18-9.916 10.717.779.67 1.474 1.996 1.474 4.021 0 2.904-.027 5.247-.027 5.96 0 .58.392 1.256 1.493 1.044C37.981 40.375 44.2 32.24 44.2 22.647c0-11.996-9.726-21.72-21.722-21.72" fill="currentColor" fill-rule="evenodd"></path></svg>
+</div>
+</a>
+<a href="https://lacclab.github.io/" rel="noopener nofollow" title="Visit LaCC Lab">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg height="26px" style="margin-top:-2px;display:inline" xmlns="http://www.w3.org/2000/svg">
+<text fill="Orange" x="0" y="20">LaCC</text>
+</svg></div>
+</a>
 <button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
 <svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
 <path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
@@ -63,10 +79,15 @@
 </div>
 </header>
 <div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
-<a class="!justify-start text-sm md:!hidden bg-background" href="#"><span class="font-bold text-clip whitespace-nowrap">OneStop 1.0 documentation</span>
+<a class="!justify-start text-sm md:!hidden bg-background" href="#">
+<img alt="Logo" class="mr-2 dark:invert" height="16" src="_static/lacc_logo.jpeg" width="16"/><span class="font-bold text-clip whitespace-nowrap">OneStop 1.0 documentation</span>
 </a>
 <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
-<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
+<a href="/index.html">Docs</a>
+<a href="/index.html">About</a>
+<a href="/index.html">Changelog</a>
+</nav><nav class="table w-full min-w-full my-6 lg:my-8">
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="directory_structure.html">Directory Structure</a></li>
@@ -96,6 +117,18 @@
 <p class="admonition-title">OneStop</p>
 <p>We present OneStop, a corpus of eye movements in reading, in which native (L1) English speakers read texts in English from the Guardian and answer reading comprehension questions about them.</p>
 </div>
+<nav class="contents local" id="on-this-page">
+<p class="topic-title">On this page</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#example" id="id1">Example</a></p></li>
+<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p></li>
+<li><p><a class="reference internal" href="#obtaining-the-data" id="id3">Obtaining the Data</a></p></li>
+<li><p><a class="reference internal" href="#documentation" id="id4">Documentation</a></p></li>
+<li><p><a class="reference internal" href="#statistics" id="id5">Statistics</a></p></li>
+<li><p><a class="reference internal" href="#citation" id="id6">Citation</a></p></li>
+<li><p><a class="reference internal" href="#license" id="id7">License</a></p></li>
+</ul>
+</nav>
 <section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example'"><span>#</span></a></h2>
 <p><img alt="Trial GIF" src="_images/trial.gif"/></p>
@@ -111,14 +144,14 @@
 <h2>Obtaining the Data<a class="headerlink" href="#obtaining-the-data" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#obtaining-the-data'"><span>#</span></a></h2>
 <p>There are several ways to obtain the data:</p>
 <ol class="arabic simple">
-<li><p>Download the data from the <a class="reference external" href="https://osf.io/2prdq/">OSF repository</a>.</p></li>
+<li><p>Download the data from the <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">OSF repository<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p></li>
 <li><p>Use the <code class="docutils literal notranslate"><span class="pre">download_data_files.py</span></code> script to download and extract the data files automatically.</p></li>
 <li><p>Use the <code class="docutils literal notranslate"><span class="pre">pymovements</span></code> package to download the data.</p></li>
 <li><p>TODO Add other ways to obtain the data?</p></li>
 </ol>
 <section id="direct-download-from-osf">
 <h3>Direct Download from OSF<a class="headerlink" href="#direct-download-from-osf" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#direct-download-from-osf'"><span>#</span></a></h3>
-<p>The data files are stored in an <a class="reference external" href="https://osf.io/2prdq/">OSF repository</a>, and can be downloaded manually from the repository.</p>
+<p>The data files are stored in an <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">OSF repository<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>, and can be downloaded manually from the repository.</p>
 </section>
 <section id="python-script">
 <h3>Python Script<a class="headerlink" href="#python-script" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#python-script'"><span>#</span></a></h3>
@@ -130,7 +163,7 @@
 </section>
 <section id="pymovements-integration">
 <h3>pymovements integration<a class="headerlink" href="#pymovements-integration" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pymovements-integration'"><span>#</span></a></h3>
-<p>OneStop is integrated into the <a class="reference external" href="https://pymovements.readthedocs.io/en/stable/index.html">pymovements</a> package. The package allows to easily download the raw data and further process it. The following code snippet shows how to download the data:</p>
+<p>OneStop is integrated into the <a class="reference external" href="https://pymovements.readthedocs.io/en/stable/index.html" rel="nofollow noopener">pymovements<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> package. The package allows to easily download the raw data and further process it. The following code snippet shows how to download the data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># pip install pymovements</span>
 <span class="kn">import</span> <span class="nn">pymovements</span> <span class="k">as</span> <span class="nn">pm</span>
 
@@ -194,7 +227,7 @@
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#license'"><span>#</span></a></h2>
-<p>This work is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+<p>This work is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/" rel="nofollow noopener">Creative Commons Attribution 4.0 International License<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
 <p><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></p>
 <p>TODO license okay?</p>
 <div class="toctree-wrapper compound">

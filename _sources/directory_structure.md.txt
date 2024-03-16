@@ -2,7 +2,6 @@
 
 ## data_[version]
 
-
 SR DataViewer Interest Area and Fixation Reports, and syntactic annotations.
 
 - `sent_ia.tsv` Interest Area report.  
