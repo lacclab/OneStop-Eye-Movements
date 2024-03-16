@@ -2,11 +2,6 @@
 
 ## data_[version]
 
-<!-- ![Trial GIF](trial.gif)
-
-:::{image} trial.gif
-:alt: Trial GIF
-:width: 400px -->
 
 SR DataViewer Interest Area and Fixation Reports, and syntactic annotations.
 
