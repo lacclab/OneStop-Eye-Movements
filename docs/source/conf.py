@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "OneStop-Eye-Tracking"
+project = "OneStop"
 copyright = "2024, TBD"
 author = "TBD"
 release = "1.0"
