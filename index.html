@@ -14,7 +14,7 @@
 <link href="_static/theme.css?v=5b4133db" rel="stylesheet" type="text/css"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
-<link href="directory_structure.html" rel="next" title="Directory Structure"/>
+<link href="variables.html" rel="next" title="Variables"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -90,13 +90,13 @@
 </nav><nav class="table w-full min-w-full my-6 lg:my-8">
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="directory_structure.html">Directory Structure</a></li>
+<li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="variables.html">Variables<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
+<li class="toctree-l2"><a class="reference internal" href="data_variables.html">Data Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata_variables.html">Metadata</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="data_variables.html">Data Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metadata_variables.html">Metadata</a></li>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="technical_setup.html">Technical Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_structure.html">Directory Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
 </nav>
@@ -117,18 +117,6 @@
 <p class="admonition-title">OneStop</p>
 <p>We present OneStop, a corpus of eye movements in reading, in which native (L1) English speakers read texts in English from the Guardian and answer reading comprehension questions about them.</p>
 </div>
-<nav class="contents local" id="on-this-page">
-<p class="topic-title">On this page</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#example" id="id1">Example</a></p></li>
-<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p></li>
-<li><p><a class="reference internal" href="#obtaining-the-data" id="id3">Obtaining the Data</a></p></li>
-<li><p><a class="reference internal" href="#documentation" id="id4">Documentation</a></p></li>
-<li><p><a class="reference internal" href="#statistics" id="id5">Statistics</a></p></li>
-<li><p><a class="reference internal" href="#citation" id="id6">Citation</a></p></li>
-<li><p><a class="reference internal" href="#license" id="id7">License</a></p></li>
-</ul>
-</nav>
 <section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example'"><span>#</span></a></h2>
 <p><img alt="Trial GIF" src="_images/trial.gif"/></p>
@@ -230,30 +218,19 @@
 <p>This work is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/" rel="nofollow noopener">Creative Commons Attribution 4.0 International License<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
 <p><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></p>
 <p>TODO license okay?</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="directory_structure.html">Directory Structure</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="directory_structure.html#data-version">data_[version]</a></li>
-<li class="toctree-l2"><a class="reference internal" href="directory_structure.html#participant-metadata">participant_metadata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="directory_structure.html#splits">splits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="directory_structure.html#dataset-analyses-rmd">dataset_analyses.Rmd</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="data_variables.html">Data Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metadata_variables.html">Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="technical_setup.html">Technical Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
-</ul>
-</div>
+
 
 </section>
 </section>
+</div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
+<div class="ml-auto">
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="variables.html">
+        Variables
+        <svg class="ml-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</a>
+</div>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
 <div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
@@ -268,9 +245,7 @@
 <li><a :data-current="activeSection === '#documentation'" class="reference internal" href="#documentation">Documentation</a></li>
 <li><a :data-current="activeSection === '#statistics'" class="reference internal" href="#statistics">Statistics</a></li>
 <li><a :data-current="activeSection === '#citation'" class="reference internal" href="#citation">Citation</a></li>
-<li><a :data-current="activeSection === '#license'" class="reference internal" href="#license">License</a><ul>
-</ul>
-</li>
+<li><a :data-current="activeSection === '#license'" class="reference internal" href="#license">License</a></li>
 </ul>
 </div>
 </aside>
