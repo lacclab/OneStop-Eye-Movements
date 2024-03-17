@@ -6,23 +6,17 @@ title: Welcome to OneStop's documentation!
 ```
 
 ```{toctree}
-:maxdepth: 2
+:maxdepth: 3
 :caption: Contents
+:hidden:
 
-directory_structure
-```
-
-```{toctree}
-:maxdepth: 2
-:caption: Documentation
-
-data_variables
-metadata_variables
+variables
 technical_setup
+directory_structure
 known_issues
 ```
-<!-- 
-## Indices and tables
+
+<!-- ## Indices and tables
 
 - [General Index](genindex)
 - [Module Index](modindex)

@@ -41,6 +41,7 @@ html_theme_options = {
     # "logo_dark": "path/to/dark/logo"
     "awesome_external_links": True,
     "show_scrolltop": True,
+    "show_prev_next": True,
     "extra_header_link_icons": {
         "repository on GitHub": {
             "link": "https://github.com/lacclab/OneStop-Eye-Movements",
