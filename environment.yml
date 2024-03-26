@@ -9,4 +9,4 @@ dependencies:
   - pip:
     - myst-parser
     - sphinx-book-theme
-    - sphinx-autobuild docs docs/_build/html
+    - sphinx-autobuild
