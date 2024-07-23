@@ -8,7 +8,7 @@
 
 project = "OneStop"
 copyright = "2024, TBD"
-author = "TBD"
+author = "Yevgeni Berzak"
 release = "1.0"
 
 
@@ -72,21 +72,20 @@ html_theme_options = {
         },
         "LaCC Lab": {
             "link": "https://lacclab.github.io/",
-            "icon":(
+            "icon": (
                 """
 <svg height="26px" style="margin-top:-2px;display:inline" xmlns="http://www.w3.org/2000/svg">
   <text x="0" y="20" fill="Orange">LaCC</text>"""
-            )
-        }
+            ),
+        },
     },
-    "main_nav_links":{"Docs": "/index", "About": "/index", "Changelog": "/index"},
-
+    # "main_nav_links": {"Docs": "/index", "About": "/index", "Changelog": "/index"},
 }
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-html_extra_path = ['_static']
+html_extra_path = ["_static"]
 html_logo = "_static/lacc_logo.jpeg"
 
 myst_enable_extensions = ["colon_fence", "dollarmath", "amsmath", "html_image"]

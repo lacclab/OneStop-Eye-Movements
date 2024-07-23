@@ -54,8 +54,9 @@ dataset.download()
 
 ## Documentation
 
-- [Eyetracking Variables](data_variables.md) Description of the variables in the fixations and interest area reports, including variables related to word properties and syntatic annotation.
-- [Metadata Variables](metadata_variables.md) Description of the variables in the participants metadata.
+- [Variables](variables.md) Description of the variables in the dataset.
+<!-- - [Eyetracking Variables](data_variables.md) Description of the variables in the fixations and interest area reports, including variables related to word properties and syntatic annotation.
+- [Metadata Variables](metadata_variables.md) Description of the variables in the participants metadata. -->
 - [Technical Setup](technical_setup.md) Information on the technical setup of the experiment and the experiment builder.
 - [Known Issues](known_issues.md) Known issues with the dataset.
 

@@ -12,7 +12,7 @@ title: Welcome to OneStop's documentation!
 
 variables
 technical_setup
-directory_structure
+<!-- directory_structure -->
 known_issues
 ```
 
