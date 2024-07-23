@@ -15,17 +15,17 @@ OneStop is the largest English eye-tracking dataset with L1 speakers to date, co
 
 The experiment is conducted using extensively piloted reading comprehension materials with 486 multiple choice reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.
 
-OneStopGaze further includes controlled experimental manipulations of the difficulty level of the text, the presented questions, first reading versus re-reading, and ordinary reading versus information seeking.
+OneStop further includes controlled experimental manipulations of the difficulty level of the text, the presented questions, first reading versus re-reading, and ordinary reading versus information seeking.
 <!--- The broad coverage and controlled experimental design of OneStopGaze aim to enable new research avenues in the cognitive study of reading and human language processing, and provide new possibilities for the integration of psycholinguistics with Natural Language Processing (NLP) and Artificial Intelligence (AI). --->
 
 ## Obtaining the Data
 
 There are several ways to obtain the data:
 
-1. Download the data from the [OSF repository](https://osf.io/2prdq/).
+1. Download the data directly from the [OSF repository](https://osf.io/2prdq/).
 2. Use the `download_data_files.py` script to download and extract the data files automatically.
-3. Use the `pymovements` package to download the data.
-4. TODO Add other ways to obtain the data?
+<!-- 3. Use the `pymovements` package to download the data. -->
+<!-- 4. TODO Add other ways to obtain the data? -->
 
 ### Direct Download from OSF
 
@@ -39,9 +39,7 @@ If the repository has been cloned, they can be downloaded and extracted automati
 python download_data_files.py --extract
 ```
 
-TODO Update the scripts
-
-### pymovements integration
+<!-- ### pymovements integration
 
 OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. The package allows to easily download the raw data and further process it. The following code snippet shows how to download the data:
 
@@ -52,7 +50,7 @@ import pymovements as pm
 dataset = pm.Dataset('OneStop', path='data/OneStop')
 
 dataset.download()
-```
+``` -->
 
 ## Documentation
 

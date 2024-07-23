@@ -1,9 +1,10 @@
 # Variables
 
-```{toctree}
+<!-- ```{toctree}
 :hidden:
 data_variables
 metadata_variables
-```
+``` -->
 
-This directory contains documentation for the variables in the OneStop dataset. The dataset contains two types of variables: [data variables](data_variables.md) and [metadata variables](metadata_variables.md). Data variables are the variables that are collected from the participants, and metadata variables are the variables that are collected from the metadata of the participants.
+The dataset contains three types of variable.
+The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper. The variables included in the Session Summary file are provided in Table 3. The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.
