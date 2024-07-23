@@ -1,3 +1,3 @@
 # Technical Setup
 
-Document the technical setup of the study here. This includes the software and hardware used to collect the data.
+See Section "Eye-tracking Setup, Text Presentation and Calibration" in the onestop paper.
