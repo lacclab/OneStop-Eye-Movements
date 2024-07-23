@@ -3,10 +3,16 @@ channels:
   - defaults
 dependencies:
   - python
-  - sphinx
-  - mypy
+  - matplotlib
+  - numpy
+  - seaborn
+  - pandas
+  - datasets
+  # - sphinx
+  # - mypy
+  - ipykernel
   - pip
-  - pip:
-    - myst-parser
-    - sphinx-book-theme
-    - sphinx-autobuild
+  # - pip:
+    # - myst-parser
+    # - sphinx-book-theme
+    # - sphinx-autobuild
