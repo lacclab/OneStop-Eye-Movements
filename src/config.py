@@ -1,0 +1,31 @@
+from pathlib import Path
+
+BASE_PATH = Path("../data")
+
+METADATA_PATH = Path(BASE_PATH, "Metadata OneStopGaze L1 - metadata.csv")
+SURVEY_PATH = Path(BASE_PATH, "survey_responses.json")
+
+NO_PREVIEW_TRIAL_PATH = Path(BASE_PATH, "n_trial_report.tsv")  # TODO Temporary
+PREVIEW_TRIAL_PATH = Path(BASE_PATH, "p_trial_report.tsv")  # TODO Temporary
+FULL_REPORT_PATH = Path(BASE_PATH, "full_report.csv")
+
+REPORTS_BASE_PATH = Path(BASE_PATH, "Outputs")
+IA_P_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_P.tsv")
+IA_Q_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_Q.tsv")
+IA_A_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_A.tsv")
+IA_T_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_T.tsv")
+IA_Q_preview_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_Q_preview.tsv")
+TRIAL_P_PATH = Path(REPORTS_BASE_PATH, "trial reports/trial_P.tsv")
+TRIAL_QA_PATH = Path(REPORTS_BASE_PATH, "trial reports/trial_QA.tsv")
+TRIAL_q_preview_PATH = Path(REPORTS_BASE_PATH, "trial reports/trial_Q_preview.tsv")
+TRIAL_T_PATH = Path(REPORTS_BASE_PATH, "trial reports/trial_T.tsv")
+
+# ENGLISH_COUNTRIES = [
+#     "United States",
+#     "Australia",
+#     "United Kingdom",
+#     "Canada",
+#     "Ireland",
+#     "South Africa",
+#     "Nigeria",
+# ]
