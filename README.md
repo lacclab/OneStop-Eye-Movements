@@ -60,13 +60,13 @@ dataset.download()
 - [Technical Setup](technical_setup.md) Information on the technical setup of the experiment and the experiment builder.
 - [Known Issues](known_issues.md) Known issues with the dataset.
 
-## Statistics
+<!-- ## Statistics
 
 | **Subjs** | **Age**        | **Words**      | **Words Recorded** | **Qs** | **Subjs per Q** | **Qs per Subj** |
 |----------|----------------|----------------|--------------------|--------|-----------------|-----------------|
 | 360       | 23.0 ($\pm$6.4)| 21,384 (Adv); 16,817 (Ele)   | 2,631,563          | 486    | 20              | 54              |
 
-TODO Copy values from paper.
+TODO Copy values from paper. -->
 
 ## Citation
 
