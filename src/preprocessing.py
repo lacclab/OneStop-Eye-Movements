@@ -164,9 +164,19 @@ if __name__ == "__main__":
     print("Updating questionnaire format")
     survey_responses = utils.update_questionnaire_format(survey_responses)
 
+    print(f"Saving questionnaire to {config.QUESTIONNAIRE_PATH}")
     with open(config.QUESTIONNAIRE_PATH, "w") as f:
         json.dump(survey_responses, f, indent=4)
 
+    print("Processing full report to session summary")
+    validation_error = pd.read_csv(config.BASE_PATH / "validation_error.csv")
+    session_summary = utils.process_full_report_to_session_summary(
+        full_report, validation_error
+    )
+    print(f"Saving session summary to {config.SESSION_SUMMARY_PATH}")
+    session_summary.to_csv(config.SESSION_SUMMARY_PATH, index=False)
+
+    # TODO delete if not needed
     # dat_base_path = Path('/Users/shubi/Library/CloudStorage/OneDrive-Technion/In-lab Experiments/OneStopGaze Experiment Sources/experiment-data_source/dat files')
     # dat_files_name = ['onestop_1n_l1_l60.dat', 'onestop_1p_l1_l60.dat', 'onestop_2n_l1_l60.dat', 'onestop_2p_l1_l60.dat', 'onestop_3n_l1_l60_hashtagfix.dat', 'onestop_3p_l1_l60_hashtagfix.dat']
     # new_dat_path = Path(config.BASE_PATH, 'all_dat_files_merged.tsv')

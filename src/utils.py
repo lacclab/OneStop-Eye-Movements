@@ -434,7 +434,7 @@ def duration_report(df):
 
 def update_json_keys(data):
     updated_data = {}
-    
+
     # Direct mappings
     direct_mappings = {
         "subject_id": "Participant ID",
@@ -447,9 +447,9 @@ def update_json_keys(data):
         "education": "Education Level",
         "affiliated": "University Affiliation",
         "native_speaker": "Native English Speaker",
-        "english.startLearning": "English AoA"
+        "english.startLearning": "English AoA",
     }
-    
+
     for old_key, new_key in direct_mappings.items():
         if "." in old_key:
             parts = old_key.split(".")
@@ -457,7 +457,7 @@ def update_json_keys(data):
                 updated_data[new_key] = data[parts[0]][parts[1]]
         elif old_key in data:
             updated_data[new_key] = data[old_key]
-    
+
     # Education years
     if "years_education" in data:
         updated_data["Years in Secondary/High School"] = None
@@ -466,38 +466,51 @@ def update_json_keys(data):
 
         # Update based on available data
         if len(data["years_education"]) > 0:
-            updated_data["Years in Secondary/High School"] = data["years_education"][0].get("years")
+            updated_data["Years in Secondary/High School"] = data["years_education"][
+                0
+            ].get("years")
         if len(data["years_education"]) > 1:
-            updated_data["Years in Undergraduate"] = data["years_education"][1].get("years")
+            updated_data["Years in Undergraduate"] = data["years_education"][1].get(
+                "years"
+            )
         if len(data["years_education"]) > 2:
-            updated_data["Years in Postgraduate"] = data["years_education"][2].get("years")
-    
+            updated_data["Years in Postgraduate"] = data["years_education"][2].get(
+                "years"
+            )
+
     # University details
     if data.get("affiliated") == "yes":
         updated_data["University Institution"] = data.get("institution")
         updated_data["University Role"] = data.get("role")
-    
+
     # Countries lived in
     if "countries" in data:
         updated_data["Countries Lived In"] = [
             {
                 "country": country["country"],
                 "fromTime": {
-                    "year": country['fromTime']['year'],
-                    "month": country['fromTime']['month']
+                    "year": country["fromTime"]["year"],
+                    "month": country["fromTime"]["month"],
                 },
                 "toTime": {
-                    "year": country['toTime']['year'],
-                    "month": country['toTime']['month']
-                }
+                    "year": country["toTime"]["year"],
+                    "month": country["toTime"]["month"],
+                },
             }
             for country in data["countries"]
         ]
-        
+
     # Reading habits
     reading_categories = [
-        "Textbooks", "Academic", "Magazines", "Newspapers", "Email",
-        "Fiction", "Nonfiction", "Internet", "Other"
+        "Textbooks",
+        "Academic",
+        "Magazines",
+        "Newspapers",
+        "Email",
+        "Fiction",
+        "Nonfiction",
+        "Internet",
+        "Other",
     ]
 
     if "english" in data and "reading_frequency" in data["english"]:
@@ -505,7 +518,9 @@ def update_json_keys(data):
         for category in reading_categories:
             key = category.lower()
             if key in data["english"]["reading_frequency"]:
-                updated_data["Reading habits in English"][category] = data["english"]["reading_frequency"][key]
+                updated_data["Reading habits in English"][category] = data["english"][
+                    "reading_frequency"
+                ][key]
 
     # Update to handle the new data format
     if data.get("multilingual") == "yes" and "other_languages" in data:
@@ -517,37 +532,44 @@ def update_json_keys(data):
                 "Understanding Proficiency": lang_data.get("proficiency_understanding"),
                 "Reading Proficiency": lang_data.get("proficiency_reading"),
                 "Language AoA": lang_data.get("startLearning"),
-                "Language Learning Duration": lang_data.get("usedLanguage")
+                "Language Learning Duration": lang_data.get("usedLanguage"),
             }
-            
+
             # Add reading habits for native languages
-            if lang_data.get("proficiency") == "native" and "reading_frequency" in lang_data:
+            if (
+                lang_data.get("proficiency") == "native"
+                and "reading_frequency" in lang_data
+            ):
                 reading_habits = {}
                 for category in reading_categories:
                     key = category.lower()
                     if key in lang_data["reading_frequency"]:
                         value = lang_data["reading_frequency"][key]
                         reading_habits[f"{category}"] = value
-                
+
                 language_info["Reading habits"] = reading_habits
-            
+
             updated_data.setdefault("Languages", []).append(language_info)
-    
+
     # Dyslexia and Language Impairments
     if "impairment" in data:
         impairment_type = data["impairment"].get("type")
         impairment_details = data["impairment"].get("details", "")
-        
+
         if impairment_type == "dyslexia":
             updated_data["Dyslexia"] = "Yes"
-            updated_data["Dyslexia Details"] = impairment_details if impairment_details else "N/A"
+            updated_data["Dyslexia Details"] = (
+                impairment_details if impairment_details else "N/A"
+            )
             updated_data["Language Impairments"] = "No"
             updated_data["Language Impairment Details"] = "N/A"
         elif impairment_type == "language_impairment":
             updated_data["Dyslexia"] = "No"
             updated_data["Dyslexia Details"] = "N/A"
             updated_data["Language Impairments"] = "Yes"
-            updated_data["Language Impairment Details"] = impairment_details if impairment_details else "N/A"
+            updated_data["Language Impairment Details"] = (
+                impairment_details if impairment_details else "N/A"
+            )
         else:
             updated_data["Dyslexia"] = "No"
             updated_data["Language Impairments"] = "No"
@@ -561,18 +583,18 @@ def update_json_keys(data):
     else:
         updated_data["Eye Conditions"] = "No"
         updated_data["Eye Condition Details"] = "N/A"
-    
+
     return updated_data
 
+
 def update_questionnaire_format(data) -> list[dict] | dict:
-   
     if isinstance(data, list):
         updated_data = [update_json_keys(item) for item in data]
     else:
         updated_data = update_json_keys(data)
-    
 
     return updated_data
+
 
 def filter_survey_responses(survey_responses, full_report):
     """
@@ -592,3 +614,53 @@ def filter_survey_responses(survey_responses, full_report):
         if subject_id and (subject_id in full_report["ID"].values):
             filtered_survey_responses.append(record)
     return filtered_survey_responses
+
+
+def process_full_report_to_session_summary(data, validation_error):
+    data = data.copy()
+    validation_error["file_name"].str.replace(".asc", "", case=False, regex=False)
+    data = data.merge(
+        validation_error,
+        left_on="RECORDING_SESSION_LABEL",
+        right_on="file_name",
+        how="left",
+    )
+    data["Subject ID"] = data["RECORDING_SESSION_LABEL"].str.split("_").str[1]
+    data = data.rename(
+        columns={
+            "batch": "Experimental Batch",
+            "list": "List Number",
+            "batch_condition": "Question Preview",
+            "MIT/Technion": "Data Collection Site",
+            "comprehension_score_without_reread": "Comprehension Score - Regular Trials",
+            "comprehension_score_reread": "Comprehension Score - Repeated Reading",
+            "session_interruptions_(recalibrations)": "Recalibration Count",
+            "avg_avg_val_error": "Mean Validation Error",
+            "session_duration": "Session Duration",
+            "total_duration": "Total Session Duration",
+            "dominant eye": "Dominant Eye",
+            "EYE_TRACKED": "Tracked Eye",
+            "LEXTALE": "LexTALE Score*",
+        }
+    )
+
+    # Select relevant columns
+    data = data[
+        [
+            "Subject ID",
+            "Experimental Batch",
+            "List Number",
+            "Question Preview",
+            "Data Collection Site",
+            "Comprehension Score - Regular Trials",
+            "Comprehension Score - Repeated Reading",
+            "Recalibration Count",
+            "Mean Validation Error",
+            "Total Session Duration",
+            "Session Duration",
+            "Dominant Eye",
+            "Tracked Eye",
+            "LexTALE Score*",
+        ]
+    ]
+    return data
