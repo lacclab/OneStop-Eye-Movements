@@ -127,7 +127,7 @@ def create_full_report(df, metadata, survey):
 
 
 if __name__ == "__main__":
-    overwrite=True
+    overwrite = True
     print("Preprocessing data")
     # Load the metadata spreadsheet
     metadata = utils.load_df(path=config.METADATA_PATH)
@@ -157,17 +157,15 @@ if __name__ == "__main__":
     full_report = create_full_report(trials, metadata, survey_responses)
     print(f"Saving full report to {config.FULL_REPORT_PATH}")
     full_report.to_csv(config.FULL_REPORT_PATH, index=False)
-    
+
     print("Filtering survey responses")
-    # Keep only relevant survey subject_ids
-    filtered_survey_responses = []
-    for record in survey_responses:
-        subject_id = record.get("subject_id", None)
-        if subject_id and (subject_id in full_report["ID"].values):
-            filtered_survey_responses.append(record)
+    survey_responses = utils.filter_survey_responses(survey_responses, full_report)
 
     print("Updating questionnaire format")
-    utils.update_questionnaire_format(config.QUESTIONNAIRE_PATH, config.QUESTIONNAIRE_PATH)
+    survey_responses = utils.update_questionnaire_format(survey_responses)
+
+    with open(config.QUESTIONNAIRE_PATH, "w") as f:
+        json.dump(survey_responses, f, indent=4)
 
     # dat_base_path = Path('/Users/shubi/Library/CloudStorage/OneDrive-Technion/In-lab Experiments/OneStopGaze Experiment Sources/experiment-data_source/dat files')
     # dat_files_name = ['onestop_1n_l1_l60.dat', 'onestop_1p_l1_l60.dat', 'onestop_2n_l1_l60.dat', 'onestop_2p_l1_l60.dat', 'onestop_3n_l1_l60_hashtagfix.dat', 'onestop_3p_l1_l60_hashtagfix.dat']

@@ -564,15 +564,31 @@ def update_json_keys(data):
     
     return updated_data
 
-def update_questionnaire_format(input_file, output_file) -> list[dict] | dict:
-    with open(input_file, 'r') as f:
-        data = json.load(f)
-    
+def update_questionnaire_format(data) -> list[dict] | dict:
+   
     if isinstance(data, list):
         updated_data = [update_json_keys(item) for item in data]
     else:
         updated_data = update_json_keys(data)
     
-    with open(output_file, 'w') as f:
-        json.dump(updated_data, f, indent=4)
+
     return updated_data
+
+def filter_survey_responses(survey_responses, full_report):
+    """
+    Filters survey responses to keep only those with subject_ids present in the full report.
+
+    Parameters:
+    - survey_responses (list of dict): The list of survey responses, each containing a 'subject_id'.
+    - full_report (pd.DataFrame): The full report DataFrame containing an 'ID' column.
+
+    Returns:
+    - list of dict: Filtered list of survey responses.
+    """
+    # Keep only relevant survey subject_ids
+    filtered_survey_responses = []
+    for record in survey_responses:
+        subject_id = record.get("subject_id", None)
+        if subject_id and (subject_id in full_report["ID"].values):
+            filtered_survey_responses.append(record)
+    return filtered_survey_responses
