@@ -3,12 +3,12 @@ from pathlib import Path
 BASE_PATH = Path("../data")
 
 METADATA_PATH = Path(BASE_PATH, "Metadata OneStopGaze L1 - metadata.csv")
-SURVEY_PATH = Path(BASE_PATH, "survey_responses.json")
+QUESTIONNAIRE_PATH = Path(BASE_PATH, "questionnaire.json")
 
 NO_PREVIEW_TRIAL_PATH = Path(BASE_PATH, "n_trial_report.tsv")  # TODO Temporary
 PREVIEW_TRIAL_PATH = Path(BASE_PATH, "p_trial_report.tsv")  # TODO Temporary
 FULL_REPORT_PATH = Path(BASE_PATH, "full_report.csv")
-
+SESSION_SUMMARY_PATH = Path(BASE_PATH, "session_summary.csv")
 REPORTS_BASE_PATH = Path(BASE_PATH, "Outputs")
 IA_P_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_P.tsv")
 IA_Q_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_Q.tsv")

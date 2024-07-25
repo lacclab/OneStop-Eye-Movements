@@ -127,12 +127,13 @@ def create_full_report(df, metadata, survey):
 
 
 if __name__ == "__main__":
+    overwrite=True
     print("Preprocessing data")
     # Load the metadata spreadsheet
     metadata = utils.load_df(path=config.METADATA_PATH)
 
     # survey_path doesn't exist;
-    if not config.SURVEY_PATH.exists():
+    if overwrite or not config.QUESTIONNAIRE_PATH.exists():
         print("Survey responses not found, loading from individual files")
         # Load the survey responses
         surveys_paths = [
@@ -145,10 +146,10 @@ if __name__ == "__main__":
             for survey_path in surveys_paths
         ]
         survey_responses = utils.preprocess_surveys(surveys=surveys)
-        with open(file=config.SURVEY_PATH, mode="w") as file:
+        with open(file=config.QUESTIONNAIRE_PATH, mode="w") as file:
             json.dump(survey_responses, file, indent=4)
     else:
-        survey_responses = utils.load_json(path=config.SURVEY_PATH)
+        survey_responses = utils.load_json(path=config.QUESTIONNAIRE_PATH)
     # load the trial reports
     # TODO this should be replaced with one trial report - trial_P.tsv? Does it matter?
     # TODO I think it needs to have "RECALIBRATE", "practice", "RECORDING_SESSION_LABEL", "reread", "is_correct"
@@ -160,6 +161,17 @@ if __name__ == "__main__":
     full_report = create_full_report(trials, metadata, survey_responses)
     print(f"Saving full report to {config.FULL_REPORT_PATH}")
     full_report.to_csv(config.FULL_REPORT_PATH, index=False)
+    
+    print("Filtering survey responses")
+    # Keep only relevant survey subject_ids
+    filtered_survey_responses = []
+    for record in survey_responses:
+        subject_id = record.get("subject_id", None)
+        if subject_id and (subject_id in full_report["ID"].values):
+            filtered_survey_responses.append(record)
+
+    print("Updating questionnaire format")
+    utils.update_questionnaire_format(config.QUESTIONNAIRE_PATH, config.QUESTIONNAIRE_PATH)
 
     # dat_base_path = Path('/Users/shubi/Library/CloudStorage/OneDrive-Technion/In-lab Experiments/OneStopGaze Experiment Sources/experiment-data_source/dat files')
     # dat_files_name = ['onestop_1n_l1_l60.dat', 'onestop_1p_l1_l60.dat', 'onestop_2n_l1_l60.dat', 'onestop_2p_l1_l60.dat', 'onestop_3n_l1_l60_hashtagfix.dat', 'onestop_3p_l1_l60_hashtagfix.dat']
