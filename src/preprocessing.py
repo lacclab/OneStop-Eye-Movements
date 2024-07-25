@@ -151,11 +151,7 @@ if __name__ == "__main__":
     else:
         survey_responses = utils.load_json(path=config.QUESTIONNAIRE_PATH)
     # load the trial reports
-    # TODO this should be replaced with one trial report - trial_P.tsv? Does it matter?
-    # TODO I think it needs to have "RECALIBRATE", "practice", "RECORDING_SESSION_LABEL", "reread", "is_correct"
-    n_trial = utils.load_df(path=config.NO_PREVIEW_TRIAL_PATH)
-    p_trial = utils.load_df(path=config.PREVIEW_TRIAL_PATH)
-    trials = pd.concat([n_trial, p_trial], axis=0)
+    trials = utils.load_df(path=config.TRIAL_P_PATH)
     trials = utils.values_conversion(df=trials)
 
     full_report = create_full_report(trials, metadata, survey_responses)
