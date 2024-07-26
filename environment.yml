@@ -13,6 +13,7 @@ dependencies:
   - ipykernel
   - ipywidgets
   - pip
+  - loguru
   # - pip:
     # - myst-parser
     # - sphinx-book-theme
