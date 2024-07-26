@@ -1,10 +1,9 @@
 import json
+from pathlib import Path
 
+import config
 import numpy as np
 import pandas as pd
-from datasets import load_dataset
-import config
-from pathlib import Path
 
 
 def load_df(path):
