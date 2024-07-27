@@ -610,20 +610,21 @@ def filter_survey_responses(survey_responses, full_report):
     filtered_survey_responses = []
     for record in survey_responses:
         subject_id = record.get("subject_id", None)
-        if subject_id and (subject_id in full_report["ID"].values):
+        if subject_id and (subject_id in full_report["ID"].str.strip('.0').values):
             filtered_survey_responses.append(record)
     return filtered_survey_responses
 
 
-def process_full_report_to_session_summary(data, validation_error):
+def process_full_report_to_session_summary(data, validation_error: pd.DataFrame | None):
     data = data.copy()
-    validation_error["file_name"].str.replace(".asc", "", case=False, regex=False)
-    data = data.merge(
-        validation_error,
-        left_on="RECORDING_SESSION_LABEL",
-        right_on="file_name",
-        how="left",
-    )
+    if validation_error is not None:
+        validation_error["file_name"].str.replace(".asc", "", case=False, regex=False)
+        data = data.merge(
+            validation_error,
+            left_on="RECORDING_SESSION_LABEL",
+            right_on="file_name",
+            how="left",
+        )
     data["Subject ID"] = data["RECORDING_SESSION_LABEL"].str.split("_").str[1]
     data = data.rename(
         columns={
@@ -644,22 +645,23 @@ def process_full_report_to_session_summary(data, validation_error):
     )
 
     # Select relevant columns
-    data = data[
-        [
-            "Subject ID",
-            "Experimental Batch",
-            "List Number",
-            "Question Preview",
-            "Data Collection Site",
-            "Comprehension Score - Regular Trials",
-            "Comprehension Score - Repeated Reading",
-            "Recalibration Count",
-            "Mean Validation Error",
-            "Total Session Duration",
-            "Session Duration",
-            "Dominant Eye",
-            "Tracked Eye",
-            "LexTALE Score*",
-        ]
+    fields_to_keep = [
+        "Subject ID",
+        "Experimental Batch",
+        "List Number",
+        "Question Preview",
+        "Data Collection Site",
+        "Comprehension Score - Regular Trials",
+        "Comprehension Score - Repeated Reading",
+        "Recalibration Count",
+        "Total Session Duration",
+        "Session Duration",
+        "Dominant Eye",
+        "Tracked Eye",
+        "LexTALE Score*",
     ]
+
+    if validation_error is not None:
+        fields_to_keep.append("Mean Validation Error")
+    data = data[fields_to_keep]
     return data

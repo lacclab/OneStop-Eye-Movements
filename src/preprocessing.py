@@ -136,11 +136,7 @@ if __name__ == "__main__":
     if overwrite or not config.QUESTIONNAIRE_PATH.exists():
         print("Survey responses not found, loading from individual files")
         # Load the survey responses
-        surveys_paths = [
-            "201123_form_db_45.79.2223.150.json",
-            "011023_form_db_json_from_lacclab-participant-survey.json",
-            "050224_form_db_lacclab_survey.json",
-        ]
+        surveys_paths = ["260724_form_db_lacclab_survey.json"]
         surveys = [
             utils.load_json(path=config.BASE_PATH / "raw_surveys" / survey_path)
             for survey_path in surveys_paths
@@ -169,7 +165,13 @@ if __name__ == "__main__":
         json.dump(survey_responses, f, indent=4)
 
     print("Processing full report to session summary")
-    validation_error = pd.read_csv(config.BASE_PATH / "validation_error.csv")
+    try:
+        validation_error = pd.read_csv(config.BASE_PATH / "validation_error.csv")
+    except FileNotFoundError:
+        validation_error = None
+        print(
+            f"Validation error file {config.BASE_PATH/"validation_error.csv"} not found"
+        )
     session_summary = utils.process_full_report_to_session_summary(
         full_report, validation_error
     )
