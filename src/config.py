@@ -1,8 +1,8 @@
 from pathlib import Path
 
-BASE_PATH = Path("../data")
+BASE_PATH = Path("../l2_data")
 
-METADATA_PATH = Path(BASE_PATH, "Metadata OneStopGaze L1 - metadata.csv")
+METADATA_PATH = Path(BASE_PATH, "Metadata OneStopGaze L2 - metadata.csv")
 QUESTIONNAIRE_PATH = Path(BASE_PATH, "questionnaire.json")
 
 FULL_REPORT_PATH = Path(BASE_PATH, "full_report.csv")
