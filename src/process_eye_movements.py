@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 def process_data(mode: str):
-    data_path = "/Users/shubi/Data/l2_report/l2_report/Output/ia_p.tsv"
+    data_path = f"/Users/shubi/Data/l2_report/l2_report/Output/{mode}_p.tsv"
 
     today = datetime.today().strftime("%d%m%Y")
     save_file = f"{mode}_l2_p_{today}.csv"
@@ -38,4 +38,4 @@ def process_data(mode: str):
 
 if __name__ == "__main__":
     process_data(prp.Mode.IA.value)
-    # process_data(prp.Mode.FIXATION.value)
+    process_data(prp.Mode.FIXATION.value)
