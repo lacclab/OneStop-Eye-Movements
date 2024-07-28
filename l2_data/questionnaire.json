@@ -3589,5 +3589,2690 @@
         "Language Impairments": "No",
         "Eye Conditions": "No",
         "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "11",
+        "Age": 29,
+        "Gender": "female",
+        "Home Country": "Nigeria",
+        "Education Level": "college",
+        "University Affiliation": "no",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": null,
+        "Countries Lived In": [
+            {
+                "country": "Nigeria",
+                "fromTime": {
+                    "year": 1989,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 1990,
+                    "month": 8
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 1990,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 5
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 2,
+            "Academic": 2,
+            "Magazines": 1,
+            "Newspapers": 1,
+            "Email": 2,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 1
+        },
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "101",
+        "Age": 21,
+        "Gender": "other",
+        "Home Country": "United States",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 0,
+        "University Institution": "mit",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 1997,
+                    "month": 10
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 6,
+            "Magazines": 0,
+            "Newspapers": 3,
+            "Email": 6,
+            "Fiction": 4,
+            "Nonfiction": 1,
+            "Other": 1
+        },
+        "Languages": [
+            {
+                "Language": "German",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 2,
+                "Understanding Proficiency": 5,
+                "Reading Proficiency": 6,
+                "Language AoA": 11,
+                "Language Learning Duration": 10
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "102",
+        "Age": 19,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 2,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 1,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2000,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 3,
+            "Fiction": 1,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Mandarin",
+                "Language Proficiency": "near_native",
+                "Speaking Proficiency": 9,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 5,
+                "Language AoA": 0,
+                "Language Learning Duration": 19
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "104",
+        "Age": 28,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "no",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": null,
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 1990,
+                    "month": 11
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 2,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 1
+        },
+        "Languages": [
+            {
+                "Language": "Spanish",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 3,
+                "Understanding Proficiency": 8,
+                "Reading Proficiency": 4,
+                "Language AoA": 13,
+                "Language Learning Duration": 7
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "105",
+        "Age": 21,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 3,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 1998,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            },
+            {
+                "country": "Chile",
+                "fromTime": {
+                    "year": 2017,
+                    "month": 5
+                },
+                "toTime": {
+                    "year": 2017,
+                    "month": 7
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 7,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 3,
+            "Fiction": 1,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Spanish",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 6,
+                "Understanding Proficiency": 6,
+                "Reading Proficiency": 7,
+                "Language AoA": 12,
+                "Language Learning Duration": 9
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "106",
+        "Age": 20,
+        "Gender": "male",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 3,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 1998,
+                    "month": 10
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 3,
+            "Magazines": 0,
+            "Newspapers": 2,
+            "Email": 5,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "109",
+        "Age": 21,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 3,
+        "Years in Postgraduate": null,
+        "University Institution": "wellesley",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 1998,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2018,
+                    "month": 7
+                }
+            },
+            {
+                "country": "Germany",
+                "fromTime": {
+                    "year": 2018,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2018,
+                    "month": 11
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2019,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 1,
+            "Academic": 2,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 2,
+            "Fiction": 5,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "German",
+                "Language Proficiency": "beginner",
+                "Speaking Proficiency": 2,
+                "Understanding Proficiency": 4,
+                "Reading Proficiency": 3,
+                "Language AoA": 20,
+                "Language Learning Duration": 1
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "111",
+        "Age": 19,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 2,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2000,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 2,
+            "Academic": 3,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 3,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "108",
+        "Age": 19,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 1,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2000,
+                    "month": 5
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 2,
+            "Academic": 5,
+            "Magazines": 0,
+            "Newspapers": 2,
+            "Email": 3,
+            "Fiction": 2,
+            "Nonfiction": 1,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Spanish",
+                "Language Proficiency": "beginner",
+                "Speaking Proficiency": 2,
+                "Understanding Proficiency": 2,
+                "Reading Proficiency": 3,
+                "Language AoA": 16,
+                "Language Learning Duration": 2
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "112",
+        "Age": 19,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 2,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2000,
+                    "month": 1
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 2,
+            "Fiction": 4,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "113",
+        "Age": 20,
+        "Gender": "female",
+        "Home Country": "Philippines",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 0,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 2,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "Philippines",
+                "fromTime": {
+                    "year": 1999,
+                    "month": 1
+                },
+                "toTime": {
+                    "year": 2009,
+                    "month": 9
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2010,
+                    "month": 9
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 7,
+            "Academic": 7,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 4,
+            "Fiction": 2,
+            "Nonfiction": 4,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Tagalog",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 6,
+                "Understanding Proficiency": 9,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 20
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "107",
+        "Age": 18,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "yes",
+        "English AoA": 3,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 1,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2000,
+                    "month": 10
+                },
+                "toTime": {
+                    "year": 2001,
+                    "month": 1
+                }
+            },
+            {
+                "country": "China",
+                "fromTime": {
+                    "year": 2001,
+                    "month": 1
+                },
+                "toTime": {
+                    "year": 2004,
+                    "month": 5
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2004,
+                    "month": 5
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 5,
+            "Magazines": 1,
+            "Newspapers": 0,
+            "Email": 2,
+            "Fiction": 1,
+            "Nonfiction": 0,
+            "Other": 1
+        },
+        "Languages": [
+            {
+                "Language": "Mandarin",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 6,
+                "Understanding Proficiency": 8,
+                "Reading Proficiency": 6,
+                "Language AoA": 1,
+                "Language Learning Duration": 7
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1002",
+        "Age": 34,
+        "Gender": "female",
+        "Home Country": "Korea South",
+        "Education Level": "college",
+        "University Affiliation": "no",
+        "Native English Speaker": "no",
+        "English AoA": 33,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": null,
+        "Countries Lived In": [
+            {
+                "country": "Korea South",
+                "fromTime": {
+                    "year": 1988,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2015,
+                    "month": 5
+                }
+            },
+            {
+                "country": "Vietnam",
+                "fromTime": {
+                    "year": 2015,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 5
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 5
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 1,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 1,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Korean",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 34,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 1,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 0
+                }
+            },
+            {
+                "Language": "Vietnamese",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 5,
+                "Understanding Proficiency": 4,
+                "Reading Proficiency": 4,
+                "Language AoA": 27,
+                "Language Learning Duration": 7
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1004",
+        "Age": 27,
+        "Gender": "female",
+        "Home Country": "Japan",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 6,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 1,
+        "University Institution": "Emerson Collge",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "Japan",
+                "fromTime": {
+                    "year": 1995,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2016,
+                    "month": 6
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2016,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2017,
+                    "month": 4
+                }
+            },
+            {
+                "country": "Japan",
+                "fromTime": {
+                    "year": 2017,
+                    "month": 5
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 6
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 7,
+            "Academic": 2,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 2,
+            "Fiction": 1,
+            "Nonfiction": 2,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Japanese",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 27,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 1,
+                    "Magazines": 1,
+                    "Newspapers": 0,
+                    "Email": 2,
+                    "Fiction": 2,
+                    "Nonfiction": 1,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1005",
+        "Age": 39,
+        "Gender": "male",
+        "Home Country": "Japan",
+        "Education Level": "postgrad",
+        "University Affiliation": "no",
+        "Native English Speaker": "no",
+        "English AoA": 13,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 1,
+        "Countries Lived In": [
+            {
+                "country": "Japan",
+                "fromTime": {
+                    "year": 1984,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 7
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2004,
+                    "month": 3
+                },
+                "toTime": {
+                    "year": 2009,
+                    "month": 4
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 2,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 0,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Japanese",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 39,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 1,
+                    "Newspapers": 1,
+                    "Email": 0,
+                    "Fiction": 0,
+                    "Nonfiction": 2,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1006",
+        "Age": 38,
+        "Gender": "female",
+        "Home Country": "Japan",
+        "Education Level": "college",
+        "University Affiliation": "no",
+        "Native English Speaker": "no",
+        "English AoA": 13,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 2,
+        "Years in Postgraduate": null,
+        "Countries Lived In": [
+            {
+                "country": "Japan",
+                "fromTime": {
+                    "year": 1984,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 8
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 9
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 1,
+            "Academic": 1,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 1,
+            "Fiction": 2,
+            "Nonfiction": 0,
+            "Other": 1
+        },
+        "Languages": [
+            {
+                "Language": "Japanese",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 38,
+                "Reading habits": {
+                    "Textbooks": 3,
+                    "Academic": 1,
+                    "Magazines": 1,
+                    "Newspapers": 1,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 1
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1003",
+        "Age": 37,
+        "Gender": "female",
+        "Home Country": "Korea South",
+        "Education Level": "postgrad",
+        "University Affiliation": "no",
+        "Native English Speaker": "no",
+        "English AoA": 36,
+        "Years in Secondary/High School": 6,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 2,
+        "Countries Lived In": [
+            {
+                "country": "Korea South",
+                "fromTime": {
+                    "year": 1985,
+                    "month": 3
+                },
+                "toTime": {
+                    "year": 2016,
+                    "month": 2
+                }
+            },
+            {
+                "country": "Vietnam",
+                "fromTime": {
+                    "year": 2016,
+                    "month": 3
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 8
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 9
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 1,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 1,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Korean",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 9,
+                "Language AoA": 0,
+                "Language Learning Duration": 35,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 1,
+                    "Newspapers": 2,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 1,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1009",
+        "Age": 27,
+        "Gender": "female",
+        "Home Country": "Taiwan",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 5,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 2,
+        "University Institution": "Emerson College",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "Taiwan",
+                "fromTime": {
+                    "year": 1996,
+                    "month": 4
+                },
+                "toTime": {
+                    "year": 2014,
+                    "month": 5
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2014,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2014,
+                    "month": 8
+                }
+            },
+            {
+                "country": "Taiwan",
+                "fromTime": {
+                    "year": 2014,
+                    "month": 9
+                },
+                "toTime": {
+                    "year": 2018,
+                    "month": 6
+                }
+            },
+            {
+                "country": "Malaysia",
+                "fromTime": {
+                    "year": 2018,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 7
+                }
+            },
+            {
+                "country": "Taiwan",
+                "fromTime": {
+                    "year": 2019,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 6
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 7,
+            "Academic": 1,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 7,
+            "Fiction": 0,
+            "Nonfiction": 7,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Mandarin",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 27,
+                "Reading habits": {
+                    "Textbooks": 7,
+                    "Academic": 4,
+                    "Magazines": 0,
+                    "Newspapers": 0,
+                    "Email": 4,
+                    "Fiction": 0,
+                    "Nonfiction": 7,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "Yes",
+        "Eye Condition Details": [
+            "astigmatism",
+            "near-sightedness"
+        ]
+    },
+    {
+        "Participant ID": "1012",
+        "Age": 36,
+        "Gender": "female",
+        "Home Country": "Korea South",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 13,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 6,
+        "University Institution": "mit",
+        "University Role": "faculty",
+        "Countries Lived In": [
+            {
+                "country": "Korea South",
+                "fromTime": {
+                    "year": 1987,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2008,
+                    "month": 11
+                }
+            },
+            {
+                "country": "United Kingdom",
+                "fromTime": {
+                    "year": 2009,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2009,
+                    "month": 7
+                }
+            },
+            {
+                "country": "Korea South",
+                "fromTime": {
+                    "year": 2009,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2014,
+                    "month": 7
+                }
+            },
+            {
+                "country": "Japan",
+                "fromTime": {
+                    "year": 2014,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2021,
+                    "month": 10
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2021,
+                    "month": 11
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 1,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 1,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Korean",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 36,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 1,
+                    "Email": 0,
+                    "Fiction": 0,
+                    "Nonfiction": 1,
+                    "Other": 0
+                }
+            },
+            {
+                "Language": "Japanese",
+                "Language Proficiency": "advanced",
+                "Speaking Proficiency": 8,
+                "Understanding Proficiency": 7,
+                "Reading Proficiency": 5,
+                "Language AoA": 27,
+                "Language Learning Duration": 9
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1014",
+        "Age": 19,
+        "Gender": "female",
+        "Home Country": "Mexico",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 6,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 1,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "Mexico",
+                "fromTime": {
+                    "year": 2004,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 7
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 3,
+            "Academic": 5,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 1,
+            "Fiction": 4,
+            "Nonfiction": 4,
+            "Other": 2
+        },
+        "Languages": [
+            {
+                "Language": "Spanish",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 19,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 1,
+                    "Magazines": 0,
+                    "Newspapers": 0,
+                    "Email": 0,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 2
+                }
+            },
+            {
+                "Language": "German",
+                "Language Proficiency": "beginner",
+                "Speaking Proficiency": 1,
+                "Understanding Proficiency": 1,
+                "Reading Proficiency": 2,
+                "Language AoA": 18,
+                "Language Learning Duration": 0.5833333333333334
+            },
+            {
+                "Language": "French",
+                "Language Proficiency": "beginner",
+                "Speaking Proficiency": 2,
+                "Understanding Proficiency": 2,
+                "Reading Proficiency": 3,
+                "Language AoA": 12,
+                "Language Learning Duration": 6
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1015",
+        "Age": 31,
+        "Gender": "male",
+        "Home Country": "Brazil",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 28,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 6,
+        "University Institution": "UNICAMP",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "Brazil",
+                "fromTime": {
+                    "year": 1992,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 0
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2023,
+                    "month": 1
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 1,
+            "Academic": 5,
+            "Magazines": 1,
+            "Newspapers": 2,
+            "Email": 0,
+            "Fiction": 1,
+            "Nonfiction": 1,
+            "Other": 2
+        },
+        "Languages": [
+            {
+                "Language": "Portuguese(Brazil)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 31,
+                "Reading habits": {
+                    "Textbooks": 3,
+                    "Academic": 2,
+                    "Magazines": 0,
+                    "Newspapers": 3,
+                    "Email": 2,
+                    "Fiction": 3,
+                    "Nonfiction": 3,
+                    "Other": 3
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1016",
+        "Age": 29,
+        "Gender": "female",
+        "Home Country": "Brazil",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 23,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 5,
+        "Years in Postgraduate": 6,
+        "University Institution": "harvard",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "Brazil",
+                "fromTime": {
+                    "year": 1993,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 0
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2023,
+                    "month": 1
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 7,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 3,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Portuguese(Brazil)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 29,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 2,
+                    "Newspapers": 2,
+                    "Email": 4,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1017",
+        "Age": 26,
+        "Gender": "female",
+        "Home Country": "Brazil",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 22,
+        "Years in Secondary/High School": 7,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 4,
+        "University Institution": "harvard",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "Brazil",
+                "fromTime": {
+                    "year": 1997,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 5,
+            "Academic": 5,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 5,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Portuguese(Brazil)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 26,
+                "Reading habits": {
+                    "Textbooks": 5,
+                    "Academic": 5,
+                    "Magazines": 0,
+                    "Newspapers": 1,
+                    "Email": 5,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "Yes",
+        "Eye Condition Details": [
+            "astigmatism"
+        ]
+    },
+    {
+        "Participant ID": "1018",
+        "Age": 41,
+        "Gender": "female",
+        "Home Country": "Brazil",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 38,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 3,
+        "University Institution": "harvard",
+        "University Role": "faculty",
+        "Countries Lived In": [
+            {
+                "country": "Brazil",
+                "fromTime": {
+                    "year": 1981,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 11
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2023,
+                    "month": 0
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 7,
+            "Academic": 7,
+            "Magazines": 0,
+            "Newspapers": 2,
+            "Email": 1,
+            "Fiction": 2,
+            "Nonfiction": 5,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Portuguese(Brazil)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 41,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 3,
+                    "Email": 3,
+                    "Fiction": 0,
+                    "Nonfiction": 6,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1019",
+        "Age": 21,
+        "Gender": "female",
+        "Home Country": "France",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 7,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 3,
+        "Years in Postgraduate": 1,
+        "University Institution": "Telecom Physique Strasbourg",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "France",
+                "fromTime": {
+                    "year": 2001,
+                    "month": 11
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 4
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2023,
+                    "month": 4
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 1,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Kabyle",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 6,
+                "Understanding Proficiency": 8,
+                "Reading Proficiency": 1,
+                "Language AoA": 0,
+                "Language Learning Duration": 21
+            },
+            {
+                "Language": "Mandarin",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 6,
+                "Understanding Proficiency": 6,
+                "Reading Proficiency": 4,
+                "Language AoA": 14,
+                "Language Learning Duration": 7
+            },
+            {
+                "Language": "French",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 21,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 1,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "Yes",
+        "Eye Condition Details": [
+            "Myopia"
+        ]
+    },
+    {
+        "Participant ID": "1021",
+        "Age": 38,
+        "Gender": "male",
+        "Home Country": "Mexico",
+        "Education Level": "postgrad",
+        "University Affiliation": "no",
+        "Native English Speaker": "no",
+        "English AoA": 13,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 4,
+        "Years in Postgraduate": 2,
+        "Countries Lived In": [
+            {
+                "country": "Mexico",
+                "fromTime": {
+                    "year": 1984,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 4
+                }
+            },
+            {
+                "country": "France",
+                "fromTime": {
+                    "year": 2009,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2011,
+                    "month": 10
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2023,
+                    "month": 4
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 6,
+            "Magazines": 1,
+            "Newspapers": 2,
+            "Email": 0,
+            "Fiction": 0,
+            "Nonfiction": 1,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Spanish",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 38,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 2,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 1,
+                    "Other": 0
+                }
+            },
+            {
+                "Language": "French",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 6,
+                "Understanding Proficiency": 6,
+                "Reading Proficiency": 6,
+                "Language AoA": 25,
+                "Language Learning Duration": 13
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1022",
+        "Age": 23,
+        "Gender": "male",
+        "Home Country": "Brazil",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 10,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 5,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "Brazil",
+                "fromTime": {
+                    "year": 2000,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2021,
+                    "month": 7
+                }
+            },
+            {
+                "country": "France",
+                "fromTime": {
+                    "year": 2021,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 4
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2023,
+                    "month": 4
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 1,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 0,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 2
+        },
+        "Languages": [
+            {
+                "Language": "French",
+                "Language Proficiency": "advanced",
+                "Speaking Proficiency": 8,
+                "Understanding Proficiency": 9,
+                "Reading Proficiency": 10,
+                "Language AoA": 21,
+                "Language Learning Duration": 1
+            },
+            {
+                "Language": "Portuguese(Brazil)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 23,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 2,
+                    "Magazines": 0,
+                    "Newspapers": 1,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 1
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1023",
+        "Age": 21,
+        "Gender": "female",
+        "Home Country": "Peru",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 16,
+        "Years in Secondary/High School": 5,
+        "Years in Undergraduate": 1,
+        "Years in Postgraduate": null,
+        "University Institution": "Wellesley College",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "Peru",
+                "fromTime": {
+                    "year": 2002,
+                    "month": 5
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 7
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 4,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 3,
+            "Fiction": 3,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Quechua(Cuzco)",
+                "Language Proficiency": "intermediate",
+                "Speaking Proficiency": 7,
+                "Understanding Proficiency": 7,
+                "Reading Proficiency": 4,
+                "Language AoA": 0,
+                "Language Learning Duration": 21
+            },
+            {
+                "Language": "Italian(Bologna)",
+                "Language Proficiency": "beginner",
+                "Speaking Proficiency": 4,
+                "Understanding Proficiency": 4,
+                "Reading Proficiency": 4,
+                "Language AoA": 20,
+                "Language Learning Duration": 1
+            },
+            {
+                "Language": "Spanish",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 21,
+                "Reading habits": {
+                    "Textbooks": 3,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 3,
+                    "Email": 3,
+                    "Fiction": 5,
+                    "Nonfiction": 0,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1024",
+        "Age": 20,
+        "Gender": "female",
+        "Home Country": "Jordan",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 13,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 1,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            },
+            {
+                "country": "Jordan",
+                "fromTime": {
+                    "year": 2003,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 7
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 2,
+            "Academic": 1,
+            "Magazines": 0,
+            "Newspapers": 1,
+            "Email": 3,
+            "Fiction": 1,
+            "Nonfiction": 1,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Arabic(Palestinian)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 20,
+                "Reading habits": {
+                    "Textbooks": 1,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 2,
+                    "Email": 0,
+                    "Fiction": 2,
+                    "Nonfiction": 1,
+                    "Other": 0
+                }
+            },
+            {
+                "Language": "Arabic(Modern Standard)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 9,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 4,
+                "Language Learning Duration": 16,
+                "Reading habits": {
+                    "Textbooks": 1,
+                    "Academic": 2,
+                    "Magazines": 0,
+                    "Newspapers": 1,
+                    "Email": 0,
+                    "Fiction": 1,
+                    "Nonfiction": 1,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1025",
+        "Age": 19,
+        "Gender": "female",
+        "Home Country": "United States",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 5,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 1,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "China",
+                "fromTime": {
+                    "year": 2004,
+                    "month": 1
+                },
+                "toTime": {
+                    "year": 2009,
+                    "month": 5
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2009,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 1,
+            "Academic": 2,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 3,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Mandarin",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 5,
+                "Understanding Proficiency": 9,
+                "Reading Proficiency": 6,
+                "Language AoA": 0,
+                "Language Learning Duration": 14,
+                "Reading habits": {
+                    "Textbooks": 1,
+                    "Academic": 2,
+                    "Magazines": 0,
+                    "Newspapers": 0,
+                    "Email": 3,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Dyslexia Details": "N/A",
+        "Language Impairments": "Yes",
+        "Language Impairment Details": "Speech disability",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1027",
+        "Age": 19,
+        "Gender": "female",
+        "Home Country": "Korea South",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 5,
+        "Years in Secondary/High School": 4,
+        "Years in Undergraduate": 2,
+        "Years in Postgraduate": null,
+        "University Institution": "mit",
+        "University Role": "undergrad",
+        "Countries Lived In": [
+            {
+                "country": "Korea South",
+                "fromTime": {
+                    "year": 2003,
+                    "month": 11
+                },
+                "toTime": {
+                    "year": 2007,
+                    "month": 5
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2007,
+                    "month": 5
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 2,
+            "Fiction": 3,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Korean",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 7,
+                "Understanding Proficiency": 8,
+                "Reading Proficiency": 4,
+                "Language AoA": 0,
+                "Language Learning Duration": 19,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 0,
+                    "Email": 0,
+                    "Fiction": 2,
+                    "Nonfiction": 0,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "Yes",
+        "Eye Condition Details": [
+            "astigmatism",
+            "Near-sighted"
+        ]
+    },
+    {
+        "Participant ID": "1028",
+        "Age": 36,
+        "Gender": "female",
+        "Home Country": "Brazil",
+        "Education Level": "postgrad",
+        "University Affiliation": "no",
+        "Native English Speaker": "no",
+        "English AoA": 10,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 5,
+        "Years in Postgraduate": 2,
+        "Countries Lived In": [
+            {
+                "country": "Brazil",
+                "fromTime": {
+                    "year": 1987,
+                    "month": 5
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 4
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2008,
+                    "month": 11
+                },
+                "toTime": {
+                    "year": 2009,
+                    "month": 2
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2023,
+                    "month": 4
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 6
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 0,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 1,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Portuguese(Brazil)",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 36,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 1,
+                    "Newspapers": 1,
+                    "Email": 2,
+                    "Fiction": 1,
+                    "Nonfiction": 1,
+                    "Other": 0
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "Yes",
+        "Eye Condition Details": [
+            "astigmatism"
+        ]
+    },
+    {
+        "Participant ID": "1031",
+        "Age": 30,
+        "Gender": "female",
+        "Home Country": "Russian Federation",
+        "Education Level": "postgrad",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 6,
+        "Years in Secondary/High School": 2,
+        "Years in Undergraduate": 6,
+        "Years in Postgraduate": 2,
+        "University Institution": "bu",
+        "University Role": "grad",
+        "Countries Lived In": [
+            {
+                "country": "Russian Federation",
+                "fromTime": {
+                    "year": 1993,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2017,
+                    "month": 7
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2017,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 7
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 4,
+            "Academic": 6,
+            "Magazines": 1,
+            "Newspapers": 0,
+            "Email": 4,
+            "Fiction": 0,
+            "Nonfiction": 2,
+            "Other": 1
+        },
+        "Languages": [
+            {
+                "Language": "Russian",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 30,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 1,
+                    "Magazines": 1,
+                    "Newspapers": 0,
+                    "Email": 2,
+                    "Fiction": 4,
+                    "Nonfiction": 1,
+                    "Other": 3
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1052",
+        "Age": 33,
+        "Gender": "female",
+        "Home Country": "Japan",
+        "Education Level": "postgrad",
+        "University Affiliation": "no",
+        "Native English Speaker": "no",
+        "English AoA": 12,
+        "Years in Secondary/High School": 3,
+        "Years in Undergraduate": 0,
+        "Years in Postgraduate": 6,
+        "Countries Lived In": [
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2019,
+                    "month": 6
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 7
+                }
+            },
+            {
+                "country": "Japan",
+                "fromTime": {
+                    "year": 1990,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 5
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 1,
+            "Magazines": 0,
+            "Newspapers": 2,
+            "Email": 2,
+            "Fiction": 0,
+            "Nonfiction": 0,
+            "Other": 0
+        },
+        "Languages": [
+            {
+                "Language": "Japanese",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 2,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 1,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 1,
+                    "Other": 1
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
+    },
+    {
+        "Participant ID": "1056",
+        "Age": 30,
+        "Gender": "female",
+        "Home Country": "Mexico",
+        "Education Level": "college",
+        "University Affiliation": "yes",
+        "Native English Speaker": "no",
+        "English AoA": 4,
+        "Years in Secondary/High School": 5,
+        "Years in Undergraduate": 8,
+        "Years in Postgraduate": null,
+        "University Institution": "harvard",
+        "University Role": "faculty",
+        "Countries Lived In": [
+            {
+                "country": "Mexico",
+                "fromTime": {
+                    "year": 1993,
+                    "month": 2
+                },
+                "toTime": {
+                    "year": 2007,
+                    "month": 9
+                }
+            },
+            {
+                "country": "Canada",
+                "fromTime": {
+                    "year": 2007,
+                    "month": 9
+                },
+                "toTime": {
+                    "year": 2013,
+                    "month": 6
+                }
+            },
+            {
+                "country": "Mexico",
+                "fromTime": {
+                    "year": 2013,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 4
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2019,
+                    "month": 4
+                },
+                "toTime": {
+                    "year": 2019,
+                    "month": 7
+                }
+            },
+            {
+                "country": "Mexico",
+                "fromTime": {
+                    "year": 2019,
+                    "month": 8
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 2
+                }
+            },
+            {
+                "country": "Switzerland",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 3
+                },
+                "toTime": {
+                    "year": 2022,
+                    "month": 6
+                }
+            },
+            {
+                "country": "United States",
+                "fromTime": {
+                    "year": 2022,
+                    "month": 7
+                },
+                "toTime": {
+                    "year": 2023,
+                    "month": 7
+                }
+            }
+        ],
+        "Reading habits in English": {
+            "Textbooks": 0,
+            "Academic": 2,
+            "Magazines": 0,
+            "Newspapers": 0,
+            "Email": 4,
+            "Fiction": 1,
+            "Nonfiction": 7,
+            "Other": 1
+        },
+        "Languages": [
+            {
+                "Language": "Spanish",
+                "Language Proficiency": "native",
+                "Speaking Proficiency": 10,
+                "Understanding Proficiency": 10,
+                "Reading Proficiency": 10,
+                "Language AoA": 0,
+                "Language Learning Duration": 30,
+                "Reading habits": {
+                    "Textbooks": 0,
+                    "Academic": 0,
+                    "Magazines": 0,
+                    "Newspapers": 0,
+                    "Email": 1,
+                    "Fiction": 0,
+                    "Nonfiction": 0,
+                    "Other": 4
+                }
+            }
+        ],
+        "Dyslexia": "No",
+        "Language Impairments": "No",
+        "Eye Conditions": "No",
+        "Eye Condition Details": "N/A"
     }
 ]
