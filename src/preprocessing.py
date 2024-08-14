@@ -137,9 +137,8 @@ if __name__ == "__main__":
         print("Survey responses not found, loading from individual files")
         # Load the survey responses
         surveys_paths = [
+            "260724_form_db_lacclab_survey.json",
             "201123_form_db_45.79.2223.150.json",
-            "011023_form_db_json_from_lacclab-participant-survey.json",
-            "050224_form_db_lacclab_survey.json",
         ]
         surveys = [
             utils.load_json(path=config.BASE_PATH / "raw_surveys" / survey_path)
@@ -169,13 +168,33 @@ if __name__ == "__main__":
         json.dump(survey_responses, f, indent=4)
 
     print("Processing full report to session summary")
-    validation_error = pd.read_csv(config.BASE_PATH / "validation_error.csv")
+    try:
+        validation_error = pd.read_csv(config.BASE_PATH / "validation_error.csv")
+    except FileNotFoundError:
+        validation_error = None
+        print(
+            f"Validation error file {config.BASE_PATH/"validation_error.csv"} not found"
+        )
     session_summary = utils.process_full_report_to_session_summary(
         full_report, validation_error
     )
     print(f"Saving session summary to {config.SESSION_SUMMARY_PATH}")
     session_summary.to_csv(config.SESSION_SUMMARY_PATH, index=False)
 
+    subjects_from_trial_report = pd.Series(trials["RECORDING_SESSION_LABEL"].str.lower().unique())
+    subjects_from_metadata = metadata["Filename"].dropna().str.lower()
+    is_in_metadata = subjects_from_trial_report.isin(subjects_from_metadata)
+    subjects_not_in_metadata = subjects_from_trial_report[~is_in_metadata]
+    subjects_not_in_metadata.to_csv(
+        config.BASE_PATH / "subjects_not_in_metadata.csv", index=False
+    )
+    print(f"Found {len(subjects_not_in_metadata)} subjects not in metadata, saved to {config.BASE_PATH/'subjects_not_in_metadata.csv'}")
+    
+    is_in_trial_report = subjects_from_metadata.isin(subjects_from_trial_report)
+    subjects_not_in_trial_report = subjects_from_metadata[~is_in_trial_report]
+    subjects_not_in_trial_report.to_csv(
+        config.BASE_PATH / "subjects_not_in_trial_report.csv", index=False
+    )
     # TODO delete if not needed
     # dat_base_path = Path('/Users/shubi/Library/CloudStorage/OneDrive-Technion/In-lab Experiments/OneStopGaze Experiment Sources/experiment-data_source/dat files')
     # dat_files_name = ['onestop_1n_l1_l60.dat', 'onestop_1p_l1_l60.dat', 'onestop_2n_l1_l60.dat', 'onestop_2p_l1_l60.dat', 'onestop_3n_l1_l60_hashtagfix.dat', 'onestop_3p_l1_l60_hashtagfix.dat']
