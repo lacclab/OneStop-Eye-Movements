@@ -8,13 +8,18 @@ dependencies:
   - seaborn
   - pandas
   - datasets
+  - plotly
+  - scipy
   # - sphinx
   # - mypy
   - ipykernel
+  - dropbox
   - ipywidgets
   - pip
   - loguru
-  # - pip:
+  - pip:
+    - juliacall
+    - -e . # for development
     # - myst-parser
     # - sphinx-book-theme
     # - sphinx-autobuild
