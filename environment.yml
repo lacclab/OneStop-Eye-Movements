@@ -17,6 +17,8 @@ dependencies:
   - ipywidgets
   - pip
   - loguru
+  - openpyxl
+  - statsmodels
   - pip:
     - juliacall
     - -e . # for development
