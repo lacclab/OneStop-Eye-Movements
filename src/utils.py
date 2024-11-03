@@ -8,13 +8,13 @@ def load_df(path):
     end = ["P.tsv", "Q.tsv", "A.tsv", "QA.tsv", "preview.tsv", "T.tsv"]
     if any(str_path.endswith(suffix) for suffix in end):
         try:
-            df = pd.read_table(path, encoding="utf-16")
+            df = pd.read_table(path, encoding="utf-16", engine="pyarrow")
         except:
-            df = pd.read_table(path)
+            df = pd.read_table(path, engine="pyarrow")
     elif str_path.endswith(".csv"):
-        df = pd.read_csv(path)
+        df = pd.read_csv(path, engine="pyarrow")
     else:
-        df = pd.read_table(path)
+        df = pd.read_table(path, engine="pyarrow")
     return df
 
 

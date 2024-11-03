@@ -627,7 +627,6 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "dspan_ind_start",
         "dspan_ind_end",
         "is_in_dspan",
-        "Auxiliary Span Type",
         "is_before_aspan",
         "is_after_aspan",
         "relative_to_aspan",
