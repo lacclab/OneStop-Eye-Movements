@@ -1,8 +1,13 @@
+# TODO freeze version before release
 name: onestop
 channels:
+  - pytorch
+  - huggingface
   - defaults
+  - conda-forge
+  - nvidia
 dependencies:
-  - python
+  - python=3.12
   - matplotlib
   - numpy
   - seaborn
@@ -10,18 +15,22 @@ dependencies:
   - datasets
   - plotly
   - scipy
-  # - sphinx
-  # - mypy
   - ipykernel
-  - dropbox
+  - dropbox # TODO remove
   - ipywidgets
-  - pip
-  - loguru
+  # - loguru
   - openpyxl
   - statsmodels
+  # - pyyaml
+  - cuda-toolkit
+  - pytorch-cuda
+  - pytorch
+  - jupyter
+  - transformers
+  - spacy
+  - pip
   - pip:
     - juliacall
+    - git+https://github.com/lacclab/text-metrics.git #@v1.1.2
+    - typed-argument-parser
     - -e . # for development
-    # - myst-parser
-    # - sphinx-book-theme
-    # - sphinx-autobuild

@@ -52,6 +52,51 @@ dataset = pm.Dataset('OneStop', path='data/OneStop')
 dataset.download()
 ``` -->
 
+## Repository Structure
+
+The repository is structured as follows:
+
+- `data/`: Contains the metadata files.
+- `docs/`: Documentation source files.
+- `src/`: Scripts to preprocess the data and to reproduce the analyses.
+
+## Reproducing the Analyses
+
+### Environment Setup
+
+#### Prerequisites
+
+- [Mamba](https://github.com/conda-forge/miniforge#mambaforge) or Conda
+
+#### Setup
+
+1. **Clone the Repository**
+
+    Start by cloning the repository to your local machine:
+
+    ```bash
+    git clone https://github.com/lacclab/OneStop-Eye-Movements.git
+    cd OneStop-Eye-Movements
+    ```
+
+2. **Create a Virtual Environment**
+
+    Create a new virtual environment using Mamba (or Conda) and install the dependencies:
+
+    ```bash
+    mamba env create -f environment.yaml
+    ```
+
+3. **Activate the Virtual Environment**
+
+    Activate the virtual environment:
+
+    ```bash
+    conda activate onestop
+    ```
+
+
+
 ## Documentation
 
 - [Variables](variables.md) Description of the variables in the dataset.
@@ -87,8 +132,6 @@ Paper: TODO
 
 ## License
 
-This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+The code is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
 ![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png)
-
-TODO license okay?
