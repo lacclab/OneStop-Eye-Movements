@@ -1,4 +1,3 @@
-# TODO freeze version before release
 name: onestop
 channels:
   - pytorch
@@ -7,7 +6,7 @@ channels:
   - conda-forge
   - nvidia
 dependencies:
-  - python=3.12
+  - python=3.12 # TODO freeze all versions before release
   - matplotlib
   - numpy
   - seaborn
@@ -16,14 +15,14 @@ dependencies:
   - plotly
   - scipy
   - ipykernel
-  - dropbox # TODO remove
+  - dropbox # TODO remove?
   - ipywidgets
   # - loguru
   - openpyxl
   - statsmodels
   # - pyyaml
   - cuda-toolkit
-  - pytorch-cuda
+  - pytorch-cuda=12.4
   - pytorch
   - jupyter
   - transformers

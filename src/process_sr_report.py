@@ -15,11 +15,13 @@ import spacy
 import torch
 from tap import Tap
 from text_metrics.merge_metrics_with_eye_movements import add_metrics_to_eye_tracking
+from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
 
+#TODO Doesn't work, add to setup
 try:
     _ = spacy.load("en_core_web_sm")
-except OSError:
+except IOError:
     print(
         "Downloading spacy model: en_core_web_sm (python -m spacy download en_core_web_sm)"
     )
@@ -740,6 +742,7 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         parsing_mode=args.parsing_mode,
         model_target_device=args.device,
         hf_access_token=args.hf_access_token,
+        surp_extractor_type=extractor_switch.SurpExtractorType.PIMENTEL_CTX_LEFT
     )
 
     logger.info("Renaming column 'IA_LABEL_x' to 'IA_LABEL'...")
@@ -832,15 +835,18 @@ def load_data(
 ) -> pd.DataFrame:
     if data_path.is_dir():
         try:
+            print(f"Reading files from {data_path}")
             dataframes = [
                 pd.read_csv(file, encoding="utf-16", **kwargs)
                 for file in data_path.glob("*.tsv")
             ]
         except UnicodeError:
+            print(f"UnicodeError encountered. Retrying with low_memory=False for files in {data_path}")
             dataframes = [
                 pd.read_csv(file, low_memory=False, **kwargs)
                 for file in data_path.glob("*.tsv")
             ]
+        assert len(dataframes) > 0, f"No files found in {data_path}"
         data = pd.concat(dataframes, ignore_index=True)
     else:
         try:
@@ -865,7 +871,9 @@ def load_data(
         data["has_preview"] = data["has_preview"].map({"Gathering": 0, "Hunting": 1})
 
     logger.info("Loaded %d records from %s.", len(data), data_path)
-
+    
+    if data.empty:
+        raise ValueError(f"Error: No data found in {data_path}.")
     return data
 
 
@@ -904,14 +912,14 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 
 if __name__ == "__main__":
-    data_path = Path("/data/home/shared/onestop/")
     save_path = Path("data")
     hf_access_token = ""  # Add your huggingface access token here
     filter_query = "practice==0"
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
-        "gpt2",
-        #  "gpt2-medium", "gpt2-large", "gpt2-xl",
+        # "gpt2",
+          "gpt2-medium", 
+        #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
         # "facebook/opt-350m", "facebook/opt-1.3b", "facebook/opt-2.7b", "facebook/opt-6.7b",
@@ -921,24 +929,27 @@ if __name__ == "__main__":
     ]
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    for mode in [Mode.IA.value, Mode.FIXATION.value]:
-        save_file = f"{mode}_P.csv"
-        args_file = Path(f"{mode}_args.json")
+    reports = ['P', 'F', 'A', 'QA', 'Q_preview', 'Q', 'T']
+    for report in reports:
+        data_path = Path(f"/data/home/shared/onestop/raw_reports/IA reports/ia_{report}.tsv")
+        for mode in [Mode.IA.value, Mode.FIXATION.value]:
+            save_file = f"{mode}_{report}.csv"
+            args_file = Path(f"{mode}_{report}_args.json")
 
-        args = [
-            "--data_path",
-            str(data_path),
-            "--save_path",
-            str(save_path / save_file),
-            "--mode",
-            mode,
-            "--filter_query",
-            filter_query,
-            "--SURPRISAL_MODELS",
-            *surprisal_models,
-            "--hf_access_token",
-            hf_access_token,
-            "--device",
-            device,
-        ]
-        process_data(args, args_file, save_path)
+            args = [
+                "--data_path",
+                str(data_path),
+                "--save_path",
+                str(save_path / save_file),
+                "--mode",
+                mode,
+                "--filter_query",
+                filter_query,
+                "--SURPRISAL_MODELS",
+                *surprisal_models,
+                "--hf_access_token",
+                hf_access_token,
+                "--device",
+                device,
+            ]
+            process_data(args, args_file, save_path)
