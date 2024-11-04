@@ -15,7 +15,9 @@ import pandas as pd
 import spacy
 import torch
 from tap import Tap
-from text_metrics.merge_metrics_with_eye_movements import add_metrics_to_eye_tracking
+from text_metrics.merge_metrics_with_eye_movements import (
+    add_metrics_to_word_level_eye_tracking_report,
+)
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
 
@@ -64,7 +66,6 @@ class ArgsParser(Tap):
         subject_column (List[str]): column that defines a subject
         add_prolific_qas_distribution (bool): whether to add question difficulty data from prolific
         qas_prolific_distribution_path (Path | None): Path to question difficulty data from prolific
-        add_question_in_prompt (bool): whether to add the question in the prompt
         mode (Mode): whether to use interest area or fixation data
     """
 
@@ -243,7 +244,6 @@ class ArgsParser(Tap):
         False  # whether to add question difficulty data from prolific
     )
     qas_prolific_distribution_path: Path | None = None
-    add_question_in_prompt: bool = False  # whether to add the question in the prompt
     mode: Mode = Mode.IA  # whether to use interest area or fixation data
     device: str = (
         "cuda" if torch.cuda.is_available() else "cpu"
@@ -735,15 +735,23 @@ def filter_columns(df: pd.DataFrame, base_cols: List[str]) -> pd.DataFrame:
 
 def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     logger.info("Adding surprisal, frequency, and word length metrics...")
-    df = add_metrics_to_eye_tracking(
+    textual_item_key_cols = [
+        "paragraph_id",
+        "batch",
+        "article_id",
+        "level",
+        "has_preview",
+        "question",
+    ]
+    df = add_metrics_to_word_level_eye_tracking_report(
         eye_tracking_data=df,
+        textual_item_key_cols=textual_item_key_cols,
         surprisal_extraction_model_names=args.SURPRISAL_MODELS,
         spacy_model_name=args.NLP_MODEL,
-        add_question_in_prompt=args.add_question_in_prompt,
         parsing_mode=args.parsing_mode,
         model_target_device=args.device,
         hf_access_token=args.hf_access_token,
-        # Buggy version from "How to Compute the Probability of a Word" (Pimentel and Meister, 2024). For the correct version, use the SurpExtractorType.PIMENTEL_CTX_LEFT
+        # CAT_CTX_LEFT: Buggy version from "How to Compute the Probability of a Word" (Pimentel and Meister, 2024). For the correct version, use the SurpExtractorType.PIMENTEL_CTX_LEFT
         surp_extractor_type=extractor_switch.SurpExtractorType.CAT_CTX_LEFT,
     )
 
