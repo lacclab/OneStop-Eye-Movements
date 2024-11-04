@@ -7,6 +7,7 @@ QUESTIONNAIRE_PATH = Path(BASE_PATH, "questionnaire.json")
 
 FULL_REPORT_PATH = Path(BASE_PATH, "full_report.csv")
 SESSION_SUMMARY_PATH = Path(BASE_PATH, "session_summary.csv")
+ALL_DAT_FILES = Path(BASE_PATH, "all_dat_files_merged.tsv")
 REPORTS_BASE_PATH = Path(BASE_PATH, "Outputs")
 IA_P_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_P.tsv")
 IA_Q_PATH = Path(REPORTS_BASE_PATH, "IA reports/ia_Q.tsv")
@@ -18,12 +19,12 @@ TRIAL_QA_PATH = Path(REPORTS_BASE_PATH, "trial reports/trial_QA.tsv")
 TRIAL_q_preview_PATH = Path(REPORTS_BASE_PATH, "trial reports/trial_Q_preview.tsv")
 TRIAL_T_PATH = Path(REPORTS_BASE_PATH, "trial reports/trial_T.tsv")
 
-# ENGLISH_COUNTRIES = [
-#     "United States",
-#     "Australia",
-#     "United Kingdom",
-#     "Canada",
-#     "Ireland",
-#     "South Africa",
-#     "Nigeria",
-# ]
+ENGLISH_COUNTRIES = [
+    "United States",
+    "Australia",
+    "United Kingdom",
+    "Canada",
+    "Ireland",
+    "South Africa",
+    "Nigeria",
+]

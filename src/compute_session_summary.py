@@ -1,10 +1,10 @@
-import json
-import os
-from pathlib import Path
-
 import config
+import json
 import numpy as np
+import os
 import pandas as pd
+from pathlib import Path
+import preprocess as pre
 import utils
 
 # Run the script from the directory where it is located
@@ -112,14 +112,14 @@ def create_full_report(df, metadata, survey):
 
         data_verification_report.loc[data_verification_report.shape[0]] = new_row
 
-    comprehension_score = utils.get_comprehension_score(df)
-    data_verification_report_with_score = utils.add_comprehension_score_to_df(
+    comprehension_score = pre.get_comprehension_score(df)
+    data_verification_report_with_score = pre.add_comprehension_score_to_df(
         data_verification_report, comprehension_score
     )
-    data_verification_report_with_metadata = utils.add_metadata(
+    data_verification_report_with_metadata = pre.add_metadata(
         data_verification_report_with_score, metadata
     )
-    data_verification_report_with_survey = utils.add_survey_results(
+    data_verification_report_with_survey = pre.add_survey_results(
         data_verification_report_with_metadata, survey
     )
 
@@ -127,7 +127,7 @@ def create_full_report(df, metadata, survey):
 
 
 if __name__ == "__main__":
-    overwrite = True
+    overwrite = False
     print("Preprocessing data")
     # Load the metadata spreadsheet
     metadata = utils.load_df(path=config.METADATA_PATH)
@@ -145,24 +145,24 @@ if __name__ == "__main__":
             utils.load_json(path=config.BASE_PATH / "raw_surveys" / survey_path)
             for survey_path in surveys_paths
         ]
-        survey_responses = utils.preprocess_surveys(surveys=surveys)
+        survey_responses = pre.preprocess_surveys(surveys=surveys)
         with open(file=config.QUESTIONNAIRE_PATH, mode="w") as file:
             json.dump(survey_responses, file, indent=4)
     else:
         survey_responses = utils.load_json(path=config.QUESTIONNAIRE_PATH)
     # load the trial reports
     trials = utils.load_df(path=config.TRIAL_P_PATH)
-    trials = utils.values_conversion(df=trials)
+    trials = pre.values_conversion(df=trials)
 
     full_report = create_full_report(trials, metadata, survey_responses)
     print(f"Saving full report to {config.FULL_REPORT_PATH}")
     full_report.to_csv(config.FULL_REPORT_PATH, index=False)
 
     print("Filtering survey responses")
-    survey_responses = utils.filter_survey_responses(survey_responses, full_report)
+    survey_responses = pre.filter_survey_responses(survey_responses, full_report)
 
     print("Updating questionnaire format")
-    survey_responses = utils.update_questionnaire_format(survey_responses)
+    survey_responses = pre.update_questionnaire_format(survey_responses)
 
     print(f"Saving questionnaire to {config.QUESTIONNAIRE_PATH}")
     with open(config.QUESTIONNAIRE_PATH, "w") as f:
@@ -170,16 +170,33 @@ if __name__ == "__main__":
 
     print("Processing full report to session summary")
     validation_error = pd.read_csv(config.BASE_PATH / "validation_error.csv")
-    session_summary = utils.process_full_report_to_session_summary(
+    session_summary = pre.process_full_report_to_session_summary(
         full_report, validation_error
     )
     print(f"Saving session summary to {config.SESSION_SUMMARY_PATH}")
     session_summary.to_csv(config.SESSION_SUMMARY_PATH, index=False)
 
+
+    subjects_from_trial_report = pd.Series(trials["RECORDING_SESSION_LABEL"].str.lower().unique())
+    subjects_from_metadata = metadata["Filename"].dropna().str.lower()
+    is_in_metadata = subjects_from_trial_report.isin(subjects_from_metadata)
+    subjects_not_in_metadata = subjects_from_trial_report[~is_in_metadata]
+    subjects_not_in_metadata.to_csv(
+        config.BASE_PATH / "subjects_not_in_metadata.csv", index=False
+    )
+    print(f"Found {len(subjects_not_in_metadata)} subjects not in metadata, saved to {config.BASE_PATH/'subjects_not_in_metadata.csv'}")
+    
+    is_in_trial_report = subjects_from_metadata.isin(subjects_from_trial_report)
+    subjects_not_in_trial_report = subjects_from_metadata[~is_in_trial_report]
+    subjects_not_in_trial_report.to_csv(
+        config.BASE_PATH / "subjects_not_in_trial_report.csv", index=False
+    )
+
     # TODO delete if not needed
     # dat_base_path = Path('/Users/shubi/Library/CloudStorage/OneDrive-Technion/In-lab Experiments/OneStopGaze Experiment Sources/experiment-data_source/dat files')
     # dat_files_name = ['onestop_1n_l1_l60.dat', 'onestop_1p_l1_l60.dat', 'onestop_2n_l1_l60.dat', 'onestop_2p_l1_l60.dat', 'onestop_3n_l1_l60_hashtagfix.dat', 'onestop_3p_l1_l60_hashtagfix.dat']
     # new_dat_path = Path(config.BASE_PATH, 'all_dat_files_merged.tsv')
+    # merge_dat_files_function in utils?
 
     # unpacked_columns = [
     #     "trials",
