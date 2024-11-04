@@ -29,6 +29,6 @@ dependencies:
   - pip
   - pip:
     - juliacall
-    - git+https://github.com/lacclab/text-metrics.git #@v1.1.2
+    - git+https://github.com/lacclab/text-metrics.git@v1.1.3
     - typed-argument-parser
     - -e . # for development
