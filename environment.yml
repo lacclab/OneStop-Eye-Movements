@@ -2,9 +2,9 @@ name: onestop
 channels:
   - pytorch
   - huggingface
-  - defaults
-  - conda-forge
   - nvidia
+  - conda-forge
+  - defaults
 dependencies:
   - python=3.12 # TODO freeze all versions before release
   - matplotlib
@@ -21,9 +21,8 @@ dependencies:
   - openpyxl
   - statsmodels
   # - pyyaml
-  - cuda-toolkit
-  - pytorch-cuda=12.4
   - pytorch
+  - pytorch-cuda=12.4
   - jupyter
   - transformers
   - spacy

@@ -8,6 +8,7 @@ import subprocess
 from enum import Enum
 from pathlib import Path
 from typing import List, Literal
+from itertools import product
 
 import numpy as np
 import pandas as pd
@@ -929,27 +930,35 @@ if __name__ == "__main__":
     ]
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    reports = ['P', 'F', 'A', 'QA', 'Q_preview', 'Q', 'T']
-    for report in reports:
+    print(f"Using device: {device}")
+    if device == "cpu":
+        print(
+            "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
+        )
+            
+    reports = ['F', 'A', 'QA', 'Q_preview', 'Q', 'T','P']
+    modes = [Mode.IA.value, Mode.FIXATION.value]
+    
+    for mode, report in product(modes, reports):
+        print(f"Processing {mode} report {report}")
         data_path = Path(f"/data/home/shared/onestop/raw_reports/IA reports/ia_{report}.tsv")
-        for mode in [Mode.IA.value, Mode.FIXATION.value]:
-            save_file = f"{mode}_{report}.csv"
-            args_file = Path(f"{mode}_{report}_args.json")
+        save_file = f"{mode}_{report}.csv"
+        args_file = Path(f"{mode}_{report}_args.json")
 
-            args = [
-                "--data_path",
-                str(data_path),
-                "--save_path",
-                str(save_path / save_file),
-                "--mode",
-                mode,
-                "--filter_query",
-                filter_query,
-                "--SURPRISAL_MODELS",
-                *surprisal_models,
-                "--hf_access_token",
-                hf_access_token,
-                "--device",
-                device,
-            ]
-            process_data(args, args_file, save_path)
+        args = [
+            "--data_path",
+            str(data_path),
+            "--save_path",
+            str(save_path / save_file),
+            "--mode",
+            mode,
+            "--filter_query",
+            filter_query,
+            "--SURPRISAL_MODELS",
+            *surprisal_models,
+            "--hf_access_token",
+            hf_access_token,
+            "--device",
+            device,
+        ]
+        process_data(args, args_file, save_path)
