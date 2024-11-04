@@ -52,21 +52,64 @@ dataset = pm.Dataset('OneStop', path='data/OneStop')
 dataset.download()
 ``` -->
 
+## Repository Structure
+
+The repository is structured as follows:
+
+- `data/`: Contains the metadata files.
+- `docs/`: Documentation source files.
+- `src/`: Scripts to preprocess the data and to reproduce the analyses.
+
+## Reproducing the Analyses
+
+### Environment Setup
+
+#### Prerequisites
+
+- [Mamba](https://github.com/conda-forge/miniforge#mambaforge) or Conda
+
+#### Setup
+
+1. **Clone the Repository**
+
+    Start by cloning the repository to your local machine:
+
+    ```bash
+    git clone https://github.com/lacclab/OneStop-Eye-Movements.git
+    cd OneStop-Eye-Movements
+    ```
+
+2. **Create a Virtual Environment**
+
+    Create a new virtual environment using Mamba (or Conda) and install the dependencies:
+
+    ```bash
+    mamba env create -f environment.yaml
+    ```
+
+3. **Activate the Virtual Environment**
+
+    Activate the virtual environment:
+
+    ```bash
+    conda activate onestop
+    ```
+
+4. **Download spacy model**
+
+    Download the spacy model:
+
+    ```bash
+    python -m spacy download en_core_web_sm
+    ```
+
 ## Documentation
 
 - [Variables](variables.md) Description of the variables in the dataset.
-<!-- - [Eyetracking Variables](data_variables.md) Description of the variables in the fixations and interest area reports, including variables related to word properties and syntatic annotation.
+<!-- - [Eyetracking Variables](data_variables.md) Description of the variables in the fixations and interest area reports, including variables related to word properties and syntactic annotation.
 - [Metadata Variables](metadata_variables.md) Description of the variables in the participants metadata. -->
 - [Technical Setup](technical_setup.md) Information on the technical setup of the experiment and the experiment builder.
 - [Known Issues](known_issues.md) Known issues with the dataset.
-
-<!-- ## Statistics
-
-| **Subjs** | **Age**        | **Words**      | **Words Recorded** | **Qs** | **Subjs per Q** | **Qs per Subj** |
-|----------|----------------|----------------|--------------------|--------|-----------------|-----------------|
-| 360       | 23.0 ($\pm$6.4)| 21,384 (Adv); 16,817 (Ele)   | 2,631,563          | 486    | 20              | 54              |
-
-TODO Copy values from paper. -->
 
 ## Citation
 
@@ -87,8 +130,6 @@ Paper: TODO
 
 ## License
 
-This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+The code is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
 ![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png)
-
-TODO license okay?
