@@ -22,6 +22,20 @@ rounding_dict = {
     "IS_PREV_REGRESSION": 2,
 }
 
+participant_id_col_name_datasets = {
+    "onestop": "subject_id",
+    "sbsat": "RECORDING_SESSION_LABEL",
+    "geco": "PP_NR",
+    "celer": "list",
+}
+
+item_id_col_name_datasets = {
+    "onestop": "unique_paragraph_id",
+    "sbsat": "page_name",
+    "geco": "PART",
+    "celer": "sentenceid",
+}
+
 
 def get_outcome_vars(dataset: str):
     pos_outcomes = [
