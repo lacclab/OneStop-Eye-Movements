@@ -914,12 +914,13 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 if __name__ == "__main__":
     save_path = Path("data")
+    base_data_path = Path("/data/home/shared/onestop/raw_reports")
     hf_access_token = ""  # Add your huggingface access token here
     filter_query = "practice==0"
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
-          "gpt2-medium", 
+        "gpt2-medium", 
         #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
@@ -937,11 +938,14 @@ if __name__ == "__main__":
         )
             
     reports = ['F', 'A', 'QA', 'Q_preview', 'Q', 'T','P']
-    modes = [Mode.IA.value, Mode.FIXATION.value]
+    modes = [Mode.FIXATION.value, Mode.IA.value]
     
     for mode, report in product(modes, reports):
         print(f"Processing {mode} report {report}")
-        data_path = Path(f"/data/home/shared/onestop/raw_reports/IA reports/ia_{report}.tsv")
+        if mode == Mode.FIXATION.value:
+            data_path = base_data_path / f"Fixations reports/fixations_{report}.tsv"
+        else:
+            data_path = base_data_path / f"/data/home/shared/onestop/raw_reports/IA reports/ia_{report}.tsv"
         save_file = f"{mode}_{report}.csv"
         args_file = Path(f"{mode}_{report}_args.json")
 
