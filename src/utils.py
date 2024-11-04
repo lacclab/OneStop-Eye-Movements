@@ -1,9 +1,8 @@
-import json
-from pathlib import Path
-
 import config
+import json
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 
 def load_df(path):
@@ -170,6 +169,14 @@ def check_if_participant_filled_survey(df):
     not_filled_survey = df.loc[df["age"] == -1]
     return not_filled_survey
 
+def add_data_collection_site(df): 
+    technion_experimenter = ["Aya", "Liz", "Nethanella"]
+    df["Data Collection Site"] = None
+    for index, row in df.iterrows():
+        if row["Experimenter"] in technion_experimenter:
+            df.at[index, "Data Collection Site"] = "Technion"
+        else:
+            df.at[index, "Data Collection Site"] = "MIT"
 
 def add_metadata(df, metadata):
     columns = [
@@ -177,25 +184,25 @@ def add_metadata(df, metadata):
         "ID",
         "dominant eye",
         "Start Time",
-        "MIT/Technion",
-        "Experimenter",
+        "Data Collection Site",
+        #"MIT/Technion",
+        #"Experimenter",
         "LEXTALE",
-        "Experiment Notes",
-        "Survey notes",
+        #"Experiment Notes",
+        #"Survey notes",
     ]
     metadata_to_add = pd.DataFrame(columns=columns)
     metadata_to_add["Filename"] = metadata["Filename"]
-    metadata_to_add["MIT/Technion"] = metadata["MIT/Technion"].map(
-        {"Yes": True, "No": False}
-    )
+    #metadata_to_add["MIT/Technion"] = metadata["MIT/Technion"].map({"Yes": True, "No": False})
     metadata_to_add["LEXTALE"] = metadata["LEXTALE"].fillna(-1)
-    metadata_to_add["Experiment Notes"] = metadata["Experiment Notes"]
-    metadata_to_add["Survey notes"] = metadata["Survey notes"]
-    metadata_to_add["Experimenter"] = metadata["Experimenter"]
+    #metadata_to_add["Experiment Notes"] = metadata["Experiment Notes"]
+    #metadata_to_add["Survey notes"] = metadata["Survey notes"]
+    #metadata_to_add["Experimenter"] = metadata["Experimenter"]
     metadata_to_add["ID"] = metadata["ID"].astype(str)
-    # metadata_to_add['ID'] = [id[:-2] for id in metadata_to_add['ID']]
     metadata_to_add["dominant eye"] = metadata["dominant eye"].astype(str)
     metadata_to_add["Start Time"] = metadata["Start Time"].astype(str)
+    add_data_collection_site(metadata)
+    metadata_to_add["Data Collection Site"] = metadata["Data Collection Site"]
     merged_df = df.merge(
         metadata_to_add,
         how="outer",
@@ -225,15 +232,6 @@ def add_survey_results(df, survey):
     df = df.assign(multilingual=None)
     df = df.assign(impairment=None)
     df = df.assign(vision_impairment=None)
-    english_countries = [
-        "United States",
-        "Australia",
-        "United Kingdom",
-        "Canada",
-        "Ireland",
-        "South Africa",
-        "Nigeria",
-    ]
 
     for subject_data in survey:
         subject_id = subject_data.get("subject_id", None)
@@ -263,7 +261,7 @@ def add_survey_results(df, survey):
             subject_countries = ""
             years_in_country = 0
             for country in subject_data["countries"]:
-                if country["country"] in english_countries:
+                if country["country"] in config.ENGLISH_COUNTRIES:
                     years_in_country = years_in_country + (
                         country["toTime"]["year"] - country["fromTime"]["year"]
                     )
@@ -630,7 +628,7 @@ def process_full_report_to_session_summary(data, validation_error):
             "batch": "Experimental Batch",
             "list": "List Number",
             "batch_condition": "Question Preview",
-            "MIT/Technion": "Data Collection Site",
+            "Data Collection Site": "Data Collection Site",
             "comprehension_score_without_reread": "Comprehension Score - Regular Trials",
             "comprehension_score_reread": "Comprehension Score - Repeated Reading",
             "session_interruptions_(recalibrations)": "Recalibration Count",
