@@ -931,7 +931,7 @@ if __name__ == "__main__":
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
-        "gpt2-medium",
+        "gpt2",
         #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
@@ -948,7 +948,7 @@ if __name__ == "__main__":
             "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
         )
 
-    reports = ["F", "A", "QA", "Q_preview", "Q", "T", "P"]
+    reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
     modes = [Mode.FIXATION.value, Mode.IA.value]
 
     for mode, report in product(modes, reports):
@@ -956,10 +956,7 @@ if __name__ == "__main__":
         if mode == Mode.FIXATION.value:
             data_path = base_data_path / f"Fixations reports/fixations_{report}.tsv"
         else:
-            data_path = (
-                base_data_path
-                / f"/data/home/shared/onestop/raw_reports/IA reports/ia_{report}.tsv"
-            )
+            data_path = base_data_path / f"IA reports/ia_{report}.tsv"
         save_file = f"{mode}_{report}.csv"
         args_file = Path(f"{mode}_{report}_args.json")
 
