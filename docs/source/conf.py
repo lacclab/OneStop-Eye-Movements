@@ -6,8 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "OneStop"
-copyright = "2024, TBD"
+project = "OneStop Eye Movements"
+copyright = "2024, LaCC Lab"
 author = "Yevgeni Berzak"
 release = "1.0"
 
