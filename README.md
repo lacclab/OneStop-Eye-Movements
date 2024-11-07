@@ -20,24 +20,31 @@ OneStop further includes controlled experimental manipulations of the difficulty
 
 ## Obtaining the Data
 
-There are several ways to obtain the data:
 
-1. Download the data directly from the [OSF repository](https://osf.io/2prdq/).
-2. Use the `download_data_files.py` script to download and extract the data files automatically.
+<details>
+
+<summary>Data will be available soon!</summary>
+
+Data is not yet available. Download instructions will be updated here.
+
+> There are several ways to obtain the data
+
+> 1. Download the data directly from the [OSF repository](https://osf.io/2prdq/).
+> 2. Use the `download_data_files.py` script to download and extract the data files automatically.
 <!-- 3. Use the `pymovements` package to download the data. -->
 <!-- 4. TODO Add other ways to obtain the data? -->
 
-### Direct Download from OSF
+> ### Direct Download from OSF
 
-The data files are stored in an [OSF repository](https://osf.io/2prdq/), and can be downloaded manually from the repository.
+> The data files are stored in an [OSF repository](https://osf.io/2prdq/), and can be downloaded manually from the repository.
 
-### Python Script
+> ### Python Script
 
-If the repository has been cloned, they can be downloaded and extracted automatically using the following script:
+> If the repository has been cloned, they can be downloaded and extracted automatically using the following script:
 
-```python
-python download_data_files.py --extract
-```
+> ```python
+> python download_data_files.py --extract
+> ```
 
 <!-- ### pymovements integration
 
@@ -51,6 +58,7 @@ dataset = pm.Dataset('OneStop', path='data/OneStop')
 
 dataset.download()
 ``` -->
+</details>
 
 ## Repository Structure
 
