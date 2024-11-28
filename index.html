@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>OneStop: A 360-Participant Eye-Tracking Dataset for Reading Comprehension, Readability and Re-Reading in Ordinary and Information-Seeking Reading | OneStop Eye Movements 1.0 documentation</title>
-<meta content="OneStop: A 360-Participant Eye-Tracking Dataset for Reading Comprehension, Readability and Re-Reading in Ordinary and Information-Seeking Reading | OneStop Eye Movements 1.0 documentation" property="og:title"/>
-<meta content="OneStop: A 360-Participant Eye-Tracking Dataset for Reading Comprehension, Readability and Re-Reading in Ordinary and Information-Seeking Reading | OneStop Eye Movements 1.0 documentation" name="twitter:title"/>
+<title>OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation</title>
+<meta content="OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation" property="og:title"/>
+<meta content="OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation" name="twitter:title"/>
 <link href="_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="_static/theme.css?v=5b4133db" rel="stylesheet" type="text/css"/>
 <link href="search.html" rel="search" title="Search"/>
@@ -98,28 +98,39 @@
 <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
 <div class="w-full min-w-0 mx-auto">
 <div id="content" role="main">
-<section class="tex2jax_ignore mathjax_ignore" id="onestop-a-360-participant-eye-tracking-dataset-for-reading-comprehension-readability-and-re-reading-in-ordinary-and-information-seeking-reading">
-<h1>OneStop: A 360-Participant Eye-Tracking Dataset for Reading Comprehension, Readability and Re-Reading in Ordinary and Information-Seeking Reading<a class="headerlink" href="#onestop-a-360-participant-eye-tracking-dataset-for-reading-comprehension-readability-and-re-reading-in-ordinary-and-information-seeking-reading" title="Link to this heading"><span>#</span></a></h1>
-<div class="note admonition">
-<p class="admonition-title">OneStop</p>
-<p>We present OneStop, a corpus of eye movements in reading, in which native (L1) English speakers read texts in English from the Guardian and answer reading comprehension questions about them.</p>
-</div>
+<section class="tex2jax_ignore mathjax_ignore" id="onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes">
+<h1>OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes<a class="headerlink" href="#onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes" title="Link to this heading"><span>#</span></a></h1>
 <section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example'"><span>#</span></a></h2>
 <p><img alt="Trial GIF" src="_images/trial.gif"/></p>
 </section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#overview'"><span>#</span></a></h2>
-<p>OneStop is the largest English eye-tracking dataset with L1 speakers to date, comprising eye movement recordings from 360 participants over 2.6 million word tokens.</p>
-<p>The experiment is conducted using extensively piloted reading comprehension materials with 486 multiple choice reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.</p>
-<p>OneStop further includes controlled experimental manipulations of the difficulty level of the text, the presented questions, first reading versus re-reading, and ordinary reading versus information seeking.</p>
-
+<p>OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
+OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension. OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.</p>
+</section>
+<section id="key-statistics">
+<h2>Key Statistics<a class="headerlink" href="#key-statistics" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-statistics'"><span>#</span></a></h2>
+<p>TODO: Add table/list with key statistics (from the paper)</p>
+</section>
+<section id="experiment-structure">
+<h2>Experiment Structure<a class="headerlink" href="#experiment-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#experiment-structure'"><span>#</span></a></h2>
+<p>TODO: add experiment structure image and explanation.</p>
+</section>
+<section id="trial-structure">
+<h2>Trial Structure<a class="headerlink" href="#trial-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#trial-structure'"><span>#</span></a></h2>
+<p>TODO: add trial structure image and explanation.</p>
 </section>
 <section id="obtaining-the-data">
 <h2>Obtaining the Data<a class="headerlink" href="#obtaining-the-data" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#obtaining-the-data'"><span>#</span></a></h2>
-<details>
-<summary>Data will be available soon!</summary>
 <p>Data is not yet available. Download instructions will be updated here.</p>
+<p>We provide the possibility to download the entire dataset, or any of four sub-corpora:</p>
+<ol class="arabic simple">
+<li><p>Ordinary reading (download this data if you are interested in a general purpose eyetrackng dataset)</p></li>
+<li><p>Information seeking</p></li>
+<li><p>Repeated reading</p></li>
+<li><p>Repeated reading during information seeking</p></li>
+</ol>
 <blockquote>
 <div><p>There are several ways to obtain the data</p>
 </div></blockquote>
@@ -149,19 +160,18 @@
 </div>
 </div></blockquote>
 
-</details>
 </section>
 <section id="repository-structure">
 <h2>Repository Structure<a class="headerlink" href="#repository-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#repository-structure'"><span>#</span></a></h2>
 <p>The repository is structured as follows:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">data/</span></code>: Contains the metadata files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data/</span></code>: Metadata files.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docs/</span></code>: Documentation source files.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">src/</span></code>: Scripts to preprocess the data and to reproduce the analyses.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/</span></code>: Scripts for preprocessing the data and reproducing the analyses.</p></li>
 </ul>
 </section>
-<section id="reproducing-the-analyses">
-<h2>Reproducing the Analyses<a class="headerlink" href="#reproducing-the-analyses" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reproducing-the-analyses'"><span>#</span></a></h2>
+<section id="reproducing-the-analyses-in-todo-add-paper-link">
+<h2>Reproducing the Analyses in TODO: Add paper link<a class="headerlink" href="#reproducing-the-analyses-in-todo-add-paper-link" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reproducing-the-analyses-in-todo-add-paper-link'"><span>#</span></a></h2>
 <section id="environment-setup">
 <h3>Environment Setup<a class="headerlink" href="#environment-setup" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#environment-setup'"><span>#</span></a></h3>
 <section id="prerequisites">
@@ -231,7 +241,7 @@
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#license'"><span>#</span></a></h2>
-<p>The code is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/" rel="nofollow noopener">Creative Commons Attribution 4.0 International License<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
+<p>The data and code are licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/" rel="nofollow noopener">Creative Commons Attribution 4.0 International License<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
 <p><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></p>
 
 
@@ -251,9 +261,12 @@
 <ul>
 <li><a :data-current="activeSection === '#example'" class="reference internal" href="#example">Example</a></li>
 <li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a></li>
+<li><a :data-current="activeSection === '#key-statistics'" class="reference internal" href="#key-statistics">Key Statistics</a></li>
+<li><a :data-current="activeSection === '#experiment-structure'" class="reference internal" href="#experiment-structure">Experiment Structure</a></li>
+<li><a :data-current="activeSection === '#trial-structure'" class="reference internal" href="#trial-structure">Trial Structure</a></li>
 <li><a :data-current="activeSection === '#obtaining-the-data'" class="reference internal" href="#obtaining-the-data">Obtaining the Data</a></li>
 <li><a :data-current="activeSection === '#repository-structure'" class="reference internal" href="#repository-structure">Repository Structure</a></li>
-<li><a :data-current="activeSection === '#reproducing-the-analyses'" class="reference internal" href="#reproducing-the-analyses">Reproducing the Analyses</a><ul>
+<li><a :data-current="activeSection === '#reproducing-the-analyses-in-todo-add-paper-link'" class="reference internal" href="#reproducing-the-analyses-in-todo-add-paper-link">Reproducing the Analyses in TODO: Add paper link</a><ul>
 <li><a :data-current="activeSection === '#environment-setup'" class="reference internal" href="#environment-setup">Environment Setup</a><ul>
 <li><a :data-current="activeSection === '#prerequisites'" class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a :data-current="activeSection === '#setup'" class="reference internal" href="#setup">Setup</a></li>
