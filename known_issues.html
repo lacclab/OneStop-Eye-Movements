@@ -110,55 +110,107 @@
 <section class="tex2jax_ignore mathjax_ignore" id="known-issues">
 <h1>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading"><span>#</span></a></h1>
 <p>This page lists known issues with the dataset. If you encounter any issues not listed here, please report them to the <a class="reference external" href="https://github.com/lacclab/OneStop-Eye-Movements/issues" rel="nofollow noopener">issue tracker<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
+<p>Typos and cut-off text:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Batch</p></th>
+<th class="head"><p>Article Title (ID)</p></th>
+<th class="head"><p>Paragraph</p></th>
+<th class="head"><p>Question</p></th>
+<th class="head"><p>Issue</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Article 8</p></td>
+<td><p>5</p></td>
+<td><p>2</p></td>
+<td><p>Typo: “culture””. instead of “culture”.</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK (5)</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>Typo: “When was the hashtag” → “When was the hashtag #OnTheMoon released this year?”</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK (5)</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>Typo: “Who used the” → “Who used the #OnTheMoon hashtag for their campaign?”</p></td>
+</tr>
+<tr class="row-odd"><td><p>-</p></td>
+<td><p>Google car article</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>Typo: “food pedal” —&gt; “foot pedal”</p></td>
+</tr>
+<tr class="row-even"><td><p>-</p></td>
+<td><p>Agios article</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>Typo: “fairies” —&gt; “ferries”</p></td>
+</tr>
+<tr class="row-odd"><td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>Possible typo: dangerous *president / precedent</p></td>
+</tr>
+<tr class="row-even"><td><p>-</p></td>
+<td><p>Swarthy Blue-Eyed Caveman Revealed (6)</p></td>
+<td><p>2</p></td>
+<td><p>-</p></td>
+<td><p>Cut-off text: “Since the time of the hunter-gatherers, immune systems have been dependent on a health diet” appears in the ‘d’ position (bottom), the last word “diet” is cut off.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Other issues:</p>
 <ul>
-<li><p>Difference in. batch 3 - diff .dat files before and after fix:</p>
-<p>Batch 3,Article ID 5 (John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK), Paragraph 3</p>
-<ol class="arabic simple">
-<li><p>Q (q_ind) 1: “When was the hashtag” → “When was the hashtag #OnTheMoon released this year?”</p></li>
-<li><p>Q (q_ind) 2: “Who used the” → “Who used the #OnTheMoon hashtag for their campaign?”</p></li>
-</ol>
-</li>
-<li><p>Google car article: “food pedal” —&gt; “foot pedal”</p></li>
-<li><p>Agios article: “fairies” —&gt; “ferries”</p></li>
-<li><p>Another possible typo in the data (found this on a note, haven’t checked): dangerous *president / precedent</p></li>
-<li><p>Article  Swarthy Blue-Eyed Caveman Revealed (Id 6) paragraph 2 when answer “Since the time of the hunter-gatherers, immune systems have been dependent on a health diet” appears in the ‘d’ position (bottom), the last word “diet” is cut off.</p></li>
-<li><p>The following raw annotations are incorrect and can be fixed using the processed files or the following code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-        <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"article_title"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Japan Calls Time on Long Hours Work Culture"</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"paragraph_id"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"level"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Adv"</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"q_ind"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">),</span>
-        <span class="p">[</span><span class="s2">"dspan_inds"</span><span class="p">],</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="s2">"[(79, 102)]"</span>
-
-    <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-        <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"article_title"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Japan Calls Time on Long Hours Work Culture"</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"paragraph_id"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"level"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Ele"</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"q_ind"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">),</span>
-        <span class="p">[</span><span class="s2">"dspan_inds"</span><span class="p">],</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="s2">"[(64, 80)]"</span>
-
-    <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-        <span class="p">(</span>
-            <span class="n">data</span><span class="p">[</span><span class="s2">"article_title"</span><span class="p">]</span>
-            <span class="o">==</span> <span class="s2">"Love Hormone Helps Autistic Children Bond with Others"</span>
-        <span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"paragraph_id"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">6</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"level"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Adv"</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"q_ind"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span>
-        <span class="s2">"aspan_inds"</span><span class="p">,</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="s2">"[(49, 67)]"</span>
-</pre></div>
-</div>
-</li>
-<li><p>culture””. instead of culture”.  in “level == ‘Adv’ and batch ==’2’ and article_id ==’8’ and paragraph_id==’5’”</p></li>
 <li><p>Near-sightedness / Myopia was not in the eye conditions list and not everyone who had it necessarily marked it.</p></li>
-</ul>
-<p>2 missing trials:</p>
+<li><p>There are 2 missing trials:</p>
 <ul class="simple">
-<li><p>l13_213 missed trial 39  <code class="docutils literal notranslate"><span class="pre">paragraph_id=4</span></code> of <code class="docutils literal notranslate"><span class="pre">article_id=10</span></code></p></li>
-<li><p>l34_277 missed  trial 38<code class="docutils literal notranslate"><span class="pre">paragraph_id=5</span></code> of <code class="docutils literal notranslate"><span class="pre">article_id=2</span></code></p></li>
+<li><p>l13_213 missed trial 39  (<code class="docutils literal notranslate"><span class="pre">paragraph_id=4</span></code> of <code class="docutils literal notranslate"><span class="pre">article_id=10</span></code>)</p></li>
+<li><p>l34_277 missed  trial 38 (<code class="docutils literal notranslate"><span class="pre">paragraph_id=5</span></code> of <code class="docutils literal notranslate"><span class="pre">article_id=2</span></code>)</p></li>
+</ul>
+</li>
+<li><p>Pixel issue</p></li>
+<li><p>The following raw critical and distractor span annotations are incorrect and can be fixed using the processed files.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Article Title</p></th>
+<th class="head"><p>Paragraph ID</p></th>
+<th class="head"><p>Level</p></th>
+<th class="head"><p>Q Index</p></th>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Corrected Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Japan Calls Time on Long Hours Work Culture</p></td>
+<td><p>3</p></td>
+<td><p>Adv</p></td>
+<td><p>2</p></td>
+<td><p>dspan_inds</p></td>
+<td><p>[(79, 102)]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Japan Calls Time on Long Hours Work Culture</p></td>
+<td><p>3</p></td>
+<td><p>Ele</p></td>
+<td><p>2</p></td>
+<td><p>dspan_inds</p></td>
+<td><p>[(64, 80)]</p></td>
+</tr>
+<tr class="row-even"><td><p>Love Hormone Helps Autistic Children Bond with Others</p></td>
+<td><p>6</p></td>
+<td><p>Adv</p></td>
+<td><p>1</p></td>
+<td><p>aspan_inds</p></td>
+<td><p>[(49, 67)]</p></td>
+</tr>
+</tbody>
+</table>
+</li>
 </ul>
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
