@@ -4,17 +4,17 @@ This page lists known issues with the dataset. If you encounter any issues not l
 
 Typos and cut-off text:
 
-| Batch | Article Title (ID)                                             | Paragraph | Question | Issue                                                                                     |
-|-------|----------------------------------------------------------------|-----------|----------|-------------------------------------------------------------------------------------------|
-| 2     | Article 8                                                      | 5         | 2        | Typo: "culture"". instead of "culture".                                                   |
-| 3     | John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK (5) | 3         | 1        | Typo: "When was the hashtag” → "When was the hashtag #OnTheMoon released this year?”      |
-| 3     | John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK (5) | 3         | 2        | Typo: "Who used the” → "Who used the #OnTheMoon hashtag for their campaign?”              |
-| -     | Google car article                                             | -         | -        | Typo: “food pedal” —> “foot pedal”                                                        |
-| -     | Agios article                                                  | -         | -        | Typo: “fairies” —> “ferries”                                                              |
-| -     | -                                                              | -         | -        | Possible typo: dangerous *president / precedent                                           |
-| -     | Swarthy Blue-Eyed Caveman Revealed (6)                         | 2         | -        | Cut-off text: "Since the time of the hunter-gatherers, immune systems have been dependent on a health diet" appears in the ‘d’ position (bottom), the last word “diet” is cut off. |
+| Batch | Article Title                                      | Article ID | Paragraph | Question | Issue                                                                                     |
+|-------|----------------------------------------------------|------------|-----------|----------|-------------------------------------------------------------------------------------------|
+| 2     | Rwandan Women Whip up Popular Ice Cream Business                                            | 8          | 5         | 2        | Typo: "culture"". instead of "culture".  TODO WHERE?                                                   |
+| 3     | John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK | 5          | 3         | 1        | Typo in the question: "When was the hashtag” instead of "When was the hashtag #OnTheMoon released this year?” TODO WHEN WAS THIS FIXED?      |
+| 3     | John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK | 5          | 3         | 2        | Typo in the question: "Who used the” instead of "Who used the #OnTheMoon hashtag for their campaign?” TODO WHEN WAS THIS FIXED?              |
+| 1     | Google Introduces its Driverless Car               | 1          | 1        | 2        | Typo in Answer B: “food pedal” instead of “foot pedal”.                                                        |
+| 1     | The Greek Island Where Time Is Running Out                                      | 10          | 6         | 2        | Typo in Answer D: “fairies” instead of “ferries”                                                              |
+| -     | -                                                  | -          | -         | -        | TODO CHECK OUT Possible typo: dangerous *president / precedent                                           |
+| 1     | Swarthy Blue-Eyed Caveman Revealed                 | 6          | 2         | 0        | Cut-off text: When Answer D "Since the time of the hunter-gatherers, immune systems have been dependent on a health diet" appears in the bottom position, the last word, “diet”, is cut off. |
 
-Other issues:
+Other issues TODO Go Over:
 
 - Near-sightedness / Myopia was not in the eye conditions list and not everyone who had it necessarily marked it.
 - There are 2 missing trials:
