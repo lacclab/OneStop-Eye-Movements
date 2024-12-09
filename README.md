@@ -1,13 +1,12 @@
 # OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes
 
-
 ## Example
 
 ![Trial GIF](_static/trial.gif)
 
 ## Overview
 
-OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions. 
+OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
 OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension. OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.
 
 ## Key Statistics
@@ -16,7 +15,9 @@ TODO: Add table/list with key statistics (from the paper)
 
 ## Experiment Structure
 
-TODO: add experiment structure image and explanation.
+There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.  
+
+![Experiment Design](docs/source/_static/exp_design.png)
 
 ## Trial Structure
 
@@ -24,16 +25,14 @@ TODO: add trial structure image and explanation.
 
 ## Obtaining the Data
 
-
 Data is not yet available. Download instructions will be updated here.
 
-We provide the possibility to download the entire dataset, or any of four sub-corpora: 
+We provide the possibility to download the entire dataset, or any of four sub-corpora:
 
 1. Ordinary reading (download this data if you are interested in a general purpose eyetrackng dataset)
 2. Information seeking
-3. Repeated reading 
+3. Repeated reading
 4. Repeated reading during information seeking
-    
 
 > There are several ways to obtain the data
 
