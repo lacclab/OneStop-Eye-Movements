@@ -16,7 +16,7 @@ import spacy
 import torch
 from tap import Tap
 from text_metrics.merge_metrics_with_eye_movements import (
-    add_metrics_to_word_level_eye_tracking_report,
+    add_metrics_to_eye_tracking,
 )
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
@@ -743,9 +743,8 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         "has_preview",
         "question",
     ]
-    df = add_metrics_to_word_level_eye_tracking_report(
+    df = add_metrics_to_eye_tracking(
         eye_tracking_data=df,
-        textual_item_key_cols=textual_item_key_cols,
         surprisal_extraction_model_names=args.SURPRISAL_MODELS,
         spacy_model_name=args.NLP_MODEL,
         parsing_mode=args.parsing_mode,
@@ -925,9 +924,9 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 if __name__ == "__main__":
     save_path = Path("data")
-    base_data_path = Path("/data/home/shared/onestop/raw_reports")
+    base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
-    filter_query = "practice==0"
+    filter_query = ""
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
