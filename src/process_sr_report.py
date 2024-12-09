@@ -16,7 +16,7 @@ import spacy
 import torch
 from tap import Tap
 from text_metrics.merge_metrics_with_eye_movements import (
-    add_metrics_to_word_level_eye_tracking_report,
+    add_metrics_to_eye_tracking,
 )
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
@@ -743,9 +743,8 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         "has_preview",
         "question",
     ]
-    df = add_metrics_to_word_level_eye_tracking_report(
+    df = add_metrics_to_eye_tracking(
         eye_tracking_data=df,
-        textual_item_key_cols=textual_item_key_cols,
         surprisal_extraction_model_names=args.SURPRISAL_MODELS,
         spacy_model_name=args.NLP_MODEL,
         parsing_mode=args.parsing_mode,
@@ -925,13 +924,13 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 if __name__ == "__main__":
     save_path = Path("data")
-    base_data_path = Path("/data/home/shared/onestop/raw_reports")
+    base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
-    filter_query = "practice==0"
+    filter_query = ""
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
-        "gpt2-medium",
+        "gpt2",
         #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
@@ -948,7 +947,7 @@ if __name__ == "__main__":
             "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
         )
 
-    reports = ["F", "A", "QA", "Q_preview", "Q", "T", "P"]
+    reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
     modes = [Mode.FIXATION.value, Mode.IA.value]
 
     for mode, report in product(modes, reports):
@@ -956,10 +955,7 @@ if __name__ == "__main__":
         if mode == Mode.FIXATION.value:
             data_path = base_data_path / f"Fixations reports/fixations_{report}.tsv"
         else:
-            data_path = (
-                base_data_path
-                / f"/data/home/shared/onestop/raw_reports/IA reports/ia_{report}.tsv"
-            )
+            data_path = base_data_path / f"IA reports/ia_{report}.tsv"
         save_file = f"{mode}_{report}.csv"
         args_file = Path(f"{mode}_{report}_args.json")
 

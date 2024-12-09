@@ -1,9 +1,4 @@
-# OneStop: A 360-Participant Eye-Tracking Dataset for Reading Comprehension, Readability and Re-Reading in Ordinary and Information-Seeking Reading
-
-:::{admonition} OneStop
-:class: note
-We present OneStop, a corpus of eye movements in reading, in which native (L1) English speakers read texts in English from the Guardian and answer reading comprehension questions about them.
-:::
+# OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes
 
 ## Example
 
@@ -11,33 +6,63 @@ We present OneStop, a corpus of eye movements in reading, in which native (L1) E
 
 ## Overview
 
-OneStop is the largest English eye-tracking dataset with L1 speakers to date, comprising eye movement recordings from 360 participants over 2.6 million word tokens.
+OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
+OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension. OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.
 
-The experiment is conducted using extensively piloted reading comprehension materials with 486 multiple choice reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.
+## Key Statistics
 
-OneStop further includes controlled experimental manipulations of the difficulty level of the text, the presented questions, first reading versus re-reading, and ordinary reading versus information seeking.
-<!--- The broad coverage and controlled experimental design of OneStopGaze aim to enable new research avenues in the cognitive study of reading and human language processing, and provide new possibilities for the integration of psycholinguistics with Natural Language Processing (NLP) and Artificial Intelligence (AI). --->
+Statistics of publicly available English L1 datasets for passage reading.
+![Key Statistics](docs/source/_static/statistics.png)
+
+ 'RC' (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose broad coverage datasets over passages and individual sentences.
+ 'Words'  is the number words in the textual corpus. Note that differently from the other datasets where each participant reads the entire corpus, in OneStop each participant reads about a third of the corpus, 4225.15 ($SD = 148.9$) words on average.
+ 'Words Recorded' is the number of word tokens for which eye-tracking data was collected.
+ 'NA': data not available.
+ Standard deviation in parentheses.
+$^{*}$ In 5,283 additional tasks in CELER (78 per participant), participants are required to answer whether a given word appeared in the sentence.
+$^{**}$ In 390 additional tasks in ZuCo, participants are asked to determine whether the sentence contains a specific semantic relation.
+
+## Experiment Structure
+
+There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.  
+
+![OneStop Experiment Design](docs/source/_static/exp_design.png)
+
+## Trial Structure
+
+Each participant is presented with a practice article consisting of two trials followed by a 10-article batch with 54 experimental trials. At the beginning of each article, a page with the article’s title is presented. The figure below depicts an example of the pages in a single trial in the Hunting and Gathering regimes. Pages presented only in the Hunting regime are depicted in green.
+
+![Trial Structure](docs/source/_static/trial_slides.png)
 
 ## Obtaining the Data
 
-There are several ways to obtain the data:
+Data is not yet available. Download instructions will be updated here.
 
-1. Download the data directly from the [OSF repository](https://osf.io/2prdq/).
-2. Use the `download_data_files.py` script to download and extract the data files automatically.
+We provide the possibility to download the entire dataset, or any of four sub-corpora:
+
+1. Ordinary reading (download this data if you are interested in a general purpose eyetracking dataset)
+2. Information seeking
+3. Repeated reading
+4. Repeated reading during information seeking
+
+> There are several ways to obtain the data
+
+> 1. Download the data directly from the [OSF repository](https://osf.io/2prdq/).
+> 2. Use the `download_data_files.py` script to download and extract the data files automatically.
 <!-- 3. Use the `pymovements` package to download the data. -->
 <!-- 4. TODO Add other ways to obtain the data? -->
 
-### Direct Download from OSF
+> ### Direct Download from OSF
 
-The data files are stored in an [OSF repository](https://osf.io/2prdq/), and can be downloaded manually from the repository.
+> The data files are stored in an [OSF repository](https://osf.io/2prdq/), and can be downloaded manually from the repository.
 
-### Python Script
+> ### Python Script
 
-If the repository has been cloned, they can be downloaded and extracted automatically using the following script:
+> If the repository has been cloned, they can be downloaded and extracted automatically using the following script:
 
-```python
-python download_data_files.py --extract
-```
+> ```python
+> python download_data_files.py --extract
+> ```
 
 <!-- ### pymovements integration
 
@@ -56,11 +81,11 @@ dataset.download()
 
 The repository is structured as follows:
 
-- `data/`: Contains the metadata files.
+- `data/`: Metadata files.
 - `docs/`: Documentation source files.
-- `src/`: Scripts to preprocess the data and to reproduce the analyses.
+- `src/`: Scripts for preprocessing the data and reproducing the analyses.
 
-## Reproducing the Analyses
+## Reproducing the Analyses in TODO: Add paper link
 
 ### Environment Setup
 
@@ -103,21 +128,35 @@ The repository is structured as follows:
     python -m spacy download en_core_web_sm
     ```
 
+### Running the Analyses
+
+TODO Fill in
+
 ## Documentation
 
-- [Variables](variables.md) Description of the variables in the dataset.
-<!-- - [Eyetracking Variables](data_variables.md) Description of the variables in the fixations and interest area reports, including variables related to word properties and syntactic annotation.
-- [Metadata Variables](metadata_variables.md) Description of the variables in the participants metadata. -->
-- [Technical Setup](technical_setup.md) Information on the technical setup of the experiment and the experiment builder.
-- [Known Issues](known_issues.md) Known issues with the dataset.
+### Variables
+
+The dataset contains three types of variables.
+
+- The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper.
+- The variables included in the Session Summary file are provided in Table 3.
+- The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.
+
+### Technical Setup
+
+See Section "Eye-tracking Setup, Text Presentation and Calibration" in the onestop paper.
+
+### Known Issues
+
+See known issues with the dataset [here](known_issues.md).
 
 ## Citation
 
-Paper: TODO
+Paper: OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes (TODO Add link)
 
 ```bash
-@article{TODO,
-  title={TODO},
+@article{Berzak2024OneStop,
+  title={OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes},
   author={TODO},
   journal={TODO},
   year={TODO},
@@ -130,6 +169,6 @@ Paper: TODO
 
 ## License
 
-The code is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+The data and code are licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
 ![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png)
