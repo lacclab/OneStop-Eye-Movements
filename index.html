@@ -14,7 +14,7 @@
 <link href="_static/theme.css?v=5b4133db" rel="stylesheet" type="text/css"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
-<link href="variables.html" rel="next" title="Variables"/>
+<link href="known_issues.html" rel="next" title="Known Issues"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -82,8 +82,6 @@
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="variables.html">Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="technical_setup.html">Technical Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
 </nav>
@@ -111,22 +109,32 @@ OneStop has eye movement recordings from 360 participants over 2.6 million word 
 </section>
 <section id="key-statistics">
 <h2>Key Statistics<a class="headerlink" href="#key-statistics" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-statistics'"><span>#</span></a></h2>
-<p>TODO: Add table/list with key statistics (from the paper)</p>
+<p>Statistics of publicly available English L1 datasets for passage reading.
+<img alt="Key Statistics" src="docs/source/_static/statistics.png"/></p>
+<p>‘RC’ (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose broad coverage datasets over passages and individual sentences.
+‘Words’  is the number words in the textual corpus. Note that differently from the other datasets where each participant reads the entire corpus, in OneStop each participant reads about a third of the corpus, 4225.15 (<span class="math notranslate nohighlight">\(SD = 148.9\)</span>) words on average.
+‘Words Recorded’ is the number of word tokens for which eye-tracking data was collected.
+‘NA’: data not available.
+Standard deviation in parentheses.
+<span class="math notranslate nohighlight">\(^{*}\)</span> In 5,283 additional tasks in CELER (78 per participant), participants are required to answer whether a given word appeared in the sentence.
+<span class="math notranslate nohighlight">\(^{**}\)</span> In 390 additional tasks in ZuCo, participants are asked to determine whether the sentence contains a specific semantic relation.</p>
 </section>
 <section id="experiment-structure">
 <h2>Experiment Structure<a class="headerlink" href="#experiment-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#experiment-structure'"><span>#</span></a></h2>
-<p>TODO: add experiment structure image and explanation.</p>
+<p>There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.</p>
+<p><img alt="OneStop Experiment Design" src="docs/source/_static/exp_design.png"/></p>
 </section>
 <section id="trial-structure">
 <h2>Trial Structure<a class="headerlink" href="#trial-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#trial-structure'"><span>#</span></a></h2>
-<p>TODO: add trial structure image and explanation.</p>
+<p>Each participant is presented with a practice article consisting of two trials followed by a 10-article batch with 54 experimental trials. At the beginning of each article, a page with the article’s title is presented. The figure below depicts an example of the pages in a single trial in the Hunting and Gathering regimes. Pages presented only in the Hunting regime are depicted in green.</p>
+<p><img alt="Trial Structure" src="docs/source/_static/trial_slides.png"/></p>
 </section>
 <section id="obtaining-the-data">
 <h2>Obtaining the Data<a class="headerlink" href="#obtaining-the-data" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#obtaining-the-data'"><span>#</span></a></h2>
 <p>Data is not yet available. Download instructions will be updated here.</p>
 <p>We provide the possibility to download the entire dataset, or any of four sub-corpora:</p>
 <ol class="arabic simple">
-<li><p>Ordinary reading (download this data if you are interested in a general purpose eyetrackng dataset)</p></li>
+<li><p>Ordinary reading (download this data if you are interested in a general purpose eyetracking dataset)</p></li>
 <li><p>Information seeking</p></li>
 <li><p>Repeated reading</p></li>
 <li><p>Repeated reading during information seeking</p></li>
@@ -211,23 +219,36 @@ OneStop has eye movement recordings from 360 participants over 2.6 million word 
 </ol>
 </section>
 </section>
+<section id="running-the-analyses">
+<h3>Running the Analyses<a class="headerlink" href="#running-the-analyses" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#running-the-analyses'"><span>#</span></a></h3>
+<p>TODO Fill in</p>
+</section>
 </section>
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#documentation'"><span>#</span></a></h2>
+<section id="variables">
+<h3>Variables<a class="headerlink" href="#variables" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#variables'"><span>#</span></a></h3>
+<p>The dataset contains three types of variables.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="variables.html"><span class="std std-doc">Variables</span></a> Description of the variables in the dataset.</p></li>
+<li><p>The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper.</p></li>
+<li><p>The variables included in the Session Summary file are provided in Table 3.</p></li>
+<li><p>The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.</p></li>
 </ul>
-
-<ul class="simple">
-<li><p><a class="reference internal" href="technical_setup.html"><span class="std std-doc">Technical Setup</span></a> Information on the technical setup of the experiment and the experiment builder.</p></li>
-<li><p><a class="reference internal" href="known_issues.html"><span class="std std-doc">Known Issues</span></a> Known issues with the dataset.</p></li>
-</ul>
+</section>
+<section id="technical-setup">
+<h3>Technical Setup<a class="headerlink" href="#technical-setup" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#technical-setup'"><span>#</span></a></h3>
+<p>See Section “Eye-tracking Setup, Text Presentation and Calibration” in the onestop paper.</p>
+</section>
+<section id="known-issues">
+<h3>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#known-issues'"><span>#</span></a></h3>
+<p>See known issues with the dataset <a class="reference internal" href="known_issues.html"><span class="std std-doc">here</span></a>.</p>
+</section>
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#citation'"><span>#</span></a></h2>
-<p>Paper: TODO</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>@article<span class="o">{</span>TODO,
-<span class="w">  </span><span class="nv">title</span><span class="o">={</span>TODO<span class="o">}</span>,
+<p>Paper: OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes (TODO Add link)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>@article<span class="o">{</span>Berzak2024OneStop,
+<span class="w">  </span><span class="nv">title</span><span class="o">={</span>OneStop:<span class="w"> </span>A<span class="w"> </span><span class="m">360</span>-Participant<span class="w"> </span>English<span class="w"> </span>Eye-Tracking<span class="w"> </span>Dataset<span class="w"> </span>with<span class="w"> </span>Different<span class="w"> </span>Reading<span class="w"> </span>Regimes<span class="o">}</span>,
 <span class="w">  </span><span class="nv">author</span><span class="o">={</span>TODO<span class="o">}</span>,
 <span class="w">  </span><span class="nv">journal</span><span class="o">={</span>TODO<span class="o">}</span>,
 <span class="w">  </span><span class="nv">year</span><span class="o">={</span>TODO<span class="o">}</span>,
@@ -249,8 +270,8 @@ OneStop has eye movement recordings from 360 participants over 2.6 million word 
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
 <div class="ml-auto">
-<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="variables.html">
-        Variables
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="known_issues.html">
+        Known Issues
         <svg class="ml-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 <polyline points="9 18 15 12 9 6"></polyline>
 </svg>
@@ -272,9 +293,15 @@ OneStop has eye movement recordings from 360 participants over 2.6 million word 
 <li><a :data-current="activeSection === '#setup'" class="reference internal" href="#setup">Setup</a></li>
 </ul>
 </li>
+<li><a :data-current="activeSection === '#running-the-analyses'" class="reference internal" href="#running-the-analyses">Running the Analyses</a></li>
 </ul>
 </li>
-<li><a :data-current="activeSection === '#documentation'" class="reference internal" href="#documentation">Documentation</a></li>
+<li><a :data-current="activeSection === '#documentation'" class="reference internal" href="#documentation">Documentation</a><ul>
+<li><a :data-current="activeSection === '#variables'" class="reference internal" href="#variables">Variables</a></li>
+<li><a :data-current="activeSection === '#technical-setup'" class="reference internal" href="#technical-setup">Technical Setup</a></li>
+<li><a :data-current="activeSection === '#known-issues'" class="reference internal" href="#known-issues">Known Issues</a></li>
+</ul>
+</li>
 <li><a :data-current="activeSection === '#citation'" class="reference internal" href="#citation">Citation</a></li>
 <li><a :data-current="activeSection === '#license'" class="reference internal" href="#license">License</a></li>
 </ul>
@@ -294,5 +321,7 @@ OneStop has eye movement recordings from 360 participants over 2.6 million word 
 <script src="_static/doctools.js?v=888ff710"></script>
 <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="_static/theme.js?v=40b7bc71"></script>
+<script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>
