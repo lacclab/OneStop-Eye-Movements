@@ -40,7 +40,7 @@ Data is not yet available. Download instructions will be updated here.
 
 We provide the possibility to download the entire dataset, or any of four sub-corpora:
 
-1. Ordinary reading (download this data if you are interested in a general purpose eyetrackng dataset)
+1. Ordinary reading (download this data if you are interested in a general purpose eyetracking dataset)
 2. Information seeking
 3. Repeated reading
 4. Repeated reading during information seeking
@@ -128,21 +128,35 @@ The repository is structured as follows:
     python -m spacy download en_core_web_sm
     ```
 
+### Running the Analyses
+
+TODO Fill in
+
 ## Documentation
 
-- [Variables](variables.md) Description of the variables in the dataset.
-<!-- - [Eyetracking Variables](data_variables.md) Description of the variables in the fixations and interest area reports, including variables related to word properties and syntactic annotation.
-- [Metadata Variables](metadata_variables.md) Description of the variables in the participants metadata. -->
-- [Technical Setup](technical_setup.md) Information on the technical setup of the experiment and the experiment builder.
-- [Known Issues](known_issues.md) Known issues with the dataset.
+### Variables
+
+The dataset contains three types of variables.
+
+- The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper.
+- The variables included in the Session Summary file are provided in Table 3.
+- The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.
+
+### Technical Setup
+
+See Section "Eye-tracking Setup, Text Presentation and Calibration" in the onestop paper.
+
+### Known Issues
+
+See known issues with the dataset [here](known_issues.md).
 
 ## Citation
 
-Paper: TODO
+Paper: OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes (TODO Add link)
 
 ```bash
-@article{TODO,
-  title={TODO},
+@article{Berzak2024OneStop,
+  title={OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes},
   author={TODO},
   journal={TODO},
   year={TODO},
