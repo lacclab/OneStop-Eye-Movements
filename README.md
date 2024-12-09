@@ -11,17 +11,28 @@ OneStop has eye movement recordings from 360 participants over 2.6 million word 
 
 ## Key Statistics
 
-TODO: Add table/list with key statistics (from the paper)
+Statistics of publicly available English L1 datasets for passage reading.
+![Key Statistics](docs/source/_static/statistics.png)
+
+ 'RC' (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose broad coverage datasets over passages and individual sentences.
+ 'Words'  is the number words in the textual corpus. Note that differently from the other datasets where each participant reads the entire corpus, in OneStop each participant reads about a third of the corpus, 4225.15 ($SD = 148.9$) words on average.
+ 'Words Recorded' is the number of word tokens for which eye-tracking data was collected.
+ 'NA': data not available.
+ Standard deviation in parentheses.
+$^{*}$ In 5,283 additional tasks in CELER (78 per participant), participants are required to answer whether a given word appeared in the sentence.
+$^{**}$ In 390 additional tasks in ZuCo, participants are asked to determine whether the sentence contains a specific semantic relation.
 
 ## Experiment Structure
 
 There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.  
 
-![Experiment Design](docs/source/_static/exp_design.png)
+![OneStop Experiment Design](docs/source/_static/exp_design.png)
 
 ## Trial Structure
 
-TODO: add trial structure image and explanation.
+Each participant is presented with a practice article consisting of two trials followed by a 10-article batch with 54 experimental trials. At the beginning of each article, a page with the article’s title is presented. The figure below depicts an example of the pages in a single trial in the Hunting and Gathering regimes. Pages presented only in the Hunting regime are depicted in green.
+
+![Trial Structure](docs/source/_static/trial_slides.png)
 
 ## Obtaining the Data
 
