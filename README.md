@@ -42,7 +42,7 @@ $^{**}$ In 390 additional tasks in ZuCo, participants are asked to determine whe
 
 There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.  
 
-![OneStop Experiment Design](docs/source/_static/exp_design.png)
+![OneStop Experiment Design](_static/exp_design.png)
 
 ## Trial Structure
 
