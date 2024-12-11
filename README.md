@@ -11,12 +11,12 @@ OneStop has eye movement recordings from 360 participants over 2.6 million word 
 
 OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.
 
-![OneStop Overview](docs/source/_static/overview.png)
+![OneStop Overview](_static/overview.png)
 
 ### Reading Regimes
 
 In ordinary reading, participants read the text as they would in a typical reading task. In information seeking, participants are given a question before reading the text as well.
-![Reading Goals Diagram](docs/source/_static/reading_goals.png)
+![Reading Goals Diagram](_static/reading_goals.png)
 
 ### Previous Exposure
 
@@ -28,7 +28,7 @@ Then, in 'Repeated Reading', two of the previous articles are read again.
 ## Key Statistics
 
 Statistics of publicly available English L1 datasets for passage reading.
-![Key Statistics](docs/source/_static/statistics.png)
+![Key Statistics](_static/statistics.png)
 
  'RC' (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose broad coverage datasets over passages and individual sentences.
  'Words'  is the number words in the textual corpus. Note that differently from the other datasets where each participant reads the entire corpus, in OneStop each participant reads about a third of the corpus, 4225.15 ($SD = 148.9$) words on average.
@@ -42,13 +42,13 @@ $^{**}$ In 390 additional tasks in ZuCo, participants are asked to determine whe
 
 There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.  
 
-![OneStop Experiment Design](docs/source/_static/exp_design.png)
+![OneStop Experiment Design](_static/exp_design.png)
 
 ## Trial Structure
 
 Each participant is presented with a practice article consisting of two trials followed by a 10-article batch with 54 experimental trials. At the beginning of each article, a page with the article’s title is presented. The figure below depicts an example of the pages in a single trial in the Hunting and Gathering regimes. Pages presented only in the Hunting regime are depicted in green.
 
-![Trial Structure](docs/source/_static/trial_slides.png)
+![Trial Structure](_static/trial_slides.png)
 
 ## Obtaining the Data
 
