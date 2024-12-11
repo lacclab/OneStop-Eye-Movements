@@ -105,7 +105,20 @@
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#overview'"><span>#</span></a></h2>
 <p>OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
-OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension. OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.</p>
+OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.</p>
+<p>OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.</p>
+<p><img alt="OneStop Overview" src="docs/source/_static/overview.png"/></p>
+<section id="reading-regimes">
+<h3>Reading Regimes<a class="headerlink" href="#reading-regimes" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reading-regimes'"><span>#</span></a></h3>
+<p>In ordinary reading, participants read the text as they would in a typical reading task. In information seeking, participants are given a question before reading the text as well.
+<img alt="Reading Goals Diagram" src="docs/source/_static/reading_goals.png"/></p>
+</section>
+<section id="previous-exposure">
+<h3>Previous Exposure<a class="headerlink" href="#previous-exposure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#previous-exposure'"><span>#</span></a></h3>
+<p>Participants first read  10 articles in ‘First Reading’.
+Then, in ‘Repeated Reading’, two of the previous articles are read again.</p>
+<p><img alt="Previous Exposure Diagram" src="docs/source/_static/prev_exposure.png"/></p>
+</section>
 </section>
 <section id="key-statistics">
 <h2>Key Statistics<a class="headerlink" href="#key-statistics" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-statistics'"><span>#</span></a></h2>
@@ -281,7 +294,11 @@ Standard deviation in parentheses.
 <div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
 <li><a :data-current="activeSection === '#example'" class="reference internal" href="#example">Example</a></li>
-<li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a></li>
+<li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a><ul>
+<li><a :data-current="activeSection === '#reading-regimes'" class="reference internal" href="#reading-regimes">Reading Regimes</a></li>
+<li><a :data-current="activeSection === '#previous-exposure'" class="reference internal" href="#previous-exposure">Previous Exposure</a></li>
+</ul>
+</li>
 <li><a :data-current="activeSection === '#key-statistics'" class="reference internal" href="#key-statistics">Key Statistics</a></li>
 <li><a :data-current="activeSection === '#experiment-structure'" class="reference internal" href="#experiment-structure">Experiment Structure</a></li>
 <li><a :data-current="activeSection === '#trial-structure'" class="reference internal" href="#trial-structure">Trial Structure</a></li>
