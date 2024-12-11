@@ -7,12 +7,11 @@ from juliacall import Main as jl, convert as jlconvert  # type: ignore
 # jl.seval("import Pkg")
 # jl.seval('Pkg.add("MixedModels")')
 # jl.seval('Pkg.add("DataFrames")')
+# jl.seval('Pkg.add("Distributions")')
 
 jl.seval("using MixedModels")
 jl.seval("using DataFrames")
 jl.seval("using Distributions")
-jl.seval("using DataFrames")
-
 
 jl.seval(
     """
