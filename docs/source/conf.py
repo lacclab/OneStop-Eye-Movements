@@ -19,7 +19,6 @@ release = "1.0"
 # ones.
 extensions = [
     "myst_parser",
-    "sphinx.ext.imgmath",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -91,11 +90,6 @@ html_static_path = ["_static"]
 html_extra_path = ["_static"]
 html_logo = "_static/lacc_logo.jpeg"
 
-import os
-# Create symlink from docs/source/_static to _static if it doesn't exist
-if not os.path.exists('_static'):
-    os.symlink('docs/source/_static', '_static')
-
 
 myst_enable_extensions = [
     "colon_fence",
@@ -103,22 +97,3 @@ myst_enable_extensions = [
     "amsmath",
     "html_image",
 ]
-
-# Allow non-local images
-suppress_warnings = ['image.nonlocal_uri']
-
-# Enable relative image paths in included content
-myst_update_mathjax = False
-myst_commonmark_only = False
-
-def setup(app):
-    if os.path.exists('../../README.md'):
-        with open('../../README.md', 'r') as f:
-            content = f.read()
-            # Copy any images referenced in README to _static
-            import re
-            import shutil
-            image_paths = re.findall(r'!\[.*?\]\((.*?)\)', content)
-            for path in image_paths:
-                if os.path.exists(path):
-                    shutil.copy2(path, '_static/')
