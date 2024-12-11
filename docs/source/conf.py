@@ -88,4 +88,13 @@ html_static_path = ["_static"]
 html_extra_path = ["_static"]
 html_logo = "_static/lacc_logo.jpeg"
 
+import os
+# Create symlink from docs/source/_static to _static if it doesn't exist
+if not os.path.exists('_static'):
+    os.symlink('docs/source/_static', '_static')
+
+
 myst_enable_extensions = ["colon_fence", "dollarmath", "amsmath", "html_image"]
+
+# Allow non-local images
+suppress_warnings = ['image.nonlocal_uri']
