@@ -7,7 +7,23 @@
 ## Overview
 
 OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
-OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension. OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.
+OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.
+
+OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.
+
+![OneStop Overview](docs/source/_static/overview.png)
+
+### Reading Regimes
+
+In ordinary reading, participants read the text as they would in a typical reading task. In information seeking, participants are given a question before reading the text as well.
+![Reading Goals Diagram](docs/source/_static/reading_goals.png)
+
+### Previous Exposure
+
+Participants first read  10 articles in 'First Reading'.
+Then, in 'Repeated Reading', two of the previous articles are read again.
+
+![Previous Exposure Diagram](docs/source/_static/prev_exposure.png)
 
 ## Key Statistics
 
