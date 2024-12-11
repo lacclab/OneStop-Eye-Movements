@@ -3,6 +3,7 @@ title: Welcome to OneStop's documentation!
 ---
 
 ```{include} ../../README.md
+:relative-images:
 ```
 
 ```{toctree}

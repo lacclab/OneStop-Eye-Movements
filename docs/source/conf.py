@@ -17,7 +17,10 @@ release = "1.0"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["myst_parser"]
+extensions = [
+    "myst_parser",
+    "sphinx.ext.imgmath",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -94,7 +97,28 @@ if not os.path.exists('_static'):
     os.symlink('docs/source/_static', '_static')
 
 
-myst_enable_extensions = ["colon_fence", "dollarmath", "amsmath", "html_image"]
+myst_enable_extensions = [
+    "colon_fence",
+    "dollarmath",
+    "amsmath",
+    "html_image",
+]
 
 # Allow non-local images
 suppress_warnings = ['image.nonlocal_uri']
+
+# Enable relative image paths in included content
+myst_update_mathjax = False
+myst_commonmark_only = False
+
+def setup(app):
+    if os.path.exists('../../README.md'):
+        with open('../../README.md', 'r') as f:
+            content = f.read()
+            # Copy any images referenced in README to _static
+            import re
+            import shutil
+            image_paths = re.findall(r'!\[.*?\]\((.*?)\)', content)
+            for path in image_paths:
+                if os.path.exists(path):
+                    shutil.copy2(path, '_static/')
