@@ -86,7 +86,7 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["../../images"]
+# html_static_path = ["../../images"]
 html_extra_path = ["_static"]
 html_logo = "_static/lacc_logo.jpeg"
 
@@ -97,3 +97,19 @@ myst_enable_extensions = [
     "amsmath",
     "html_image",
 ]
+
+# Change static paths to be relative to source directory
+html_static_path = ["_static", "_images"]
+
+# Copy images to build
+import os
+import shutil
+
+# Create _images dir if it doesn't exist
+if not os.path.exists("_images"):
+    os.makedirs("_images")
+
+# Copy root images to _images
+for img in os.listdir("../../images"):
+    if img.endswith((".png", ".jpg", ".jpeg", ".gif")):
+        shutil.copy2(f"../../images/{img}", f"_images/{img}")
