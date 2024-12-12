@@ -86,9 +86,9 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["../../images"]
-html_extra_path = ["_static"]
-html_logo = "_static/lacc_logo.jpeg"
+html_static_path = ["images"]
+html_extra_path = ["images"]
+html_logo = "images/lacc_logo.jpeg"
 
 
 myst_enable_extensions = [
