@@ -6,10 +6,43 @@
 
 ## Overview
 
-OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
+OneStop One Movements (in short OneStop) is a large-scale corpus of eye movements in reading with 360 participants and over 2.6 million word tokens.
+
+The dataset contains four sub-corpora, one for each of the following reading regimes:
+
+* Ordinary reading
+* Information seeking
+* Repeated reading
+* Information seeking in repeated reading
+
+We provide the entire corpus, as well as each of the sub-corpora separately. If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
+
+<!-- OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
 OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.
 
-OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text.
+OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text. -->
+
+### Key Features
+
+#### Statistics
+
+* **360** English native (L1) speakers
+* Over **2.6 million** word tokens
+
+#### Texts and Reading Comprehension Materials
+
+* 30 articles with 162 paragraphs in English from the Guardian (from [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" height="16" style="display:inline" alt="HuggingFace Logo"> OneStopQA](https://aclanthology.org/2020.acl-main.507/))
+* Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version
+* Extensively piloted reading comprehension materials from [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" height="16" style="display:inline" alt="HuggingFace Logo"> OneStopQA](https://huggingface.co/datasets/malmaud/onestop_qa)
+  * 3 multiple-choice reading comprehension questions per paragraph
+  * 486 reading comprehension questions in total
+  * Auxiliary text annotations according to the [STARC](https://aclanthology.org/2020.acl-main.507/) (structured annotations for reading comprehension) annotation guidelines
+
+#### Controlled experimental manipulations
+
+1. Reading regime (ordinary reading, information seeking, repeated reading, information seeking in repeated reading)
+2. Paragraph difficulty level (Advanced or Elementary)
+3. Question identity (one of three possible questions for each paragraph)
 
 ![OneStop Overview](images/overview.png)
 
@@ -97,9 +130,9 @@ dataset.download()
 
 The repository is structured as follows:
 
-- `data/`: Metadata files.
-- `docs/`: Documentation source files.
-- `src/`: Scripts for preprocessing the data and reproducing the analyses.
+* `data/`: Metadata files.
+* `docs/`: Documentation source files.
+* `src/`: Scripts for preprocessing the data and reproducing the analyses.
 
 ## Reproducing the Analyses in TODO: Add paper link
 
@@ -107,7 +140,7 @@ The repository is structured as follows:
 
 #### Prerequisites
 
-- [Mamba](https://github.com/conda-forge/miniforge#mambaforge) or Conda
+* [Mamba](https://github.com/conda-forge/miniforge#mambaforge) or Conda
 
 #### Setup
 
@@ -154,9 +187,9 @@ TODO Fill in
 
 The dataset contains three types of variables.
 
-- The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper.
-- The variables included in the Session Summary file are provided in Table 3.
-- The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.
+* The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper.
+* The variables included in the Session Summary file are provided in Table 3.
+* The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.
 
 ### Technical Setup
 
@@ -188,4 +221,3 @@ Paper: OneStop: A 360-Participant English Eye-Tracking Dataset with Different Re
 The data and code are licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
 ![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png)
-
