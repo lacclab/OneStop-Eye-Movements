@@ -15,6 +15,8 @@ The dataset contains four sub-corpora, one for each of the following reading reg
 * Repeated reading
 * Information seeking in repeated reading
 
+![OneStop Overview](images/overview.png)
+
 We provide the entire corpus, as well as each of the sub-corpora separately. If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
 
 <!-- OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
@@ -43,8 +45,6 @@ OneStop includes multiple reading regimes: ordinary reading, information seeking
 1. Reading regime (ordinary reading, information seeking, repeated reading, information seeking in repeated reading)
 2. Paragraph difficulty level (Advanced or Elementary)
 3. Question identity (one of three possible questions for each paragraph)
-
-![OneStop Overview](images/overview.png)
 
 ### Reading Regimes
 
