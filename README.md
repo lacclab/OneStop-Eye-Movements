@@ -6,7 +6,7 @@
 
 ## Overview
 
-OneStop One Movements (in short OneStop) is a large-scale corpus of eye movements in reading with 360 participants and over 2.6 million word tokens.
+OneStop One Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 participants** and over **2.6 million word tokens**, collected using an EyeLink 1000 Plus eyetracker.
 
 The dataset contains four sub-corpora, one for each of the following reading regimes:
 
@@ -17,69 +17,43 @@ The dataset contains four sub-corpora, one for each of the following reading reg
 
 ![OneStop Overview](images/overview.png)
 
-We provide the entire corpus, as well as each of the sub-corpora separately. If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
+We provide the entire corpus, as well as each of the sub-corpora separately. 
+If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
 
-<!-- OneStop Eye Movements is a large-scale corpus of eye movements in reading, in which native (L1) speakers read newswire texts in English and answer reading comprehension questions.
-OneStop has eye movement recordings from 360 participants over 2.6 million word tokens. The eye movement data was collected over extensively piloted reading comprehension materials comprising 486 reading comprehension questions and auxiliary text annotations geared towards behavioral analyses of reading comprehension.
-
-OneStop includes multiple reading regimes: ordinary reading, information seeking, repeated reading of the same text, and reading simplified text. -->
-
-### Key Features
-
-#### Statistics
-
-* **360** English native (L1) speakers
-* Over **2.6 million** word tokens
+## Key Features
 
 #### Texts and Reading Comprehension Materials
 
-* 30 articles with 162 paragraphs in English from the Guardian (from 🤗[OneStopQA](https://aclanthology.org/2020.acl-main.507/))
-* Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version
-* Extensively piloted reading comprehension materials from 🤗[OneStopQA](https://huggingface.co/datasets/malmaud/onestop_qa)
-  * 3 multiple-choice reading comprehension questions per paragraph
-  * 486 reading comprehension questions in total
-  * Auxiliary text annotations according to the [STARC](https://aclanthology.org/2020.acl-main.507/) (structured annotations for reading comprehension) annotation guidelines
+* Taken from the OneStopQA dataset ([Paper](https://aclanthology.org/2020.acl-main.507/) [Data 🤗](https://huggingface.co/datasets/malmaud/onestop_qa))
+* 30 articles with 162 paragraphs in English from the Guardian.
+* Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version.
+* Extensively piloted reading comprehension questions based on the [STARC](https://aclanthology.org/2020.acl-main.507/) (Structured Annotations for Reading Comprehension) annotation framework.
+  * 3 multiple-choice reading comprehension questions per paragraph.
+  * 486 reading comprehension questions in total.
+  * Auxiliary text annotations for answer choices.
+
+#### Statistics
+
+Statistics of OneStop and other public broad-coverage eyetracking datasets for English L1.
+![Key Statistics](images/statistics.png)
+ 'RC' (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages and individual sentences.
+ 'Words'  is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which eye-tracking data was collected. 'NA': data not available.
 
 #### Controlled experimental manipulations
 
-1. Reading regime (ordinary reading, information seeking, repeated reading, information seeking in repeated reading)
-2. Paragraph difficulty level (Advanced or Elementary)
-3. Question identity (one of three possible questions for each paragraph)
+1. **Reading goal**: ordinary reading or information seeking.
+2. **Prior exposure to the text**: first reading or repeated reading.
+3. **Paragraph difficulty level**: Advanced (original Guardian article) or Elementary (Simplified).
+4. **Question identity**: one of three possible questions for each paragraph.
 
-### Reading Regimes
-
-In ordinary reading, participants read the text as they would in a typical reading task. In information seeking, participants are given a question before reading the text as well.
-![Reading Goals Diagram](images/reading_goals.png)
-
-### Previous Exposure
-
-Participants first read  10 articles in 'First Reading'.
-Then, in 'Repeated Reading', two of the previous articles are read again.
-
-![Previous Exposure Diagram](images/prev_exposure.png)
-
-## Key Statistics
-
-Statistics of publicly available English L1 datasets for passage reading.
-![Key Statistics](images/statistics.png)
-
- 'RC' (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose broad coverage datasets over passages and individual sentences.
- 'Words'  is the number words in the textual corpus. Note that differently from the other datasets where each participant reads the entire corpus, in OneStop each participant reads about a third of the corpus, 4225.15 ($SD = 148.9$) words on average.
- 'Words Recorded' is the number of word tokens for which eye-tracking data was collected.
- 'NA': data not available.
- Standard deviation in parentheses.
-$^{*}$ In 5,283 additional tasks in CELER (78 per participant), participants are required to answer whether a given word appeared in the sentence.
-$^{**}$ In 390 additional tasks in ZuCo, participants are asked to determine whether the sentence contains a specific semantic relation.
 
 ## Experiment Structure
-
-There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.  
 
 ![OneStop Experiment Design](images/exp_design.png)
 
 ## Trial Structure
 
-Each participant is presented with a practice article consisting of two trials followed by a 10-article batch with 54 experimental trials. At the beginning of each article, a page with the article’s title is presented. The figure below depicts an example of the pages in a single trial in the Hunting and Gathering regimes. Pages presented only in the Hunting regime are depicted in green.
+Pages presented only in the information seeking regime are depicted in green.
 
 ![Trial Structure](images/trial_slides.png)
 
