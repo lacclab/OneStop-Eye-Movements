@@ -1,5 +1,7 @@
 # OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes
 
+[📄 Paper (Coming Soon)](https://arxiv.org) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data (Coming Soon)](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
+
 ## Example
 
 ![Trial GIF](images/trial.gif)
@@ -17,7 +19,7 @@ The dataset contains four sub-corpora, one for each of the following reading reg
 
 ![OneStop Overview](images/overview.png)
 
-We provide the entire corpus, as well as each of the sub-corpora separately. 
+We provide the entire corpus, as well as each of the sub-corpora separately.
 If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
 
 ## Key Features
@@ -45,7 +47,6 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 2. **Prior exposure to the text**: first reading or repeated reading.
 3. **Paragraph difficulty level**: Advanced (original Guardian article) or Elementary (Simplified).
 4. **Question identity**: one of three possible questions for each paragraph.
-
 
 ## Experiment Structure
 
