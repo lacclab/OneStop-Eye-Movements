@@ -104,7 +104,7 @@
 </section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#overview'"><span>#</span></a></h2>
-<p>OneStop One Movements (in short OneStop) is a large-scale corpus of eye movements in reading with 360 participants and over 2.6 million word tokens.</p>
+<p>OneStop One Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with <strong>360 participants</strong> and over <strong>2.6 million word tokens</strong>, collected using an EyeLink 1000 Plus eyetracker.</p>
 <p>The dataset contains four sub-corpora, one for each of the following reading regimes:</p>
 <ul class="simple">
 <li><p>Ordinary reading</p></li>
@@ -113,72 +113,50 @@
 <li><p>Information seeking in repeated reading</p></li>
 </ul>
 <p><img alt="OneStop Overview" src="_images/overview.png"/></p>
-<p>We provide the entire corpus, as well as each of the sub-corpora separately. If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.</p>
-
-<section id="key-features">
-<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-features'"><span>#</span></a></h3>
-<section id="statistics">
-<h4>Statistics<a class="headerlink" href="#statistics" title="Link to this heading"><span>#</span></a></h4>
-<ul class="simple">
-<li><p><strong>360</strong> English native (L1) speakers</p></li>
-<li><p>Over <strong>2.6 million</strong> word tokens</p></li>
-</ul>
+<p>We provide the entire corpus, as well as each of the sub-corpora separately.
+If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.</p>
 </section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-features'"><span>#</span></a></h2>
 <section id="texts-and-reading-comprehension-materials">
-<h4>Texts and Reading Comprehension Materials<a class="headerlink" href="#texts-and-reading-comprehension-materials" title="Link to this heading"><span>#</span></a></h4>
+<h3>Texts and Reading Comprehension Materials<a class="headerlink" href="#texts-and-reading-comprehension-materials" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#texts-and-reading-comprehension-materials'"><span>#</span></a></h3>
 <ul class="simple">
-<li><p>30 articles with 162 paragraphs in English from the Guardian (from 🤗<a class="reference external" href="https://aclanthology.org/2020.acl-main.507/" rel="nofollow noopener">OneStopQA<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>)</p></li>
-<li><p>Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version</p></li>
-<li><p>Extensively piloted reading comprehension materials from 🤗<a class="reference external" href="https://huggingface.co/datasets/malmaud/onestop_qa" rel="nofollow noopener">OneStopQA<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p>
+<li><p>Taken from the OneStopQA dataset (<a class="reference external" href="https://aclanthology.org/2020.acl-main.507/" rel="nofollow noopener">Paper<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> <a class="reference external" href="https://huggingface.co/datasets/malmaud/onestop_qa" rel="nofollow noopener">Data 🤗<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>)</p></li>
+<li><p>30 articles with 162 paragraphs in English from the Guardian.</p></li>
+<li><p>Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version.</p></li>
+<li><p>Extensively piloted reading comprehension questions based on the <a class="reference external" href="https://aclanthology.org/2020.acl-main.507/" rel="nofollow noopener">STARC<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> (Structured Annotations for Reading Comprehension) annotation framework.</p>
 <ul>
-<li><p>3 multiple-choice reading comprehension questions per paragraph</p></li>
-<li><p>486 reading comprehension questions in total</p></li>
-<li><p>Auxiliary text annotations according to the <a class="reference external" href="https://aclanthology.org/2020.acl-main.507/" rel="nofollow noopener">STARC<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> (structured annotations for reading comprehension) annotation guidelines</p></li>
+<li><p>3 multiple-choice reading comprehension questions per paragraph.</p></li>
+<li><p>486 reading comprehension questions in total.</p></li>
+<li><p>Auxiliary text annotations for answer choices.</p></li>
 </ul>
 </li>
 </ul>
 </section>
+<section id="statistics">
+<h3>Statistics<a class="headerlink" href="#statistics" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#statistics'"><span>#</span></a></h3>
+<p>Statistics of OneStop and other public broad-coverage eyetracking datasets for English L1.
+<img alt="Key Statistics" src="_images/statistics.png"/>
+‘RC’ (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages and individual sentences.
+‘Words’  is the number words in the textual corpus. ‘Words Recorded’ is the number of word tokens for which eye-tracking data was collected. ‘NA’: data not available.</p>
+</section>
 <section id="controlled-experimental-manipulations">
-<h4>Controlled experimental manipulations<a class="headerlink" href="#controlled-experimental-manipulations" title="Link to this heading"><span>#</span></a></h4>
+<h3>Controlled experimental manipulations<a class="headerlink" href="#controlled-experimental-manipulations" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#controlled-experimental-manipulations'"><span>#</span></a></h3>
 <ol class="arabic simple">
-<li><p>Reading regime (ordinary reading, information seeking, repeated reading, information seeking in repeated reading)</p></li>
-<li><p>Paragraph difficulty level (Advanced or Elementary)</p></li>
-<li><p>Question identity (one of three possible questions for each paragraph)</p></li>
+<li><p><strong>Reading goal</strong>: ordinary reading or information seeking.</p></li>
+<li><p><strong>Prior exposure to the text</strong>: first reading or repeated reading.</p></li>
+<li><p><strong>Paragraph difficulty level</strong>: Advanced (original Guardian article) or Elementary (Simplified).</p></li>
+<li><p><strong>Question identity</strong>: one of three possible questions for each paragraph.</p></li>
 </ol>
 </section>
 </section>
-<section id="reading-regimes">
-<h3>Reading Regimes<a class="headerlink" href="#reading-regimes" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reading-regimes'"><span>#</span></a></h3>
-<p>In ordinary reading, participants read the text as they would in a typical reading task. In information seeking, participants are given a question before reading the text as well.
-<img alt="Reading Goals Diagram" src="_images/reading_goals.png"/></p>
-</section>
-<section id="previous-exposure">
-<h3>Previous Exposure<a class="headerlink" href="#previous-exposure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#previous-exposure'"><span>#</span></a></h3>
-<p>Participants first read  10 articles in ‘First Reading’.
-Then, in ‘Repeated Reading’, two of the previous articles are read again.</p>
-<p><img alt="Previous Exposure Diagram" src="_images/prev_exposure.png"/></p>
-</section>
-</section>
-<section id="key-statistics">
-<h2>Key Statistics<a class="headerlink" href="#key-statistics" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-statistics'"><span>#</span></a></h2>
-<p>Statistics of publicly available English L1 datasets for passage reading.
-<img alt="Key Statistics" src="_images/statistics.png"/></p>
-<p>‘RC’ (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose broad coverage datasets over passages and individual sentences.
-‘Words’  is the number words in the textual corpus. Note that differently from the other datasets where each participant reads the entire corpus, in OneStop each participant reads about a third of the corpus, 4225.15 (<span class="math notranslate nohighlight">\(SD = 148.9\)</span>) words on average.
-‘Words Recorded’ is the number of word tokens for which eye-tracking data was collected.
-‘NA’: data not available.
-Standard deviation in parentheses.
-<span class="math notranslate nohighlight">\(^{*}\)</span> In 5,283 additional tasks in CELER (78 per participant), participants are required to answer whether a given word appeared in the sentence.
-<span class="math notranslate nohighlight">\(^{**}\)</span> In 390 additional tasks in ZuCo, participants are asked to determine whether the sentence contains a specific semantic relation.</p>
-</section>
 <section id="experiment-structure">
 <h2>Experiment Structure<a class="headerlink" href="#experiment-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#experiment-structure'"><span>#</span></a></h2>
-<p>There are four primary manipulations in the experiment: the reading goal (information seeking vs ordinary reading), the given question, the difficulty level of the text, and whether the text is presented for the first or the second time.</p>
 <p><img alt="OneStop Experiment Design" src="_images/exp_design.png"/></p>
 </section>
 <section id="trial-structure">
 <h2>Trial Structure<a class="headerlink" href="#trial-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#trial-structure'"><span>#</span></a></h2>
-<p>Each participant is presented with a practice article consisting of two trials followed by a 10-article batch with 54 experimental trials. At the beginning of each article, a page with the article’s title is presented. The figure below depicts an example of the pages in a single trial in the Hunting and Gathering regimes. Pages presented only in the Hunting regime are depicted in green.</p>
+<p>Pages presented only in the information seeking regime are depicted in green.</p>
 <p><img alt="Trial Structure" src="_images/trial_slides.png"/></p>
 </section>
 <section id="obtaining-the-data">
@@ -333,18 +311,13 @@ Standard deviation in parentheses.
 <div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
 <li><a :data-current="activeSection === '#example'" class="reference internal" href="#example">Example</a></li>
-<li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a><ul>
+<li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a></li>
 <li><a :data-current="activeSection === '#key-features'" class="reference internal" href="#key-features">Key Features</a><ul>
-<li><a :data-current="activeSection === '#statistics'" class="reference internal" href="#statistics">Statistics</a></li>
 <li><a :data-current="activeSection === '#texts-and-reading-comprehension-materials'" class="reference internal" href="#texts-and-reading-comprehension-materials">Texts and Reading Comprehension Materials</a></li>
+<li><a :data-current="activeSection === '#statistics'" class="reference internal" href="#statistics">Statistics</a></li>
 <li><a :data-current="activeSection === '#controlled-experimental-manipulations'" class="reference internal" href="#controlled-experimental-manipulations">Controlled experimental manipulations</a></li>
 </ul>
 </li>
-<li><a :data-current="activeSection === '#reading-regimes'" class="reference internal" href="#reading-regimes">Reading Regimes</a></li>
-<li><a :data-current="activeSection === '#previous-exposure'" class="reference internal" href="#previous-exposure">Previous Exposure</a></li>
-</ul>
-</li>
-<li><a :data-current="activeSection === '#key-statistics'" class="reference internal" href="#key-statistics">Key Statistics</a></li>
 <li><a :data-current="activeSection === '#experiment-structure'" class="reference internal" href="#experiment-structure">Experiment Structure</a></li>
 <li><a :data-current="activeSection === '#trial-structure'" class="reference internal" href="#trial-structure">Trial Structure</a></li>
 <li><a :data-current="activeSection === '#obtaining-the-data'" class="reference internal" href="#obtaining-the-data">Obtaining the Data</a></li>
@@ -383,7 +356,5 @@ Standard deviation in parentheses.
 <script src="_static/doctools.js?v=888ff710"></script>
 <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="_static/theme.js?v=40b7bc71"></script>
-<script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>
