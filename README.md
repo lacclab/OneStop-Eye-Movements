@@ -31,9 +31,9 @@ OneStop includes multiple reading regimes: ordinary reading, information seeking
 
 #### Texts and Reading Comprehension Materials
 
-* 30 articles with 162 paragraphs in English from the Guardian (from [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" height="16" style="display:inline" alt="HuggingFace Logo"> OneStopQA](https://aclanthology.org/2020.acl-main.507/))
+* 30 articles with 162 paragraphs in English from the Guardian (from [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" height="16" width="16" style="display:inline; max-height:16px;" alt="HuggingFace Logo"> OneStopQA](https://aclanthology.org/2020.acl-main.507/))
 * Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version
-* Extensively piloted reading comprehension materials from [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" height="16" style="display:inline" alt="HuggingFace Logo"> OneStopQA](https://huggingface.co/datasets/malmaud/onestop_qa)
+* Extensively piloted reading comprehension materials from [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" height="16" width="16" style="display:inline; max-height:16px;" alt="HuggingFace Logo"> OneStopQA](https://huggingface.co/datasets/malmaud/onestop_qa)
   * 3 multiple-choice reading comprehension questions per paragraph
   * 486 reading comprehension questions in total
   * Auxiliary text annotations according to the [STARC](https://aclanthology.org/2020.acl-main.507/) (structured annotations for reading comprehension) annotation guidelines
