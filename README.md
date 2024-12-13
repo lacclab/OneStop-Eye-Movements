@@ -28,12 +28,13 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 
 * Taken from the OneStopQA dataset ([Paper](https://aclanthology.org/2020.acl-main.507/) [Data 🤗](https://huggingface.co/datasets/malmaud/onestop_qa))
 * 30 articles with 162 paragraphs in English from the Guardian.
+* Annotations of part-of-speech tags, syntactic dependency trees, word frequency and word surprisal.
 * Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version.
 * Extensively piloted reading comprehension questions based on the [STARC](https://aclanthology.org/2020.acl-main.507/) (Structured Annotations for Reading Comprehension) annotation framework.
   * 3 multiple-choice reading comprehension questions per paragraph.
   * 486 reading comprehension questions in total.
   * Auxiliary text annotations for answer choices.
-
+  
 #### Statistics
 
 Statistics of OneStop and other public broad-coverage eyetracking datasets for English L1.
