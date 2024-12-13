@@ -41,14 +41,14 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 | Category | Dataset | Subjs | Age | Words | Words Recorded | Qs | Subjs per Q | Qs per Subj |
 |----------|---------|-------|-----|-------|---------------|-----|-------------|-------------|
 | **RC** | OneStop | 360 | 22.8±5.6 | 19,425 (Adv)<br> 15,737 (Ele)<br>19,221 (QA) | 2,632,159 (Parag)<br>1,311,752 (QA) | 486 | 20 | 54 |
-| | SB-SAT L1 [(Ahn et al., 2020)](https://dl.acm.org/doi/10.1145/3379156.3391335) | 66 | NA | 2,539 | 167,574 | 20 | 95 | 20 |
-| **Passage** | Dundee [(Underwood et al., 2004)] | 10 | NA | 51,502 | 307,214 | NA | 10 | NA |
-| | GECO L1 [(Cop et al., 2017)](https://link.springer.com/article/10.3758/s13428-016-0734-0) | 14 | 21.8±5.6 | 56,410 | 774,015 | NA | 14 | NA |
-| | Provo [(Luke & Christianson, 2018)](https://link.springer.com/article/10.3758/s13428-017-0908-4) | 84 | NA | 2,689 | 225,624 | 0 | 0 | 0 |
-| | MECO En [(Kuperman & Schotter, 2022)](https://link.springer.com/article/10.3758/s13428-021-01772-6) | 46 | 21.0±2.2 | 2,109 | 83,246 | 48 | 46 | 48 |
-| **Sent.** | [CELER L1 (Shen et al., 2022)](https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00054/110717/CELER-A-365-Participant-Corpus-of-Eye-Movements-in) | 69 | 26.3±6.7 | 61,233 | 122,423 | 78 | 69 | 78 |
-| | ZuCo [(Hollenstein et al., 2020)](https://aclanthology.org/2020.lrec-1.18) | 18 | 34.3±8.0 | 15,138 | 272,484 | 42 | 18 | 42 |
-| | UCL [(Frank et al., 2013)](https://link.springer.com/article/10.3758/s13428-012-0313-y) | 43 | 25.8±7.5 | 1,932 | 81,144 | 110 | 43 | 110 |
+| | [SB-SAT L1](https://dl.acm.org/doi/10.1145/3379156.3391335) | 66 | NA | 2,539 | 167,574 | 20 | 95 | 20 |
+| **Passage** | Dundee | 10 | NA | 51,502 | 307,214 | NA | 10 | NA |
+| | [GECO L1](https://link.springer.com/article/10.3758/s13428-016-0734-0) | 14 | 21.8±5.6 | 56,410 | 774,015 | NA | 14 | NA |
+| | [Provo](https://link.springer.com/article/10.3758/s13428-017-0908-4) | 84 | NA | 2,689 | 225,624 | 0 | 0 | 0 |
+| | [MECO En](https://link.springer.com/article/10.3758/s13428-021-01772-6) | 46 | 21.0±2.2 | 2,109 | 83,246 | 48 | 46 | 48 |
+| **Sent.** | [CELER L1](https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00054/110717/CELER-A-365-Participant-Corpus-of-Eye-Movements-in) | 69 | 26.3±6.7 | 61,233 | 122,423 | 78 | 69 | 78 |
+| | [ZuCo](https://aclanthology.org/2020.lrec-1.18) | 18 | 34.3±8.0 | 15,138 | 272,484 | 42 | 18 | 42 |
+| | [UCL](https://link.springer.com/article/10.3758/s13428-012-0313-y) | 43 | 25.8±7.5 | 1,932 | 81,144 | 110 | 43 | 110 |
 
 <!-- ![Key Statistics](images/statistics.png) -->
  'RC' (Reading Comprehension) are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages and individual sentences.
