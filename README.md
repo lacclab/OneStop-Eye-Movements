@@ -51,15 +51,16 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 | | [UCL](https://link.springer.com/article/10.3758/s13428-012-0313-y) | 43 | 25.8±7.5 | 1,932 | 81,144 | 110 | 43 | 110 |
 
 <!-- ![Key Statistics](images/statistics.png) -->
- 'Reading Comprehension' are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages and individual sentences.
- 'Words'  is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which eye-tracking data was collected. 'NA': data not available.
+ 'Reading Comprehension' are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
+ 'Words' is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which eye-tracking data was collected. 'NA': data not available.
 
 #### Controlled experimental manipulations
 
 1. **Reading goal**: ordinary reading or information seeking.
 2. **Prior exposure to the text**: first reading or repeated reading.
-3. **Paragraph difficulty level**: Advanced (original Guardian article) or Elementary (Simplified).
-4. **Question identity**: one of three possible questions for each paragraph.
+3. **Amount of textual material between first and repeated reading**: consecutive or non-consecutive article presentation (2-9 articles).
+4. **Paragraph difficulty level**: original Guardian article (Advanced) or a simplified (Elementary).
+5. **Question identity**: one of three possible questions for each paragraph.
 
 ## Experiment Structure
 
@@ -80,7 +81,7 @@ We provide the possibility to download the entire dataset, or any of four sub-co
 1. Ordinary reading (download this data if you are interested in a general purpose eyetracking dataset)
 2. Information seeking
 3. Repeated reading
-4. Repeated reading during information seeking
+4. Information seeking in repeated reading
 
 > There are several ways to obtain the data
 
