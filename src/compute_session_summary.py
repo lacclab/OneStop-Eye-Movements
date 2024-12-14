@@ -127,7 +127,7 @@ def create_full_report(df, metadata, survey):
 
 
 if __name__ == "__main__":
-    overwrite = False
+    overwrite = True
     print("Preprocessing data")
     # Load the metadata spreadsheet
     metadata = utils.load_df(path=config.METADATA_PATH)
