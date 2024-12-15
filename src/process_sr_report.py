@@ -15,11 +15,13 @@ import pandas as pd
 import spacy
 import torch
 from tap import Tap
-from text_metrics.merge_metrics_with_eye_movements import add_metrics_to_eye_tracking
+from text_metrics.merge_metrics_with_eye_movements import (
+    add_metrics_to_eye_tracking,
+)
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
 
-#TODO Doesn't work, add to setup
+# TODO Doesn't work, add to setup
 try:
     _ = spacy.load("en_core_web_sm")
 except IOError:
@@ -64,7 +66,6 @@ class ArgsParser(Tap):
         subject_column (List[str]): column that defines a subject
         add_prolific_qas_distribution (bool): whether to add question difficulty data from prolific
         qas_prolific_distribution_path (Path | None): Path to question difficulty data from prolific
-        add_question_in_prompt (bool): whether to add the question in the prompt
         mode (Mode): whether to use interest area or fixation data
     """
 
@@ -243,7 +244,6 @@ class ArgsParser(Tap):
         False  # whether to add question difficulty data from prolific
     )
     qas_prolific_distribution_path: Path | None = None
-    add_question_in_prompt: bool = False  # whether to add the question in the prompt
     mode: Mode = Mode.IA  # whether to use interest area or fixation data
     device: str = (
         "cuda" if torch.cuda.is_available() else "cpu"
@@ -735,15 +735,23 @@ def filter_columns(df: pd.DataFrame, base_cols: List[str]) -> pd.DataFrame:
 
 def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     logger.info("Adding surprisal, frequency, and word length metrics...")
+    textual_item_key_cols = [
+        "paragraph_id",
+        "batch",
+        "article_id",
+        "level",
+        "has_preview",
+        "question",
+    ]
     df = add_metrics_to_eye_tracking(
         eye_tracking_data=df,
         surprisal_extraction_model_names=args.SURPRISAL_MODELS,
         spacy_model_name=args.NLP_MODEL,
-        add_question_in_prompt=args.add_question_in_prompt,
         parsing_mode=args.parsing_mode,
         model_target_device=args.device,
         hf_access_token=args.hf_access_token,
-        surp_extractor_type=extractor_switch.SurpExtractorType.PIMENTEL_CTX_LEFT
+        # CAT_CTX_LEFT: Buggy version from "How to Compute the Probability of a Word" (Pimentel and Meister, 2024). For the correct version, use the SurpExtractorType.PIMENTEL_CTX_LEFT
+        surp_extractor_type=extractor_switch.SurpExtractorType.CAT_CTX_LEFT,
     )
 
     logger.info("Renaming column 'IA_LABEL_x' to 'IA_LABEL'...")
@@ -842,7 +850,9 @@ def load_data(
                 for file in data_path.glob("*.tsv")
             ]
         except UnicodeError:
-            print(f"UnicodeError encountered. Retrying with low_memory=False for files in {data_path}")
+            print(
+                f"UnicodeError encountered. Retrying with low_memory=False for files in {data_path}"
+            )
             dataframes = [
                 pd.read_csv(file, low_memory=False, **kwargs)
                 for file in data_path.glob("*.tsv")
@@ -872,7 +882,7 @@ def load_data(
         data["has_preview"] = data["has_preview"].map({"Gathering": 0, "Hunting": 1})
 
     logger.info("Loaded %d records from %s.", len(data), data_path)
-    
+
     if data.empty:
         raise ValueError(f"Error: No data found in {data_path}.")
     return data
@@ -914,13 +924,13 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 if __name__ == "__main__":
     save_path = Path("data")
-    base_data_path = Path("/data/home/shared/onestop/raw_reports")
+    base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
-    filter_query = "practice==0"
+    filter_query = ""
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
-        "gpt2-medium", 
+        "gpt2",
         #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
@@ -936,16 +946,16 @@ if __name__ == "__main__":
         print(
             "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
         )
-            
-    reports = ['F', 'A', 'QA', 'Q_preview', 'Q', 'T','P']
+
+    reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
     modes = [Mode.FIXATION.value, Mode.IA.value]
-    
+
     for mode, report in product(modes, reports):
         print(f"Processing {mode} report {report}")
         if mode == Mode.FIXATION.value:
             data_path = base_data_path / f"Fixations reports/fixations_{report}.tsv"
         else:
-            data_path = base_data_path / f"/data/home/shared/onestop/raw_reports/IA reports/ia_{report}.tsv"
+            data_path = base_data_path / f"IA reports/ia_{report}.tsv"
         save_file = f"{mode}_{report}.csv"
         args_file = Path(f"{mode}_{report}_args.json")
 

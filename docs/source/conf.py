@@ -6,8 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "OneStop"
-copyright = "2024, TBD"
+project = "OneStop Eye Movements"
+copyright = "2024, LaCC Lab"
 author = "Yevgeni Berzak"
 release = "1.0"
 
@@ -17,7 +17,9 @@ release = "1.0"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["myst_parser"]
+extensions = [
+    "myst_parser",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -84,8 +86,16 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
-html_extra_path = ["_static"]
-html_logo = "_static/lacc_logo.jpeg"
+html_static_path = ["images"]
+html_extra_path = ["images"]
+html_logo = "images/lacc_logo.jpeg"
 
-myst_enable_extensions = ["colon_fence", "dollarmath", "amsmath", "html_image"]
+
+myst_enable_extensions = [
+    "colon_fence",
+    "dollarmath",
+    "amsmath",
+    "html_image",
+]
+
+# Change static paths to be relative to source directory
