@@ -658,12 +658,14 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     ]
     df = df[
         [
-            col.replace(" ", "_")
+            col
             for col in df.columns
             if col not in to_drop and col not in maybe_drop
         ]
     ]
-
+    # replace space with underscore in column names
+    df.columns = df.columns.str.replace(" ", "_")
+    
     split_save_sub_corpora(df, args.save_path)
 
     df.to_csv(args.save_path, index=False)
