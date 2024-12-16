@@ -16,7 +16,7 @@ import spacy
 import torch
 from tap import Tap
 from text_metrics.merge_metrics_with_eye_movements import (
-    add_metrics_to_eye_tracking,
+    add_metrics_to_word_level_eye_tracking_report,
 )
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
@@ -548,25 +548,29 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
             iterable=text_data.itertuples(), total=len(text_data), desc="Adding"
         ):
             full_article_id = f"{row.batch}_{row.article_id}"
-            questions = pd.DataFrame(
-                get_article_data(full_article_id)["paragraphs"][row.paragraph_id - 1][
-                    "qas"
-                ]
-            )
+            try:
+                questions = pd.DataFrame(
+                    get_article_data(full_article_id)["paragraphs"][
+                        row.paragraph_id - 1
+                    ]["qas"]
+                )
 
-            cs_two_questions_flag: int = questions.loc[
-                questions["q_ind"] == row.q_ind, "cs_has_two_questions"
-            ].item()
+                cs_two_questions_flag: int = questions.loc[
+                    questions["q_ind"] == row.q_ind, "cs_has_two_questions"
+                ].item()
+
+                q_reference = questions.loc[
+                    questions["q_ind"] == row.q_ind, "references"
+                ].item()
+
+                question_prediction_label = questions.loc[
+                    questions["q_ind"] == row.q_ind, "question_prediction_label"
+                ].item()
+            except ValueError:
+                cs_two_questions_flag = 0
+                q_reference = ""
+                question_prediction_label = 0
             cs_has_two_questions.append(cs_two_questions_flag)
-
-            q_reference = questions.loc[
-                questions["q_ind"] == row.q_ind, "references"
-            ].item()
-
-            question_prediction_label = questions.loc[
-                questions["q_ind"] == row.q_ind, "question_prediction_label"
-            ].item()
-
             question_prediction_labels.append(question_prediction_label)
             q_references.append(q_reference)
 
@@ -595,11 +599,12 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
             "article_id": "Article ID",
             "paragraph_id": "Paragraph ID",
             "level": "Difficulty Level",
-            "TRIAL_INDEX": "Trial Index",
+            "trial": "Trial Index",
             "practice": "Practice Trial",
             "reread": "Repeated Reading Trial",
             "article_ind": "Article Index",
             "question": "Question",
+            "question_prediction_label": "Same Critical Span",
             "correct_answer": "Correct Answer Position",
             "FINAL_ANSWER": "Selected Answer Position",
             "answers_order": "Answers Order",
@@ -635,8 +640,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df["Practice Trial"] = df["Practice Trial"].astype(bool)
     df["Repeated Reading Trial"] = df["Repeated Reading Trial"].astype(bool)
     df["Auxiliary Span Type"].replace(
-        {"other": "outside", "a_span": "critical", "d_span": "distractor"},
-        inplace=True
+        {"other": "outside", "a_span": "critical", "d_span": "distractor"}, inplace=True
     )
     # replace 0123 to ABCD in the answers order
     NUMBER_TO_LETTER = {"0": "A", "1": "B", "2": "C", "3": "D"}
@@ -644,9 +648,125 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df["Answers Order"] = df["Answers Order"].apply(
         lambda x: [NUMBER_TO_LETTER[i] for i in x]
     )
+    # TODO Drop unqieu paragraphi d
+    to_drop = [
+        "question_n_condition_prediction_label",
+        "q_reference",
+        "cs_has_two_questions",
+        "prev_Wordfreq_Frequency",
+        "prev_subtlex_Frequency",
+        "prev_Length",
+        "prev_gpt2_Surprisal",
+        "regression_rate",
+        "total_skip",
+        "part_length",
+        "normalized_dwell_time",
+        "normalized_part_dwell_time",
+        "normalized_part_ID",
+        "reverse_ID",
+        "reverse_part_ID",
+        "part_ID",
+        "normalized_ID",
+        "Head_Direction",
+        "AbsDistance2Head",
+        "Is_Content_Word",
+        "Token_idx",
+        "TAG",
+        "Token",
+        "Word_idx",
+        "Unique Paragraph ID",
+        "subject_id",
+        "total_IA_DWELL_TIME",
+        "min_IA_ID",
+        "max_IA_ID",
+        "part_total_IA_DWELL_TIME",
+        "part_min_IA_ID",
+        "part_max_IA_ID",
+        "start_of_line",
+        "end_of_line",
+        "IA_LABEL_y",
+        "aspan_ind_start",
+        "aspan_ind_end",
+        "is_in_aspan",
+        "dspan_ind_start",
+        "dspan_ind_end",
+        "is_in_dspan",
+        "Auxiliary Span Type",
+        "is_before_aspan",
+        "is_after_aspan",
+        "relative_to_aspan",
+        "is_correct",
+        "Trial_Index",
+        "Trial_Index_",
+        "q_ind",
+        "principle_list",
+        "level_ind",
+        "dspan_inds",
+    ]
+    # TODO OOV subtlex
+    maybe_drop = [
+        "article_title",
+        "paragraph",
+        "Question",
+        "Answer 1",
+        "Answer 2",
+        "Answer 3",
+        "Answer 4",
+        "condition_symb",
+        "a_key",
+        "b_key",
+        "c_key",
+        "d_key",
+        "batch_condition",
+        "aspan_inds",
+    ]
+    df = df[
+        [
+            col
+            for col in df.columns
+            # if not col.startswith("IA_")
+            # and not col.startswith("IP_")
+            # and not col.startswith("TRIAL_")
+            if col not in to_drop and col not in maybe_drop
+        ]
+    ]
+
     df = filter_columns(df, args.base_cols, dry_run=True)
 
     df.to_csv(args.save_path, index=False)
+    # Create sub dataframes based on reread and preview conditions
+    df_reread_preview = df[
+        (df["Repeated Reading Trial"] == True) & (df["Question Preview"] == True)
+    ]
+    df_reread_no_preview = df[
+        (df["Repeated Reading Trial"] == True) & (df["Question Preview"] == False)
+    ]
+    df_no_reread_preview = df[
+        (df["Repeated Reading Trial"] == False) & (df["Question Preview"] == True)
+    ]
+    df_no_reread_no_preview = df[
+        (df["Repeated Reading Trial"] == False) & (df["Question Preview"] == False)
+    ]
+
+    # Save the sub dataframes to separate CSV files
+    df_reread_preview.to_csv(
+        args.save_path.parent
+        / args.save_path.stem
+        / "information_seeking_repeated_reading.csv",
+        index=False,
+    )
+    df_reread_no_preview.to_csv(
+        args.save_path.parent / args.save_path.stem / "repeated_reading.csv",
+        index=False,
+    )
+    df_no_reread_preview.to_csv(
+        args.save_path.parent / args.save_path.stem / "information_seeking.csv",
+        index=False,
+    )
+    df_no_reread_no_preview.to_csv(
+        args.save_path.parent / args.save_path.stem / "ordinary_reading.csv",
+        index=False,
+    )
 
     logger.info("Total number of rows: %d", len(df))
     logger.info("Data preprocessing complete. Saved to %s", args.save_path)
@@ -777,7 +897,9 @@ def correct_span_issues(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def filter_columns(df: pd.DataFrame, base_cols: List[str], dry_run: bool = False) -> pd.DataFrame:
+def filter_columns(
+    df: pd.DataFrame, base_cols: List[str], dry_run: bool = False
+) -> pd.DataFrame:
     # log the columns that were dropped
     dropped_columns = set(df.columns).difference(base_cols)
     logger.info("Dropped columns: %s", dropped_columns)
@@ -805,13 +927,14 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         "has_preview",
         "question",
     ]
-    df = add_metrics_to_eye_tracking(
+    df = add_metrics_to_word_level_eye_tracking_report(
         eye_tracking_data=df,
         surprisal_extraction_model_names=args.SURPRISAL_MODELS,
         spacy_model_name=args.NLP_MODEL,
         parsing_mode=args.parsing_mode,
         model_target_device=args.device,
         hf_access_token=args.hf_access_token,
+        textual_item_key_cols=textual_item_key_cols,
         # CAT_CTX_LEFT: Buggy version from "How to Compute the Probability of a Word" (Pimentel and Meister, 2024). For the correct version, use the SurpExtractorType.PIMENTEL_CTX_LEFT
         surp_extractor_type=extractor_switch.SurpExtractorType.CAT_CTX_LEFT,
     )
@@ -992,7 +1115,7 @@ if __name__ == "__main__":
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
-        # "gpt2",
+        "gpt2",
         #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
@@ -1002,7 +1125,7 @@ if __name__ == "__main__":
         # "state-spaces/mamba-370m-hf", "state-spaces/mamba-790m-hf", "state-spaces/mamba-1.4b-hf", "state-spaces/mamba-2.8b-hf",
     ]
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cuda" if torch.cuda.is_available() else "mpi"
     print(f"Using device: {device}")
     if device == "cpu":
         print(
