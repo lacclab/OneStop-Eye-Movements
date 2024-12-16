@@ -583,9 +583,70 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
             axis=1,
         )  # 3 is the label for the null question (gathering) and corresponds to the condition prediction.
 
-    df = filter_columns(df, args.base_cols)
+    df.rename(
+        columns={
+            # Experiment Variables
+            "list": "List Number",
+            "has_preview": "Question Preview",
+            "batch": "Batch",
+            "RECORDING_SESSION_LABEL": "Participant ID",
+            # Trial Variables
+            "unique_paragraph_id": "Unique Paragraph ID",
+            "article_id": "Article ID",
+            "paragraph_id": "Paragraph ID",
+            "level": "Difficulty Level",
+            "TRIAL_INDEX": "Trial Index",
+            "practice": "Practice Trial",
+            "reread": "Repeated Reading Trial",
+            "article_ind": "Article Index",
+            "question": "Question",
+            "correct_answer": "Correct Answer Position",
+            "FINAL_ANSWER": "Selected Answer Position",
+            "answers_order": "Answers Order",
+            "abcd_answer": "Selected Answer",
+            "a": "Answer 1",
+            "b": "Answer 2",
+            "c": "Answer 3",
+            "d": "Answer 4",
+            # Linguistic Annotations - Big Three
+            "Length": "Word Length No Punctuation",
+            "gpt2_Surprisal": "GPT-2 Surprisal",
+            "Wordfreq_Frequency": "Wordfreq Frequency",
+            "subtlex_Frequency": "Subtlex Frequency",
+            # Linguistic Annotations - UD
+            "POS": "Universal POS",
+            "Reduced_POS": "PTB POS",
+            "Head_word_idx": "Head Word Index",
+            "Relationship": "Dependency Relation",
+            "n_Lefts": "Left Dependents Count",
+            "n_Rights": "Right Dependents Count",
+            "Distance2Head": "Distance to Head",
+            "Morph": "Morphological Features",
+            "Entity": "Entity Type",
+            # STARC
+            "span_type": "Auxiliary Span Type",
+        },
+        inplace=True,
+    )
+    df["Word Length"] = df["IA_LABEL"].str.len()
+    df["Question Preview"] = df["Question Preview"].replace(
+        {"Hunting": True, "Gathering": False}
+    )
+    df["Practice Trial"] = df["Practice Trial"].astype(bool)
+    df["Repeated Reading Trial"] = df["Repeated Reading Trial"].astype(bool)
+    df["Auxiliary Span Type"].replace(
+        {"other": "outside", "a_span": "critical", "d_span": "distractor"},
+        inplace=True
+    )
+    # replace 0123 to ABCD in the answers order
+    NUMBER_TO_LETTER = {"0": "A", "1": "B", "2": "C", "3": "D"}
 
-    df.to_csv(args.save_path)
+    df["Answers Order"] = df["Answers Order"].apply(
+        lambda x: [NUMBER_TO_LETTER[i] for i in x]
+    )
+    df = filter_columns(df, args.base_cols, dry_run=True)
+
+    df.to_csv(args.save_path, index=False)
 
     logger.info("Total number of rows: %d", len(df))
     logger.info("Data preprocessing complete. Saved to %s", args.save_path)
@@ -716,7 +777,7 @@ def correct_span_issues(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def filter_columns(df: pd.DataFrame, base_cols: List[str]) -> pd.DataFrame:
+def filter_columns(df: pd.DataFrame, base_cols: List[str], dry_run: bool = False) -> pd.DataFrame:
     # log the columns that were dropped
     dropped_columns = set(df.columns).difference(base_cols)
     logger.info("Dropped columns: %s", dropped_columns)
@@ -728,7 +789,8 @@ def filter_columns(df: pd.DataFrame, base_cols: List[str]) -> pd.DataFrame:
     logger.info("Final columns: %s", df.columns)
 
     logger.info("Keeping selected columns...")
-    df = df[df.columns.intersection(base_cols)].copy()
+    if not dry_run:
+        df = df[df.columns.intersection(base_cols)].copy()
 
     return df
 
@@ -930,7 +992,7 @@ if __name__ == "__main__":
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
-        "gpt2",
+        # "gpt2",
         #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
@@ -948,7 +1010,7 @@ if __name__ == "__main__":
         )
 
     reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
-    modes = [Mode.FIXATION.value, Mode.IA.value]
+    modes = [Mode.IA.value, Mode.FIXATION.value]
 
     for mode, report in product(modes, reports):
         print(f"Processing {mode} report {report}")
