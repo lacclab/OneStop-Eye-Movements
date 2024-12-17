@@ -637,25 +637,14 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "q_ind",
         "principle_list",
         "level_ind",
-        "dspan_inds",
-    ]
-    maybe_drop = [
-        "article_title",
-        "paragraph",
-        "Question",
-        "Answer 1",
-        "Answer 2",
-        "Answer 3",
-        "Answer 4",
         "condition_symb",
         "a_key",
         "b_key",
         "c_key",
         "d_key",
         "batch_condition",
-        "aspan_inds",
     ]
-    df = df[[col for col in df.columns if col not in to_drop and col not in maybe_drop]]
+    df = df[[col for col in df.columns if col not in to_drop]]
     # replace space with underscore in column names
 
     df.columns = df.columns.str.replace(" ", "_")
@@ -705,6 +694,8 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
             "practice": "Practice Trial",
             "reread": "Repeated Reading Trial",
             "article_ind": "Article Index",
+            "article_title": "Article Title",
+            "paragraph": "Paragraph",
             "question": "Question",
             "question_prediction_label": "Same Critical Span",
             "correct_answer": "Correct Answer Position",
@@ -732,6 +723,8 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
             "Entity": "Entity Type",
             # STARC
             "span_type": "Auxiliary Span Type",
+            "aspan_inds": "Critical Span Indices",
+            "dspan_inds": "Distractor Span Indices",
         },
     )
     return df
