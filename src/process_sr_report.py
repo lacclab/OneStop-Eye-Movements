@@ -574,9 +574,8 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     )
     df["Practice Trial"] = df["Practice Trial"].astype(bool)
     df["Repeated Reading Trial"] = df["Repeated Reading Trial"].astype(bool)
-    df["Auxiliary Span Type"].replace(
+    df["Auxiliary Span Type"] = df["Auxiliary Span Type"].replace(
         {"other": "outside", "a_span": "critical", "d_span": "distractor"},
-        inplace=True,
     )
     # replace 0123 to ABCD in the answers order
     NUMBER_TO_LETTER = {"0": "A", "1": "B", "2": "C", "3": "D"}
@@ -656,16 +655,10 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "batch_condition",
         "aspan_inds",
     ]
-    df = df[
-        [
-            col
-            for col in df.columns
-            if col not in to_drop and col not in maybe_drop
-        ]
-    ]
+    df = df[[col for col in df.columns if col not in to_drop and col not in maybe_drop]]
     # replace space with underscore in column names
+
     df.columns = df.columns.str.replace(" ", "_")
-    
     split_save_sub_corpora(df, args.save_path)
 
     df.to_csv(args.save_path, index=False)
@@ -676,36 +669,23 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
 def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
     # Create sub dataframes based on reread and preview conditions
-    df_reread_preview = df[
-        (df["Repeated Reading Trial"] == True) & (df["Question Preview"] == True)
-    ]
-    df_reread_no_preview = df[
-        (df["Repeated Reading Trial"] == True) & (df["Question Preview"] == False)
-    ]
-    df_no_reread_preview = df[
-        (df["Repeated Reading Trial"] == False) & (df["Question Preview"] == True)
-    ]
-    df_no_reread_no_preview = df[
-        (df["Repeated Reading Trial"] == False) & (df["Question Preview"] == False)
-    ]
+    # Create boolean masks
+    repeated_reading_trials = df["Repeated_Reading_Trial"] == True
+    question_preview = df["Question_Preview"] == True
 
-    # Save the sub dataframes to separate CSV files
-    df_reread_preview.to_csv(
-        save_path.parent / f"{save_path.stem}_information_seeking_repeated_reading.csv",
-        index=False,
-    )
-    df_reread_no_preview.to_csv(
-        save_path.parent / f"{save_path.stem}_repeated_reading.csv",
-        index=False,
-    )
-    df_no_reread_preview.to_csv(
-        save_path.parent / f"{save_path.stem}_information_seeking.csv",
-        index=False,
-    )
-    df_no_reread_no_preview.to_csv(
-        save_path.parent / f"{save_path.stem}_ordinary_reading.csv",
-        index=False,
-    )
+    # Create filtered dataframes using masks
+    filtered_dfs = {
+        "information_seeking_repeated": df[repeated_reading_trials & question_preview],
+        "repeated": df[repeated_reading_trials & ~question_preview],
+        "information_seeking": df[~repeated_reading_trials & question_preview],
+        "ordinary": df[~repeated_reading_trials & ~question_preview],
+    }
+
+    # Save dataframes
+    for name, filtered_df in filtered_dfs.items():
+        filtered_df.to_csv(
+            save_path.parent / f"{save_path.stem}_{name}.csv", index=False
+        )
 
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -784,7 +764,7 @@ def enrich_text_data_with_question_label(text_data: pd.DataFrame, args) -> List[
         try:
             questions = pd.DataFrame(
                 get_article_data(full_article_id, raw_text)["paragraphs"][
-                    row.paragraph_id - 1 # type: ignore
+                    row.paragraph_id - 1  # type: ignore
                 ]["qas"]
             )
             question_prediction_label = questions.loc[
@@ -1134,7 +1114,7 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 
 if __name__ == "__main__":
-    save_path = Path("data")
+    save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
     filter_query = ""
