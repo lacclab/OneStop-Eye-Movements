@@ -569,19 +569,23 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
     df = rename_columns(df)
     label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
-    df["Word Length"] = df[label_field].str.len()
-    df["Question Preview"] = df["Question Preview"].replace(
-        {"Hunting": True, "Gathering": False}
+    df["word_length"] = df[label_field].str.len()
+    df["question_preview"] = (
+        df["question_preview"]
+        .replace(
+            {"Hunting": True, "Gathering": False},
+        )
+        .astype(bool)
     )
-    df["Practice Trial"] = df["Practice Trial"].astype(bool)
-    df["Repeated Reading Trial"] = df["Repeated Reading Trial"].astype(bool)
-    df["Auxiliary Span Type"] = df["Auxiliary Span Type"].replace(
+    df["practice_trial"] = df["practice_trial"].astype(bool)
+    df["repeated_reading_trial"] = df["repeated_reading_trial"].astype(bool)
+    df["auxiliary_span_type"] = df["Aauxiliary_span_type"].replace(
         {"other": "outside", "a_span": "critical", "d_span": "distractor"},
     )
     # replace 0123 to ABCD in the answers order
     NUMBER_TO_LETTER = {"0": "A", "1": "B", "2": "C", "3": "D"}
-    df["Answers Order"] = (
-        df["Answers Order"]
+    df["answers_order"] = (
+        df["answers_order"]
         .str.strip("[]")
         .str.split()
         .apply(lambda x: [NUMBER_TO_LETTER[i] for i in x])
@@ -659,8 +663,8 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
     # Create sub dataframes based on reread and preview conditions
     # Create boolean masks
-    repeated_reading_trials = df["Repeated_Reading_Trial"] == True
-    question_preview = df["Question_Preview"] == True
+    repeated_reading_trials = df["repeated_reading_trial"] == True
+    question_preview = df["question_preview"] == True
 
     # Create filtered dataframes using masks
     filtered_dfs = {
@@ -681,50 +685,49 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     df = df.rename(
         columns={
             # Experiment Variables
-            "list": "List Number",
-            "has_preview": "Question Preview",
-            "batch": "Batch",
-            "RECORDING_SESSION_LABEL": "Participant ID",
+            "list": "list_number",
+            "has_preview": "question_preview",
+            "batch": "batch",
+            "RECORDING_SESSION_LABEL": "participant_id",
             # Trial Variables
-            "unique_paragraph_id": "Unique Paragraph ID",
-            "article_id": "Article ID",
-            "paragraph_id": "Paragraph ID",
-            "level": "Difficulty Level",
-            "trial": "Trial Index",
-            "practice": "Practice Trial",
-            "reread": "Repeated Reading Trial",
-            "article_ind": "Article Index",
-            "article_title": "Article Title",
-            "paragraph": "Paragraph",
-            "question": "Question",
-            "question_prediction_label": "Same Critical Span",
-            "correct_answer": "Correct Answer Position",
-            "FINAL_ANSWER": "Selected Answer Position",
-            "answers_order": "Answers Order",
-            "abcd_answer": "Selected Answer",
-            "a": "Answer 1",
-            "b": "Answer 2",
-            "c": "Answer 3",
-            "d": "Answer 4",
+            "article_id": "article_id",
+            "paragraph_id": "paragraph_id",
+            "level": "difficulty_level",
+            "trial": "trial_index",
+            "practice": "practice_trial",
+            "reread": "repeated_reading_trial",
+            "article_ind": "article_index",
+            "article_title": "article_title",
+            "paragraph": "paragraph",
+            "question": "question",
+            "question_prediction_label": "same_critical_span",
+            "correct_answer": "correct_answer_position",
+            "FINAL_ANSWER": "selected_answer_position",
+            "answers_order": "answers_order",
+            "abcd_answer": "selected_answer",
+            "a": "answer_1",
+            "b": "answer_2",
+            "c": "answer_3",
+            "d": "answer_4",
             # Linguistic Annotations - Big Three
-            "Length": "Word Length No Punctuation",
-            "gpt2_Surprisal": "GPT-2 Surprisal",
-            "Wordfreq_Frequency": "Wordfreq Frequency",
-            "subtlex_Frequency": "Subtlex Frequency",
+            "Length": "word_length_no_punctuation",
+            "gpt2_Surprisal": "gpt-2_surprisal",
+            "Wordfreq_Frequency": "wordfreq_frequency",
+            "subtlex_Frequency": "subtlex_frequency",
             # Linguistic Annotations - UD
-            "POS": "Universal POS",
-            "Reduced_POS": "PTB POS",
-            "Head_word_idx": "Head Word Index",
-            "Relationship": "Dependency Relation",
-            "n_Lefts": "Left Dependents Count",
-            "n_Rights": "Right Dependents Count",
-            "Distance2Head": "Distance to Head",
-            "Morph": "Morphological Features",
-            "Entity": "Entity Type",
+            "POS": "universal_pos",
+            "Reduced_POS": "ptb_pos",
+            "Head_word_idx": "head_word_index",
+            "Relationship": "dependency_relation",
+            "n_Lefts": "left_dependents_count",
+            "n_Rights": "right_dependents_count",
+            "Distance2Head": "distance_to_head",
+            "Morph": "morphological_features",
+            "Entity": "entity_type",
             # STARC
-            "span_type": "Auxiliary Span Type",
-            "aspan_inds": "Critical Span Indices",
-            "dspan_inds": "Distractor Span Indices",
+            "span_type": "auxiliary_span_type",
+            "aspan_inds": "critical_span_indices",
+            "dspan_inds": "distractor_span_indices",
         },
     )
     return df
@@ -843,12 +846,16 @@ def compute_word_span_metrics(
     try:
         if mode == Mode.FIXATION:
             # Determine which span the next fixation falls into
-            df["next_is_in_aspan"] = (df[NEXT_FIXATION_ID_COL] >= df["aspan_ind_start"]) & (
-                df[NEXT_FIXATION_ID_COL] < df["aspan_ind_end"]
+            df["next_is_in_aspan"] = (
+                df[NEXT_FIXATION_ID_COL] >= df["aspan_ind_start"]
+            ) & (df[NEXT_FIXATION_ID_COL] < df["aspan_ind_end"])
+            df["next_is_before_aspan"] = (
+                df[NEXT_FIXATION_ID_COL] < df["aspan_ind_start"]
             )
-            df["next_is_before_aspan"] = df[NEXT_FIXATION_ID_COL] < df["aspan_ind_start"]
             df["next_is_after_aspan"] = df[NEXT_FIXATION_ID_COL] >= df["aspan_ind_end"]
-            df.loc[df["next_is_in_aspan"], "next_relative_to_aspan"] = "In Critical Span"
+            df.loc[df["next_is_in_aspan"], "next_relative_to_aspan"] = (
+                "In Critical Span"
+            )
             df.loc[df["next_is_before_aspan"], "next_relative_to_aspan"] = (
                 "Before Critical Span"
             )
@@ -856,13 +863,13 @@ def compute_word_span_metrics(
                 "After Critical Span"
             )
             assert (
-                df[["next_is_in_aspan", "next_is_before_aspan", "next_is_after_aspan"]].sum(
-                    axis=1
-                )
+                df[
+                    ["next_is_in_aspan", "next_is_before_aspan", "next_is_after_aspan"]
+                ].sum(axis=1)
                 == 1
             ).all(), "should be exactly one of options"
     except:
-        print("TODO FIX ME!!") #TODO
+        print("TODO FIX ME!!")  # TODO
 
     logger.info("Relative positions to the critical span determined.")
     return df
@@ -1135,10 +1142,7 @@ if __name__ == "__main__":
         )
 
     reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
-    modes = [
-        Mode.IA.value,
-        Mode.FIXATION.value
-    ]
+    modes = [Mode.IA.value, Mode.FIXATION.value]
 
     for mode, report in product(modes, reports):
         print(f"Processing {mode} report {report}")
