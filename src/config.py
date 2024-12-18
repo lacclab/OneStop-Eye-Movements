@@ -1,6 +1,6 @@
 from pathlib import Path
 
-BASE_PATH = Path("../data")
+BASE_PATH = Path("/data/home/shared/onestop/new")
 
 METADATA_PATH = Path(BASE_PATH, "Metadata OneStopGaze L1 - metadata.csv")
 QUESTIONNAIRE_PATH = Path(BASE_PATH, "questionnaire.json")
