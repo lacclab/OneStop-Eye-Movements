@@ -568,7 +568,8 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = df.merge(text_data, validate="m:1", how="left")
 
     df = rename_columns(df)
-    df["Word Length"] = df["IA_LABEL"].str.len()
+    label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
+    df["Word Length"] = df[label_field].str.len()
     df["Question Preview"] = df["Question Preview"].replace(
         {"Hunting": True, "Gathering": False}
     )
@@ -797,6 +798,7 @@ def compute_start_end_line(df: pd.DataFrame) -> pd.DataFrame:
 def compute_word_span_metrics(
     df: pd.DataFrame, mode: Mode, ia_field: str
 ) -> pd.DataFrame:
+    df[ia_field] = df[ia_field].replace({".": 0, np.nan: 0}).astype(int)
     pattern = r"(\d+), ?(\d+)"  # Regex pattern to extract span indices
     logger.info("Determining whether word is in the answer (critical) span...")
     df[["aspan_ind_start", "aspan_ind_end"]] = df.aspan_inds.str.extract(
@@ -838,27 +840,29 @@ def compute_word_span_metrics(
     assert (
         df[["is_in_aspan", "is_before_aspan", "is_after_aspan"]].sum(axis=1) == 1
     ).all(), "should be exactly one of options"
-
-    if mode == Mode.FIXATION:
-        # Determine which span the next fixation falls into
-        df["next_is_in_aspan"] = (df[NEXT_FIXATION_ID_COL] >= df["aspan_ind_start"]) & (
-            df[NEXT_FIXATION_ID_COL] < df["aspan_ind_end"]
-        )
-        df["next_is_before_aspan"] = df[NEXT_FIXATION_ID_COL] < df["aspan_ind_start"]
-        df["next_is_after_aspan"] = df[NEXT_FIXATION_ID_COL] >= df["aspan_ind_end"]
-        df.loc[df["next_is_in_aspan"], "next_relative_to_aspan"] = "In Critical Span"
-        df.loc[df["next_is_before_aspan"], "next_relative_to_aspan"] = (
-            "Before Critical Span"
-        )
-        df.loc[df["next_is_after_aspan"], "next_relative_to_aspan"] = (
-            "After Critical Span"
-        )
-        assert (
-            df[["next_is_in_aspan", "next_is_before_aspan", "next_is_after_aspan"]].sum(
-                axis=1
+    try:
+        if mode == Mode.FIXATION:
+            # Determine which span the next fixation falls into
+            df["next_is_in_aspan"] = (df[NEXT_FIXATION_ID_COL] >= df["aspan_ind_start"]) & (
+                df[NEXT_FIXATION_ID_COL] < df["aspan_ind_end"]
             )
-            == 1
-        ).all(), "should be exactly one of options"
+            df["next_is_before_aspan"] = df[NEXT_FIXATION_ID_COL] < df["aspan_ind_start"]
+            df["next_is_after_aspan"] = df[NEXT_FIXATION_ID_COL] >= df["aspan_ind_end"]
+            df.loc[df["next_is_in_aspan"], "next_relative_to_aspan"] = "In Critical Span"
+            df.loc[df["next_is_before_aspan"], "next_relative_to_aspan"] = (
+                "Before Critical Span"
+            )
+            df.loc[df["next_is_after_aspan"], "next_relative_to_aspan"] = (
+                "After Critical Span"
+            )
+            assert (
+                df[["next_is_in_aspan", "next_is_before_aspan", "next_is_after_aspan"]].sum(
+                    axis=1
+                )
+                == 1
+            ).all(), "should be exactly one of options"
+    except:
+        print("TODO FIX ME!!") #TODO
 
     logger.info("Relative positions to the critical span determined.")
     return df
@@ -1131,7 +1135,10 @@ if __name__ == "__main__":
         )
 
     reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
-    modes = [Mode.IA.value, Mode.FIXATION.value]
+    modes = [
+        Mode.IA.value,
+        Mode.FIXATION.value
+    ]
 
     for mode, report in product(modes, reports):
         print(f"Processing {mode} report {report}")
