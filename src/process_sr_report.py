@@ -647,14 +647,33 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "c_key",
         "d_key",
         "batch_condition",
+        "Session_Name_",
+        "DATA_FILE",
+        "Trial_Recycled_",
+        "LETTER_HIGHT",
+        "LETTER_WIDTH",
+        "DUMMY",
+        "TRIAL_INDEX",
+        "COMPREHENSION_PERCENT",
+        "COMPREHENSION_SCORE",
+        "TRIGGER_PADDING_X",
+        "TRIGGER_PADDING_Y",
+        "RECALIBRATE",
     ]
+    # print columns in to_drop that are not in df
+    print([col for col in to_drop if col not in df.columns])
     df = df[[col for col in df.columns if col not in to_drop]]
-    # replace space with underscore in column names
 
     df.columns = df.columns.str.replace(" ", "_")
     split_save_sub_corpora(df, args.save_path)
 
-    df.to_csv(args.save_path, index=False)
+    df.to_csv(
+        args.save_path.parent
+        / "concatenated"
+        / args.save_path.stem
+        / args.save_path.suffix,
+        index=False,
+    )
     logger.info("Total number of rows: %d", len(df))
     logger.info("Data preprocessing complete. Saved to %s", args.save_path)
     return df
@@ -677,7 +696,7 @@ def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
     # Save dataframes
     for name, filtered_df in filtered_dfs.items():
         filtered_df.to_csv(
-            save_path.parent / f"{save_path.stem}_{name}.csv", index=False
+            save_path.parent / name / f"{save_path.stem}_{name}.csv", index=False
         )
 
 
@@ -687,7 +706,7 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
             # Experiment Variables
             "list": "list_number",
             "has_preview": "question_preview",
-            "batch": "batch",
+            "batch": "article_batch",
             "RECORDING_SESSION_LABEL": "participant_id",
             # Trial Variables
             "article_id": "article_id",
@@ -1107,10 +1126,10 @@ def validate_spacy_model(spacy_model_name: str) -> None:
 def process_data(args: List[str], args_file: Path, save_path: Path):
     cfg = ArgsParser().parse_args(args)
 
-    args_save_path = save_path / args_file
+    # args_save_path = save_path / args_file
     save_path.mkdir(parents=True, exist_ok=True)
-    cfg.save(str(args_save_path))
-    print(f"Saved config to {args_save_path}")
+    # cfg.save(str(args_save_path))
+    # print(f"Saved config to {args_save_path}")
 
     print(f"Running preprocessing with args: {args}")
     preprocess_data(cfg)

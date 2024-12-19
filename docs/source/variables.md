@@ -39,7 +39,7 @@ Participant questionnaire variables. *Reading habits questions are based on Sect
 
 | Variable                  | Description                                     | Values                                                   |
 |---------------------------|-------------------------------------------------|---------------------------------------------------------|
-| Participant ID            | Participant's experiment ID                     | Numeric                                                  |
+| Participant ID            | Participant's ID                     | Numeric                                                  |
 | Age                       | Participant's age                               | Years                                                    |
 | Gender                    | Participant's gender                            | Male / Female / Other                                    |
 | Home Country              | Participant's home country                      | List of countries                                        |
@@ -53,30 +53,30 @@ Participant questionnaire variables. *Reading habits questions are based on Sect
 
 ### Session Summary Variables
 
-Session summary file variables. 
+Session summary file variables.
 
 | **Variable**                               | **Description**                                                                                         | **Values**                                                                                             |
 |--------------------------------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| Participant_ID                             | Participant's experiment ID                                                                             | 38-547                                                                                                 |
-| Experimental_Batch                         | Assigned batch                                                                                          | 1 / 2 / 3                                                                                              |
-| List_Number                                | Experimental list                                                                                       | 1 - 60                                                                                                 |
-| Question_Preview                           | Was the question presented before the paragraph (i.e., the reading regime)                              | True / False                                                                                           |
-| Data_Collection_Site                       | Location of data collection                                                                             | MIT / Technion                                                                                         |
-| Comprehension_Score-Regular_Trials         | Participant's overall reading comprehension score during first reading (10 articles, 54 regular trials) | 0-100%                                                                                                 |
-| Comprehension_Score-Repeated_Reading       | Participant's overall reading comprehension score during repeated reading (2 articles, 8-14 repeated trials) | 0-100%                                                                                                 |
-| Recalibration_Count                        | Number of times the session was interrupted to recalibrate the eye tracker                              | 0 or more                                                                                              |
-| Total_Recalibrations                       | Number of times the eye tracker was recalibrated during the session (in addition to the 3 obligatory calibrations) | 0 or more                                                                                              |
-| Mean_Validation_Error                      | Mean validation error across all calibrations immediately preceding text reading                        | visual degrees                                                                                         |
-| Total_Session_Duration                     | Total duration of the experimental session (including breaks and calibrations)                          | minutes                                                                                                |
-| Session_Duration                           | Duration of the experimental session excluding breaks and calibrations                                  | minutes                                                                                                |
-| Dominant_Eye                               | Participant's dominant eye                                                                              | L / R                                                                                                  |
-| Tracked_Eye                                | Eye that was tracked (typically the dominant eye)                                                      | L / R / LR **                                                                                          |
-| LexTALE_Score*                             | Participant's score on the LexTALE vocabulary test                                                     | 0 - 100                                                                                                |
+| participant_id                             | Participant's ID                                                                             | 38-547                                                                                                 |
+| article_batch                              | A 10-article batch assigned to the participant                                                          | 1 (articles 1-10) / 2 (articles 11-20) / 3 (articles 21-30)                                            |
+| list_number                                | Experimental list                                                                                       | 1 - 60                                                                                                 |
+| question_preview                           | Was the question presented before the paragraph (i.e., the reading regime)                              | True / False                                                                                           |
+| data_collection_site                       | Location of data collection                                                                             | MIT / Technion                                                                                         |
+| comprehension_score-regular_trials         | Participant's overall reading comprehension score during first reading (10 articles, 54 regular trials) | 0-100%                                                                                                 |
+| comprehension_score-repeated_reading       | Participant's overall reading comprehension score during repeated reading (2 articles, 8-14 repeated trials) | 0-100%                                                                                                 |
+| recalibration_count                        | Number of times the session was interrupted to recalibrate the eye tracker                              | 0 or more                                                                                              |
+| total_recalibrations                       | Number of times the eye tracker was recalibrated during the session (in addition to the 3 obligatory calibrations) | 0 or more                                                                                              |
+| mean_validation_error                      | Mean validation error across all calibrations immediately preceding text reading                        | visual degrees                                                                                         |
+| total_session_duration                     | Total duration of the experimental session (including breaks and calibrations)                          | minutes                                                                                                |
+| session_duration                           | Duration of the experimental session excluding breaks and calibrations                                  | minutes                                                                                                |
+| dominant_eye                               | Participant's dominant eye                                                                              | L / R                                                                                                  |
+| tracked_eye                                | Eye that was tracked (typically the dominant eye)                                                      | L / R / LR **                                                                                          |
+| lextale_score*                             | Participant's score on the LexTALE vocabulary test                                                     | 0 - 100                                                                                                |
 
 **Notes:**
+
 - *LexTale scores are available for 100 participants.
 - **L: left eye, R: right eye, LR: data was collected from both eyes (switched between eyes during the experiment).
-
 
 ### Experiment, Trial, and Linguistic Annotation Variables
 
@@ -84,10 +84,10 @@ Experiment and trial variables, and linguistic annotations in the Fixation and I
 
 | **Category**                     | **Feature**                  | **Description**                                                                                                    | **Values**                                                                                           |
 |-----------------------------------|------------------------------|--------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| **Experiment Variables**          | participant_id               | Participant's experiment ID                                                                                        | 38-547                                                                                              |
+| **Experiment Variables**          | participant_id               | Participant's ID                                                                                        | 38-547                                                                                              |
 |                                   | list_number                  | Experimental list                                                                                                  | 1 - 60                                                                                              |
 |                                   | question_preview             | Was the question presented before the paragraph (i.e., the reading regime)                                         | True / False                                                                                        |
-|                                   | batch                        | Assigned batch                                                                                                     | 1 / 2 / 3                                                                                           |
+|                                   | article_batch                              | A 10-article batch assigned to the participant                                                          | 1 (articles 1-10) / 2 (articles 11-20) / 3 (articles 21-30)                                            |
 | **Trial Variables**               | trial_index                  | The trial index                                                                                                    | 1 - last trial                                                                                      |
 |                                   | practice_trial               | Whether the trial was a practice trial                                                                             | True / False                                                                                        |
 |                                   | article_id                   | The unique identifier for an article in a batch                                                                    | 1-10                                                                                                |
