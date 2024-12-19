@@ -581,7 +581,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     )
     df["practice_trial"] = df["practice_trial"].astype(bool)
     df["repeated_reading_trial"] = df["repeated_reading_trial"].astype(bool)
-    df["auxiliary_span_type"] = df["Aauxiliary_span_type"].replace(
+    df["auxiliary_span_type"] = df["auxiliary_span_type"].replace(
         {"other": "outside", "a_span": "critical", "d_span": "distractor"},
     )
     # replace 0123 to ABCD in the answers order
