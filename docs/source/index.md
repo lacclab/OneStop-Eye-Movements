@@ -10,7 +10,7 @@ title: Welcome to OneStop's documentation!
 :caption: Contents
 :hidden:
 
-<!-- variables -->
+variables
 <!-- technical_setup -->
 <!-- directory_structure -->
 known_issues

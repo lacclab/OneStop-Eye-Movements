@@ -24,7 +24,7 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 
 ## Key Features
 
-#### Texts and Reading Comprehension Materials
+### Texts and Reading Comprehension Materials
 
 * Taken from the OneStopQA dataset ([Paper](https://aclanthology.org/2020.acl-main.507/) [Data 🤗](https://huggingface.co/datasets/malmaud/onestop_qa))
 * 30 articles with 162 paragraphs in English from the Guardian.
@@ -35,7 +35,7 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
   * 486 reading comprehension questions in total.
   * Auxiliary text annotations for answer choices.
   
-#### Statistics
+### Statistics
 
 Statistics of OneStop and other public broad-coverage eyetracking datasets for English L1.
 
@@ -55,7 +55,7 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
  'Reading Comprehension' are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
  'Words' is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which eye-tracking data was collected. 'NA': data not available.
 
-#### Controlled experimental manipulations
+### Controlled experimental manipulations
 
 1. **Reading goal**: ordinary reading or information seeking.
 2. **Prior exposure to the text**: first reading or repeated reading.
@@ -125,6 +125,8 @@ The repository is structured as follows:
 * `src/`: Scripts for preprocessing the data and reproducing the analyses.
 
 ## Reproducing the Analyses in TODO: Add paper link
+
+The analyses in the paper can be reproduced by running `src/analyses.ipynb`.
 
 ### Environment Setup
 
