@@ -663,7 +663,6 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "RECALIBRATE",
         "ALL_ANSWERS",
         "ANSWER",
-        "CONFIRM_FINAL_ANSWER_RT",
     ]
     # print columns in to_drop that are not in df
     print([col for col in to_drop if col not in df.columns])
