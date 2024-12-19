@@ -670,7 +670,10 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
     df.columns = df.columns.str.replace(" ", "_")
     split_save_sub_corpora(df, args.save_path)
-
+    # mkdir
+    args.save_path.parent.mkdir(parents=True, exist_ok=True)
+    # mkdir full
+    (args.save_path.parent / "full").mkdir(parents=True, exist_ok=True)
     df.to_csv(
         args.save_path.parent
         / "full"
@@ -699,6 +702,8 @@ def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
 
     # Save dataframes
     for name, filtered_df in filtered_dfs.items():
+        #make dir
+        (save_path.parent / name).mkdir(parents=True, exist_ok=True)
         filtered_df.to_csv(
             save_path.parent / name / f"{save_path.stem}_{name}.csv", index=False
         )
