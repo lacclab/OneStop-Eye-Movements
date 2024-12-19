@@ -151,7 +151,7 @@ if __name__ == "__main__":
     else:
         survey_responses = utils.load_json(path=config.QUESTIONNAIRE_PATH)
     # load the trial reports
-    trials = utils.load_df(path=config.TRIAL_P_PATH)
+    trials = utils.load_df(path=config.TRIAL_PATH)
     trials = pre.values_conversion(df=trials)
 
     full_report = create_full_report(trials, metadata, survey_responses)
