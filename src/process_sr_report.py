@@ -549,6 +549,8 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
     df = correct_span_issues(df)
 
+    df = fix_question_field(df)
+
     ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
     df = compute_word_span_metrics(df, args.mode, ia_field)
 
@@ -919,6 +921,28 @@ def correct_span_issues(df: pd.DataFrame) -> pd.DataFrame:
         & (df["q_ind"] == 1),
         "aspan_inds",
     ] = "[(49, 67)]"
+    return df
+
+
+def fix_question_field(df: pd.DataFrame) -> pd.DataFrame:
+    queries_to_take_long_question = [
+        "batch==1 & article_id==1 & paragraph_id==7 & q_ind==2",
+        "batch==1 & article_id==2 & paragraph_id==6 & q_ind==1",
+        "batch==1 & article_id==8 & paragraph_id==2 & q_ind==1",
+        "batch==1 & article_id==9 & paragraph_id==4 & q_ind==1",
+        "batch==1 & article_id==9 & paragraph_id==5 & q_ind==0",
+        "batch==3 & article_id==2 & paragraph_id==2 & q_ind==1",
+        "batch==3 & article_id==3 & paragraph_id==2 & q_ind==2",
+    ]
+
+    for query in queries_to_take_long_question:
+        assert len(df.query(query).question.drop_duplicates()) == 2
+
+    for query in queries_to_take_long_question:
+        questions = df.query(query).question.drop_duplicates().tolist()
+        longer_question = max(questions, key=len)
+        df.loc[df.query(query).index, "question"] = longer_question
+
     return df
 
 
