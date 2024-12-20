@@ -106,8 +106,9 @@
 </section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#overview'"><span>#</span></a></h2>
-<p>OneStop One Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with <strong>360 participants</strong> and over <strong>2.6 million word tokens</strong>, collected using an EyeLink 1000 Plus eyetracker.</p>
-<p>The dataset contains four sub-corpora, one for each of the following reading regimes:</p>
+<p>OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with <strong>360 L1 participants</strong> and <strong>2.6 million word tokens</strong>.
+The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).</p>
+<p>OneStop comprises four sub-corpora, one for each of the following reading regimes:</p>
 <ul class="simple">
 <li><p>Ordinary reading</p></li>
 <li><p>Information seeking</p></li>
@@ -157,8 +158,8 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 <td><p>OneStop</p></td>
 <td><p>360</p></td>
 <td><p>22.8±5.6</p></td>
-<td><p>19,425 (Adv)<br/> 15,737 (Ele)<br/>19,221 (QA)</p></td>
-<td><p>2,632,159 (Parag)<br/>1,311,752 (QA)</p></td>
+<td><p>19,425 (Advanced)<br/> 15,737 (Elementary)<br/>19,221 (QA)</p></td>
+<td><p>2,632,159 (Paragraphs)<br/>1,311,752 (QA)</p></td>
 <td><p>486</p></td>
 <td><p>20</p></td>
 <td><p>54</p></td>
@@ -246,7 +247,7 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 </tbody>
 </table>
 
-<p>‘Reading Comprehension’ are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
+<p>‘Reading Comprehension’ are datasets with a substantial reading comprehension component over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
 ‘Words’ is the number words in the textual corpus. ‘Words Recorded’ is the number of word tokens for which eye-tracking data was collected. ‘NA’: data not available.</p>
 </section>
 <section id="controlled-experimental-manipulations">
@@ -271,7 +272,7 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 </section>
 <section id="obtaining-the-data">
 <h2>Obtaining the Data<a class="headerlink" href="#obtaining-the-data" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#obtaining-the-data'"><span>#</span></a></h2>
-<p>Data is not yet available. Download instructions will be updated here.</p>
+<p>The data is not yet available. Instructions for downloading the data will be updated here.</p>
 <p>We provide the possibility to download the entire dataset, or any of four sub-corpora:</p>
 <ol class="arabic simple">
 <li><p>Ordinary reading (download this data if you are interested in a general purpose eyetracking dataset)</p></li>
@@ -282,25 +283,21 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 <blockquote>
 <div><p>There are several ways to obtain the data</p>
 </div></blockquote>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Download the data directly from the <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">OSF repository<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p></li>
-<li><p>Use the <code class="docutils literal notranslate"><span class="pre">download_data_files.py</span></code> script to download and extract the data files automatically.</p></li>
-</ol>
-</div></blockquote>
+
+
 
 
 <blockquote>
 <div><h3 class="rubric" id="direct-download-from-osf">Direct Download from OSF</h3>
 </div></blockquote>
 <blockquote>
-<div><p>The data files are stored in an <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">OSF repository<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>, and can be downloaded manually from the repository.</p>
+<div><p>Download the files manually from an <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">OSF repository<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
 </div></blockquote>
 <blockquote>
 <div><h3 class="rubric" id="python-script">Python Script</h3>
 </div></blockquote>
 <blockquote>
-<div><p>If the repository has been cloned, they can be downloaded and extracted automatically using the following script:</p>
+<div><p>Clone this repository, then run following script:</p>
 </div></blockquote>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">extract</span>
@@ -318,9 +315,9 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 <li><p><code class="docutils literal notranslate"><span class="pre">src/</span></code>: Scripts for preprocessing the data and reproducing the analyses.</p></li>
 </ul>
 </section>
-<section id="reproducing-the-analyses-in-todo-add-paper-link">
-<h2>Reproducing the Analyses in TODO: Add paper link<a class="headerlink" href="#reproducing-the-analyses-in-todo-add-paper-link" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reproducing-the-analyses-in-todo-add-paper-link'"><span>#</span></a></h2>
-<p>The analyses in the paper can be reproduced by running <code class="docutils literal notranslate"><span class="pre">src/analyses.ipynb</span></code>.</p>
+<section id="reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes">
+<h2>Reproducing the Analyses in the paper “OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes”:<a class="headerlink" href="#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes'"><span>#</span></a></h2>
+<p>The analyses in the OneStop paper can be reproduced by running <code class="docutils literal notranslate"><span class="pre">src/analyses.ipynb</span></code>.</p>
 <section id="environment-setup">
 <h3>Environment Setup<a class="headerlink" href="#environment-setup" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#environment-setup'"><span>#</span></a></h3>
 <section id="prerequisites">
@@ -367,22 +364,18 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 </section>
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#documentation'"><span>#</span></a></h2>
-<section id="variables">
-<h3>Variables<a class="headerlink" href="#variables" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#variables'"><span>#</span></a></h3>
+<section id="variables-todo-add-links-to-variable-documentation-pages">
+<h3>Variables: TODO add links to variable documentation pages<a class="headerlink" href="#variables-todo-add-links-to-variable-documentation-pages" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#variables-todo-add-links-to-variable-documentation-pages'"><span>#</span></a></h3>
 <p>The dataset contains three types of variables.</p>
 <ul class="simple">
-<li><p>The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper.</p></li>
-<li><p>The variables included in the Session Summary file are provided in Table 3.</p></li>
+<li><p>The data variables of the participant Questionnaire file, listed in Table 2 in the OneStop paper.</p></li>
+<li><p>The variables included in the Session Summary file, listed in Table 3.</p></li>
 <li><p>The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.</p></li>
 </ul>
 </section>
-<section id="technical-setup">
-<h3>Technical Setup<a class="headerlink" href="#technical-setup" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#technical-setup'"><span>#</span></a></h3>
-<p>See Section “Eye-tracking Setup, Text Presentation and Calibration” in the onestop paper.</p>
-</section>
 <section id="known-issues">
 <h3>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#known-issues'"><span>#</span></a></h3>
-<p>See known issues with the dataset <a class="reference internal" href="known_issues.html"><span class="std std-doc">here</span></a>.</p>
+<p>See documentation of known issues <a class="reference internal" href="known_issues.html"><span class="std std-doc">here</span></a>.</p>
 </section>
 </section>
 <section id="citation">
@@ -433,7 +426,7 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 <li><a :data-current="activeSection === '#trial-structure'" class="reference internal" href="#trial-structure">Trial Structure</a></li>
 <li><a :data-current="activeSection === '#obtaining-the-data'" class="reference internal" href="#obtaining-the-data">Obtaining the Data</a></li>
 <li><a :data-current="activeSection === '#repository-structure'" class="reference internal" href="#repository-structure">Repository Structure</a></li>
-<li><a :data-current="activeSection === '#reproducing-the-analyses-in-todo-add-paper-link'" class="reference internal" href="#reproducing-the-analyses-in-todo-add-paper-link">Reproducing the Analyses in TODO: Add paper link</a><ul>
+<li><a :data-current="activeSection === '#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes'" class="reference internal" href="#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes">Reproducing the Analyses in the paper “OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes”:</a><ul>
 <li><a :data-current="activeSection === '#environment-setup'" class="reference internal" href="#environment-setup">Environment Setup</a><ul>
 <li><a :data-current="activeSection === '#prerequisites'" class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a :data-current="activeSection === '#setup'" class="reference internal" href="#setup">Setup</a></li>
@@ -443,8 +436,7 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 </ul>
 </li>
 <li><a :data-current="activeSection === '#documentation'" class="reference internal" href="#documentation">Documentation</a><ul>
-<li><a :data-current="activeSection === '#variables'" class="reference internal" href="#variables">Variables</a></li>
-<li><a :data-current="activeSection === '#technical-setup'" class="reference internal" href="#technical-setup">Technical Setup</a></li>
+<li><a :data-current="activeSection === '#variables-todo-add-links-to-variable-documentation-pages'" class="reference internal" href="#variables-todo-add-links-to-variable-documentation-pages">Variables: TODO add links to variable documentation pages</a></li>
 <li><a :data-current="activeSection === '#known-issues'" class="reference internal" href="#known-issues">Known Issues</a></li>
 </ul>
 </li>
