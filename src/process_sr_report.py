@@ -911,12 +911,10 @@ def fix_question_field(df: pd.DataFrame) -> pd.DataFrame:
     ]
 
     for query in queries_to_take_long_question:
-        assert len(df.query(query).question.drop_duplicates()) == 2
-
-    for query in queries_to_take_long_question:
         questions = df.query(query).question.drop_duplicates().tolist()
-        longer_question = max(questions, key=len)
-        df.loc[df.query(query).index, "question"] = longer_question
+        if len(questions) == 2:
+            longer_question = max(questions, key=len)
+            df.loc[df.query(query).index, "question"] = longer_question
 
     return df
 
@@ -1159,7 +1157,7 @@ if __name__ == "__main__":
             "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
         )
 
-    reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
+    reports = ["T", "P", "A", "QA", "Q_preview", "Q", "F"]
     modes = [Mode.IA.value, Mode.FIXATION.value]
 
     for mode, report in product(modes, reports):
