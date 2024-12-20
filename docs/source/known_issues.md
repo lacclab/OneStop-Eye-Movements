@@ -31,4 +31,14 @@ Other issues:
 Fixed issues:
 
 - Fixed: SR-generated `.ias` files incorrectly labeled split hyphenated words (e.g., "hunter-" and "gatherer" got full "hunter-gatherer" label). Now each part gets its correct segment via `fix_ias.ipynb`.
-- TODO add question field cutoff
+- For some reason, the `question` field in reports was not always correctly populated (last word or two were cutoff), even though the participants saw the full question. This was fixed by manually adding the missing words to the `question` field for the following cases:
+
+  | Batch | Article ID | Paragraph ID | Question Index |
+  |-------|------------|--------------|----------------|
+  | 1     | 1          | 7            | 2              |
+  | 1     | 2          | 6            | 1              |
+  | 1     | 8          | 2            | 1              |
+  | 1     | 9          | 4            | 1              |
+  | 1     | 9          | 5            | 0              |
+  | 3     | 2          | 2            | 1              |
+  | 3     | 3          | 2            | 2              |
