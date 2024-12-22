@@ -1,10 +1,6 @@
 # Preproccessing and Reproducing Analyses 
 
-Preproccessing and Reproducing Analyses in the paper "OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes":
-
-The preprocess steps can be found in `src/process_sr_report.py` and `compute session summary.py`.
-
-The analyses in the OneStop paper can be reproduced by running `src/analyses.ipynb`.
+Preproccessing and reproducing analyses in the paper "OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes":
 
 ## Environment Setup
 
@@ -48,7 +44,12 @@ The analyses in the OneStop paper can be reproduced by running `src/analyses.ipy
     ```
 
 ## Preprocessing Data
+The preprocess steps can be found in `src/process_sr_report.py` and `compute session summary.py`.
+
+TODO Fill in
 
 ## Running the Analyses
+
+The analyses in the OneStop paper can be reproduced by running `src/analyses.ipynb`.
 
 TODO Fill in

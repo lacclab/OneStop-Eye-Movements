@@ -121,11 +121,11 @@ dataset.download()
 
 The repository is structured as follows:
 
-* [data/](veriables.md) : Information about our data files and variables.
+* [data/](variables.md) : Information about the data files and variables.
 
-* [known issues/](known_issues.md) : Documentation of known issues.
+* [Known issues](known_issues.md) : Documentation of known issues.
  
-* [scrips/](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
+* [Scrips](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
 
 ## Citation
 
