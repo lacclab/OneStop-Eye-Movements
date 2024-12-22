@@ -46,7 +46,6 @@ Preproccessing and reproducing analyses in the paper "OneStop: A 360-Participant
 ## Preprocessing Data
 The preprocess steps can be found in `src/process_sr_report.py` and `compute session summary.py`.
 
-TODO Fill in
 
 ## Running the Analyses
 
