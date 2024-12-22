@@ -125,7 +125,7 @@ The repository is structured as follows:
 
 * [Known issues](known_issues.md) : Documentation of known issues.
  
-* [Scrips](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
+* [Scripts](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
 
 ## Citation
 
