@@ -114,72 +114,11 @@ dataset.download()
 
 The repository is structured as follows:
 
-* `data/`: Metadata files.
-* `docs/`: Documentation source files.
-* `src/`: Scripts for preprocessing the data and reproducing the analyses.
+* [Data files and variables](variables.md) : Information about the data files and variables.
 
-## Reproducing the Analyses in the paper "OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes"
-
-The analyses in the OneStop paper can be reproduced by running `src/analyses.ipynb`.
-
-### Environment Setup
-
-#### Prerequisites
-
-* [Mamba](https://github.com/conda-forge/miniforge#mambaforge) or Conda
-
-#### Setup
-
-1. **Clone the Repository**
-
-    Start by cloning the repository to your local machine:
-
-    ```bash
-    git clone https://github.com/lacclab/OneStop-Eye-Movements.git
-    cd OneStop-Eye-Movements
-    ```
-
-2. **Create a Virtual Environment**
-
-    Create a new virtual environment using Mamba (or Conda) and install the dependencies:
-
-    ```bash
-    mamba env create -f environment.yaml
-    ```
-
-3. **Activate the Virtual Environment**
-
-    Activate the virtual environment:
-
-    ```bash
-    conda activate onestop
-    ```
-
-4. **Download spacy model**
-
-    Download the spacy model:
-
-    ```bash
-    python -m spacy download en_core_web_sm
-    ```
-
-### Running the Analyses
-
-TODO Fill in
-
-## Documentation
-
-### Variables: TODO add links to variable documentation pages
-
-The dataset contains three types of variables.
-
-* The data variables of the participant Questionnaire file, listed in Table 2 in the OneStop paper.
-* The variables included in the Session Summary file, listed in Table 3.
-* The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.
-
-### Known Issues
-
-See documentation of known issues [here](known_issues.md).
+* [Known issues](known_issues.md) : Documentation of known issues.
+ 
+* [Scripts](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
 
 ## Citation
 
