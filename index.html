@@ -84,6 +84,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="variables.html">Data Files and Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing_analyses.html">Preproccessing and Reproducing Analyses</a></li>
 </ul>
 </nav>
 </div>
@@ -310,73 +311,10 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 <h2>Repository Structure<a class="headerlink" href="#repository-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#repository-structure'"><span>#</span></a></h2>
 <p>The repository is structured as follows:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">data/</span></code>: Metadata files.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docs/</span></code>: Documentation source files.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">src/</span></code>: Scripts for preprocessing the data and reproducing the analyses.</p></li>
+<li><p><a class="reference internal" href="#veriables.md"><span class="xref myst">data/</span></a> : Information about our data files and variables.</p></li>
+<li><p><a class="reference internal" href="known_issues.html"><span class="std std-doc">known issues/</span></a> : Documentation of known issues.</p></li>
+<li><p><a class="reference internal" href="preprocessing_analyses.html"><span class="std std-doc">scrips/</span></a> : Scripts for preprocessing the data and reproducing the analyses.</p></li>
 </ul>
-</section>
-<section id="reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes">
-<h2>Reproducing the Analyses in the paper “OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes”:<a class="headerlink" href="#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes'"><span>#</span></a></h2>
-<p>The analyses in the OneStop paper can be reproduced by running <code class="docutils literal notranslate"><span class="pre">src/analyses.ipynb</span></code>.</p>
-<section id="environment-setup">
-<h3>Environment Setup<a class="headerlink" href="#environment-setup" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#environment-setup'"><span>#</span></a></h3>
-<section id="prerequisites">
-<h4>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"><span>#</span></a></h4>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/conda-forge/miniforge#mambaforge" rel="nofollow noopener">Mamba<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> or Conda</p></li>
-</ul>
-</section>
-<section id="setup">
-<h4>Setup<a class="headerlink" href="#setup" title="Link to this heading"><span>#</span></a></h4>
-<ol class="arabic">
-<li><p><strong>Clone the Repository</strong></p>
-<p>Start by cloning the repository to your local machine:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lacclab/OneStop-Eye-Movements.git
-<span class="nb">cd</span><span class="w"> </span>OneStop-Eye-Movements
-</pre></div>
-</div>
-</li>
-<li><p><strong>Create a Virtual Environment</strong></p>
-<p>Create a new virtual environment using Mamba (or Conda) and install the dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yaml
-</pre></div>
-</div>
-</li>
-<li><p><strong>Activate the Virtual Environment</strong></p>
-<p>Activate the virtual environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>onestop
-</pre></div>
-</div>
-</li>
-<li><p><strong>Download spacy model</strong></p>
-<p>Download the spacy model:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>spacy<span class="w"> </span>download<span class="w"> </span>en_core_web_sm
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-</section>
-<section id="running-the-analyses">
-<h3>Running the Analyses<a class="headerlink" href="#running-the-analyses" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#running-the-analyses'"><span>#</span></a></h3>
-<p>TODO Fill in</p>
-</section>
-</section>
-<section id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#documentation'"><span>#</span></a></h2>
-<section id="variables-todo-add-links-to-variable-documentation-pages">
-<h3>Variables: TODO add links to variable documentation pages<a class="headerlink" href="#variables-todo-add-links-to-variable-documentation-pages" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#variables-todo-add-links-to-variable-documentation-pages'"><span>#</span></a></h3>
-<p>The dataset contains three types of variables.</p>
-<ul class="simple">
-<li><p>The data variables of the participant Questionnaire file, listed in Table 2 in the OneStop paper.</p></li>
-<li><p>The variables included in the Session Summary file, listed in Table 3.</p></li>
-<li><p>The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.</p></li>
-</ul>
-</section>
-<section id="known-issues">
-<h3>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#known-issues'"><span>#</span></a></h3>
-<p>See documentation of known issues <a class="reference internal" href="known_issues.html"><span class="std std-doc">here</span></a>.</p>
-</section>
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#citation'"><span>#</span></a></h2>
@@ -426,20 +364,6 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 <li><a :data-current="activeSection === '#trial-structure'" class="reference internal" href="#trial-structure">Trial Structure</a></li>
 <li><a :data-current="activeSection === '#obtaining-the-data'" class="reference internal" href="#obtaining-the-data">Obtaining the Data</a></li>
 <li><a :data-current="activeSection === '#repository-structure'" class="reference internal" href="#repository-structure">Repository Structure</a></li>
-<li><a :data-current="activeSection === '#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes'" class="reference internal" href="#reproducing-the-analyses-in-the-paper-onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes">Reproducing the Analyses in the paper “OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes”:</a><ul>
-<li><a :data-current="activeSection === '#environment-setup'" class="reference internal" href="#environment-setup">Environment Setup</a><ul>
-<li><a :data-current="activeSection === '#prerequisites'" class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li><a :data-current="activeSection === '#setup'" class="reference internal" href="#setup">Setup</a></li>
-</ul>
-</li>
-<li><a :data-current="activeSection === '#running-the-analyses'" class="reference internal" href="#running-the-analyses">Running the Analyses</a></li>
-</ul>
-</li>
-<li><a :data-current="activeSection === '#documentation'" class="reference internal" href="#documentation">Documentation</a><ul>
-<li><a :data-current="activeSection === '#variables-todo-add-links-to-variable-documentation-pages'" class="reference internal" href="#variables-todo-add-links-to-variable-documentation-pages">Variables: TODO add links to variable documentation pages</a></li>
-<li><a :data-current="activeSection === '#known-issues'" class="reference internal" href="#known-issues">Known Issues</a></li>
-</ul>
-</li>
 <li><a :data-current="activeSection === '#citation'" class="reference internal" href="#citation">Citation</a></li>
 <li><a :data-current="activeSection === '#license'" class="reference internal" href="#license">License</a></li>
 </ul>
