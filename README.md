@@ -121,15 +121,11 @@ dataset.download()
 
 The repository is structured as follows:
 
-* Data files and Variables/ : Find information about our data files and variables [here](veriables.md).
+* [data/](veriables.md) : Information about our data files and variables.
 
-* Known Issues/ : See documentation of known issues [here](known_issues.md).
+* [known issues/](known_issues.md) : Documentation of known issues.
  
-* src/process_sr_report.py/ :
-
-* src/compute_session_summary.py/ : 
-
-* src/analyses: See scripts for preprocessing the data and reproducing the analyses [here](preprocessing_analyses.md) 
+* [scrips/](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
 
 ## Citation
 
