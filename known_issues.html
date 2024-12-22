@@ -213,9 +213,56 @@
 </li>
 </ul>
 <p>Fixed issues:</p>
-<ul class="simple">
+<ul>
 <li><p>Fixed: SR-generated <code class="docutils literal notranslate"><span class="pre">.ias</span></code> files incorrectly labeled split hyphenated words (e.g., “hunter-” and “gatherer” got full “hunter-gatherer” label). Now each part gets its correct segment via <code class="docutils literal notranslate"><span class="pre">fix_ias.ipynb</span></code>.</p></li>
-<li><p>TODO add question field cutoff</p></li>
+<li><p>For some reason, the <code class="docutils literal notranslate"><span class="pre">question</span></code> field in reports was not always correctly populated (last word or two were cutoff), even though the participants saw the full question. This was fixed by manually adding the missing words to the <code class="docutils literal notranslate"><span class="pre">question</span></code> field for the following cases:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Batch</p></th>
+<th class="head"><p>Article ID</p></th>
+<th class="head"><p>Paragraph ID</p></th>
+<th class="head"><p>Question Index</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>7</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>6</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>8</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>9</p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>9</p></td>
+<td><p>5</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+</li>
 </ul>
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
