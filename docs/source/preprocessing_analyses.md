@@ -50,5 +50,3 @@ The preprocess steps can be found in `src/process_sr_report.py` and `compute ses
 ## Running the Analyses
 
 The analyses in the OneStop paper can be reproduced by running `src/analyses.ipynb`.
-
-TODO Fill in
