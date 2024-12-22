@@ -71,7 +71,7 @@ Session summary file variables.
 | session_duration                           | Duration of the experimental session excluding breaks and calibrations                                  | minutes                                                                                                |
 | dominant_eye                               | Participant's dominant eye                                                                              | L / R                                                                                                  |
 | tracked_eye                                | Eye that was tracked (typically the dominant eye)                                                      | L / R / LR **                                                                                          |
-| lextale_score*                             | Participant's score on the LexTALE vocabulary test                                                     | 0 - 100                                                                                                |
+| lextale_score                             | Participant's score on the LexTALE vocabulary test *                                                     | 0 - 100                                                                                                |
 
 **Notes:**
 
