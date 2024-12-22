@@ -581,7 +581,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     )
     df["practice_trial"] = df["practice_trial"].astype(bool)
     df["repeated_reading_trial"] = df["repeated_reading_trial"].astype(bool)
-    df["auxiliary_span_type"] = df["Aauxiliary_span_type"].replace(
+    df["auxiliary_span_type"] = df["auxiliary_span_type"].replace(
         {"other": "outside", "a_span": "critical", "d_span": "distractor"},
     )
     # replace 0123 to ABCD in the answers order
@@ -593,23 +593,6 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         .apply(lambda x: [NUMBER_TO_LETTER[i] for i in x])
     )
     to_drop = [
-        "question_n_condition_prediction_label",
-        "q_reference",
-        "cs_has_two_questions",
-        "prev_Wordfreq_Frequency",
-        "prev_subtlex_Frequency",
-        "prev_Length",
-        "prev_gpt2_Surprisal",
-        "regression_rate",
-        "total_skip",
-        "part_length",
-        "normalized_dwell_time",
-        "normalized_part_dwell_time",
-        "normalized_part_ID",
-        "reverse_ID",
-        "reverse_part_ID",
-        "part_ID",
-        "normalized_ID",
         "Head_Direction",
         "AbsDistance2Head",
         "Is_Content_Word",
@@ -617,16 +600,6 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "TAG",
         "Token",
         "Word_idx",
-        "Unique Paragraph ID",
-        "subject_id",
-        "total_IA_DWELL_TIME",
-        "min_IA_ID",
-        "max_IA_ID",
-        "part_total_IA_DWELL_TIME",
-        "part_min_IA_ID",
-        "part_max_IA_ID",
-        "start_of_line",
-        "end_of_line",
         "IA_LABEL_y",
         "aspan_ind_start",
         "aspan_ind_end",
@@ -637,7 +610,6 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "is_before_aspan",
         "is_after_aspan",
         "relative_to_aspan",
-        "is_correct",
         "Trial_Index",
         "Trial_Index_",
         "q_ind",
@@ -655,12 +627,13 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "LETTER_HIGHT",
         "LETTER_WIDTH",
         "DUMMY",
-        "TRIAL_INDEX",
         "COMPREHENSION_PERCENT",
         "COMPREHENSION_SCORE",
         "TRIGGER_PADDING_X",
         "TRIGGER_PADDING_Y",
         "RECALIBRATE",
+        "ALL_ANSWERS",
+        "ANSWER",
     ]
     # print columns in to_drop that are not in df
     print([col for col in to_drop if col not in df.columns])
@@ -668,12 +641,12 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
     df.columns = df.columns.str.replace(" ", "_")
     split_save_sub_corpora(df, args.save_path)
-
+    # mkdir
+    args.save_path.parent.mkdir(parents=True, exist_ok=True)
+    # mkdir full
+    (args.save_path.parent / "full").mkdir(parents=True, exist_ok=True)
     df.to_csv(
-        args.save_path.parent
-        / "concatenated"
-        / args.save_path.stem
-        / args.save_path.suffix,
+        args.save_path.parent / "full" / (args.save_path.stem + args.save_path.suffix),
         index=False,
     )
     logger.info("Total number of rows: %d", len(df))
@@ -697,6 +670,8 @@ def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
 
     # Save dataframes
     for name, filtered_df in filtered_dfs.items():
+        # make dir
+        (save_path.parent / name).mkdir(parents=True, exist_ok=True)
         filtered_df.to_csv(
             save_path.parent / name / f"{save_path.stem}_{name}.csv", index=False
         )
@@ -936,12 +911,10 @@ def fix_question_field(df: pd.DataFrame) -> pd.DataFrame:
     ]
 
     for query in queries_to_take_long_question:
-        assert len(df.query(query).question.drop_duplicates()) == 2
-
-    for query in queries_to_take_long_question:
         questions = df.query(query).question.drop_duplicates().tolist()
-        longer_question = max(questions, key=len)
-        df.loc[df.query(query).index, "question"] = longer_question
+        if len(questions) == 2:
+            longer_question = max(questions, key=len)
+            df.loc[df.query(query).index, "question"] = longer_question
 
     return df
 
@@ -1184,7 +1157,7 @@ if __name__ == "__main__":
             "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
         )
 
-    reports = ["P", "A", "QA", "Q_preview", "Q", "T", "F"]
+    reports = ["T", "P", "A", "QA", "Q_preview", "Q", "F"]
     modes = [Mode.IA.value, Mode.FIXATION.value]
 
     for mode, report in product(modes, reports):
