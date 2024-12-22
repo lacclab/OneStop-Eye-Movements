@@ -8,7 +8,7 @@
 
 ## Overview
 
-OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants** and **2.6 million word tokens**. 
+OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants** and **2.6 million word tokens**.
 The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).
 
 OneStop comprises four sub-corpora, one for each of the following reading regimes:
@@ -78,31 +78,24 @@ Pages presented only in the information seeking regime are depicted in green.
 
 The data is not yet available. Instructions for downloading the data will be updated here.
 
-We provide the possibility to download the entire dataset, or any of four sub-corpora:
+There are several ways to obtain the data:
 
-1. Ordinary reading (download this data if you are interested in a general purpose eyetracking dataset)
-2. Information seeking
-3. Repeated reading
-4. Information seeking in repeated reading
+### Direct Download from OSF
 
-> There are several ways to obtain the data
+The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility to download the [entire dataset](https://osf.io/z7pyn/), or any of four sub-corpora:
 
-<!-- > 1. Download the data directly from the [OSF repository](https://osf.io/2prdq/). -->
-<!-- > 2. Use the `download_data_files.py` script to download and extract the data files automatically. -->
-<!-- 3. Use the `pymovements` package to download the data. -->
-<!-- 4. TODO Add other ways to obtain the data? -->
+1. [Ordinary reading](https://osf.io/zn9sq/) (download this data if you are interested in a general purpose eyetracking dataset)
+2. [Information seeking](https://osf.io/kpbgx/)
+3. [Repeated reading](https://osf.io/4ay3t/)
+4. [Information seeking in repeated reading](https://osf.io/6ra7t/)
 
-> ### Direct Download from OSF
+### Python Script
 
-> Download the files manually from an [OSF repository](https://osf.io/2prdq/).
+Clone this repository, then run following script:
 
-> ### Python Script
-
-> Clone this repository, then run following script:
-
-> ```python
-> python download_data_files.py --extract
-> ```
+```python
+python download_data_files.py --extract
+ ```
 
 <!-- ### pymovements integration
 
