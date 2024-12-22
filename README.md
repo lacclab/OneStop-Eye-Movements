@@ -121,7 +121,7 @@ dataset.download()
 
 The repository is structured as follows:
 
-* [data/](variables.md) : Information about the data files and variables.
+* [Data files and variables](variables.md) : Information about the data files and variables.
 
 * [Known issues](known_issues.md) : Documentation of known issues.
  
