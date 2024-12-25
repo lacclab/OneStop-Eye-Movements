@@ -91,11 +91,29 @@ The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility t
 
 ### Python Script
 
-Clone this repository, then run following script:
+The data can also be downloaded using the provided Python script. The script will download and extract the data files.
+
+Basic usage to download the entire dataset:
 
 ```python
-python download_data_files.py --extract
- ```
+python download_data_files.py
+```
+
+Available options:
+
+* `--extract`: Extract downloaded zip files (default: True)
+* `--asc`: Download ASC files (default: False)
+* `--edf`: Download EDF files (default: False)
+* `-o, --output-folder`: Specify output folder (default: "OneStop")
+* `--mode`: Choose dataset version to download (default: "full")
+  * Options: "full", "repeated", "information-seeking", "ordinary", "information-seeking-in-repeated"
+
+Example usage to download only the ordinary reading subset:
+
+```python
+
+python download_data_files.py --mode ordinary
+```
 
 <!-- ### pymovements integration
 
@@ -117,7 +135,7 @@ The repository is structured as follows:
 * [Data files and variables](variables.md) : Information about the data files and variables.
 
 * [Known issues](known_issues.md) : Documentation of known issues.
- 
+
 * [Scripts](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
 
 ## Citation
