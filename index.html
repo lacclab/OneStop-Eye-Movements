@@ -287,8 +287,26 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 </section>
 <section id="python-script">
 <h3>Python Script<a class="headerlink" href="#python-script" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#python-script'"><span>#</span></a></h3>
-<p>Clone this repository, then run following script:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">extract</span>
+<p>The data can also be downloaded using the provided Python script. The script will download and extract the data files.</p>
+<p>Basic usage to download the entire dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Available options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--extract</span></code>: Extract downloaded zip files (default: True)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--asc</span></code>: Download ASC files (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--edf</span></code>: Download EDF files (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-o,</span> <span class="pre">--output-folder</span></code>: Specify output folder (default: “OneStop”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mode</span></code>: Choose dataset version to download (default: “full”)</p>
+<ul>
+<li><p>Options: “full”, “repeated”, “information-seeking”, “ordinary”, “information-seeking-in-repeated”</p></li>
+</ul>
+</li>
+</ul>
+<p>Example usage to download only the ordinary reading subset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">python</span> <span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">mode</span> <span class="n">ordinary</span>
 </pre></div>
 </div>
 
