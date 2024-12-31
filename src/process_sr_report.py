@@ -83,30 +83,29 @@ class ArgsParser(Tap):
     NLP_MODEL: str = "en_core_web_sm"
     parsing_mode: Literal["keep-first", "keep-all", "re-tokenize"] = "re-tokenize"
     base_cols: List[str] = [
-        "subject_id",
+        "participant_id",
         "unique_paragraph_id",
-        "has_preview",
-        "q_ind",
-        "question_prediction_label",
+        "question_preview",
+        "same_critical_span",
         "question_n_condition_prediction_label",
-        "practice",
-        "reread",
+        "practice_trial",
+        "repeated_reading_trial",
         "is_correct",
-        "correct_answer",
-        "abcd_answer",
+        "correct_answer_position",
+        "selected_answer",
         "answers_order",
-        "list",
+        "list_number",
         "cs_has_two_questions",
         "q_reference",
-        "FINAL_ANSWER",
+        "selected_answer_position",
         IA_ID_COL,
         "IA_LABEL",
-        "Wordfreq_Frequency",
-        "Length",
-        "prev_Length",
-        "prev_Wordfreq_Frequency",
-        "subtlex_Frequency",
-        "prev_subtlex_Frequency",
+        "wordfreq_frequency",
+        "word_length_no_punctuation",
+        "prev_word_length_no_punctuation",
+        "prev_wordfreq_frequency",
+        "subtlex_frequency",
+        "prev_subtlex_frequency",
         "PARAGRAPH_RT",
         "IA_FIRST_FIX_PROGRESSIVE",
         "is_in_dspan",
@@ -117,7 +116,7 @@ class ArgsParser(Tap):
         "span_type",
         "entropy",
         "question",
-        "article_ind",
+        "article_index",
         "a_proportion",
         "b_proportion",
         "c_proportion",
@@ -136,21 +135,21 @@ class ArgsParser(Tap):
         "reverse_part_ID",
         "part_ID",
         "normalized_ID",
-        "Token",
-        "POS",
-        "TAG",
-        "Head_word_idx",
-        "Relationship",
-        "n_Lefts",
-        "n_Rights",
-        "Distance2Head",
-        "Morph",
-        "Entity",
+        "token",
+        "universal_pos",
+        "tag",
+        "head_word_index",
+        "dependency_relation",
+        "left_dependents_count",
+        "right_dependents_count",
+        "distance_to_head",
+        "morphological_features",
+        "entity_type",
         "Head_Direction",
         "Token_idx",
         "Word_idx",
         "Is_Content_Word",
-        "Reduced_POS",
+        "ptb_pos",
         "start_of_line",
         "end_of_line",
         "IA_AVERAGE_FIX_PUPIL_SIZE",
@@ -226,9 +225,9 @@ class ArgsParser(Tap):
     data_path: Path = Path()  # Path to data folder.
     onestopqa_path: Path = Path("data/interim/onestop_qa.json")
     unique_item_columns: List[str] = [
-        "batch",
+        "article_batch",
         "article_id",
-        "level",
+        "difficulty_level",
         "paragraph_id",
     ]  # columns that make up a unique item
     unique_item_column: str = (
@@ -295,21 +294,16 @@ def create_and_configer_logger(log_name: str = "log.log") -> logging.Logger:
 logger = create_and_configer_logger("preprocessing.log")
 
 
-def _load_raw_data(data_path) -> pd.DataFrame:
-    """Loads the raw data"""
-    data = pd.read_csv(data_path, sep="\t", low_memory=False)
-    logger.info("Loaded %d records from %s.", len(data), data_path)
-    return data
-
-
 def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     # If this won't be here the Surprisal columns won't be added to the base columns if they are not in the base columns in the first place
-    args.base_cols += [
-        surprisal_model + "_Surprisal" for surprisal_model in args.SURPRISAL_MODELS
+    surprisal_models = [
+        "gpt-2" if model == "gpt2" else model for model in args.SURPRISAL_MODELS
     ]
     args.base_cols += [
-        "prev_" + surprisal_model + "_Surprisal"
-        for surprisal_model in args.SURPRISAL_MODELS
+        surprisal_model + "_surprisal" for surprisal_model in surprisal_models
+    ]
+    args.base_cols += [
+        "prev_" + surprisal_model + "_surprisal" for surprisal_model in surprisal_models
     ]
 
     if args.add_prolific_qas_distribution:
@@ -320,12 +314,12 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
     # In general, only features that have '.' or NaN or not automatically converted.
     to_int_features = [
-        "batch",
+        "article_batch",
         "article_id",
         "paragraph_id",
-        "reread",
-        "practice",
-        "has_preview",
+        "repeated_reading_trial",
+        "practice_trial",
+        "question_preview",
     ]
     if args.mode == Mode.IA:
         to_int_features += [
@@ -440,42 +434,37 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         )
 
     logger.info("Getting whether the answer is correct and the answer letter...")
-    df["is_correct"] = df["correct_answer"] == df["FINAL_ANSWER"]
-    df["abcd_answer"] = df.apply(
-        lambda x: x["answers_order"][x["FINAL_ANSWER"]], axis=1
-    )
-    logger.info("Replacing numeric answer with letters...")
-    df.abcd_answer.replace({"0": "A", "1": "B", "2": "C", "3": "D"}, inplace=True)
+    if "selected_answer" not in df.columns:
+        df["selected_answer"] = df.apply(
+            lambda x: x["answers_order"][x["selected_answer_position"]], axis=1
+        )  # TODO delete after reprocessing
+    df["is_correct"] = df["selected_answer"] == "A"
 
     logger.info("Replacing numeric condition with words...")
-    df.has_preview.replace({0: "Gathering", 1: "Hunting"}, inplace=True)
-
-    if args.mode == Mode.IA:
-        df = compute_start_end_line(df)  # TODO add to fixation data as well?
-        df["regression_rate"] = df["IA_REGRESSION_OUT_FULL_COUNT"] / df["IA_RUN_COUNT"]
-        df["total_skip"] = df["IA_DWELL_TIME"] == 0
-        df["part_length"] = df["part_max_IA_ID"] - df["part_min_IA_ID"] + 1
+    df.question_preview = df.question_preview.replace({0: "Gathering", 1: "Hunting"})
 
     logger.info("Adding unique paragraph id...")
     df["unique_paragraph_id"] = (
         df[args.unique_item_columns].astype(str).apply("_".join, axis=1)
     )
 
-    logger.info("Renaming column 'RECORDING_SESSION_LABEL' to 'subject_id'...")
-    df["subject_id"] = df["RECORDING_SESSION_LABEL"]
-
     duration_col = "IA_DWELL_TIME" if args.mode == Mode.IA else "CURRENT_FIX_DURATION"
     ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
-
-    df = compute_normalized_features(df, duration_col, ia_field)
+    df = compute_word_span_metrics(df, args.mode, ia_field)
     df = _compute_span_level_metrics(df, ia_field, args.mode, duration_col)
-    df = add_previous_word_metrics(df, args)
+    df = compute_normalized_features(df, duration_col, ia_field)
+    if args.mode == Mode.IA:
+        df = add_previous_word_metrics(df, args)
+        df = compute_start_end_line(df)  # TODO add to fixation data as well?
+        df["regression_rate"] = df["IA_REGRESSION_OUT_FULL_COUNT"] / df["IA_RUN_COUNT"]
+        df["total_skip"] = df["IA_DWELL_TIME"] == 0
+        df["part_length"] = df["part_max_IA_ID"] - df["part_min_IA_ID"] + 1
     if args.add_prolific_qas_distribution:
         logger.info("Adding question difficulty data...")
         question_difficulty = pd.read_csv(qas_prolific_distribution_path)
         df = df.merge(
             question_difficulty,
-            on=["batch", "article_id", "paragraph_id", "q_ind"],
+            on=["article_batch", "article_id", "paragraph_id", "same_critical_span"],
             validate="m:1",
             how="left",
         )
@@ -485,48 +474,25 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
             args.add_prolific_qas_distribution,
         )
 
-    # TODO use get_raw_text and get_article_data
-    cs_has_two_questions = []
-    q_references = []
-    question_prediction_labels = []
-    for row in tqdm(
-        iterable=text_data.itertuples(), total=len(text_data), desc="Adding"
-    ):
-        full_article_id = f"{row.batch}_{row.article_id}"
-        try:
-            questions = pd.DataFrame(
-                get_article_data(full_article_id)["paragraphs"][row.paragraph_id - 1][
-                    "qas"
-                ]
-            )
-
-            cs_two_questions_flag: int = questions.loc[
-                questions["q_ind"] == row.q_ind, "cs_has_two_questions"
-            ].item()
-
-            q_reference = questions.loc[
-                questions["q_ind"] == row.q_ind, "references"
-            ].item()
-
-            question_prediction_label = questions.loc[
-                questions["q_ind"] == row.q_ind, "question_prediction_label"
-            ].item()
-        except ValueError:
-            cs_two_questions_flag = 0
-            q_reference = ""
-            question_prediction_label = 0
-        cs_has_two_questions.append(cs_two_questions_flag)
-        question_prediction_labels.append(question_prediction_label)
-        q_references.append(q_reference)
-
-    text_data["cs_has_two_questions"] = cs_has_two_questions
+    text_data = df[
+        [
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "same_critical_span",
+        ]
+    ].drop_duplicates()
+    cs_has_two_questions, q_references = (
+        enrich_text_data_with_reference_and_cs_two_questions(text_data, args)
+    )
     text_data["q_reference"] = q_references
-    text_data["question_prediction_label"] = question_prediction_labels
+    text_data["cs_has_two_questions"] = cs_has_two_questions
+
     df = df.merge(text_data, validate="m:1", how="left")
     # {"Gathering": 0, "Hunting": 1}
     df["question_n_condition_prediction_label"] = df.apply(
-        lambda x: x["question_prediction_label"]
-        if x["has_preview"] in [1, "Hunting"]
+        lambda x: x["same_critical_span"]
+        if x["question_preview"] in [1, "Hunting"]
         else 3,
         axis=1,
     )  # 3 = label for null question (gathering), corresponds to  cond pred.
@@ -592,6 +558,10 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         .str.split()
         .apply(lambda x: [NUMBER_TO_LETTER[i] for i in x])
     )
+    df["selected_answer"] = df.apply(
+        lambda x: x["answers_order"][x["selected_answer_position"]], axis=1
+    )
+
     to_drop = [
         "Head_Direction",
         "AbsDistance2Head",
@@ -678,54 +648,64 @@ def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
 
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.rename(
-        columns={
-            # Experiment Variables
-            "list": "list_number",
-            "has_preview": "question_preview",
-            "batch": "article_batch",
-            "RECORDING_SESSION_LABEL": "participant_id",
-            # Trial Variables
-            "article_id": "article_id",
-            "paragraph_id": "paragraph_id",
-            "level": "difficulty_level",
-            "trial": "trial_index",
-            "practice": "practice_trial",
-            "reread": "repeated_reading_trial",
-            "article_ind": "article_index",
-            "article_title": "article_title",
-            "paragraph": "paragraph",
-            "question": "question",
-            "question_prediction_label": "same_critical_span",
-            "correct_answer": "correct_answer_position",
-            "FINAL_ANSWER": "selected_answer_position",
-            "answers_order": "answers_order",
-            "abcd_answer": "selected_answer",
-            "a": "answer_1",
-            "b": "answer_2",
-            "c": "answer_3",
-            "d": "answer_4",
-            # Linguistic Annotations - Big Three
-            "Length": "word_length_no_punctuation",
-            "gpt2_Surprisal": "gpt-2_surprisal",
-            "Wordfreq_Frequency": "wordfreq_frequency",
-            "subtlex_Frequency": "subtlex_frequency",
-            # Linguistic Annotations - UD
-            "POS": "universal_pos",
-            "Reduced_POS": "ptb_pos",
-            "Head_word_idx": "head_word_index",
-            "Relationship": "dependency_relation",
-            "n_Lefts": "left_dependents_count",
-            "n_Rights": "right_dependents_count",
-            "Distance2Head": "distance_to_head",
-            "Morph": "morphological_features",
-            "Entity": "entity_type",
-            # STARC
-            "span_type": "auxiliary_span_type",
-            "aspan_inds": "critical_span_indices",
-            "dspan_inds": "distractor_span_indices",
-        },
-    )
+    original_columns = df.columns
+    renamed_columns = {
+        # Experiment Variables
+        "list": "list_number",
+        "has_preview": "question_preview",
+        "batch": "article_batch",
+        "RECORDING_SESSION_LABEL": "participant_id",
+        # Trial Variables
+        "article_id": "article_id",
+        "paragraph_id": "paragraph_id",
+        "level": "difficulty_level",
+        "trial": "trial_index",
+        "practice": "practice_trial",
+        "reread": "repeated_reading_trial",
+        "article_ind": "article_index",
+        "article_title": "article_title",
+        "paragraph": "paragraph",
+        "question": "question",
+        "question_prediction_label": "same_critical_span",
+        "correct_answer": "correct_answer_position",
+        "FINAL_ANSWER": "selected_answer_position",
+        # "answers_order": "answers_order",
+        # "abcd_answer": "selected_answer",
+        "a": "answer_1",
+        "b": "answer_2",
+        "c": "answer_3",
+        "d": "answer_4",
+        # Linguistic Annotations - Big Three
+        "Length": "word_length_no_punctuation",
+        "gpt2_Surprisal": "gpt-2_surprisal",
+        "Wordfreq_Frequency": "wordfreq_frequency",
+        "subtlex_Frequency": "subtlex_frequency",
+        # Linguistic Annotations - UD
+        "POS": "universal_pos",
+        "Reduced_POS": "ptb_pos",
+        "Head_word_idx": "head_word_index",
+        "Relationship": "dependency_relation",
+        "n_Lefts": "left_dependents_count",
+        "n_Rights": "right_dependents_count",
+        "Distance2Head": "distance_to_head",
+        "Morph": "morphological_features",
+        "Entity": "entity_type",
+        # STARC
+        "span_type": "auxiliary_span_type",
+        "aspan_inds": "critical_span_indices",
+        "dspan_inds": "distractor_span_indices",
+    }
+
+    df = df.rename(columns=renamed_columns)
+
+    # Find columns that were not renamed
+    not_renamed_columns = [
+        col for col in original_columns if col not in renamed_columns
+    ]
+
+    # Print columns that were not renamed
+    print("Columns that were not renamed:", not_renamed_columns)
+
     return df
 
 
@@ -768,6 +748,37 @@ def enrich_text_data_with_question_label(text_data: pd.DataFrame, args) -> List[
     return question_prediction_labels
 
 
+def enrich_text_data_with_reference_and_cs_two_questions(
+    text_data: pd.DataFrame, args
+) -> tuple[List[int], List[str]]:
+    raw_text = get_raw_text(args)
+    cs_has_two_questions = []
+    q_references = []
+    for row in tqdm(
+        iterable=text_data.itertuples(), total=len(text_data), desc="Adding"
+    ):
+        full_article_id = f"{row.article_batch}_{row.article_id}"
+        try:
+            questions = pd.DataFrame(
+                get_article_data(full_article_id, raw_text)["paragraphs"][
+                    row.paragraph_id - 1  # type: ignore
+                ]["qas"]
+            )
+            cs_two_questions_flag: int = questions.loc[
+                questions["q_ind"] == row.same_critical_span, "cs_has_two_questions"
+            ].item()
+
+            q_reference = questions.loc[
+                questions["q_ind"] == row.same_critical_span, "references"
+            ].item()
+        except ValueError:
+            cs_two_questions_flag = 0
+            q_reference = ""
+        cs_has_two_questions.append(cs_two_questions_flag)
+        q_references.append(q_reference)
+    return cs_has_two_questions, q_references
+
+
 def compute_start_end_line(df: pd.DataFrame) -> pd.DataFrame:
     """
     Compute for each word  whether it the first/last word in the line (not sentence!).
@@ -784,7 +795,7 @@ def compute_start_end_line(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     logger.info("Adding start_of_line and end_of_line columns...")
-    grouped_df = df.groupby(["subject_id", "unique_paragraph_id"])
+    grouped_df = df.groupby(["participant_id", "unique_paragraph_id"])
     df["start_of_line"] = (
         grouped_df["IA_LEFT"].shift(periods=1, fill_value=1000000) > df["IA_LEFT"]
     )
@@ -800,7 +811,7 @@ def compute_word_span_metrics(
     df[ia_field] = df[ia_field].replace({".": 0, np.nan: 0}).astype(int)
     pattern = r"(\d+), ?(\d+)"  # Regex pattern to extract span indices
     logger.info("Determining whether word is in the answer (critical) span...")
-    df[["aspan_ind_start", "aspan_ind_end"]] = df.aspan_inds.str.extract(
+    df[["aspan_ind_start", "aspan_ind_end"]] = df.critical_span_indices.str.extract(
         pattern, expand=True
     ).astype(int)  # TODO only the first span is extracted
     df["is_in_aspan"] = (df[ia_field] >= df["aspan_ind_start"]) & (
@@ -808,7 +819,7 @@ def compute_word_span_metrics(
     )
 
     logger.info("Determining whether word is in the distractor span...")
-    df[["dspan_ind_start", "dspan_ind_end"]] = df.dspan_inds.str.extract(
+    df[["dspan_ind_start", "dspan_ind_end"]] = df.distractor_span_indices.str.extract(
         pattern, expand=True
     ).astype(int)  # TODO only the first span is extracted
     df["is_in_dspan"] = (df[ia_field] >= df["dspan_ind_start"]) & (
@@ -969,13 +980,16 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
 def add_previous_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     logger.info("Calculating previous word metrics...")
-    group_columns = ["subject_id", "unique_paragraph_id"]
+    group_columns = ["participant_id", "unique_paragraph_id"]
     columns_to_shift = [
-        "Wordfreq_Frequency",
-        "subtlex_Frequency",
-        "Length",
+        "wordfreq_frequency",
+        "subtlex_frequency",
+        "word_length_no_punctuation",
     ]
-    columns_to_shift += [f"{model}_Surprisal" for model in args.SURPRISAL_MODELS]
+    model_names = [
+        "gpt-2" if model == "gpt2" else model for model in args.SURPRISAL_MODELS
+    ]
+    columns_to_shift += [f"{model}_surprisal" for model in model_names]
     for column in columns_to_shift:
         df[f"prev_{column}"] = df.groupby(group_columns)[column].shift(1)
     return df
@@ -986,7 +1000,11 @@ def _compute_span_level_metrics(
 ) -> pd.DataFrame:
     logger.info("Computing span-level metrics...")
 
-    group_by_fields = ["subject_id", "unique_paragraph_id", "reread"]
+    group_by_fields = [
+        "participant_id",
+        "unique_paragraph_id",
+        "repeated_reading_trial",
+    ]
 
     # Fix trials where ID does not start at 0
     if mode == Mode.IA:
@@ -1133,6 +1151,7 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 
 if __name__ == "__main__":
+    lacclab_preprocess = True
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
@@ -1157,16 +1176,39 @@ if __name__ == "__main__":
             "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
         )
 
-    reports = ["T", "P", "A", "QA", "Q_preview", "Q", "F"]
-    modes = [Mode.IA.value, Mode.FIXATION.value]
+    reports = [
+        "T",
+        "P",
+        "A",
+        "QA",
+        "Q_preview",
+        "Q",
+        "F",
+    ]
 
+    modes = [
+        Mode.FIXATION.value,
+        Mode.IA.value,
+    ]
+    short_to_long_mapping = {
+        "T": "Title",
+        "P": "Paragraph",
+        "A": "Answers",
+        "QA": "QA",
+        "Q_preview": "Question_review",
+        "Q": "Questions",
+        "F": "Feedback",
+    }
     for mode, report in product(modes, reports):
+        if lacclab_preprocess and report not in ["P"]:
+            print(f"Skipping {mode} report {report}")
+            continue
         print(f"Processing {mode} report {report}")
         if mode == Mode.FIXATION.value:
             data_path = base_data_path / f"Fixations reports/fixations_{report}.tsv"
         else:
             data_path = base_data_path / f"IA reports/ia_{report}.tsv"
-        save_file = f"{mode}_{report}.csv"
+        save_file = f"{mode}_{short_to_long_mapping[report]}.csv"
         args_file = Path(f"{mode}_{report}_args.json")
 
         args = [
@@ -1185,4 +1227,13 @@ if __name__ == "__main__":
             "--device",
             device,
         ]
-        process_data(args, args_file, save_path)
+
+        if lacclab_preprocess:
+            df = load_data(save_path / "full" / save_file)
+            df = our_processing(df=df, args=ArgsParser().parse_args(args))
+            Path("lacclab_processed_reports/full").mkdir(parents=True, exist_ok=True)
+            df.to_csv(
+                Path("lacclab_processed_reports") / "full" / save_file, index=False
+            )
+        else:
+            process_data(args, args_file, save_path)
