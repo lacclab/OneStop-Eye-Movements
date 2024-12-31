@@ -518,7 +518,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = fix_question_field(df)
 
     ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
-    df = compute_word_span_metrics(df, args.mode, ia_field)
+    df = compute_word_span_metrics(df, args.mode, ia_field, before_rename=True)
 
     if args.mode == Mode.IA:
         df = add_word_metrics(df, args)
@@ -806,12 +806,14 @@ def compute_start_end_line(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def compute_word_span_metrics(
-    df: pd.DataFrame, mode: Mode, ia_field: str
+    df: pd.DataFrame, mode: Mode, ia_field: str, before_rename: bool = False
 ) -> pd.DataFrame:
     df[ia_field] = df[ia_field].replace({".": 0, np.nan: 0}).astype(int)
     pattern = r"(\d+), ?(\d+)"  # Regex pattern to extract span indices
     logger.info("Determining whether word is in the answer (critical) span...")
-    df[["aspan_ind_start", "aspan_ind_end"]] = df.critical_span_indices.str.extract(
+    cs_field_name = "aspan_inds" if before_rename else "critical_span_indices"
+    ds_field_name = "dspan_inds" if before_rename else "distractor_span_indices"
+    df[["aspan_ind_start", "aspan_ind_end"]] = df[cs_field_name].str.extract(
         pattern, expand=True
     ).astype(int)  # TODO only the first span is extracted
     df["is_in_aspan"] = (df[ia_field] >= df["aspan_ind_start"]) & (
@@ -819,7 +821,7 @@ def compute_word_span_metrics(
     )
 
     logger.info("Determining whether word is in the distractor span...")
-    df[["dspan_ind_start", "dspan_ind_end"]] = df.distractor_span_indices.str.extract(
+    df[["dspan_ind_start", "dspan_ind_end"]] = df[ds_field_name].str.extract(
         pattern, expand=True
     ).astype(int)  # TODO only the first span is extracted
     df["is_in_dspan"] = (df[ia_field] >= df["dspan_ind_start"]) & (
@@ -1151,7 +1153,7 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 
 if __name__ == "__main__":
-    lacclab_preprocess = True
+    lacclab_preprocess = False
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
@@ -1177,8 +1179,8 @@ if __name__ == "__main__":
         )
 
     reports = [
-        "T",
         "P",
+        "T",
         "A",
         "QA",
         "Q_preview",
@@ -1187,8 +1189,8 @@ if __name__ == "__main__":
     ]
 
     modes = [
-        Mode.FIXATION.value,
         Mode.IA.value,
+        Mode.FIXATION.value,
     ]
     short_to_long_mapping = {
         "T": "Title",
