@@ -1,4 +1,4 @@
-Participant ID,Experimental Batch,List Number,Question Preview,Data Collection Site,Comprehension Score - Regular Trials,Comprehension Score - Repeated Reading,Recalibration Count,Total Recalibrations,Mean Validation Error,Total Session Duration,Session Duration,Dominant Eye,Tracked Eye,LexTALE Score*
+Participant_ID,Experimental_Batch,List_Number,Question_Preview,Data_Collection_Site,Comprehension_Score-Regular_Trials,Comprehension_Score-Repeated_Reading,Recalibration_Count,Total_Recalibrations,Mean_Validation_Error,Total_Session_Duration,Session_Duration,Dominant_Eye,Tracked_Eye,LexTALE_Score*
 202,2,10,False,MIT,85,100,4,6,0.1657142857142857,63.97221666666666,55.21436666666667,L,L,
 269,1,10,False,MIT,91,58,12,20,0.2826086956521739,67.95009999999999,41.32985,L,LR,
 338,3,10,True,MIT,76,90,5,5,0.25125,59.42823333333334,44.59546666666667,R,R,
