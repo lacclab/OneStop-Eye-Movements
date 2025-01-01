@@ -434,11 +434,6 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         )
 
     logger.info("Getting whether the answer is correct and the answer letter...")
-    if "selected_answer" not in df.columns:
-        df["selected_answer"] = df.apply(
-            lambda x: x["answers_order"][x["selected_answer_position"]], axis=1
-        )  # TODO delete after reprocessing
-    df["is_correct"] = df["selected_answer"] == "A"
 
     logger.info("Replacing numeric condition with words...")
     df.question_preview = df.question_preview.replace({0: "Gathering", 1: "Hunting"})
