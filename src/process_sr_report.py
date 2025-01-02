@@ -575,7 +575,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         "relative_to_aspan",
         "Trial_Index",
         "Trial_Index_",
-        "q_ind",
+        # "q_ind",
         "principle_list",
         "level_ind",
         "condition_symb",
@@ -660,6 +660,7 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
         "paragraph": "paragraph",
         "question": "question",
         "question_prediction_label": "same_critical_span",
+        "q_ind": "onestopqa_question_id",
         "correct_answer": "correct_answer_position",
         "FINAL_ANSWER": "selected_answer_position",
         # "answers_order": "answers_order",
@@ -1147,6 +1148,7 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 
 if __name__ == "__main__":
+    public_preprocess = True
     lacclab_preprocess = True
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
@@ -1223,7 +1225,8 @@ if __name__ == "__main__":
             "--device",
             device,
         ]
-
+        if public_preprocess:
+            process_data(args, args_file, save_path)
         if lacclab_preprocess:
             df = load_data(save_path / "full" / save_file)
             df = our_processing(df=df, args=ArgsParser().parse_args(args))
@@ -1231,5 +1234,4 @@ if __name__ == "__main__":
             df.to_csv(
                 Path("lacclab_processed_reports") / "full" / save_file, index=False
             )
-        else:
-            process_data(args, args_file, save_path)
+
