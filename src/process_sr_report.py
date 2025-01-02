@@ -435,9 +435,6 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
     logger.info("Getting whether the answer is correct and the answer letter...")
 
-    logger.info("Replacing numeric condition with words...")
-    df.question_preview = df.question_preview.replace({0: "Gathering", 1: "Hunting"})
-
     logger.info("Adding unique paragraph id...")
     df["unique_paragraph_id"] = (
         df[args.unique_item_columns].astype(str).apply("_".join, axis=1)
@@ -516,7 +513,9 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = compute_word_span_metrics(df, args.mode, ia_field, before_rename=True)
 
     if args.mode == Mode.IA:
+        df["IA_ID"] -= 1
         df = add_word_metrics(df, args)
+        df["IA_ID"] += 1
 
     text_data = df[
         [
@@ -560,7 +559,6 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     to_drop = [
         "Head_Direction",
         "AbsDistance2Head",
-        "Is_Content_Word",
         "Token_idx",
         "TAG",
         "Token",
@@ -685,6 +683,7 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
         "Distance2Head": "distance_to_head",
         "Morph": "morphological_features",
         "Entity": "entity_type",
+        "Is_Content_Word": "is_content_word",
         # STARC
         "span_type": "auxiliary_span_type",
         "aspan_inds": "critical_span_indices",
@@ -808,17 +807,17 @@ def compute_word_span_metrics(
     logger.info("Determining whether word is in the answer (critical) span...")
     cs_field_name = "aspan_inds" if before_rename else "critical_span_indices"
     ds_field_name = "dspan_inds" if before_rename else "distractor_span_indices"
-    df[["aspan_ind_start", "aspan_ind_end"]] = df[cs_field_name].str.extract(
-        pattern, expand=True
-    ).astype(int)  # TODO only the first span is extracted
+    df[["aspan_ind_start", "aspan_ind_end"]] = (
+        df[cs_field_name].str.extract(pattern, expand=True).astype(int)
+    )  # TODO only the first span is extracted
     df["is_in_aspan"] = (df[ia_field] >= df["aspan_ind_start"]) & (
         df[ia_field] < df["aspan_ind_end"]
     )
 
     logger.info("Determining whether word is in the distractor span...")
-    df[["dspan_ind_start", "dspan_ind_end"]] = df[ds_field_name].str.extract(
-        pattern, expand=True
-    ).astype(int)  # TODO only the first span is extracted
+    df[["dspan_ind_start", "dspan_ind_end"]] = (
+        df[ds_field_name].str.extract(pattern, expand=True).astype(int)
+    )  # TODO only the first span is extracted
     df["is_in_dspan"] = (df[ia_field] >= df["dspan_ind_start"]) & (
         df[ia_field] < df["dspan_ind_end"]
     )
@@ -1148,7 +1147,7 @@ def process_data(args: List[str], args_file: Path, save_path: Path):
 
 
 if __name__ == "__main__":
-    lacclab_preprocess = False
+    lacclab_preprocess = True
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
@@ -1175,12 +1174,12 @@ if __name__ == "__main__":
 
     reports = [
         "P",
-        "T",
-        "A",
-        "QA",
-        "Q_preview",
-        "Q",
-        "F",
+        # "T",
+        # "A",
+        # "QA",
+        # "Q_preview",
+        # "Q",
+        # "F",
     ]
 
     modes = [
