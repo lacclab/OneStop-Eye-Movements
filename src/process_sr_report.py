@@ -296,14 +296,12 @@ logger = create_and_configer_logger("preprocessing.log")
 
 def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     # If this won't be here the Surprisal columns won't be added to the base columns if they are not in the base columns in the first place
-    surprisal_models = [
-        "gpt-2" if model == "gpt2" else model for model in args.SURPRISAL_MODELS
+    args.base_cols += [
+        surprisal_model + "_surprisal" for surprisal_model in args.SURPRISAL_MODELS
     ]
     args.base_cols += [
-        surprisal_model + "_surprisal" for surprisal_model in surprisal_models
-    ]
-    args.base_cols += [
-        "prev_" + surprisal_model + "_surprisal" for surprisal_model in surprisal_models
+        "prev_" + surprisal_model + "_surprisal"
+        for surprisal_model in args.SURPRISAL_MODELS
     ]
 
     if args.add_prolific_qas_distribution:
@@ -671,7 +669,7 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
         "d": "answer_4",
         # Linguistic Annotations - Big Three
         "Length": "word_length_no_punctuation",
-        "gpt2_Surprisal": "gpt-2_surprisal",
+        "gpt2_Surprisal": "gpt2_surprisal",
         "Wordfreq_Frequency": "wordfreq_frequency",
         "subtlex_Frequency": "subtlex_frequency",
         # Linguistic Annotations - UD
@@ -983,10 +981,7 @@ def add_previous_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFram
         "subtlex_frequency",
         "word_length_no_punctuation",
     ]
-    model_names = [
-        "gpt-2" if model == "gpt2" else model for model in args.SURPRISAL_MODELS
-    ]
-    columns_to_shift += [f"{model}_surprisal" for model in model_names]
+    columns_to_shift += [f"{model}_surprisal" for model in args.SURPRISAL_MODELS]
     for column in columns_to_shift:
         df[f"prev_{column}"] = df.groupby(group_columns)[column].shift(1)
     return df
@@ -1234,4 +1229,3 @@ if __name__ == "__main__":
             df.to_csv(
                 Path("lacclab_processed_reports") / "full" / save_file, index=False
             )
-
