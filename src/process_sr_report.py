@@ -80,7 +80,7 @@ class ArgsParser(Tap):
 
         Note, for fixation data, the X_IA_DWELL_TIME, for X in
         [total, min, max, part_total, part_min, part_max]
-        columns are computed basd on the CURRENT_FIX_DURATION column.
+        columns are computed based on the CURRENT_FIX_DURATION column.
 
         Note, documentation was generated automatically. Please check the source code for more info.
     Args:
@@ -118,7 +118,9 @@ class ArgsParser(Tap):
     add_prolific_qas_distribution: bool = (
         False  # whether to add question difficulty data from prolific
     )
-    qas_prolific_distribution_path: Path | None = None
+    qas_prolific_distribution_path: Path = (
+        Path()
+    )  # Path to question difficulty data from prolific
     mode: Mode = Mode.IA  # whether to use interest area or fixation data
     report: str = "P"  # The report to process
     device: str = (
@@ -135,7 +137,7 @@ class ArgsParser(Tap):
         validate_spacy_model(self.NLP_MODEL)
 
 
-def create_and_configer_logger(log_name: str = "log.log") -> logging.Logger:
+def create_and_configure_logger(log_name: str = "log.log") -> logging.Logger:
     """
     Creates and configures a logger
     Args:
@@ -162,7 +164,7 @@ def create_and_configer_logger(log_name: str = "log.log") -> logging.Logger:
     return logger_
 
 
-logger = create_and_configer_logger("preprocessing.log")
+logger = create_and_configure_logger("preprocessing.log")
 
 
 def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
@@ -597,8 +599,8 @@ def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
     """
     # Create sub dataframes based on reread and preview conditions
     # Create boolean masks
-    repeated_reading_trials = df["repeated_reading_trial"] == True
-    question_preview = df["question_preview"] == True
+    repeated_reading_trials = df["repeated_reading_trial"] == True  # noqa: E712
+    question_preview = df["question_preview"] == True  # noqa: E712
 
     # Create filtered dataframes using masks
     filtered_dfs = {
@@ -914,6 +916,7 @@ def compute_word_span_metrics(
     assert (
         df[["is_in_aspan", "is_before_aspan", "is_after_aspan"]].sum(axis=1) == 1
     ).all(), "should be exactly one of options"
+
     try:
         if mode == Mode.FIXATION:
             # Determine which span the next fixation falls into
@@ -939,8 +942,8 @@ def compute_word_span_metrics(
                 ].sum(axis=1)
                 == 1
             ).all(), "should be exactly one of options"
-    except:
-        print("TODO FIX ME!!")  # TODO
+    except TypeError:
+        logger.warning("Next fixation data has '.', skipping next fixation span info.")
 
     logger.info("Relative positions to the critical span determined.")
     return df
