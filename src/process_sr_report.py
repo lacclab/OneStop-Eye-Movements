@@ -109,13 +109,6 @@ class ArgsParser(Tap):
     onestopqa_path: Path = Path("data/interim/onestop_qa.json")
     trial_level_paragraphs_path: Path = Path()
 
-    unique_item_columns: List[str] = [
-        "article_batch",
-        "article_id",
-        "difficulty_level",
-        "paragraph_id",
-    ]  # columns that make up a unique item
-
     add_prolific_qas_distribution: bool = (
         False  # whether to add question difficulty data from prolific
     )
@@ -168,50 +161,59 @@ def create_and_configure_logger(log_name: str = "log.log") -> logging.Logger:
 logger = create_and_configure_logger("preprocessing.log")
 
 
+def preprocess_data(args: ArgsParser) -> pd.DataFrame:
+    validate_files(args)
+    df = load_data(args.data_path, sep="\t")
+    df = correct_span_issues(df)
+    df = fix_question_field(df)
+    df = rename_columns(df)
+    df = compute_word_span_metrics(df=df, mode=args.mode)
+    df = add_question_labels(df, args)
+    df = compute_word_length(df, args)
+
+    if args.mode == Mode.IA and args.report == "P":
+        paragraph_per_trial_extraction(df, args)
+    df = add_paragraph_per_trial(df, args)
+
+    if args.mode == Mode.IA:
+        df = add_word_metrics(df, args)
+
+    df = clean_and_format_data(df)
+    df = remove_unused_columns(df, COLUMNS_TO_DROP)
+    save_processed_data(df, args)
+    return df
+
+
 def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     """
     Processes the public OneStop dataset to create the LaCC lab's extended version.
-
-    Key transformations from public to LaCC version:
-    1. Field conversions:
-        - Maps 'auxiliary_span_type' values:
-            * "other" -> "outside"
-            * "a_span" -> "critical"
-            * "d_span" -> "distractor"
-        - Maps answer positions (0,1,2,3) to letters (A,B,C,D)
-
-    2. Additional metrics:
-        - Adds part-level metrics (e.g., part_length, part_total_IA_DWELL_TIME)
-        - Computes normalized metrics for dwell time and word indices
-        - For IA data only:
-            * Adds regression rate (IA_REGRESSION_OUT_FULL_COUNT / IA_RUN_COUNT)
-            * Adds total_skip flag (True if IA_DWELL_TIME == 0)
-            * Adds previous word metrics (frequency, surprisal, length)
-            * Adds start/end of line indicators
-
-    3. Question-related enrichments:
-        - Adds q_reference field indicating question reference info
-        - Adds cs_has_two_questions field indicating if critical span has multiple questions
-        - Maps question conditions for machine learning:
-            * Preview+same_critical_span=1 -> 1 (hunting with critical span match)
-            * Preview+same_critical_span=0 -> 0 (hunting without match)
-            * No preview -> 3 (gathering condition)
-
-    Args:
-        df (pd.DataFrame): Input DataFrame containing public OneStop data
-        args (ArgsParser): Arguments containing processing configuration
-
-    Returns:
-        pd.DataFrame: Processed DataFrame with LaCC lab extensions
     """
 
-    if args.add_prolific_qas_distribution:
-        qas_prolific_distribution_path = args.qas_prolific_distribution_path
-        assert os.path.exists(
-            qas_prolific_distribution_path
-        ), f"No question difficulty data found at {qas_prolific_distribution_path}"
+    duration_field, ia_field = get_constants_by_mode(args.mode)
 
+    df = convert_to_int_features(df, args)
+    df = convert_to_float_features(df, args)
+    df = adjust_indexing(df, args)
+    df = drop_missing_fixation_data(df, args)
+    df = add_unique_paragraph_id(df)
+    df = compute_word_span_metrics(df, args.mode)
+    df = compute_span_level_metrics(df, ia_field, args.mode, duration_field)
+    df = compute_normalized_features(df, duration_field, ia_field)
+    df = add_prolific_qas_distribution(df, args)
+    df = add_reference_and_cs_two_questions(df, args)
+    df = add_question_n_condition_prediction_label(df)
+
+    if args.mode == Mode.IA:
+        df = add_previous_word_metrics(df, args)
+        df = compute_start_end_line(df)
+        df = add_additional_metrics(df)
+
+    return df
+
+
+def convert_to_int_features(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     # In general, only features that have '.' or NaN or not automatically converted.
+
     to_int_features = [
         "article_batch",
         "article_id",
@@ -248,7 +250,26 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
             "TRIAL_TOTAL_VISITED_IA_COUNT",
             "IA_FIRST_FIX_PROGRESSIVE",
         ]
+    elif args.mode == Mode.FIXATION:
+        to_int_features += [
+            FIXATION_ID_COL,
+            NEXT_FIXATION_ID_COL,
+            "CURRENT_FIX_DURATION",
+            "CURRENT_FIX_PUPIL",
+            "CURRENT_FIX_X",
+            "CURRENT_FIX_Y",
+            "CURRENT_FIX_INDEX",
+            "NEXT_SAC_DURATION",
+        ]
+    df[to_int_features] = df[to_int_features].replace({".": 0, np.nan: 0}).astype(int)
+    logger.info(
+        "%s fields converted to int, nan ('.') values replaced with 0.", to_int_features
+    )
+    return df
 
+
+def convert_to_float_features(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    if args.mode == Mode.IA:
         to_float_features = [
             "IA_AVERAGE_FIX_PUPIL_SIZE",
             "IA_DWELL_TIME_%",
@@ -262,19 +283,7 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
             "IA_FIRST_RUN_LANDING_POSITION",
             "IA_LAST_RUN_LANDING_POSITION",
         ]
-        subtract_one_fields = [IA_ID_COL]
-
     elif args.mode == Mode.FIXATION:
-        to_int_features += [
-            FIXATION_ID_COL,
-            NEXT_FIXATION_ID_COL,
-            "CURRENT_FIX_DURATION",
-            "CURRENT_FIX_PUPIL",
-            "CURRENT_FIX_X",
-            "CURRENT_FIX_Y",
-            "CURRENT_FIX_INDEX",
-            "NEXT_SAC_DURATION",
-        ]
         to_float_features = [
             FIXATION_ID_COL,
             NEXT_FIXATION_ID_COL,
@@ -291,14 +300,6 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
             "NEXT_SAC_END_Y",
             "NEXT_SAC_START_Y",
         ]
-        subtract_one_fields = [
-            FIXATION_ID_COL,
-            NEXT_FIXATION_ID_COL,
-        ]
-    else:
-        raise ValueError(f"Unknown mode {args.mode}")
-
-    # TODO Think of this more carefully - should we replace with 0 or None?
     df[to_float_features] = (
         df[to_float_features].replace(to_replace={".": None}).astype(float)
     )
@@ -306,15 +307,23 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         "%s fields converted to float, nan ('.') values replaced with None.",
         to_float_features,
     )
+    return df
 
-    df[to_int_features] = df[to_int_features].replace({".": 0, np.nan: 0}).astype(int)
-    logger.info(
-        "%s fields converted to int, nan ('.') values replaced with 0.", to_int_features
-    )
 
+def adjust_indexing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    if args.mode == Mode.IA:
+        subtract_one_fields = [IA_ID_COL]
+    elif args.mode == Mode.FIXATION:
+        subtract_one_fields = [
+            FIXATION_ID_COL,
+            NEXT_FIXATION_ID_COL,
+        ]
     df[subtract_one_fields] -= 1
     logger.info("%s values adjusted to be 0-indexed.", subtract_one_fields)
+    return df
 
+
+def drop_missing_fixation_data(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     if args.mode == Mode.FIXATION:
         dropna_fields = [FIXATION_ID_COL, NEXT_FIXATION_ID_COL]
         df = df.dropna(subset=dropna_fields)
@@ -323,40 +332,22 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
             dropna_fields,
             len(df),
         )
+    return df
 
-    logger.info("Getting whether the answer is correct and the answer letter...")
 
-    logger.info("Adding unique paragraph id...")
-    df["unique_paragraph_id"] = (
-        df[args.unique_item_columns].astype(str).apply("_".join, axis=1)
-    )
+def add_question_n_condition_prediction_label(df: pd.DataFrame) -> pd.DataFrame:
+    df["question_n_condition_prediction_label"] = df.apply(
+        lambda x: x["same_critical_span"]
+        if x["question_preview"] in [1, "Hunting"]
+        else 3,
+        axis=1,
+    )  # 3 = label for null question (gathering), corresponds to cond pred.
+    return df
 
-    duration_col = "IA_DWELL_TIME" if args.mode == Mode.IA else "CURRENT_FIX_DURATION"
-    ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
-    df = compute_word_span_metrics(df, args.mode)
-    df = _compute_span_level_metrics(df, ia_field, args.mode, duration_col)
-    df = compute_normalized_features(df, duration_col, ia_field)
-    if args.mode == Mode.IA:
-        df = add_previous_word_metrics(df, args)
-        df = compute_start_end_line(df)  # TODO add to fixation data as well?
-        df["regression_rate"] = df["IA_REGRESSION_OUT_FULL_COUNT"] / df["IA_RUN_COUNT"]
-        df["total_skip"] = df["IA_DWELL_TIME"] == 0
-        df["part_length"] = df["part_max_IA_ID"] - df["part_min_IA_ID"] + 1
-    if args.add_prolific_qas_distribution:
-        logger.info("Adding question difficulty data...")
-        question_difficulty = pd.read_csv(qas_prolific_distribution_path)
-        df = df.merge(
-            question_difficulty,
-            on=["article_batch", "article_id", "paragraph_id", "same_critical_span"],
-            validate="m:1",
-            how="left",
-        )
-    else:
-        logger.warning(
-            "Warning add_prolific_qas_distribution=%s. Not adding question difficulty data.",
-            args.add_prolific_qas_distribution,
-        )
 
+def add_reference_and_cs_two_questions(
+    df: pd.DataFrame, args: ArgsParser
+) -> pd.DataFrame:
     text_data = df[
         [
             "article_batch",
@@ -371,16 +362,59 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     )
     text_data["q_reference"] = q_references
     text_data["cs_has_two_questions"] = cs_has_two_questions
-
     df = df.merge(text_data, validate="m:1", how="left")
-    # {"Gathering": 0, "Hunting": 1}
-    df["question_n_condition_prediction_label"] = df.apply(
-        lambda x: x["same_critical_span"]
-        if x["question_preview"] in [1, "Hunting"]
-        else 3,
-        axis=1,
-    )  # 3 = label for null question (gathering), corresponds to  cond pred.
+    return df
 
+
+def add_question_labels(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    text_data = df[
+        ["article_batch", "article_id", "paragraph_id", "onestopqa_question_id"]
+    ].drop_duplicates()
+    question_prediction_labels = enrich_text_data_with_question_label(text_data, args)
+    text_data["same_critical_span"] = question_prediction_labels
+    df = df.merge(text_data, validate="m:1", how="left")
+    return df
+
+
+def add_additional_metrics(df: pd.DataFrame) -> pd.DataFrame:
+    df["regression_rate"] = df["IA_REGRESSION_OUT_FULL_COUNT"] / df["IA_RUN_COUNT"]
+    df["total_skip"] = df["IA_DWELL_TIME"] == 0
+    df["part_length"] = df["part_max_IA_ID"] - df["part_min_IA_ID"] + 1
+    return df
+
+
+def add_prolific_qas_distribution(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    if args.add_prolific_qas_distribution:
+        logger.info("Adding question difficulty data...")
+        question_difficulty = pd.read_csv(args.qas_prolific_distribution_path)
+        df = df.merge(
+            question_difficulty,
+            on=["article_batch", "article_id", "paragraph_id", "same_critical_span"],
+            validate="m:1",
+            how="left",
+        )
+    else:
+        logger.warning(
+            "Warning add_prolific_qas_distribution=%s. Not adding question difficulty data.",
+            args.add_prolific_qas_distribution,
+        )
+    return df
+
+
+def get_constants_by_mode(mode: Mode) -> tuple[str, str]:
+    duration_field = "IA_DWELL_TIME" if mode == Mode.IA else "CURRENT_FIX_DURATION"
+    ia_field = IA_ID_COL if mode == Mode.IA else FIXATION_ID_COL
+
+    return duration_field, ia_field
+
+
+def add_unique_paragraph_id(df: pd.DataFrame) -> pd.DataFrame:
+    logger.info("Adding unique paragraph id...")
+    df["unique_paragraph_id"] = (
+        df[["article_batch", "article_id", "difficulty_level", "paragraph_id"]]
+        .astype(str)
+        .apply("_".join, axis=1)
+    )
     return df
 
 
@@ -392,6 +426,11 @@ def validate_files(config: ArgsParser) -> None:
         raise FileNotFoundError(
             f"No onestopqa text data found at {config.onestopqa_path}."
         )
+    if config.add_prolific_qas_distribution:
+        qas_prolific_distribution_path = config.qas_prolific_distribution_path
+        assert os.path.exists(
+            qas_prolific_distribution_path
+        ), f"No question difficulty data found at {qas_prolific_distribution_path}"
 
 
 def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -559,33 +598,6 @@ def compute_word_length(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     return df
 
 
-def preprocess_data(args: ArgsParser) -> pd.DataFrame:
-    validate_files(args)
-    df = load_data(args.data_path, sep="\t")
-    df = correct_span_issues(df)
-    df = fix_question_field(df)
-    df = rename_columns(df)
-    df = compute_word_span_metrics(df=df, mode=args.mode)
-    if args.mode == Mode.IA:
-        if args.report == "P":
-            paragraph_per_trial_extraction(df, args)
-        df = add_word_metrics(df, args)
-
-    text_data = df[
-        ["article_batch", "article_id", "paragraph_id", "onestopqa_question_id"]
-    ].drop_duplicates()
-    question_prediction_labels = enrich_text_data_with_question_label(text_data, args)
-    text_data["same_critical_span"] = question_prediction_labels
-    df = df.merge(text_data, validate="m:1", how="left")
-
-    df = compute_word_length(df, args)
-    df = clean_and_format_data(df)
-    df = add_paragraph_per_trial(df, args)
-    df = remove_unused_columns(df, COLUMNS_TO_DROP)
-    save_processed_data(df, args)
-    return df
-
-
 def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
     """
     Split the dataset into sub-corpora based on reading conditions and save them separately.
@@ -639,7 +651,6 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame with standardized column names
     """
-    original_columns = df.columns
     renamed_columns = {
         # Experiment Variables
         "list": "list_number",
@@ -659,18 +670,12 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
         "b": "answer_2",
         "c": "answer_3",
         "d": "answer_4",
+        # STARC
+        "aspan_inds": "critical_span_indices",
+        "dspan_inds": "distractor_span_indices",
     }
 
     df = df.rename(columns=renamed_columns)
-
-    # Find columns that were not renamed
-    not_renamed_columns = [
-        col for col in original_columns if col not in renamed_columns
-    ]
-
-    # Print columns that were not renamed
-    print("Columns that were not renamed:", not_renamed_columns)
-
     return df
 
 
@@ -843,7 +848,8 @@ def compute_word_span_metrics(
     Returns:
         pd.DataFrame: DataFrame with added span metrics
     """
-    ia_field = IA_ID_COL if mode == Mode.IA else FIXATION_ID_COL
+    _, ia_field = get_constants_by_mode(mode)
+
     df[ia_field] = df[ia_field].replace({".": 0, np.nan: 0}).astype(int)
     pattern = r"(\d+), ?(\d+)"  # Regex pattern to extract span indices
     logger.info("Determining whether word is in the answer (critical) span...")
@@ -1159,7 +1165,7 @@ def add_previous_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFram
     return df
 
 
-def _compute_span_level_metrics(
+def compute_span_level_metrics(
     df: pd.DataFrame, ia_field: str, mode: Mode, duration_col: str
 ) -> pd.DataFrame:
     """
@@ -1339,6 +1345,21 @@ def validate_spacy_model(spacy_model_name: str) -> None:
         )
 
 
+def get_device() -> str:
+    if torch.cuda.is_available():
+        device = "cuda"
+    elif platform.system() == "Darwin":
+        device = "mpi"
+    else:
+        device = "cpu"
+    print(f"Using device: {device}")
+    if device == "cpu":
+        print(
+            "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
+        )
+    return device
+
+
 if __name__ == "__main__":
     public_preprocess = True
     lacclab_preprocess = True
@@ -1359,18 +1380,6 @@ if __name__ == "__main__":
         # "state-spaces/mamba-370m-hf", "state-spaces/mamba-790m-hf", "state-spaces/mamba-1.4b-hf", "state-spaces/mamba-2.8b-hf",
     ]
 
-    if torch.cuda.is_available():
-        device = "cuda"
-    elif platform.system() == "Darwin":
-        device = "mpi"
-    else:
-        device = "cpu"
-    print(f"Using device: {device}")
-    if device == "cpu":
-        print(
-            "Warning: Running on CPU. Extracting surprisal will take a long time. Consider running on GPU."
-        )
-
     reports = [
         "P",
         # "T",
@@ -1382,7 +1391,7 @@ if __name__ == "__main__":
     ]
 
     modes = [
-        # Mode.IA.value,
+        Mode.IA.value,
         Mode.FIXATION.value,
     ]
     short_to_long_mapping = {
@@ -1396,6 +1405,7 @@ if __name__ == "__main__":
     }
     for mode, report in product(modes, reports):
         if lacclab_preprocess and report not in ["P"]:
+            # TODO stop skipping at some point
             print(f"Skipping {mode} report {report}")
             continue
         print(f"Processing {mode} report {report}")
@@ -1421,7 +1431,7 @@ if __name__ == "__main__":
             "--hf_access_token",
             hf_access_token,
             "--device",
-            device,
+            get_device(),
         ]
         cfg = ArgsParser().parse_args(args)
         if public_preprocess:
