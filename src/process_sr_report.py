@@ -5,10 +5,10 @@ import json
 import logging
 import os
 from enum import Enum
+from itertools import product
 from pathlib import Path
 from typing import List, Literal
-from itertools import product
-from utils import load_data, validate_spacy_model
+
 import numpy as np
 import pandas as pd
 import torch
@@ -19,6 +19,8 @@ from text_metrics.merge_metrics_with_eye_movements import (
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
 
+from utils import load_data, validate_spacy_model
+
 
 class Mode(Enum):
     IA = "ia"
@@ -28,6 +30,50 @@ class Mode(Enum):
 IA_ID_COL = "IA_ID"
 FIXATION_ID_COL = "CURRENT_FIX_INTEREST_AREA_INDEX"
 NEXT_FIXATION_ID_COL = "NEXT_FIX_INTEREST_AREA_INDEX"
+
+NUMBER_TO_LETTER_MAP = {"0": "A", "1": "B", "2": "C", "3": "D"}
+COLUMNS_TO_DROP = [
+    "Head_Direction",
+    "AbsDistance2Head",
+    "Token_idx",
+    "TAG",
+    "Token",
+    "Word_idx",
+    "IA_LABEL_y",
+    "aspan_ind_start",
+    "aspan_ind_end",
+    "is_in_aspan",
+    "dspan_ind_start",
+    "dspan_ind_end",
+    "is_in_dspan",
+    "is_before_aspan",
+    "is_after_aspan",
+    "relative_to_aspan",
+    "Trial_Index",
+    "Trial_Index_",
+    # "q_ind",
+    "principle_list",
+    "level_ind",
+    "condition_symb",
+    "a_key",
+    "b_key",
+    "c_key",
+    "d_key",
+    "batch_condition",
+    "Session_Name_",
+    "DATA_FILE",
+    "Trial_Recycled_",
+    "LETTER_HIGHT",
+    "LETTER_WIDTH",
+    "DUMMY",
+    "COMPREHENSION_PERCENT",
+    "COMPREHENSION_SCORE",
+    "TRIGGER_PADDING_X",
+    "TRIGGER_PADDING_Y",
+    "RECALIBRATE",
+    "ALL_ANSWERS",
+    "ANSWER",
+]
 
 
 class ArgsParser(Tap):
@@ -40,22 +86,18 @@ class ArgsParser(Tap):
         Note, documentation was generated automatically. Please check the source code for more info.
     Args:
         log_name (str): The name of the log file
-        filter_query (str): The query to filter the data by
         SURPRISAL_MODELS (List[str]): Models to extract surprisal from
         save_path (Path): The path to save the data
         unique_item_columns (List[str]): columns that make up a unique item
         add_prolific_qas_distribution (bool): whether to add question difficulty data from prolific
         qas_prolific_distribution_path (Path | None): Path to question difficulty data from prolific
         mode (Mode): whether to use interest area or fixation data
-    """
 
-    filter_query: str = ""
-
-    """
     NOTE: To extract surprisal from state-spaces/mamba-* variants, better to first run:
     >>> pip install causal-conv1d
     >>> pip install mamba-ssm
     """
+
     SURPRISAL_MODELS: List[str] = [
         "gpt2",
     ]  # Models to extract surprisal from
@@ -65,6 +107,8 @@ class ArgsParser(Tap):
     save_path: Path = Path()  # The path to save the data.
     data_path: Path = Path()  # Path to data folder.
     onestopqa_path: Path = Path("data/interim/onestop_qa.json")
+    trial_level_paragraphs_path: Path = Path()
+
     unique_item_columns: List[str] = [
         "article_batch",
         "article_id",
@@ -77,6 +121,7 @@ class ArgsParser(Tap):
     )
     qas_prolific_distribution_path: Path | None = None
     mode: Mode = Mode.IA  # whether to use interest area or fixation data
+    report: str = "P"  # The report to process
     device: str = (
         "cuda" if torch.cuda.is_available() else "cpu"
     )  # Which device to run the surprisal models on
@@ -157,14 +202,6 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     Returns:
         pd.DataFrame: Processed DataFrame with LaCC lab extensions
     """
-    # If this won't be here the Surprisal columns won't be added to the base columns if they are not in the base columns in the first place
-    args.base_cols += [
-        surprisal_model + "_surprisal" for surprisal_model in args.SURPRISAL_MODELS
-    ]
-    args.base_cols += [
-        "prev_" + surprisal_model + "_surprisal"
-        for surprisal_model in args.SURPRISAL_MODELS
-    ]
 
     if args.add_prolific_qas_distribution:
         qas_prolific_distribution_path = args.qas_prolific_distribution_path
@@ -276,14 +313,6 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     df[subtract_one_fields] -= 1
     logger.info("%s values adjusted to be 0-indexed.", subtract_one_fields)
 
-    if args.filter_query:
-        df = df.query(args.filter_query).copy()
-        logger.info(
-            "After query: %s \n %d records left in total.", args.filter_query, len(df)
-        )
-    else:
-        logger.info("No query applied. %d records in total.", len(df))
-
     if args.mode == Mode.FIXATION:
         dropna_fields = [FIXATION_ID_COL, NEXT_FIXATION_ID_COL]
         df = df.dropna(subset=dropna_fields)
@@ -302,7 +331,7 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
     duration_col = "IA_DWELL_TIME" if args.mode == Mode.IA else "CURRENT_FIX_DURATION"
     ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
-    df = compute_word_span_metrics(df, args.mode, ia_field)
+    df = compute_word_span_metrics(df, args.mode)
     df = _compute_span_level_metrics(df, ia_field, args.mode, duration_col)
     df = compute_normalized_features(df, duration_col, ia_field)
     if args.mode == Mode.IA:
@@ -353,70 +382,189 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     return df
 
 
-def preprocess_data(args: ArgsParser) -> pd.DataFrame:
-    logger.info("Making sure data paths exist...")
-    args.save_path.parent.mkdir(parents=True, exist_ok=True)
-    if not args.onestopqa_path.is_file():
+def validate_files(config: ArgsParser) -> None:
+    """Validate input files exist and are accessible."""
+    config.save_path.parent.mkdir(parents=True, exist_ok=True)
+    config.trial_level_paragraphs_path.parent.mkdir(parents=True, exist_ok=True)
+    if not config.onestopqa_path.is_file():
         raise FileNotFoundError(
-            f"No onestopqa text data found at {args.onestopqa_path}."
+            f"No onestopqa text data found at {config.onestopqa_path}."
         )
 
-    logger.info("Preprocessing data...")
-    df = load_data(args.data_path, sep="\t")
 
+def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
+    """Clean and format the dataframe."""
+    df.columns = df.columns.str.replace(" ", "_")
+
+    # Convert columns to appropriate types
+    df = df.astype(
+        {
+            "question_preview": bool,
+            "practice_trial": bool,
+            "repeated_reading_trial": bool,
+        }
+    )
+
+    # Process answers
+    df["answers_order"] = df["answers_order"].apply(
+        lambda x: [NUMBER_TO_LETTER_MAP[i] for i in str(x).strip("[]").split()]
+    )
+    df["selected_answer"] = df.apply(
+        lambda x: x["answers_order"][x["selected_answer_position"]], axis=1
+    )
+
+    return df
+
+
+def save_processed_data(df: pd.DataFrame, config: ArgsParser) -> None:
+    """Save processed data to specified locations."""
+    full_path = config.save_path.parent / "full"
+    full_path.mkdir(parents=True, exist_ok=True)
+
+    output_path = full_path / (config.save_path.stem + config.save_path.suffix)
+    df.to_csv(output_path, index=False)
+
+    split_save_sub_corpora(df, config.save_path)
+    logger.info(f"Total rows: {len(df)}")
+    logger.info(f"Data saved to {config.save_path}")
+
+
+def remove_unused_columns(df: pd.DataFrame, to_drop: List[str]) -> pd.DataFrame:
+    df = df[[col for col in df.columns if col not in to_drop]]
+    return df
+
+
+def paragraph_text_extraction(df: pd.DataFrame, args: ArgsParser) -> None:
+    logger.info(
+        "Recreating paragraph column by grouping by unique_paragraph_id and participant_id..."
+    )
+    df["paragraph"] = df.groupby(
+        [
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "difficulty_level",
+            "participant_id",
+            "repeated_reading_trial",
+        ]
+    )["IA_LABEL"].transform(lambda x: " ".join(x))
+
+    text_onscreen_version = process_sequence_data(
+        df, "IA_LEFT", output_name="text_onscreen_version"
+    )
+    text_spacing_version = process_sequence_data(
+        df, "IA_LABEL", output_name="text_spacing_version"
+    )
+
+    df = df.merge(
+        text_onscreen_version,
+        on=[
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "difficulty_level",
+            "participant_id",
+        ],
+        how="left",
+    )
+    df = df.merge(
+        text_spacing_version,
+        on=[
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "difficulty_level",
+            "participant_id",
+        ],
+        how="left",
+    )
+
+    assert (
+        df[
+            [
+                "participant_id",
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+                "paragraph",
+            ]
+        ]
+        .drop_duplicates()
+        .drop(columns=["paragraph"])
+        .equals(
+            df[
+                [
+                    "participant_id",
+                    "article_batch",
+                    "article_id",
+                    "paragraph_id",
+                    "difficulty_level",
+                ]
+            ].drop_duplicates()
+        )
+    )
+    paragraph_df = df[
+        [
+            "participant_id",
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "difficulty_level",
+            "paragraph",
+            "text_onscreen_version",
+            "text_spacing_version",
+        ]
+    ].drop_duplicates()
+    paragraph_df.to_csv(
+        args.trial_level_paragraphs_path,
+        index=False,
+    )
+    logger.info(
+        "Saved paragraphs to %s",
+        args.trial_level_paragraphs_path,
+    )
+
+
+def add_paragraph(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    # Load trial level paragraphs
+    trial_level_paragraphs = pd.read_csv(args.trial_level_paragraphs_path)
+
+    # Merge with the main dataframe to replace paragraph values
+    df = df.drop(columns=["paragraph"])
+    df = df.merge(
+        trial_level_paragraphs,
+        on=[
+            "participant_id",
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "difficulty_level",
+        ],
+        how="left",
+        validate="m:1",
+    )
+    logger.info("Replaced paragraph values with trial level paragraphs from IA report.")
+    return df
+
+
+def compute_word_length(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
+    df["word_length"] = df[label_field].str.len()
+    return df
+
+
+def preprocess_data(args: ArgsParser) -> pd.DataFrame:
+    validate_files(args)
+    df = load_data(args.data_path, sep="\t")
     df = correct_span_issues(df)
     df = fix_question_field(df)
-
     df = rename_columns(df)
     df = compute_word_span_metrics(df=df, mode=args.mode)
     if args.mode == Mode.IA:
-        logger.info(
-            "Recreating paragraph column by grouping by unique_paragraph_id and participant_id..."
-        )
-        df["paragraph"] = df.groupby(
-            [
-                "article_batch",
-                "article_id",
-                "paragraph_id",
-                "difficulty_level",
-                "participant_id",
-                "repeated_reading_trial",
-            ]
-        )["IA_LABEL"].transform(lambda x: " ".join(x))
-
-        text_onscreen_version = process_sequence_data(
-            df, "IA_LEFT", output_name="text_onscreen_version"
-        )
-        text_spacing_version = process_sequence_data(
-            df, "IA_LABEL", output_name="text_spacing_version"
-        )
-
-        df = df.merge(
-            text_onscreen_version,
-            on=[
-                "article_batch",
-                "article_id",
-                "paragraph_id",
-                "difficulty_level",
-                "participant_id",
-            ],
-            how="left",
-        )
-        df = df.merge(
-            text_spacing_version,
-            on=[
-                "article_batch",
-                "article_id",
-                "paragraph_id",
-                "difficulty_level",
-                "participant_id",
-            ],
-            how="left",
-        )
-
-        df["IA_ID"] -= 1
+        if args.report == "P":
+            paragraph_text_extraction(df, args)
         df = add_word_metrics(df, args)
-        df["IA_ID"] += 1
 
     text_data = df[
         ["article_batch", "article_id", "paragraph_id", "onestopqa_question_id"]
@@ -426,159 +574,11 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = df.merge(text_data, validate="m:1", how="left")
 
     df = rename_columns(df)
-
-    label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
-    df["word_length"] = df[label_field].str.len()
-    df = df.astype(
-        {
-            "question_preview": bool,
-            "practice_trial": bool,
-            "repeated_reading_trial": bool,
-        }
-    )
-    # replace 0123 to ABCD in the answers order
-    NUMBER_TO_LETTER = {"0": "A", "1": "B", "2": "C", "3": "D"}
-    df["answers_order"] = (
-        df["answers_order"]
-        .str.strip("[]")
-        .str.split()
-        .apply(lambda x: [NUMBER_TO_LETTER[i] for i in x])
-    )
-    df["selected_answer"] = df.apply(
-        lambda x: x["answers_order"][x["selected_answer_position"]], axis=1
-    )
-
-    to_drop = [
-        "Head_Direction",
-        "AbsDistance2Head",
-        "Token_idx",
-        "TAG",
-        "Token",
-        "Word_idx",
-        "IA_LABEL_y",
-        "aspan_ind_start",
-        "aspan_ind_end",
-        "is_in_aspan",
-        "dspan_ind_start",
-        "dspan_ind_end",
-        "is_in_dspan",
-        "is_before_aspan",
-        "is_after_aspan",
-        "relative_to_aspan",
-        "Trial_Index",
-        "Trial_Index_",
-        # "q_ind",
-        "principle_list",
-        "level_ind",
-        "condition_symb",
-        "a_key",
-        "b_key",
-        "c_key",
-        "d_key",
-        "batch_condition",
-        "Session_Name_",
-        "DATA_FILE",
-        "Trial_Recycled_",
-        "LETTER_HIGHT",
-        "LETTER_WIDTH",
-        "DUMMY",
-        "COMPREHENSION_PERCENT",
-        "COMPREHENSION_SCORE",
-        "TRIGGER_PADDING_X",
-        "TRIGGER_PADDING_Y",
-        "RECALIBRATE",
-        "ALL_ANSWERS",
-        "ANSWER",
-    ]
-    # print columns in to_drop that are not in df
-    print([col for col in to_drop if col not in df.columns])
-    df = df[[col for col in df.columns if col not in to_drop]]
-
-    df.columns = df.columns.str.replace(" ", "_")
-
-    if args.mode == Mode.IA:
-        assert (
-            df[
-                [
-                    "participant_id",
-                    "article_batch",
-                    "article_id",
-                    "paragraph_id",
-                    "difficulty_level",
-                    "paragraph",
-                ]
-            ]
-            .drop_duplicates()
-            .drop(columns=["paragraph"])
-            .equals(
-                df[
-                    [
-                        "participant_id",
-                        "article_batch",
-                        "article_id",
-                        "paragraph_id",
-                        "difficulty_level",
-                    ]
-                ].drop_duplicates()
-            )
-        )
-        paragraph_df = df[
-            [
-                "participant_id",
-                "article_batch",
-                "article_id",
-                "paragraph_id",
-                "difficulty_level",
-                "paragraph",
-                "text_onscreen_version",
-                "text_spacing_version",
-            ]
-        ].drop_duplicates()
-        paragraph_df.to_csv(
-            args.save_path.parent / "trial_level_paragraphs.csv",
-            index=False,
-        )
-        logger.info(
-            "Saved paragraphs to %s",
-            args.save_path.parent / "trial_level_paragraphs.csv",
-        )
-
-    if args.mode == Mode.FIXATION:
-        # Load trial level paragraphs
-        trial_level_paragraphs_path = (
-            args.save_path.parent / "trial_level_paragraphs.csv"
-        )
-        trial_level_paragraphs = pd.read_csv(trial_level_paragraphs_path)
-
-        # Merge with the main dataframe to replace paragraph values
-        df = df.drop(columns=["paragraph"])
-        df = df.merge(
-            trial_level_paragraphs,
-            on=[
-                "participant_id",
-                "article_batch",
-                "article_id",
-                "paragraph_id",
-                "difficulty_level",
-            ],
-            how="left",
-            validate="m:1",
-        )
-        logger.info(
-            "Replaced paragraph values with trial level paragraphs from IA report."
-        )
-
-    split_save_sub_corpora(df, args.save_path)
-    # mkdir
-    args.save_path.parent.mkdir(parents=True, exist_ok=True)
-    # mkdir full
-    (args.save_path.parent / "full").mkdir(parents=True, exist_ok=True)
-    df.to_csv(
-        args.save_path.parent / "full" / (args.save_path.stem + args.save_path.suffix),
-        index=False,
-    )
-    logger.info("Total number of rows: %d", len(df))
-    logger.info("Data preprocessing complete. Saved to %s", args.save_path)
+    df = compute_word_length(df, args)
+    df = clean_and_format_data(df)
+    df = add_paragraph(df, args)
+    df = remove_unused_columns(df, COLUMNS_TO_DROP)
+    save_processed_data(df, args)
     return df
 
 
@@ -1113,6 +1113,7 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         "difficulty_level",
         "text_onscreen_version",
     ]
+    df["IA_ID"] -= 1
     df = add_metrics_to_word_level_eye_tracking_report(
         eye_tracking_data=df,
         surprisal_extraction_model_names=args.SURPRISAL_MODELS,
@@ -1124,6 +1125,7 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         # CAT_CTX_LEFT: Buggy version from "How to Compute the Probability of a Word" (Pimentel and Meister, 2024). For the correct version, use the SurpExtractorType.PIMENTEL_CTX_LEFT
         surp_extractor_type=extractor_switch.SurpExtractorType.CAT_CTX_LEFT,
     )
+    df["IA_ID"] += 1
 
     logger.info("Renaming column 'IA_LABEL_x' to 'IA_LABEL'...")
     df.rename(columns={"IA_LABEL_x": "IA_LABEL"}, inplace=True)
@@ -1272,7 +1274,6 @@ if __name__ == "__main__":
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
-    filter_query = ""
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
         # "gpt2",
@@ -1327,8 +1328,7 @@ if __name__ == "__main__":
         else:
             data_path = base_data_path / f"IA reports/ia_{report}.tsv"
         save_file = f"{mode}_{short_to_long_mapping[report]}.csv"
-        args_file = Path(f"{mode}_{report}_args.json")
-
+        trial_level_paragraphs_path = save_path / "trial_level_paragraphs.csv"
         args = [
             "--data_path",
             str(data_path),
@@ -1336,8 +1336,8 @@ if __name__ == "__main__":
             str(save_path / save_file),
             "--mode",
             mode,
-            "--filter_query",
-            filter_query,
+            "--report",
+            report,
             "--SURPRISAL_MODELS",
             *surprisal_models,
             "--hf_access_token",
