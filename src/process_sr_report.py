@@ -1201,50 +1201,6 @@ def fix_question_field(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def fix_paragraph_field(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Fix inconsistencies in paragraph texts.
-
-    When multiple versions of a paragraph exist:
-    - Select longer version
-    - Verify there is exactly one paragraph per unique combination
-
-    Args:
-        df (pd.DataFrame): Input DataFrame
-
-    Returns:
-        pd.DataFrame: DataFrame with consistent paragraph texts
-
-    Raises:
-        AssertionError: If paragraphs not uniquely identified after fixes
-    """
-    df = df.copy()
-    paragraph_ids = df[
-        [
-            "batch",
-            "article_id",
-            "paragraph_id",
-            "level",
-        ]
-    ].drop_duplicates()
-
-    for _, query in paragraph_ids.iterrows():
-        formatted_query = f"batch=={query['batch']} & article_id=={query['article_id']} & paragraph_id=={query['paragraph_id']} & level=='{query['level']}'"
-        paragraphs = df.query(formatted_query).paragraph.drop_duplicates().tolist()
-        if len(paragraphs) == 2:
-            longer_paragraph = max(paragraphs, key=len)
-            df.loc[df.query(formatted_query).index, "paragraph"] = longer_paragraph
-
-    assert (
-        df[["batch", "article_id", "paragraph_id", "level", "paragraph"]]
-        .drop_duplicates()
-        .shape[0]
-        == df[["batch", "article_id", "paragraph_id", "level"]]
-        .drop_duplicates()
-        .shape[0]
-    ), "Some paragraphs were not fixed"
-    return df
-
 
 def process_sequence_data(
     df: pd.DataFrame,
