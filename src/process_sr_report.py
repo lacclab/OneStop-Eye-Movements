@@ -11,6 +11,7 @@ from typing import List, Literal
 
 import numpy as np
 import pandas as pd
+import spacy
 import torch
 from tap import Tap
 from text_metrics.merge_metrics_with_eye_movements import (
@@ -18,8 +19,6 @@ from text_metrics.merge_metrics_with_eye_movements import (
 )
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
-
-from utils import load_data, validate_spacy_model
 
 
 class Mode(Enum):
@@ -434,7 +433,7 @@ def remove_unused_columns(df: pd.DataFrame, to_drop: List[str]) -> pd.DataFrame:
     return df
 
 
-def paragraph_text_extraction(df: pd.DataFrame, args: ArgsParser) -> None:
+def paragraph_per_trial_extraction(df: pd.DataFrame, args: ArgsParser) -> None:
     logger.info(
         "Recreating paragraph column by grouping by unique_paragraph_id and participant_id..."
     )
@@ -526,7 +525,7 @@ def paragraph_text_extraction(df: pd.DataFrame, args: ArgsParser) -> None:
     )
 
 
-def add_paragraph(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+def add_paragraph_per_trial(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     # Load trial level paragraphs
     trial_level_paragraphs = pd.read_csv(args.trial_level_paragraphs_path)
 
@@ -563,7 +562,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = compute_word_span_metrics(df=df, mode=args.mode)
     if args.mode == Mode.IA:
         if args.report == "P":
-            paragraph_text_extraction(df, args)
+            paragraph_per_trial_extraction(df, args)
         df = add_word_metrics(df, args)
 
     text_data = df[
@@ -576,7 +575,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = rename_columns(df)
     df = compute_word_length(df, args)
     df = clean_and_format_data(df)
-    df = add_paragraph(df, args)
+    df = add_paragraph_per_trial(df, args)
     df = remove_unused_columns(df, COLUMNS_TO_DROP)
     save_processed_data(df, args)
     return df
@@ -1266,6 +1265,80 @@ def compute_normalized_features(
         normalized_ID=(df[ia_field] - df.min_IA_ID) / (df.max_IA_ID - df.min_IA_ID),
     ).copy()
     return df
+
+
+def load_data(
+    data_path: Path, usecols: list[str] | None = None, **kwargs
+) -> pd.DataFrame:
+    """Load data from a CSV file with automatic encoding detection.
+
+    This function attempts to read a CSV file using different combinations of encodings
+    (utf-16 and default) and engines (pyarrow and default pandas engine) to handle
+    various file formats.
+
+    Args:
+        data_path (Path): Path to the CSV file to read
+        usecols (list[str] | None, optional): List of columns to read.
+            If None, reads all columns. Defaults to None.
+        **kwargs: Additional keyword arguments passed to pandas.read_csv()
+
+    Returns:
+        pd.DataFrame: DataFrame containing the loaded CSV data
+
+    Raises:
+        ValueError: If the loaded DataFrame is empty
+        UnicodeError: If file encoding cannot be determined
+        ValueError: If file cannot be parsed as CSV
+    """
+    format_used = ""
+    try:
+        data = pd.read_csv(
+            data_path,
+            encoding="utf-16",
+            engine="pyarrow",
+            usecols=usecols,
+            **kwargs,
+        )
+        format_used = "pyarrow with utf-16"
+    except UnicodeError:
+        data = pd.read_csv(data_path, engine="pyarrow", usecols=usecols, **kwargs)
+        format_used = "pyarrow"
+    except ValueError:
+        try:
+            data = pd.read_csv(data_path, encoding="utf-16", usecols=usecols, **kwargs)
+            format_used = "default engine with utf-16"
+        except UnicodeError:
+            data = pd.read_csv(data_path, usecols=usecols, **kwargs)
+            format_used = "default engine"
+
+    print(f"Loaded {len(data)} rows from {data_path} using {format_used}.")
+
+    if data.empty:
+        raise ValueError(f"Error: No data found in {data_path}.")
+
+    return data
+
+
+def validate_spacy_model(spacy_model_name: str) -> None:
+    if spacy_model_name not in [
+        "en_core_web_sm",
+        "en_core_web_md",
+        "en_core_web_lg",
+        "en_core_web_trf",
+    ]:
+        raise ValueError(
+            f"Warning: {spacy_model_name} is not a recognized model. \
+            Please use one of the specified models."
+        )
+
+    """Validates that the spacy model is downloaded"""
+    if spacy.util.is_package(spacy_model_name):
+        print(f"Using {spacy_model_name} as spacy model...")
+    else:
+        raise ValueError(
+            f"Error: Spacy model {spacy_model_name} not found. \
+            Please download the model using 'python -m spacy download {spacy_model_name}'."
+        )
 
 
 if __name__ == "__main__":
