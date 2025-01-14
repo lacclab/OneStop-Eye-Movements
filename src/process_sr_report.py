@@ -295,6 +295,41 @@ logger = create_and_configer_logger("preprocessing.log")
 
 
 def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Processes the public OneStop dataset to create the LaCC lab's extended version.
+
+    Key transformations from public to LaCC version:
+    1. Field conversions:
+        - Maps 'auxiliary_span_type' values:
+            * "other" -> "outside"
+            * "a_span" -> "critical"
+            * "d_span" -> "distractor"
+        - Maps answer positions (0,1,2,3) to letters (A,B,C,D)
+
+    2. Additional metrics:
+        - Adds part-level metrics (e.g., part_length, part_total_IA_DWELL_TIME)
+        - Computes normalized metrics for dwell time and word indices
+        - For IA data only:
+            * Adds regression rate (IA_REGRESSION_OUT_FULL_COUNT / IA_RUN_COUNT)
+            * Adds total_skip flag (True if IA_DWELL_TIME == 0)
+            * Adds previous word metrics (frequency, surprisal, length)
+            * Adds start/end of line indicators
+
+    3. Question-related enrichments:
+        - Adds q_reference field indicating question reference info
+        - Adds cs_has_two_questions field indicating if critical span has multiple questions
+        - Maps question conditions for machine learning:
+            * Preview+same_critical_span=1 -> 1 (hunting with critical span match)
+            * Preview+same_critical_span=0 -> 0 (hunting without match)
+            * No preview -> 3 (gathering condition)
+
+    Args:
+        df (pd.DataFrame): Input DataFrame containing public OneStop data
+        args (ArgsParser): Arguments containing processing configuration
+
+    Returns:
+        pd.DataFrame: Processed DataFrame with LaCC lab extensions
+    """
     # If this won't be here the Surprisal columns won't be added to the base columns if they are not in the base columns in the first place
     args.base_cols += [
         surprisal_model + "_surprisal" for surprisal_model in args.SURPRISAL_MODELS
@@ -317,7 +352,7 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         "paragraph_id",
         "repeated_reading_trial",
         "practice_trial",
-        "question_preview",
+        # "question_preview",
     ]
     if args.mode == Mode.IA:
         to_int_features += [
@@ -470,6 +505,7 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
             "article_id",
             "paragraph_id",
             "same_critical_span",
+            "onestopqa_question_id",
         ]
     ].drop_duplicates()
     cs_has_two_questions, q_references = (
@@ -504,43 +540,81 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = load_data(args.data_path, sep="\t")
 
     df = correct_span_issues(df)
-
+    # df = fix_paragraph_field(df)
     df = fix_question_field(df)
 
-    ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
-    df = compute_word_span_metrics(df, args.mode, ia_field, before_rename=True)
-
+    df = rename_columns(df)
+    logger.info(
+        "Recreating paragraph column by grouping by unique_paragraph_id and participant_id..."
+    )
     if args.mode == Mode.IA:
+        df["paragraph"] = df.groupby(
+            [
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+                "participant_id",
+                "repeated_reading_trial",
+            ]
+        )["IA_LABEL"].transform(lambda x: " ".join(x))
+
+    ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
+    df = compute_word_span_metrics(df, args.mode, ia_field)
+    if args.mode == Mode.IA:
+        text_onscreen_version = process_sequence_data(df, "IA_LEFT")
+        text_spacing_version = process_sequence_data(df, "IA_LABEL")
+
+        text_onscreen_version = text_onscreen_version.rename(
+            columns={"text_version": "text_onscreen_version"}
+        )
+        text_spacing_version = text_spacing_version.rename(
+            columns={"text_version": "text_spacing_version"}
+        )
+
+        df = df.merge(
+            text_onscreen_version,
+            on=[
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+                "participant_id",
+            ],
+            how="left",
+        )
+        df = df.merge(
+            text_spacing_version,
+            on=[
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+                "participant_id",
+            ],
+            how="left",
+        )
+
         df["IA_ID"] -= 1
         df = add_word_metrics(df, args)
         df["IA_ID"] += 1
 
     text_data = df[
-        [
-            "batch",
-            "article_id",
-            "paragraph_id",
-            "q_ind",
-        ]
+        ["article_batch", "article_id", "paragraph_id", "onestopqa_question_id"]
     ].drop_duplicates()
     question_prediction_labels = enrich_text_data_with_question_label(text_data, args)
     text_data["question_prediction_label"] = question_prediction_labels
     df = df.merge(text_data, validate="m:1", how="left")
-
     df = rename_columns(df)
+
     label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
     df["word_length"] = df[label_field].str.len()
-    df["question_preview"] = (
-        df["question_preview"]
-        .replace(
-            {"Hunting": True, "Gathering": False},
-        )
-        .astype(bool)
-    )
-    df["practice_trial"] = df["practice_trial"].astype(bool)
-    df["repeated_reading_trial"] = df["repeated_reading_trial"].astype(bool)
-    df["auxiliary_span_type"] = df["auxiliary_span_type"].replace(
-        {"other": "outside", "a_span": "critical", "d_span": "distractor"},
+    df = df.astype(
+        {
+            "question_preview": bool,
+            "practice_trial": bool,
+            "repeated_reading_trial": bool,
+        }
     )
     # replace 0123 to ABCD in the answers order
     NUMBER_TO_LETTER = {"0": "A", "1": "B", "2": "C", "3": "D"}
@@ -601,6 +675,79 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = df[[col for col in df.columns if col not in to_drop]]
 
     df.columns = df.columns.str.replace(" ", "_")
+
+    if args.mode == Mode.IA:
+        assert (
+            df[
+                [
+                    "participant_id",
+                    "article_batch",
+                    "article_id",
+                    "paragraph_id",
+                    "difficulty_level",
+                    "paragraph",
+                ]
+            ]
+            .drop_duplicates()
+            .drop(columns=["paragraph"])
+            .equals(
+                df[
+                    [
+                        "participant_id",
+                        "article_batch",
+                        "article_id",
+                        "paragraph_id",
+                        "difficulty_level",
+                    ]
+                ].drop_duplicates()
+            )
+        )
+        paragraph_df = df[
+            [
+                "participant_id",
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+                "paragraph",
+                "text_onscreen_version",
+                "text_spacing_version",
+            ]
+        ].drop_duplicates()
+        paragraph_df.to_csv(
+            args.save_path.parent / "trial_level_paragraphs.csv",
+            index=False,
+        )
+        logger.info(
+            "Saved paragraphs to %s",
+            args.save_path.parent / "trial_level_paragraphs.csv",
+        )
+
+    if args.mode == Mode.FIXATION:
+        # Load trial level paragraphs
+        trial_level_paragraphs_path = (
+            args.save_path.parent / "trial_level_paragraphs.csv"
+        )
+        trial_level_paragraphs = pd.read_csv(trial_level_paragraphs_path)
+
+        # Merge with the main dataframe to replace paragraph values
+        df = df.drop(columns=["paragraph"])
+        df = df.merge(
+            trial_level_paragraphs,
+            on=[
+                "participant_id",
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+            ],
+            how="left",
+            validate="m:1",
+        )
+        logger.info(
+            "Replaced paragraph values with trial level paragraphs from IA report."
+        )
+
     split_save_sub_corpora(df, args.save_path)
     # mkdir
     args.save_path.parent.mkdir(parents=True, exist_ok=True)
@@ -616,6 +763,19 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
 
 def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
+    """
+    Split the dataset into sub-corpora based on reading conditions and save them separately.
+
+    Creates four sub-datasets:
+    - information_seeking_repeated: Repeated reading trials with question preview
+    - repeated: Repeated reading trials without question preview
+    - information_seeking: First reading trials with question preview
+    - ordinary: First reading trials without question preview
+
+    Args:
+        df (pd.DataFrame): Input DataFrame containing full dataset
+        save_path (Path): Base path where sub-corpora will be saved
+    """
     # Create sub dataframes based on reread and preview conditions
     # Create boolean masks
     repeated_reading_trials = df["repeated_reading_trial"] == True
@@ -639,6 +799,22 @@ def split_save_sub_corpora(df: pd.DataFrame, save_path: Path) -> None:
 
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Standardize column names across the dataset.
+
+    Maps original column names to standardized versions, including:
+    - Experiment variables (e.g., list -> list_number)
+    - Trial variables (e.g., batch -> article_batch)
+    - Linguistic annotations (e.g., POS -> universal_pos)
+    - STARC annotations (e.g., span_type -> auxiliary_span_type)
+    - Surprisal metrics (*_Surprisal -> 8_surprisal)
+
+    Args:
+        df (pd.DataFrame): Input DataFrame with original column names
+
+    Returns:
+        pd.DataFrame: DataFrame with standardized column names
+    """
     original_columns = df.columns
     renamed_columns = {
         # Experiment Variables
@@ -669,7 +845,6 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
         "d": "answer_4",
         # Linguistic Annotations - Big Three
         "Length": "word_length_no_punctuation",
-        "gpt2_Surprisal": "gpt2_surprisal",
         "Wordfreq_Frequency": "wordfreq_frequency",
         "subtlex_Frequency": "subtlex_frequency",
         # Linguistic Annotations - UD
@@ -689,7 +864,13 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
         "dspan_inds": "distractor_span_indices",
     }
 
-    df = df.rename(columns=renamed_columns)
+    surprisal_cols = {
+        col: col.replace("_Surprisal", "_surprisal")
+        for col in df.columns
+        if col.endswith("_Surprisal")
+    }
+
+    df = df.rename(columns=surprisal_cols | renamed_columns)
 
     # Find columns that were not renamed
     not_renamed_columns = [
@@ -703,6 +884,15 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_raw_text(args):
+    """
+    Load raw text data from OneStopQA JSON file.
+
+    Args:
+        args: Configuration containing onestopqa_path
+
+    Returns:
+        dict: Raw text data from OneStopQA JSON
+    """
     with open(
         file=args.onestopqa_path,
         mode="r",
@@ -713,6 +903,19 @@ def get_raw_text(args):
 
 
 def get_article_data(article_id: str, raw_text) -> dict:
+    """
+    Retrieve article data from raw text by article ID.
+
+    Args:
+        article_id (str): Article identifier to look up
+        raw_text (dict): Raw text data containing articles
+
+    Returns:
+        dict: Article data if found
+
+    Raises:
+        ValueError: If article ID not found
+    """
     for article in raw_text:
         if article["article_id"] == article_id:
             return article
@@ -720,12 +923,25 @@ def get_article_data(article_id: str, raw_text) -> dict:
 
 
 def enrich_text_data_with_question_label(text_data: pd.DataFrame, args) -> List[int]:
+    """
+    Add question prediction labels from OneStopQA to dataset.
+
+    Matches questions based on article_batch, article_id, paragraph_id and
+    onestopqa_question_id to get the corresponding question_prediction_label.
+
+    Args:
+        text_data (pd.DataFrame): DataFrame with text metadata
+        args: Configuration containing onestopqa_path
+
+    Returns:
+        List[int]: Question prediction labels for each row
+    """
     raw_text = get_raw_text(args)
     question_prediction_labels = []
     for row in tqdm(
         iterable=text_data.itertuples(), total=len(text_data), desc="Adding"
     ):
-        full_article_id = f"{row.batch}_{row.article_id}"
+        full_article_id = f"{row.article_batch}_{row.article_id}"
         try:
             questions = pd.DataFrame(
                 get_article_data(full_article_id, raw_text)["paragraphs"][
@@ -733,7 +949,8 @@ def enrich_text_data_with_question_label(text_data: pd.DataFrame, args) -> List[
                 ]["qas"]
             )
             question_prediction_label = questions.loc[
-                questions["q_ind"] == row.q_ind, "question_prediction_label"
+                questions["q_ind"] == row.onestopqa_question_id,
+                "question_prediction_label",
             ].item()
         except ValueError:
             question_prediction_label = 0
@@ -744,6 +961,20 @@ def enrich_text_data_with_question_label(text_data: pd.DataFrame, args) -> List[
 def enrich_text_data_with_reference_and_cs_two_questions(
     text_data: pd.DataFrame, args
 ) -> tuple[List[int], List[str]]:
+    """
+    Add question reference info and critical span metadata from OneStopQA.
+
+    For each question:
+    - Gets whether critical span has multiple questions
+    - Gets question reference information
+
+    Args:
+        text_data (pd.DataFrame): DataFrame with text metadata
+        args: Configuration containing onestopqa_path
+
+    Returns:
+        tuple[List[int], List[str]]: Critical span flags and reference info
+    """
     raw_text = get_raw_text(args)
     cs_has_two_questions = []
     q_references = []
@@ -758,11 +989,11 @@ def enrich_text_data_with_reference_and_cs_two_questions(
                 ]["qas"]
             )
             cs_two_questions_flag: int = questions.loc[
-                questions["q_ind"] == row.same_critical_span, "cs_has_two_questions"
+                questions["q_ind"] == row.onestopqa_question_id, "cs_has_two_questions"
             ].item()
 
             q_reference = questions.loc[
-                questions["q_ind"] == row.same_critical_span, "references"
+                questions["q_ind"] == row.onestopqa_question_id, "references"
             ].item()
         except ValueError:
             cs_two_questions_flag = 0
@@ -781,14 +1012,16 @@ def compute_start_end_line(df: pd.DataFrame) -> pd.DataFrame:
     A word is considered to be at the end of a line if its 'IA_LEFT' value is larger than the next word's.
 
     Parameters:
-    df (pd.DataFrame): Input DataFrame. Must contain the columns 'subject_id', 'unique_paragraph_id', and 'IA_LEFT'.
+    df (pd.DataFrame): Input DataFrame. Must contain the columns 'participant_id', 'unique_paragraph_id', and 'IA_LEFT'.
 
     Returns:
     pd.DataFrame: The input DataFrame with two new columns: 'start_of_line' and 'end_of_line'.
     """
 
     logger.info("Adding start_of_line and end_of_line columns...")
-    grouped_df = df.groupby(["participant_id", "unique_paragraph_id"])
+    grouped_df = df.groupby(
+        ["participant_id", "unique_paragraph_id", "repeated_reading_trial"]
+    )
     df["start_of_line"] = (
         grouped_df["IA_LEFT"].shift(periods=1, fill_value=1000000) > df["IA_LEFT"]
     )
@@ -799,13 +1032,31 @@ def compute_start_end_line(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def compute_word_span_metrics(
-    df: pd.DataFrame, mode: Mode, ia_field: str, before_rename: bool = False
+    df: pd.DataFrame,
+    mode: Mode,
+    ia_field: str,
 ) -> pd.DataFrame:
+    """
+    Calculate word-level metrics relative to critical and distractor spans.
+
+    Adds columns for:
+    - Whether word is in critical/distractor span
+    - Whether word is before/after critical span
+    - For fixation mode: span info for next fixation
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        mode (Mode): IA or FIXATION processing mode
+        ia_field (str): Column name for word/fixation index
+
+    Returns:
+        pd.DataFrame: DataFrame with added span metrics
+    """
     df[ia_field] = df[ia_field].replace({".": 0, np.nan: 0}).astype(int)
     pattern = r"(\d+), ?(\d+)"  # Regex pattern to extract span indices
     logger.info("Determining whether word is in the answer (critical) span...")
-    cs_field_name = "aspan_inds" if before_rename else "critical_span_indices"
-    ds_field_name = "dspan_inds" if before_rename else "distractor_span_indices"
+    cs_field_name = "critical_span_indices"
+    ds_field_name = "distractor_span_indices"
     df[["aspan_ind_start", "aspan_ind_end"]] = (
         df[cs_field_name].str.extract(pattern, expand=True).astype(int)
     )  # TODO only the first span is extracted
@@ -824,9 +1075,9 @@ def compute_word_span_metrics(
     logger.info(
         "Determining whether word is in the critical span, distractor span, or neither (other)..."
     )
-    df["span_type"] = "other"
-    df.loc[df["is_in_dspan"], "span_type"] = "d_span"
-    df.loc[df["is_in_aspan"], "span_type"] = "a_span"
+    df["span_type"] = "outside"
+    df.loc[df["is_in_dspan"], "span_type"] = "distractor"
+    df.loc[df["is_in_aspan"], "span_type"] = "critical"
     logger.info("Span types determined.")
 
     assert df.query(
@@ -878,6 +1129,19 @@ def compute_word_span_metrics(
 
 
 def correct_span_issues(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Fix known issues with span annotations in specific articles.
+
+    Corrects critical and distractor span indices for:
+    - Japan work culture article paragraph 3
+    - Love hormone article paragraph 6
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+
+    Returns:
+        pd.DataFrame: DataFrame with corrected span annotations
+    """
     logger.info("Correcting span issues...")
     df.loc[
         (df["article_title"] == "Japan Calls Time on Long Hours Work Culture")
@@ -906,6 +1170,18 @@ def correct_span_issues(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def fix_question_field(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Fix inconsistencies in question texts.
+
+    For specified article/paragraph/question combinations,
+    selects longer version when multiple question texts exist.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+
+    Returns:
+        pd.DataFrame: DataFrame with consistent question texts
+    """
     queries_to_take_long_question = [
         "batch==1 & article_id==1 & paragraph_id==7 & q_ind==2",
         "batch==1 & article_id==2 & paragraph_id==6 & q_ind==1",
@@ -925,9 +1201,138 @@ def fix_question_field(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def fix_paragraph_field(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Fix inconsistencies in paragraph texts.
+
+    When multiple versions of a paragraph exist:
+    - Select longer version
+    - Verify there is exactly one paragraph per unique combination
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+
+    Returns:
+        pd.DataFrame: DataFrame with consistent paragraph texts
+
+    Raises:
+        AssertionError: If paragraphs not uniquely identified after fixes
+    """
+    df = df.copy()
+    paragraph_ids = df[
+        [
+            "batch",
+            "article_id",
+            "paragraph_id",
+            "level",
+        ]
+    ].drop_duplicates()
+
+    for _, query in paragraph_ids.iterrows():
+        formatted_query = f"batch=={query['batch']} & article_id=={query['article_id']} & paragraph_id=={query['paragraph_id']} & level=='{query['level']}'"
+        paragraphs = df.query(formatted_query).paragraph.drop_duplicates().tolist()
+        if len(paragraphs) == 2:
+            longer_paragraph = max(paragraphs, key=len)
+            df.loc[df.query(formatted_query).index, "paragraph"] = longer_paragraph
+
+    assert (
+        df[["batch", "article_id", "paragraph_id", "level", "paragraph"]]
+        .drop_duplicates()
+        .shape[0]
+        == df[["batch", "article_id", "paragraph_id", "level"]]
+        .drop_duplicates()
+        .shape[0]
+    ), "Some paragraphs were not fixed"
+    return df
+
+
+def process_sequence_data(
+    df: pd.DataFrame,
+    group_col: str,
+    filter_condition: str = "repeated_reading_trial==False",
+) -> pd.DataFrame:
+    """
+    Create text version mappings by grouping similar paragraph presentations.
+
+    Groups identical presentations based on word positions/labels to:
+    - Identify distinct text versions
+    - Map participants to text versions
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        group_col (str): Column to group by (IA_LEFT or IA_LABEL)
+        filter_condition (str): Query to filter data
+
+    Returns:
+        pd.DataFrame: Text version mappings for each participant
+    """
+    # Get sequence data
+    sequence = (
+        df.query(filter_condition)
+        .groupby(
+            [
+                "participant_id",
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+            ]
+        )[group_col]
+        .apply(tuple)
+        .reset_index()
+    )
+
+    # Group and create lists of participants
+    result = (
+        sequence.groupby(
+            [
+                "article_batch",
+                "article_id",
+                "paragraph_id",
+                "difficulty_level",
+                group_col,
+            ]
+        )["participant_id"]
+        .apply(list)
+        .reset_index()
+    )
+
+    # Add text version numbering
+    result["text_version"] = result.groupby(
+        [
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "difficulty_level",
+        ]
+    ).cumcount()
+
+    # Explode participant lists to rows
+    result = result.explode("participant_id").reset_index(drop=True)
+    result = result.drop(group_col, axis=1)
+
+    return result
+
+
 def filter_columns(
     df: pd.DataFrame, base_cols: List[str], dry_run: bool = False
 ) -> pd.DataFrame:
+    """
+    Filter DataFrame to keep only specified columns.
+
+    Logs:
+    - Columns being dropped
+    - Expected columns missing from data
+    - Final column list
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        base_cols (List[str]): Columns to keep
+        dry_run (bool): If True, only log changes without filtering
+
+    Returns:
+        pd.DataFrame: Filtered DataFrame if not dry_run
+    """
     # log the columns that were dropped
     dropped_columns = set(df.columns).difference(base_cols)
     logger.info("Dropped columns: %s", dropped_columns)
@@ -946,14 +1351,28 @@ def filter_columns(
 
 
 def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Add linguistic metrics for each word.
+
+    Calculates:
+    - Surprisal from language models
+    - Word frequency metrics
+    - Word length metrics
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration for metrics calculation
+
+    Returns:
+        pd.DataFrame: DataFrame with added word metrics
+    """
     logger.info("Adding surprisal, frequency, and word length metrics...")
     textual_item_key_cols = [
-        "paragraph_id",
-        "batch",
+        "article_batch",
         "article_id",
-        "level",
-        "has_preview",
-        "question",
+        "paragraph_id",
+        "difficulty_level",
+        "text_onscreen_version",
     ]
     df = add_metrics_to_word_level_eye_tracking_report(
         eye_tracking_data=df,
@@ -974,6 +1393,21 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
 
 def add_previous_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Add metrics from previous words in reading sequence.
+
+    Shifts metrics including:
+    - Word frequencies
+    - Word lengths
+    - Surprisal values
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration with model names
+
+    Returns:
+        pd.DataFrame: DataFrame with previous word metrics
+    """
     logger.info("Calculating previous word metrics...")
     group_columns = ["participant_id", "unique_paragraph_id"]
     columns_to_shift = [
@@ -990,6 +1424,24 @@ def add_previous_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFram
 def _compute_span_level_metrics(
     df: pd.DataFrame, ia_field: str, mode: Mode, duration_col: str
 ) -> pd.DataFrame:
+    """
+    Calculate aggregated metrics for different text spans.
+
+    Computes:
+    - Total dwell time per trial/span
+    - Min/max word indices per trial/span
+    - For fixations: count per span
+    - Normalizes indices to start at 0
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        ia_field (str): Column name for word/fixation index
+        mode (Mode): IA or FIXATION processing mode
+        duration_col (str): Column name for duration values
+
+    Returns:
+        pd.DataFrame: DataFrame with added span-level metrics
+    """
     logger.info("Computing span-level metrics...")
 
     group_by_fields = [
@@ -1045,6 +1497,22 @@ def _compute_span_level_metrics(
 def compute_normalized_features(
     df: pd.DataFrame, duration_col: str, ia_field: str
 ) -> pd.DataFrame:
+    """
+    Calculate normalized versions of key metrics.
+
+    Adds columns for:
+    - Normalized dwell times (total and by part)
+    - Normalized word positions (total and by part)
+    - Reverse indices from end
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        duration_col (str): Column name for duration values
+        ia_field (str): Column name for word/fixation index
+
+    Returns:
+        pd.DataFrame: DataFrame with normalized metrics
+    """
     logger.info("Computing normalized dwell time, and normalized word indices...")
     df = df.assign(
         normalized_dwell_time=df[duration_col] / df.total_IA_DWELL_TIME,
@@ -1062,6 +1530,22 @@ def compute_normalized_features(
 def load_data(
     data_path: Path, has_preview_to_numeric: bool = False, **kwargs
 ) -> pd.DataFrame:
+    """
+    Load eye tracking data from files.
+
+    Handles:
+    - Single files or directories of files
+    - Different encodings
+    - Optional preview condition conversion
+
+    Args:
+        data_path (Path): Path to data file or directory
+        has_preview_to_numeric (bool): Whether to convert preview condition to numeric
+        **kwargs: Additional arguments for pd.read_csv
+
+    Returns:
+        pd.DataFrame: Loaded data
+    """
     if data_path.is_dir():
         try:
             print(f"Reading files from {data_path}")
@@ -1157,7 +1641,8 @@ if __name__ == "__main__":
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
         # "facebook/opt-350m", "facebook/opt-1.3b", "facebook/opt-2.7b", "facebook/opt-6.7b",
-        # "EleutherAI/pythia-70m", "EleutherAI/pythia-160m", "EleutherAI/pythia-410m", "EleutherAI/pythia-1b",
+        "EleutherAI/pythia-70m",
+        # "EleutherAI/pythia-160m", "EleutherAI/pythia-410m", "EleutherAI/pythia-1b",
         # "EleutherAI/pythia-1.4b", "EleutherAI/pythia-2.8b", "EleutherAI/pythia-6.9b", "EleutherAI/pythia-12b",
         # "state-spaces/mamba-370m-hf", "state-spaces/mamba-790m-hf", "state-spaces/mamba-1.4b-hf", "state-spaces/mamba-2.8b-hf",
     ]
@@ -1180,7 +1665,7 @@ if __name__ == "__main__":
     ]
 
     modes = [
-        Mode.IA.value,
+        # Mode.IA.value,
         Mode.FIXATION.value,
     ]
     short_to_long_mapping = {
@@ -1229,3 +1714,4 @@ if __name__ == "__main__":
             df.to_csv(
                 Path("lacclab_processed_reports") / "full" / save_file, index=False
             )
+            print(f"Saved processed data to lacclab_processed_reports/full/{save_file}")
