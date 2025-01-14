@@ -4,15 +4,13 @@ that is easier to work with."""
 import json
 import logging
 import os
-import subprocess
 from enum import Enum
 from pathlib import Path
 from typing import List, Literal
 from itertools import product
-
+from utils import load_data, validate_spacy_model
 import numpy as np
 import pandas as pd
-import spacy
 import torch
 from tap import Tap
 from text_metrics.merge_metrics_with_eye_movements import (
@@ -20,16 +18,6 @@ from text_metrics.merge_metrics_with_eye_movements import (
 )
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
-
-# TODO Doesn't work, add to setup
-try:
-    _ = spacy.load("en_core_web_sm")
-except IOError:
-    print(
-        "Downloading spacy model: en_core_web_sm (python -m spacy download en_core_web_sm)"
-    )
-    command = "python -m spacy download en_core_web_sm"
-    subprocess.run(command, shell=True)
 
 
 class Mode(Enum):
@@ -54,16 +42,8 @@ class ArgsParser(Tap):
         log_name (str): The name of the log file
         filter_query (str): The query to filter the data by
         SURPRISAL_MODELS (List[str]): Models to extract surprisal from
-        base_cols (List[str]): Also includes surprisal models
-        cols_to_add (List[str]): columns to add to base_cols
-        cols_to_remove (List[str]): columns to remove from base_cols
         save_path (Path): The path to save the data
-        hunting_data_path (Path): Path to hunting data. Should be 'preview_p_{self.mode}.tsv'
-        gathering_data_path (Path): Path to gathering data. Should be 'nopreview_p_{self.mode}.tsv'
         unique_item_columns (List[str]): columns that make up a unique item
-        unique_item_column (str): defined as unique_item_columns separated by "_"
-        item_column (List[str]): column that defines an item
-        subject_column (List[str]): column that defines a subject
         add_prolific_qas_distribution (bool): whether to add question difficulty data from prolific
         qas_prolific_distribution_path (Path | None): Path to question difficulty data from prolific
         mode (Mode): whether to use interest area or fixation data
@@ -78,150 +58,11 @@ class ArgsParser(Tap):
     """
     SURPRISAL_MODELS: List[str] = [
         "gpt2",
-        # "EleutherAI/gpt-j-6B",
     ]  # Models to extract surprisal from
     NLP_MODEL: str = "en_core_web_sm"
     parsing_mode: Literal["keep-first", "keep-all", "re-tokenize"] = "re-tokenize"
-    base_cols: List[str] = [
-        "participant_id",
-        "unique_paragraph_id",
-        "question_preview",
-        "same_critical_span",
-        "question_n_condition_prediction_label",
-        "practice_trial",
-        "repeated_reading_trial",
-        "is_correct",
-        "correct_answer_position",
-        "selected_answer",
-        "answers_order",
-        "list_number",
-        "cs_has_two_questions",
-        "q_reference",
-        "selected_answer_position",
-        IA_ID_COL,
-        "IA_LABEL",
-        "wordfreq_frequency",
-        "word_length_no_punctuation",
-        "prev_word_length_no_punctuation",
-        "prev_wordfreq_frequency",
-        "subtlex_frequency",
-        "prev_subtlex_frequency",
-        "PARAGRAPH_RT",
-        "IA_FIRST_FIX_PROGRESSIVE",
-        "is_in_dspan",
-        "is_in_aspan",
-        "is_before_aspan",
-        "is_after_aspan",
-        "relative_to_aspan",
-        "span_type",
-        "entropy",
-        "question",
-        "article_index",
-        "a_proportion",
-        "b_proportion",
-        "c_proportion",
-        "d_proportion",
-        "total_IA_DWELL_TIME",
-        "min_IA_ID",
-        "max_IA_ID",
-        "part_total_IA_DWELL_TIME",
-        "part_min_IA_ID",
-        "part_max_IA_ID",
-        "part_num_fixations",
-        "normalized_dwell_time",
-        "normalized_part_dwell_time",
-        "normalized_part_ID",
-        "reverse_ID",
-        "reverse_part_ID",
-        "part_ID",
-        "normalized_ID",
-        "token",
-        "universal_pos",
-        "tag",
-        "head_word_index",
-        "dependency_relation",
-        "left_dependents_count",
-        "right_dependents_count",
-        "distance_to_head",
-        "morphological_features",
-        "entity_type",
-        "Head_Direction",
-        "Token_idx",
-        "Word_idx",
-        "Is_Content_Word",
-        "ptb_pos",
-        "start_of_line",
-        "end_of_line",
-        "IA_AVERAGE_FIX_PUPIL_SIZE",
-        "IA_DWELL_TIME",
-        "IA_DWELL_TIME_%",
-        "IA_FIRST_RUN_LANDING_POSITION",
-        "IA_LAST_RUN_LANDING_POSITION",
-        "IA_FIXATION_%",
-        "IA_FIXATION_COUNT",
-        "IA_REGRESSION_IN_COUNT",
-        "IA_REGRESSION_OUT_FULL_COUNT",
-        "IA_RUN_COUNT",
-        "IA_FIRST_FIXATION_DURATION",
-        "IA_FIRST_FIXATION_VISITED_IA_COUNT",
-        "IA_FIRST_RUN_DWELL_TIME",
-        "IA_FIRST_RUN_FIXATION_%",
-        "IA_FIRST_RUN_FIXATION_COUNT",
-        "IA_SKIP",
-        "IA_REGRESSION_PATH_DURATION",
-        "IA_REGRESSION_OUT_COUNT",
-        "IA_SELECTIVE_REGRESSION_PATH_DURATION",
-        "IA_SPILLOVER",
-        "IA_FIRST_SACCADE_AMPLITUDE",
-        "IA_FIRST_SACCADE_ANGLE",
-        "IA_LAST_FIXATION_DURATION",
-        "IA_LAST_RUN_DWELL_TIME",
-        "IA_LAST_RUN_FIXATION_%",
-        "IA_LAST_RUN_FIXATION_COUNT",
-        "IA_LAST_SACCADE_AMPLITUDE",
-        "IA_LAST_SACCADE_ANGLE",
-        "IA_LEFT",
-        "IA_TOP",
-        "TRIAL_DWELL_TIME",
-        "TRIAL_FIXATION_COUNT",
-        "TRIAL_IA_COUNT",
-        "TRIAL_INDEX",
-        "TRIAL_TOTAL_VISITED_IA_COUNT",
-        "regression_rate",
-        "total_skip",
-        "part_length",
-        FIXATION_ID_COL,  # Only for fixation data
-        "CURRENT_FIX_INTEREST_AREA_LABEL",  # Only for fixation data
-        "CURRENT_FIX_DURATION",  # Only for fixation data
-        "CURRENT_FIX_PUPIL",  # Only for fixation data
-        NEXT_FIXATION_ID_COL,  # Only for fixation data
-        "next_relative_to_aspan",  # Only for fixation data
-        "CURRENT_FIX_X",  # Only for fixation data
-        "CURRENT_FIX_Y",  # Only for fixation data
-        "CURRENT_FIX_INDEX",
-        "NEXT_FIX_ANGLE",
-        "PREVIOUS_FIX_ANGLE",
-        "NEXT_FIX_DISTANCE",
-        "PREVIOUS_FIX_DISTANCE",
-        "NEXT_SAC_AMPLITUDE",
-        "NEXT_SAC_ANGLE",
-        "NEXT_SAC_AVG_VELOCITY",
-        # "NEXT_SAC_BLINK_DURATION", # Mostly nans
-        "NEXT_SAC_DURATION",
-        "NEXT_SAC_PEAK_VELOCITY",
-        "CURRENT_FIX_NEAREST_INTEREST_AREA_DISTANCE",
-        "NEXT_SAC_END_X",
-        "NEXT_SAC_START_X",
-        "NEXT_SAC_END_Y",
-        "NEXT_SAC_START_Y",
-    ]  # Also includes surprisal models
-
-    cols_to_add: List[str] = []  # columns to add to base_cols
-    cols_to_remove: List[str] = []  # columns to remove from base_cols
 
     save_path: Path = Path()  # The path to save the data.
-    hunting_data_path: Path = Path()  # Path to hunting data.
-    gathering_data_path: Path = Path()  # Path to gathering data.
     data_path: Path = Path()  # Path to data folder.
     onestopqa_path: Path = Path("data/interim/onestop_qa.json")
     unique_item_columns: List[str] = [
@@ -230,14 +71,6 @@ class ArgsParser(Tap):
         "difficulty_level",
         "paragraph_id",
     ]  # columns that make up a unique item
-    unique_item_column: str = (
-        "unique_paragraph_id"  # defined as unique_item_columns separated by "_"
-    )
-
-    # groups
-
-    item_column: List[str] = ["article_id"]  # column that defines an item
-    subject_column: List[str] = ["subject_id"]  # column that defines a subject
 
     add_prolific_qas_distribution: bool = (
         False  # whether to add question difficulty data from prolific
@@ -250,18 +83,12 @@ class ArgsParser(Tap):
 
     """ Some models supported by this function require a huggingface access token
         e.g meta-llama/Llama-2-7b-hf. If you have one, please add it here.
-        https://huggingface.co/docs/hub/security-tokens"""
-    hf_access_token: str = None
+        https://huggingface.co/docs/hub/security-tokens
+        """
+    hf_access_token: str | None = None
 
     def process_args(self) -> None:
         validate_spacy_model(self.NLP_MODEL)
-
-        self.base_cols = list(
-            set(self.base_cols)
-            .union(self.cols_to_add)
-            .difference(set(self.cols_to_remove))
-        )
-        print(f"Using columns: {self.base_cols}")
 
 
 def create_and_configer_logger(log_name: str = "log.log") -> logging.Logger:
@@ -523,8 +350,6 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         axis=1,
     )  # 3 = label for null question (gathering), corresponds to  cond pred.
 
-    df = filter_columns(df=df, base_cols=args.base_cols, dry_run=True)
-
     return df
 
 
@@ -540,14 +365,14 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = load_data(args.data_path, sep="\t")
 
     df = correct_span_issues(df)
-    # df = fix_paragraph_field(df)
     df = fix_question_field(df)
 
     df = rename_columns(df)
-    logger.info(
-        "Recreating paragraph column by grouping by unique_paragraph_id and participant_id..."
-    )
+    df = compute_word_span_metrics(df=df, mode=args.mode)
     if args.mode == Mode.IA:
+        logger.info(
+            "Recreating paragraph column by grouping by unique_paragraph_id and participant_id..."
+        )
         df["paragraph"] = df.groupby(
             [
                 "article_batch",
@@ -559,17 +384,11 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
             ]
         )["IA_LABEL"].transform(lambda x: " ".join(x))
 
-    ia_field = IA_ID_COL if args.mode == Mode.IA else FIXATION_ID_COL
-    df = compute_word_span_metrics(df, args.mode, ia_field)
-    if args.mode == Mode.IA:
-        text_onscreen_version = process_sequence_data(df, "IA_LEFT")
-        text_spacing_version = process_sequence_data(df, "IA_LABEL")
-
-        text_onscreen_version = text_onscreen_version.rename(
-            columns={"text_version": "text_onscreen_version"}
+        text_onscreen_version = process_sequence_data(
+            df, "IA_LEFT", output_name="text_onscreen_version"
         )
-        text_spacing_version = text_spacing_version.rename(
-            columns={"text_version": "text_spacing_version"}
+        text_spacing_version = process_sequence_data(
+            df, "IA_LABEL", output_name="text_spacing_version"
         )
 
         df = df.merge(
@@ -605,6 +424,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     question_prediction_labels = enrich_text_data_with_question_label(text_data, args)
     text_data["question_prediction_label"] = question_prediction_labels
     df = df.merge(text_data, validate="m:1", how="left")
+
     df = rename_columns(df)
 
     label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
@@ -1034,7 +854,6 @@ def compute_start_end_line(df: pd.DataFrame) -> pd.DataFrame:
 def compute_word_span_metrics(
     df: pd.DataFrame,
     mode: Mode,
-    ia_field: str,
 ) -> pd.DataFrame:
     """
     Calculate word-level metrics relative to critical and distractor spans.
@@ -1047,11 +866,11 @@ def compute_word_span_metrics(
     Args:
         df (pd.DataFrame): Input DataFrame
         mode (Mode): IA or FIXATION processing mode
-        ia_field (str): Column name for word/fixation index
 
     Returns:
         pd.DataFrame: DataFrame with added span metrics
     """
+    ia_field = IA_ID_COL if mode == Mode.IA else FIXATION_ID_COL
     df[ia_field] = df[ia_field].replace({".": 0, np.nan: 0}).astype(int)
     pattern = r"(\d+), ?(\d+)"  # Regex pattern to extract span indices
     logger.info("Determining whether word is in the answer (critical) span...")
@@ -1201,10 +1020,10 @@ def fix_question_field(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def process_sequence_data(
     df: pd.DataFrame,
     group_col: str,
+    output_name: str,
     filter_condition: str = "repeated_reading_trial==False",
 ) -> pd.DataFrame:
     """
@@ -1254,7 +1073,7 @@ def process_sequence_data(
     )
 
     # Add text version numbering
-    result["text_version"] = result.groupby(
+    result[output_name] = result.groupby(
         [
             "article_batch",
             "article_id",
@@ -1268,42 +1087,6 @@ def process_sequence_data(
     result = result.drop(group_col, axis=1)
 
     return result
-
-
-def filter_columns(
-    df: pd.DataFrame, base_cols: List[str], dry_run: bool = False
-) -> pd.DataFrame:
-    """
-    Filter DataFrame to keep only specified columns.
-
-    Logs:
-    - Columns being dropped
-    - Expected columns missing from data
-    - Final column list
-
-    Args:
-        df (pd.DataFrame): Input DataFrame
-        base_cols (List[str]): Columns to keep
-        dry_run (bool): If True, only log changes without filtering
-
-    Returns:
-        pd.DataFrame: Filtered DataFrame if not dry_run
-    """
-    # log the columns that were dropped
-    dropped_columns = set(df.columns).difference(base_cols)
-    logger.info("Dropped columns: %s", dropped_columns)
-
-    # log the columns that were in base_cols but not in the data
-    missing_columns = set(base_cols).difference(df.columns)
-    logger.info("Missing columns: %s", missing_columns)
-
-    logger.info("Final columns: %s", df.columns)
-
-    logger.info("Keeping selected columns...")
-    if not dry_run:
-        df = df[df.columns.intersection(base_cols)].copy()
-
-    return df
 
 
 def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
@@ -1483,105 +1266,6 @@ def compute_normalized_features(
     return df
 
 
-def load_data(
-    data_path: Path, has_preview_to_numeric: bool = False, **kwargs
-) -> pd.DataFrame:
-    """
-    Load eye tracking data from files.
-
-    Handles:
-    - Single files or directories of files
-    - Different encodings
-    - Optional preview condition conversion
-
-    Args:
-        data_path (Path): Path to data file or directory
-        has_preview_to_numeric (bool): Whether to convert preview condition to numeric
-        **kwargs: Additional arguments for pd.read_csv
-
-    Returns:
-        pd.DataFrame: Loaded data
-    """
-    if data_path.is_dir():
-        try:
-            print(f"Reading files from {data_path}")
-            dataframes = [
-                pd.read_csv(file, encoding="utf-16", **kwargs)
-                for file in data_path.glob("*.tsv")
-            ]
-        except UnicodeError:
-            print(
-                f"UnicodeError encountered. Retrying with low_memory=False for files in {data_path}"
-            )
-            dataframes = [
-                pd.read_csv(file, low_memory=False, **kwargs)
-                for file in data_path.glob("*.tsv")
-            ]
-        assert len(dataframes) > 0, f"No files found in {data_path}"
-        data = pd.concat(dataframes, ignore_index=True)
-    else:
-        try:
-            print(f"Load data from {data_path} using pyarrow.")
-            data = pd.read_csv(data_path, encoding="utf-16", engine="pyarrow", **kwargs)
-        except UnicodeError:
-            print(
-                f"Attempting to load data from {data_path} without specifying encoding."
-            )
-            data = pd.read_csv(data_path, engine="pyarrow", **kwargs)
-        except ValueError:
-            print(f"Load data from {data_path} (without pyarrow -- much slower!).")
-            try:
-                data = pd.read_csv(data_path, encoding="utf-16", **kwargs)
-            except UnicodeError:
-                print(
-                    f"Attempting to load data from {data_path} without specifying encoding."
-                )
-                data = pd.read_csv(data_path, **kwargs)
-
-    if has_preview_to_numeric:
-        data["has_preview"] = data["has_preview"].map({"Gathering": 0, "Hunting": 1})
-
-    logger.info("Loaded %d records from %s.", len(data), data_path)
-
-    if data.empty:
-        raise ValueError(f"Error: No data found in {data_path}.")
-    return data
-
-
-def validate_spacy_model(spacy_model_name: str) -> None:
-    if spacy_model_name not in [
-        "en_core_web_sm",
-        "en_core_web_md",
-        "en_core_web_lg",
-        "en_core_web_trf",
-    ]:
-        raise ValueError(
-            f"Warning: {spacy_model_name} is not a recognized model. \
-            Please use one of the specified models."
-        )
-
-    """Validates that the spacy model is downloaded"""
-    if spacy.util.is_package(spacy_model_name):
-        print(f"Using {spacy_model_name} as spacy model...")
-    else:
-        raise ValueError(
-            f"Error: Spacy model {spacy_model_name} not found. \
-            Please download the model using 'python -m spacy download {spacy_model_name}'."
-        )
-
-
-def process_data(args: List[str], args_file: Path, save_path: Path):
-    cfg = ArgsParser().parse_args(args)
-
-    # args_save_path = save_path / args_file
-    save_path.mkdir(parents=True, exist_ok=True)
-    # cfg.save(str(args_save_path))
-    # print(f"Saved config to {args_save_path}")
-
-    print(f"Running preprocessing with args: {args}")
-    preprocess_data(cfg)
-
-
 if __name__ == "__main__":
     public_preprocess = True
     lacclab_preprocess = True
@@ -1661,11 +1345,15 @@ if __name__ == "__main__":
             "--device",
             device,
         ]
+        cfg = ArgsParser().parse_args(args)
         if public_preprocess:
-            process_data(args, args_file, save_path)
+            save_path.mkdir(parents=True, exist_ok=True)
+            print(f"Running preprocessing with args: {args}")
+            preprocess_data(cfg)
+
         if lacclab_preprocess:
             df = load_data(save_path / "full" / save_file)
-            df = our_processing(df=df, args=ArgsParser().parse_args(args))
+            df = our_processing(df=df, args=cfg)
             Path("lacclab_processed_reports/full").mkdir(parents=True, exist_ok=True)
             df.to_csv(
                 Path("lacclab_processed_reports") / "full" / save_file, index=False

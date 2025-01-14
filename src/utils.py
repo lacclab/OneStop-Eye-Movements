@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import pandas as pd
-
+import spacy
 
 def load_df(path):
     str_path = str(path)
@@ -104,3 +104,74 @@ def duration_report(df):
     return duration_report
 
 
+def load_data(
+    data_path: Path, usecols: list[str] | None = None, **kwargs
+) -> pd.DataFrame:
+    """Load data from a CSV file with automatic encoding detection.
+
+    This function attempts to read a CSV file using different combinations of encodings
+    (utf-16 and default) and engines (pyarrow and default pandas engine) to handle
+    various file formats.
+
+    Args:
+        data_path (Path): Path to the CSV file to read
+        usecols (list[str] | None, optional): List of columns to read.
+            If None, reads all columns. Defaults to None.
+        **kwargs: Additional keyword arguments passed to pandas.read_csv()
+
+    Returns:
+        pd.DataFrame: DataFrame containing the loaded CSV data
+
+    Raises:
+        ValueError: If the loaded DataFrame is empty
+        UnicodeError: If file encoding cannot be determined
+        ValueError: If file cannot be parsed as CSV
+    """
+    format_used = ""
+    try:
+        data = pd.read_csv(
+            data_path,
+            encoding="utf-16",
+            engine="pyarrow",
+            usecols=usecols,
+            **kwargs,
+        )
+        format_used = "pyarrow with utf-16"
+    except UnicodeError:
+        data = pd.read_csv(data_path, engine="pyarrow", usecols=usecols, **kwargs)
+        format_used = "pyarrow"
+    except ValueError:
+        try:
+            data = pd.read_csv(data_path, encoding="utf-16", usecols=usecols, **kwargs)
+            format_used = "default engine with utf-16"
+        except UnicodeError:
+            data = pd.read_csv(data_path, usecols=usecols, **kwargs)
+            format_used = "default engine"
+
+    print(f"Loaded {len(data)} rows from {data_path} using {format_used}.")
+
+    if data.empty:
+        raise ValueError(f"Error: No data found in {data_path}.")
+
+    return data
+
+def validate_spacy_model(spacy_model_name: str) -> None:
+    if spacy_model_name not in [
+        "en_core_web_sm",
+        "en_core_web_md",
+        "en_core_web_lg",
+        "en_core_web_trf",
+    ]:
+        raise ValueError(
+            f"Warning: {spacy_model_name} is not a recognized model. \
+            Please use one of the specified models."
+        )
+
+    """Validates that the spacy model is downloaded"""
+    if spacy.util.is_package(spacy_model_name):
+        print(f"Using {spacy_model_name} as spacy model...")
+    else:
+        raise ValueError(
+            f"Error: Spacy model {spacy_model_name} not found. \
+            Please download the model using 'python -m spacy download {spacy_model_name}'."
+        )
