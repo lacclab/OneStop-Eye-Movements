@@ -19,6 +19,7 @@ from text_metrics.merge_metrics_with_eye_movements import (
 )
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
+import platform
 
 
 class Mode(Enum):
@@ -395,6 +396,7 @@ def validate_files(config: ArgsParser) -> None:
 
 def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
     """Clean and format the dataframe."""
+    logger.info("Cleaning and formatting data...")
     df.columns = df.columns.str.replace(" ", "_")
 
     # Convert columns to appropriate types
@@ -410,6 +412,7 @@ def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
     df["answers_order"] = df["answers_order"].apply(
         lambda x: [NUMBER_TO_LETTER_MAP[i] for i in str(x).strip("[]").split()]
     )
+    df = df.copy()
     df["selected_answer"] = df.apply(
         lambda x: x["answers_order"][x["selected_answer_position"]], axis=1
     )
@@ -419,6 +422,7 @@ def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def save_processed_data(df: pd.DataFrame, config: ArgsParser) -> None:
     """Save processed data to specified locations."""
+    logger.info("Saving processed data...")
     full_path = config.save_path.parent / "full"
     full_path.mkdir(parents=True, exist_ok=True)
 
@@ -571,10 +575,9 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         ["article_batch", "article_id", "paragraph_id", "onestopqa_question_id"]
     ].drop_duplicates()
     question_prediction_labels = enrich_text_data_with_question_label(text_data, args)
-    text_data["question_prediction_label"] = question_prediction_labels
+    text_data["same_critical_span"] = question_prediction_labels
     df = df.merge(text_data, validate="m:1", how="left")
 
-    df = rename_columns(df)
     df = compute_word_length(df, args)
     df = clean_and_format_data(df)
     df = add_paragraph_per_trial(df, args)
@@ -644,54 +647,21 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
         "batch": "article_batch",
         "RECORDING_SESSION_LABEL": "participant_id",
         # Trial Variables
-        "article_id": "article_id",
-        "paragraph_id": "paragraph_id",
         "level": "difficulty_level",
         "trial": "trial_index",
         "practice": "practice_trial",
         "reread": "repeated_reading_trial",
         "article_ind": "article_index",
-        "article_title": "article_title",
-        "paragraph": "paragraph",
-        "question": "question",
-        "question_prediction_label": "same_critical_span",
         "q_ind": "onestopqa_question_id",
         "correct_answer": "correct_answer_position",
         "FINAL_ANSWER": "selected_answer_position",
-        # "answers_order": "answers_order",
-        # "abcd_answer": "selected_answer",
         "a": "answer_1",
         "b": "answer_2",
         "c": "answer_3",
         "d": "answer_4",
-        # Linguistic Annotations - Big Three
-        "Length": "word_length_no_punctuation",
-        "Wordfreq_Frequency": "wordfreq_frequency",
-        "subtlex_Frequency": "subtlex_frequency",
-        # Linguistic Annotations - UD
-        "POS": "universal_pos",
-        "Reduced_POS": "ptb_pos",
-        "Head_word_idx": "head_word_index",
-        "Relationship": "dependency_relation",
-        "n_Lefts": "left_dependents_count",
-        "n_Rights": "right_dependents_count",
-        "Distance2Head": "distance_to_head",
-        "Morph": "morphological_features",
-        "Entity": "entity_type",
-        "Is_Content_Word": "is_content_word",
-        # STARC
-        "span_type": "auxiliary_span_type",
-        "aspan_inds": "critical_span_indices",
-        "dspan_inds": "distractor_span_indices",
     }
 
-    surprisal_cols = {
-        col: col.replace("_Surprisal", "_surprisal")
-        for col in df.columns
-        if col.endswith("_Surprisal")
-    }
-
-    df = df.rename(columns=surprisal_cols | renamed_columns)
+    df = df.rename(columns=renamed_columns)
 
     # Find columns that were not renamed
     not_renamed_columns = [
@@ -760,7 +730,9 @@ def enrich_text_data_with_question_label(text_data: pd.DataFrame, args) -> List[
     raw_text = get_raw_text(args)
     question_prediction_labels = []
     for row in tqdm(
-        iterable=text_data.itertuples(), total=len(text_data), desc="Adding"
+        iterable=text_data.itertuples(),
+        total=len(text_data),
+        desc="Adding question labels",
     ):
         full_article_id = f"{row.article_batch}_{row.article_id}"
         try:
@@ -895,9 +867,9 @@ def compute_word_span_metrics(
     logger.info(
         "Determining whether word is in the critical span, distractor span, or neither (other)..."
     )
-    df["span_type"] = "outside"
-    df.loc[df["is_in_dspan"], "span_type"] = "distractor"
-    df.loc[df["is_in_aspan"], "span_type"] = "critical"
+    df["auxiliary_span_type"] = "outside"
+    df.loc[df["is_in_dspan"], "auxiliary_span_type"] = "distractor"
+    df.loc[df["is_in_aspan"], "auxiliary_span_type"] = "critical"
     logger.info("Span types determined.")
 
     assert df.query(
@@ -1128,9 +1100,32 @@ def add_word_metrics(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
         surp_extractor_type=extractor_switch.SurpExtractorType.CAT_CTX_LEFT,
     )
     df["IA_ID"] += 1
-
-    logger.info("Renaming column 'IA_LABEL_x' to 'IA_LABEL'...")
-    df.rename(columns={"IA_LABEL_x": "IA_LABEL"}, inplace=True)
+    surprisal_cols = {
+        col: col.replace("_Surprisal", "_surprisal")
+        for col in df.columns
+        if col.endswith("_Surprisal")
+    }
+    df = df.rename(
+        columns=surprisal_cols
+        | {
+            "IA_LABEL_x": "IA_LABEL",
+            # Linguistic Annotations - Big Three
+            "Length": "word_length_no_punctuation",
+            "Wordfreq_Frequency": "wordfreq_frequency",
+            "subtlex_Frequency": "subtlex_frequency",
+            # Linguistic Annotations - UD
+            "POS": "universal_pos",
+            "Reduced_POS": "ptb_pos",
+            "Head_word_idx": "head_word_index",
+            "Relationship": "dependency_relation",
+            "n_Lefts": "left_dependents_count",
+            "n_Rights": "right_dependents_count",
+            "Distance2Head": "distance_to_head",
+            "Morph": "morphological_features",
+            "Entity": "entity_type",
+            "Is_Content_Word": "is_content_word",
+        }
+    )
 
     return df
 
@@ -1364,7 +1359,12 @@ if __name__ == "__main__":
         # "state-spaces/mamba-370m-hf", "state-spaces/mamba-790m-hf", "state-spaces/mamba-1.4b-hf", "state-spaces/mamba-2.8b-hf",
     ]
 
-    device = "cuda" if torch.cuda.is_available() else "mpi"
+    if torch.cuda.is_available():
+        device = "cuda"
+    elif platform.system() == "Darwin":
+        device = "mpi"
+    else:
+        device = "cpu"
     print(f"Using device: {device}")
     if device == "cpu":
         print(
@@ -1414,6 +1414,8 @@ if __name__ == "__main__":
             mode,
             "--report",
             report,
+            "--trial_level_paragraphs_path",
+            str(trial_level_paragraphs_path),
             "--SURPRISAL_MODELS",
             *surprisal_models,
             "--hf_access_token",
