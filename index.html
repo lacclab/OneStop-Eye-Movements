@@ -10,7 +10,7 @@
 <title>OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation</title>
 <meta content="OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation" property="og:title"/>
 <meta content="OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation" name="twitter:title"/>
-<link href="_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css?v=e72c8e07" rel="stylesheet" type="text/css"/>
 <link href="_static/theme.css?v=5b4133db" rel="stylesheet" type="text/css"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
@@ -288,11 +288,39 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 <section id="python-script">
 <h3>Python Script<a class="headerlink" href="#python-script" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#python-script'"><span>#</span></a></h3>
 <p>The data can also be downloaded using the provided Python script. The script will download and extract the data files.</p>
-<p>Basic usage to download the entire dataset:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span>
+<p>Basic usage to download the entire dataset:
+0. Make sure you have python installed.
+- If you don’t have python installed, you can download it from <a class="reference external" href="https://www.python.org/downloads/" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
+<ol class="arabic">
+<li><p><strong>Get the Code</strong></p>
+<ul>
+<li><p>Open your terminal/command prompt:</p>
+<ul class="simple">
+<li><p>Windows: Press <code class="docutils literal notranslate"><span class="pre">Win</span> <span class="pre">+</span> <span class="pre">R</span></code>, type <code class="docutils literal notranslate"><span class="pre">cmd</span></code> and press Enter</p></li>
+<li><p>Mac: Press <code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">Space</span></code>, type <code class="docutils literal notranslate"><span class="pre">terminal</span></code> and press Enter</p></li>
+</ul>
+</li>
+<li><p>Run this command to download the code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lacclab/OneStop-Eye-Movements.git
 </pre></div>
 </div>
-<p>Available options:</p>
+</li>
+<li><p>Move into the downloaded folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>OneStop-Eye-Movements
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Run the Download Script</strong></p>
+<ul>
+<li><p>Run this command to download the full dataset:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>download_data_files.py
+</pre></div>
+</div>
+</li>
+<li><p>The data will be downloaded to a folder called “OneStop”</p></li>
+<li><p>Available options:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--extract</span></code>: Extract downloaded zip files (default: True)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--asc</span></code>: Download ASC files (default: False)</p></li>
@@ -304,6 +332,11 @@ If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO,
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Download Specific Parts</strong> (Optional)</p></li>
+</ol>
 <p>Example usage to download only the ordinary reading subset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="n">python</span> <span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">mode</span> <span class="n">ordinary</span>

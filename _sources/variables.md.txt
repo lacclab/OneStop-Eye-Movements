@@ -80,7 +80,7 @@ Session summary file variables.
 
 ### Experiment, Trial, and Linguistic Annotation Variables
 
-Experiment and trial variables, and linguistic annotations in the Fixation and Interest Area reports. UD annotations are extracted using spaCy. See the SR Data Viewer user manual for documentation of eye movement variables in these reports.
+Experiment and trial variables, and linguistic annotations in the Fixation and Interest Area reports. UD annotations are extracted using spaCy. See the SR Data Viewer user manual for documentation of eye movement variables in these reports. Note, missing values are denoted by ".".
 
 | **Category**                     | **Feature**                  | **Description**                                                                                                    | **Values**                                                                                           |
 |-----------------------------------|------------------------------|--------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
