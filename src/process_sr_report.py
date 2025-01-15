@@ -241,11 +241,83 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     df = add_prolific_qas_distribution(df, args)
     df = add_reference_and_cs_two_questions(df, args)
     df = add_question_n_condition_prediction_label(df)
+    df = add_lonely_and_coupled_questions_data_to_text(df, args)
 
     if args.mode == Mode.IA:
         df = add_previous_word_metrics(df, args)
         df = compute_start_end_line(df)
         df = add_additional_metrics(df)
+
+    return df
+
+
+def add_lonely_and_coupled_questions_data_to_text(
+    df: pd.DataFrame, args: ArgsParser
+) -> pd.DataFrame:
+    """
+    This function adds the following columns to text data:
+    - "lonely_question": The question that doesn't share critical span with another.
+    - "couple_question_1": The first question in a pair of questions that share a critical span.
+    - "couple_question_2": The second question in a pair of questions that share a critical span.
+    """
+
+    print("Adding other questions to text data")
+    text_data = df[
+        [
+            "article_batch",
+            "article_id",
+            "paragraph_id",
+            "same_critical_span",
+            "onestopqa_question_id",
+        ]
+    ].drop_duplicates()
+    raw_text = get_raw_text(args)
+
+    lonely_questions, couple_questions_1, couple_questions_2 = [], [], []
+    for _, row in tqdm(
+        iterable=text_data.iterrows(), total=len(text_data), desc="Adding"
+    ):
+        try:
+            # Filter the original DataFrame for the current paragraph
+            full_article_id = f"{row.article_batch}_{row.article_id}"
+            questions = pd.DataFrame(
+                get_article_data(article_id=full_article_id, raw_text=raw_text)[
+                    "paragraphs"
+                ][row.paragraph_id - 1]["qas"]
+            ).drop(["answers"], axis=1)
+            assert len(questions) == 3, f"Expected 3 questions for paragraph \
+            {row.paragraph_id}, got {len(questions)}"
+
+            lonely_question = questions.loc[
+                questions["question_prediction_label"] == 0, "question"
+            ].item()
+            couple_question_1 = questions.loc[
+                questions["question_prediction_label"] == 1, "question"
+            ].item()
+            couple_question_2 = questions.loc[
+                questions["question_prediction_label"] == 2, "question"
+            ].item()
+
+            # make sure that the other questions are not the same
+            assert (
+                couple_question_1 != couple_question_2
+            ), f"Other questions are the same: {couple_question_1}"
+            # note the any of the couple questions and the lonely question can be row.question
+
+        except ValueError:
+            lonely_question = ""
+            couple_question_1 = ""
+            couple_question_2 = ""
+
+        lonely_questions.append(lonely_question)
+        couple_questions_1.append(couple_question_1)
+        couple_questions_2.append(couple_question_2)
+
+    # Add the other questions to the DataFrame
+    text_data["couple_question_1"] = couple_questions_1
+    text_data["couple_question_2"] = couple_questions_2
+    text_data["lonely_question"] = lonely_questions
+    df = df.merge(text_data, validate="m:1", how="left")
 
     return df
 
@@ -514,6 +586,8 @@ def add_additional_metrics(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame with added metrics
     """
+
+    logger.info("Adding additional metrics...")
     df["regression_rate"] = df["IA_REGRESSION_OUT_FULL_COUNT"] / df["IA_RUN_COUNT"]
     df["total_skip"] = df["IA_DWELL_TIME"] == 0
     df["part_length"] = df["part_max_IA_ID"] - df["part_min_IA_ID"] + 1
@@ -1628,7 +1702,7 @@ def get_device() -> str:
 
 
 if __name__ == "__main__":
-    public_preprocess = True
+    public_preprocess = False
     lacclab_preprocess = True
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
@@ -1709,8 +1783,11 @@ if __name__ == "__main__":
         if lacclab_preprocess:
             df = load_data(save_path / "full" / save_file)
             df = our_processing(df=df, args=cfg)
+
+            logger.info(
+                f"Saved processed data to lacclab_processed_reports/full/{save_file}"
+            )
             Path("lacclab_processed_reports/full").mkdir(parents=True, exist_ok=True)
             df.to_csv(
                 Path("lacclab_processed_reports") / "full" / save_file, index=False
             )
-            print(f"Saved processed data to lacclab_processed_reports/full/{save_file}")
