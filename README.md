@@ -94,19 +94,44 @@ The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility t
 The data can also be downloaded using the provided Python script. The script will download and extract the data files.
 
 Basic usage to download the entire dataset:
+0. Make sure you have python installed.
+    - If you don't have python installed, you can download it from [here](https://www.python.org/downloads/).
 
-```python
-python download_data_files.py
-```
+1. **Get the Code**
+   * Open your terminal/command prompt:
+     * Windows: Press `Win + R`, type `cmd` and press Enter
+     * Mac: Press `Cmd + Space`, type `terminal` and press Enter
+   * Run this command to download the code:
 
-Available options:
+     ```bash
+     git clone https://github.com/lacclab/OneStop-Eye-Movements.git
+     ```
 
-* `--extract`: Extract downloaded zip files (default: True)
-* `--asc`: Download ASC files (default: False)
-* `--edf`: Download EDF files (default: False)
-* `-o, --output-folder`: Specify output folder (default: "OneStop")
-* `--mode`: Choose dataset version to download (default: "full")
-  * Options: "full", "repeated", "information-seeking", "ordinary", "information-seeking-in-repeated"
+   * Move into the downloaded folder:
+
+     ```bash
+     cd OneStop-Eye-Movements
+     ```
+
+2. **Run the Download Script**
+   * Run this command to download the full dataset:
+
+     ```bash
+     python download_data_files.py
+     ```
+
+   * The data will be downloaded to a folder called "OneStop"
+
+   * Available options:
+
+      * `--extract`: Extract downloaded zip files (default: True)
+      * `--asc`: Download ASC files (default: False)
+      * `--edf`: Download EDF files (default: False)
+      * `-o, --output-folder`: Specify output folder (default: "OneStop")
+      * `--mode`: Choose dataset version to download (default: "full")
+        * Options: "full", "repeated", "information-seeking", "ordinary", "information-seeking-in-repeated"
+
+3. **Download Specific Parts** (Optional)  
 
 Example usage to download only the ordinary reading subset:
 

@@ -2,7 +2,6 @@ import json
 import numpy as np
 import pandas as pd
 
-
 def load_df(path):
     str_path = str(path)
     end = ["P.tsv", "Q.tsv", "A.tsv", "QA.tsv", "preview.tsv", "T.tsv"]
@@ -102,5 +101,3 @@ def duration_report(df):
         duration_report.loc[duration_report.shape[0]] = new_row
 
     return duration_report
-
-
