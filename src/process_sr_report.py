@@ -162,6 +162,27 @@ logger = create_and_configure_logger("preprocessing.log")
 
 
 def preprocess_data(args: ArgsParser) -> pd.DataFrame:
+    """
+    Main preprocessing pipeline for eye movement data.
+
+    This function coordinates the entire preprocessing workflow including:
+    - Data validation and loading
+    - Span correction and question field fixes
+    - Column renaming and standardization
+    - Word span metrics computation
+    - Question labeling addition
+    - Word length computation
+    - Paragraph extraction and processing
+    - Word metrics addition for IA mode
+    - Data cleaning and formatting
+    - Saving processed data
+
+    Args:
+        args (ArgsParser): Configuration parameters for preprocessing
+
+    Returns:
+        pd.DataFrame: Fully preprocessed eye movement data
+    """
     validate_files(args)
     df = load_data(args.data_path, sep="\t")
     df = correct_span_issues(df)
@@ -186,9 +207,27 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
 def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     """
-    Processes the public OneStop dataset to create the LaCC lab's extended version.
-    """
+    LaCC lab-specific processing pipeline for OneStop dataset.
 
+    Extends the public dataset with additional features including:
+    - Integer and float feature conversions
+    - Index adjustments
+    - Fixation data cleaning
+    - Unique paragraph ID addition
+    - Word span metrics computation
+    - Span-level metrics computation
+    - Feature normalization
+    - Question difficulty data integration
+    - Previous word metrics (for IA mode)
+    - Line position metrics (for IA mode)
+
+    Args:
+        df (pd.DataFrame): Input DataFrame from public preprocessing
+        args (ArgsParser): Configuration parameters
+
+    Returns:
+        pd.DataFrame: Extended DataFrame with LaCC lab features
+    """
     duration_field, ia_field = get_constants_by_mode(args.mode)
 
     df = convert_to_int_features(df, args)
@@ -212,6 +251,19 @@ def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
 
 def convert_to_int_features(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Convert specified columns to integer type.
+
+    Handles missing values and dots by replacing them with 0 before conversion.
+    Different columns are processed based on whether in IA or FIXATION mode.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Contains mode configuration
+
+    Returns:
+        pd.DataFrame: DataFrame with converted integer columns
+    """
     # In general, only features that have '.' or NaN or not automatically converted.
 
     to_int_features = [
@@ -269,6 +321,19 @@ def convert_to_int_features(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
 
 def convert_to_float_features(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Convert specified columns to float type.
+
+    Handles missing values and dots by replacing them with None before conversion.
+    Different columns are processed based on whether in IA or FIXATION mode.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Contains mode configuration
+
+    Returns:
+        pd.DataFrame: DataFrame with converted float columns
+    """
     if args.mode == Mode.IA:
         to_float_features = [
             "IA_AVERAGE_FIX_PUPIL_SIZE",
@@ -311,6 +376,18 @@ def convert_to_float_features(df: pd.DataFrame, args: ArgsParser) -> pd.DataFram
 
 
 def adjust_indexing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Adjust indexing to be 0-indexed.
+
+    Subtracts 1 from specified columns based on whether in IA or FIXATION mode.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Contains mode configuration
+
+    Returns:
+        pd.DataFrame: DataFrame with adjusted indexing
+    """
     if args.mode == Mode.IA:
         subtract_one_fields = [IA_ID_COL]
     elif args.mode == Mode.FIXATION:
@@ -324,6 +401,18 @@ def adjust_indexing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
 
 def drop_missing_fixation_data(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Drop rows with missing fixation data.
+
+    Drops rows with missing values in specified columns for FIXATION mode.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Contains mode configuration
+
+    Returns:
+        pd.DataFrame: DataFrame with dropped rows
+    """
     if args.mode == Mode.FIXATION:
         dropna_fields = [FIXATION_ID_COL, NEXT_FIXATION_ID_COL]
         df = df.dropna(subset=dropna_fields)
@@ -336,6 +425,18 @@ def drop_missing_fixation_data(df: pd.DataFrame, args: ArgsParser) -> pd.DataFra
 
 
 def add_question_n_condition_prediction_label(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add question and condition prediction labels.
+
+    Adds a new column 'question_n_condition_prediction_label' based on
+    'same_critical_span' and 'question_preview' values.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+
+    Returns:
+        pd.DataFrame: DataFrame with added labels
+    """
     df["question_n_condition_prediction_label"] = df.apply(
         lambda x: x["same_critical_span"]
         if x["question_preview"] in [1, "Hunting"]
@@ -348,6 +449,19 @@ def add_question_n_condition_prediction_label(df: pd.DataFrame) -> pd.DataFrame:
 def add_reference_and_cs_two_questions(
     df: pd.DataFrame, args: ArgsParser
 ) -> pd.DataFrame:
+    """
+    Add reference and critical span information for questions.
+
+    Adds columns 'q_reference' and 'cs_has_two_questions' based on
+    OneStopQA data.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration parameters
+
+    Returns:
+        pd.DataFrame: DataFrame with added reference and span info
+    """
     text_data = df[
         [
             "article_batch",
@@ -367,6 +481,18 @@ def add_reference_and_cs_two_questions(
 
 
 def add_question_labels(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Add question labels from OneStopQA data.
+
+    Adds a new column 'same_critical_span' based on OneStopQA data.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration parameters
+
+    Returns:
+        pd.DataFrame: DataFrame with added question labels
+    """
     text_data = df[
         ["article_batch", "article_id", "paragraph_id", "onestopqa_question_id"]
     ].drop_duplicates()
@@ -377,6 +503,17 @@ def add_question_labels(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
 
 def add_additional_metrics(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add additional metrics to the DataFrame.
+
+    Adds columns for regression rate, total skip, and part length.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+
+    Returns:
+        pd.DataFrame: DataFrame with added metrics
+    """
     df["regression_rate"] = df["IA_REGRESSION_OUT_FULL_COUNT"] / df["IA_RUN_COUNT"]
     df["total_skip"] = df["IA_DWELL_TIME"] == 0
     df["part_length"] = df["part_max_IA_ID"] - df["part_min_IA_ID"] + 1
@@ -384,6 +521,18 @@ def add_additional_metrics(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_prolific_qas_distribution(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Add question difficulty data from Prolific.
+
+    Merges question difficulty data with the main DataFrame if specified.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration parameters
+
+    Returns:
+        pd.DataFrame: DataFrame with added question difficulty data
+    """
     if args.add_prolific_qas_distribution:
         logger.info("Adding question difficulty data...")
         question_difficulty = pd.read_csv(args.qas_prolific_distribution_path)
@@ -402,6 +551,17 @@ def add_prolific_qas_distribution(df: pd.DataFrame, args: ArgsParser) -> pd.Data
 
 
 def get_constants_by_mode(mode: Mode) -> tuple[str, str]:
+    """
+    Get constants based on processing mode.
+
+    Returns duration and IA field names based on whether in IA or FIXATION mode.
+
+    Args:
+        mode (Mode): Processing mode (IA or FIXATION)
+
+    Returns:
+        tuple[str, str]: Duration and IA field names
+    """
     duration_field = "IA_DWELL_TIME" if mode == Mode.IA else "CURRENT_FIX_DURATION"
     ia_field = IA_ID_COL if mode == Mode.IA else FIXATION_ID_COL
 
@@ -409,6 +569,18 @@ def get_constants_by_mode(mode: Mode) -> tuple[str, str]:
 
 
 def add_unique_paragraph_id(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add unique paragraph ID to the DataFrame.
+
+    Creates a new column 'unique_paragraph_id' by combining article_batch,
+    article_id, difficulty_level, and paragraph_id.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+
+    Returns:
+        pd.DataFrame: DataFrame with added unique paragraph ID
+    """
     logger.info("Adding unique paragraph id...")
     df["unique_paragraph_id"] = (
         df[["article_batch", "article_id", "difficulty_level", "paragraph_id"]]
@@ -419,7 +591,18 @@ def add_unique_paragraph_id(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def validate_files(config: ArgsParser) -> None:
-    """Validate input files exist and are accessible."""
+    """
+    Validate input files exist and are accessible.
+
+    Ensures save path and trial level paragraphs path directories exist.
+    Checks if onestopqa_path and qas_prolific_distribution_path (if specified) are valid files.
+
+    Args:
+        config (ArgsParser): Configuration parameters
+
+    Raises:
+        FileNotFoundError: If onestopqa_path or qas_prolific_distribution_path not found
+    """
     config.save_path.parent.mkdir(parents=True, exist_ok=True)
     config.trial_level_paragraphs_path.parent.mkdir(parents=True, exist_ok=True)
     if not config.onestopqa_path.is_file():
@@ -434,7 +617,18 @@ def validate_files(config: ArgsParser) -> None:
 
 
 def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Clean and format the dataframe."""
+    """
+    Clean and format the DataFrame.
+
+    Standardizes column names, converts columns to appropriate types,
+    and processes answers.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+
+    Returns:
+        pd.DataFrame: Cleaned and formatted DataFrame
+    """
     logger.info("Cleaning and formatting data...")
     df.columns = df.columns.str.replace(" ", "_")
 
@@ -460,7 +654,15 @@ def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def save_processed_data(df: pd.DataFrame, config: ArgsParser) -> None:
-    """Save processed data to specified locations."""
+    """
+    Save processed data to specified locations.
+
+    Saves the full DataFrame and splits the dataset into sub-corpora based on reading conditions.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        config (ArgsParser): Configuration parameters
+    """
     logger.info("Saving processed data...")
     full_path = config.save_path.parent / "full"
     full_path.mkdir(parents=True, exist_ok=True)
@@ -474,11 +676,33 @@ def save_processed_data(df: pd.DataFrame, config: ArgsParser) -> None:
 
 
 def remove_unused_columns(df: pd.DataFrame, to_drop: List[str]) -> pd.DataFrame:
+    """
+    Remove unused columns from the DataFrame.
+
+    Drops specified columns from the DataFrame.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        to_drop (List[str]): List of columns to drop
+
+    Returns:
+        pd.DataFrame: DataFrame with dropped columns
+    """
     df = df[[col for col in df.columns if col not in to_drop]]
     return df
 
 
 def paragraph_per_trial_extraction(df: pd.DataFrame, args: ArgsParser) -> None:
+    """
+    Extract paragraphs per trial and save to file.
+
+    Groups by unique_paragraph_id and participant_id to recreate paragraph column.
+    Saves the extracted paragraphs to trial_level_paragraphs_path.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration parameters
+    """
     logger.info(
         "Recreating paragraph column by grouping by unique_paragraph_id and participant_id..."
     )
@@ -571,6 +795,18 @@ def paragraph_per_trial_extraction(df: pd.DataFrame, args: ArgsParser) -> None:
 
 
 def add_paragraph_per_trial(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Add paragraph per trial to the DataFrame.
+
+    Loads trial level paragraphs and merges with the main DataFrame to replace paragraph values.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration parameters
+
+    Returns:
+        pd.DataFrame: DataFrame with added paragraphs
+    """
     # Load trial level paragraphs
     trial_level_paragraphs = pd.read_csv(args.trial_level_paragraphs_path)
 
@@ -593,6 +829,18 @@ def add_paragraph_per_trial(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
 
 
 def compute_word_length(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Compute word length for each word.
+
+    Adds a new column 'word_length' based on the length of the word label.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration parameters
+
+    Returns:
+        pd.DataFrame: DataFrame with added word length
+    """
     label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
     df["word_length"] = df[label_field].str.len()
     return df
@@ -1324,6 +1572,17 @@ def load_data(
 
 
 def validate_spacy_model(spacy_model_name: str) -> None:
+    """
+    Validate that the specified spaCy model is downloaded.
+
+    Checks if the spaCy model is a recognized package and is available for use.
+
+    Args:
+        spacy_model_name (str): Name of the spaCy model to validate
+
+    Raises:
+        ValueError: If the spaCy model is not recognized or not found
+    """
     if spacy_model_name not in [
         "en_core_web_sm",
         "en_core_web_md",
@@ -1346,6 +1605,14 @@ def validate_spacy_model(spacy_model_name: str) -> None:
 
 
 def get_device() -> str:
+    """
+    Get the appropriate device for running the surprisal models.
+
+    Determines whether to use CUDA, MPI, or CPU based on availability.
+
+    Returns:
+        str: Device to use ('cuda', 'mpi', or 'cpu')
+    """
     if torch.cuda.is_available():
         device = "cuda"
     elif platform.system() == "Darwin":
