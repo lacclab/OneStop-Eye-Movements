@@ -11,14 +11,7 @@ setup(
         "License :: OSI Approved :: MIT License", # TODO temporary, make sure inline with license in README
         "Operating System :: OS Independent",
     ],
-    py_modules=["calc_means_main", "constants", "julia_linear_mm", "utils"],
-
-    # packages=find_packages(where="linear_mm_utils"),
-    # install_requires=[
-    #     # add juliacall
-    #     "juliacall",
-    # ],
-    
+    packages=find_packages(),
     # set requirements
     # python requirement
     python_requires=">=3.6",
