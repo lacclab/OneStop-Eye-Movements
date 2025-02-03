@@ -18,6 +18,8 @@ dependencies = [
   # TODO add dependencies
 ]
 
+[packages]
+packages = ["src", "src.*"]
 
 [project.urls]
 Homepage = "https://github.com/lacclab/OneStop-Eye-Movements"
