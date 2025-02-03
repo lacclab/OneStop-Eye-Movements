@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="OneStop_linear_mm_tools",
+    name="OneStopTools",
     version="0.1.0",
     description=(
         "Julia and Python tools for linear mixed models"
