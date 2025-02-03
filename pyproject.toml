@@ -18,10 +18,6 @@ dependencies = [
   # TODO add dependencies
 ]
 
-[tool.setuptools]
-packages = ["linear_mm_utils"]
-package-dir = {"" = "src"}
-
 [project.urls]
 Homepage = "https://github.com/lacclab/OneStop-Eye-Movements"
 repository = "https://github.com/lacclab/OneStop-Eye-Movements"
