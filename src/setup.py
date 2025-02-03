@@ -16,4 +16,14 @@ setup(
     #     # add juliacall
     #     "juliacall",
     # ],
+    
+    # set requirements
+    # python requirement
+    python_requires=">=3.6",
+    install_requires=[
+        "pandas",
+        "numpy",
+        "scipy",
+        "juliacall",
+    ],
 )
