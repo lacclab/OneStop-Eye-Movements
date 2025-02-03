@@ -7,18 +7,13 @@ setup(
         "Julia and Python tools for linear mixed models"
     ),
     classifiers=[
-        'Development Status :: 1 - Beta',
         "Programming Language :: Python :: 3",
-        'Intended Audience :: Developers',
-        'Operating System :: OS Independent',
-        "License :: GPLv3",
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Software Development :: Libraries :: Tools',
-        'Topic :: Software Development :: Libraries :: Python Modules',
+        "License :: OSI Approved :: MIT License", # TODO temporary, make sure inline with license in README
+        "Operating System :: OS Independent",
     ],
-    packages=find_packages(where="linear_mm_utils"),
-    install_requires=[
-        # add juliacall
-        "juliacall",
-    ],
+    # packages=find_packages(where="linear_mm_utils"),
+    # install_requires=[
+    #     # add juliacall
+    #     "juliacall",
+    # ],
 )
