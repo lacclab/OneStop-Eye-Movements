@@ -44,9 +44,9 @@ Preproccessing and reproducing analyses in the paper "OneStop: A 360-Participant
     ```
 
 ## Preprocessing Data
-The preprocess steps can be found in `src/process_sr_report.py` and `compute session summary.py`.
+The preprocess steps can be found in `onestop/process_sr_report.py` and `compute session summary.py`.
 
 
 ## Running the Analyses
 
-The analyses in the OneStop paper can be reproduced by running `src/analyses.ipynb`.
+The analyses in the OneStop paper can be reproduced by running `onestop/analyses.ipynb`.
