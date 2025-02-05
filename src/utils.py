@@ -2,6 +2,7 @@ import json
 import numpy as np
 import pandas as pd
 
+
 def load_df(path):
     str_path = str(path)
     end = ["P.tsv", "Q.tsv", "A.tsv", "QA.tsv", "preview.tsv", "T.tsv"]
@@ -101,3 +102,46 @@ def duration_report(df):
         duration_report.loc[duration_report.shape[0]] = new_row
 
     return duration_report
+
+
+def normalize_eye_conditions(df, condition_column):
+    # Define a mapping function for normalization
+    def map_conditions(conditions):
+        normalized = []
+        for condition in conditions:
+            condition_lower = condition.lower()
+            if "astigmatism" in condition_lower:
+                normalized.append("Astigmatism")
+            elif "ambylopia" in condition_lower:
+                normalized.append("Amblyopia")
+            elif any(
+                term in condition_lower
+                for term in [
+                    "myopia",
+                    "nearsight",
+                    "near-sight",
+                    "near sight",
+                    "short-sight",
+                    "short sight",
+                    "short sited",
+                    "nearsidedness",
+                ]
+            ):
+                normalized.append("Lens-Corrected Myopia")
+            elif "pseudotumor cerebri" in condition_lower:
+                normalized.append("Pseudotumor Cerebri (cured)")
+            elif "one eye does not see as well" in condition_lower:
+                normalized.append(
+                    "Other: One eye does not see as well as the other, but cannot be corrected with glasses."
+                )
+            elif "glasses" in condition_lower and len(condition_lower.split()) == 1:
+                normalized.append("Glasses")
+            else:
+                normalized.append(condition)
+        return sorted(set(normalized))
+
+    # Apply normalization and create exploded dataframe
+    df["Normalized Condition"] = df[condition_column].apply(map_conditions)
+    df[["Condition1", "Condition2"]] = df["Normalized Condition"].apply(pd.Series)
+
+    return df
