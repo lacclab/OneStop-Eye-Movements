@@ -73,7 +73,7 @@ def dropbox_upload(fig, project, path):
     fig_svg = fig.to_image(format=format)
     img.write(fig_svg)
 
-    token = Path("src/linear_mm_utils/dropbox_access_token.txt").read_text()
+    token = Path("onestop/linear_mm_utils/dropbox_access_token.txt").read_text()
     dbx = dropbox.Dropbox(token)
 
     # Will throw an UploadError if it fails
