@@ -15,19 +15,6 @@ jl.seval("using Distributions")
 
 jl.seval(
     """
-        function pd_to_df(df_pd)
-            df= DataFrames.DataFrame()
-            for col in df_pd.columns
-                df[!, col] = getproperty(df_pd, col).values
-            end
-            df
-        end
-        """
-)
-
-
-jl.seval(
-    """
         function table_to_pd(x)
             PythonCall.Compat.pytable(x)
         end

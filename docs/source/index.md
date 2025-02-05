@@ -14,6 +14,8 @@ variables
 <!-- technical_setup -->
 <!-- directory_structure -->
 known_issues
+preprocessing_analyses
+
 ```
 
 <!-- ## Indices and tables

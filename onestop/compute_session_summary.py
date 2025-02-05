@@ -191,25 +191,3 @@ if __name__ == "__main__":
     subjects_not_in_trial_report.to_csv(
         config.BASE_PATH / "subjects_not_in_trial_report.csv", index=False
     )
-
-    # TODO delete if not needed
-    # dat_base_path = Path('/Users/shubi/Library/CloudStorage/OneDrive-Technion/In-lab Experiments/OneStopGaze Experiment Sources/experiment-data_source/dat files')
-    # dat_files_name = ['onestop_1n_l1_l60.dat', 'onestop_1p_l1_l60.dat', 'onestop_2n_l1_l60.dat', 'onestop_2p_l1_l60.dat', 'onestop_3n_l1_l60_hashtagfix.dat', 'onestop_3p_l1_l60_hashtagfix.dat']
-    # new_dat_path = Path(config.BASE_PATH, 'all_dat_files_merged.tsv')
-    # merge_dat_files_function in utils?
-
-    # unpacked_columns = [
-    #     "trials",
-    #     "Trial_Index_",
-    #     "DURATION",
-    #     "BLINK_COUNT",
-    #     "AVERAGE_BLINK_DURATION",
-    #     "article_id",
-    #     "article_ind",
-    #     "level",
-    #     "level_ind",
-    #     "paragraph_id",
-    #     "q_ind",
-    #     "question",
-    # ]
-    # unpacked_data = DATA.explode(unpacked_columns)

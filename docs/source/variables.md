@@ -21,13 +21,13 @@ We release the following data files:
 
 | Interest Period       | Page  | Content                  | Fixation Report          | Interest Area Report     |
 |-----------------------|-------|--------------------------|--------------------------|--------------------------|
-| Title                 | Title | Article title            | `fixations_T.csv`        | `ia_T.csv`               |
-| Question Preview      | 1     | Question                 | `fixations_Q_preview.csv`| `ia_Q_preview.csv`       |
-| Paragraph             | 2     | Paragraph                | `fixations_P.csv`        | `ia_P.csv`               |
-| Question              | 3     | Question                 | `fixations_Q.csv`        | `ia_Q.csv`               |
-| Answers               | 4     | Question and answers     | `fixations_A.csv`        | `ia_A.csv`               |
+| Title                 | Title | Article title            | `fixations_Title.csv`        | `ia_Title.csv`               |
+| Question Preview      | 1     | Question                 | `fixations_Question_preview.csv`| `ia_Question_preview.csv`       |
+| Paragraph             | 2     | Paragraph                | `fixations_Paragraph.csv`        | `ia_Paragraph.csv`               |
+| Question              | 3     | Question                 | `fixations_Question.csv`        | `ia_Question.csv`               |
+| Answers               | 4     | Question and answers     | `fixations_Answers.csv`        | `ia_Answers.csv`               |
 | QA                    | 3+4   | Question and answers     | `fixations_QA.csv`       | `ia_QA.csv`              |
-| Feedback              | 5     | Correct/Incorrect        | `fixations_F.csv`        | `ia_F.csv`               |
+| Feedback              | 5     | Correct/Incorrect        | `fixations_Feedback.csv`        | `ia_Feedback.csv`               |
 
 ---
 
@@ -71,7 +71,7 @@ Session summary file variables.
 | session_duration                           | Duration of the experimental session excluding breaks and calibrations                                  | minutes                                                                                                |
 | dominant_eye                               | Participant's dominant eye                                                                              | L / R                                                                                                  |
 | tracked_eye                                | Eye that was tracked (typically the dominant eye)                                                      | L / R / LR **                                                                                          |
-| lextale_score*                             | Participant's score on the LexTALE vocabulary test                                                     | 0 - 100                                                                                                |
+| lextale_score                             | Participant's score on the LexTALE vocabulary test *                                                     | 0 - 100                                                                                                |
 
 **Notes:**
 
@@ -80,7 +80,7 @@ Session summary file variables.
 
 ### Experiment, Trial, and Linguistic Annotation Variables
 
-Experiment and trial variables, and linguistic annotations in the Fixation and Interest Area reports. UD annotations are extracted using spaCy. See the SR Data Viewer user manual for documentation of eye movement variables in these reports.
+Experiment and trial variables, and linguistic annotations in the Fixation and Interest Area reports. UD annotations are extracted using spaCy. See the SR Data Viewer user manual for documentation of eye movement variables in these reports. Note, missing values are denoted by ".".
 
 | **Category**                     | **Feature**                  | **Description**                                                                                                    | **Values**                                                                                           |
 |-----------------------------------|------------------------------|--------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|

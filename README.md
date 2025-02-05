@@ -8,9 +8,10 @@
 
 ## Overview
 
-OneStop One Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 participants** and over **2.6 million word tokens**, collected using an EyeLink 1000 Plus eyetracker.
+OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants** and **2.6 million word tokens**.
+The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).
 
-The dataset contains four sub-corpora, one for each of the following reading regimes:
+OneStop comprises four sub-corpora, one for each of the following reading regimes:
 
 * Ordinary reading
 * Information seeking
@@ -41,7 +42,7 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 
 | Category | Dataset | Subjects | Age | Words | Words Recorded | Qestions | Subjects per Question | Questions per Subject |
 |----------|---------|-------|-----|-------|---------------|-----|-------------|-------------|
-| **Reading Comprehension** | OneStop | 360 | 22.8±5.6 | 19,425 (Adv)<br> 15,737 (Ele)<br>19,221 (QA) | 2,632,159 (Parag)<br>1,311,752 (QA) | 486 | 20 | 54 |
+| **Reading Comprehension** | OneStop | 360 | 22.8±5.6 | 19,425 (Advanced)<br> 15,737 (Elementary)<br>19,221 (QA) | 2,632,159 (Paragraphs)<br>1,311,752 (QA) | 486 | 20 | 54 |
 | | [SB-SAT L1](https://dl.acm.org/doi/10.1145/3379156.3391335) | 66 | NA | 2,539 | 167,574 | 20 | 95 | 20 |
 | **Passages** | Dundee | 10 | NA | 51,502 | 307,214 | NA | 10 | NA |
 | | [GECO L1](https://link.springer.com/article/10.3758/s13428-016-0734-0) | 14 | 21.8±5.6 | 56,410 | 774,015 | NA | 14 | NA |
@@ -52,7 +53,7 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 | | [UCL](https://link.springer.com/article/10.3758/s13428-012-0313-y) | 43 | 25.8±7.5 | 1,932 | 81,144 | 110 | 43 | 110 |
 
 <!-- ![Key Statistics](images/statistics.png) -->
- 'Reading Comprehension' are datasets over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
+ 'Reading Comprehension' are datasets with a substantial reading comprehension component over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
  'Words' is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which eye-tracking data was collected. 'NA': data not available.
 
 ### Controlled experimental manipulations
@@ -75,33 +76,69 @@ Pages presented only in the information seeking regime are depicted in green.
 
 ## Obtaining the Data
 
-Data is not yet available. Download instructions will be updated here.
+The data is not yet available. Instructions for downloading the data will be updated here.
 
-We provide the possibility to download the entire dataset, or any of four sub-corpora:
+There are several ways to obtain the data:
 
-1. Ordinary reading (download this data if you are interested in a general purpose eyetracking dataset)
-2. Information seeking
-3. Repeated reading
-4. Information seeking in repeated reading
+### Direct Download from OSF
 
-> There are several ways to obtain the data
+The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility to download the [entire dataset](https://osf.io/z7pyn/), or any of four sub-corpora:
 
-> 1. Download the data directly from the [OSF repository](https://osf.io/2prdq/).
-> 2. Use the `download_data_files.py` script to download and extract the data files automatically.
-<!-- 3. Use the `pymovements` package to download the data. -->
-<!-- 4. TODO Add other ways to obtain the data? -->
+1. [Ordinary reading](https://osf.io/zn9sq/) (download this data if you are interested in a general purpose eyetracking dataset)
+2. [Information seeking](https://osf.io/kpbgx/)
+3. [Repeated reading](https://osf.io/4ay3t/)
+4. [Information seeking in repeated reading](https://osf.io/6ra7t/)
 
-> ### Direct Download from OSF
+### Python Script
 
-> The data files are stored in an [OSF repository](https://osf.io/2prdq/), and can be downloaded manually from the repository.
+The data can also be downloaded using the provided Python script. The script will download and extract the data files.
 
-> ### Python Script
+Basic usage to download the entire dataset:
+0. Make sure you have python installed.
+    - If you don't have python installed, you can download it from [here](https://www.python.org/downloads/).
 
-> If the repository has been cloned, they can be downloaded and extracted automatically using the following script:
+1. **Get the Code**
+   * Open your terminal/command prompt:
+     * Windows: Press `Win + R`, type `cmd` and press Enter
+     * Mac: Press `Cmd + Space`, type `terminal` and press Enter
+   * Run this command to download the code:
 
-> ```python
-> python download_data_files.py --extract
-> ```
+     ```bash
+     git clone https://github.com/lacclab/OneStop-Eye-Movements.git
+     ```
+
+   * Move into the downloaded folder:
+
+     ```bash
+     cd OneStop-Eye-Movements
+     ```
+
+2. **Run the Download Script**
+   * Run this command to download the full dataset:
+
+     ```bash
+     python download_data_files.py
+     ```
+
+   * The data will be downloaded to a folder called "OneStop"
+
+   * Available options:
+
+      * `--extract`: Extract downloaded zip files (default: True)
+      * `--asc`: Download ASC files (default: False)
+      * `--edf`: Download EDF files (default: False)
+      * `-o, --output-folder`: Specify output folder (default: "OneStop")
+      * `--mode`: Choose dataset version to download (default: "full")
+        * Options: "full", "repeated", "information-seeking", "ordinary", "information-seeking-in-repeated"
+
+3. **Download Specific Parts** (Optional)  
+
+Example usage to download only the ordinary reading subset:
+
+```python
+
+python download_data_files.py --mode ordinary
+```
 
 <!-- ### pymovements integration
 
@@ -120,76 +157,11 @@ dataset.download()
 
 The repository is structured as follows:
 
-* `data/`: Metadata files.
-* `docs/`: Documentation source files.
-* `src/`: Scripts for preprocessing the data and reproducing the analyses.
+* [Data files and variables](variables.md) : Information about the data files and variables.
 
-## Reproducing the Analyses in TODO: Add paper link
+* [Known issues](known_issues.md) : Documentation of known issues.
 
-The analyses in the paper can be reproduced by running `src/analyses.ipynb`.
-
-### Environment Setup
-
-#### Prerequisites
-
-* [Mamba](https://github.com/conda-forge/miniforge#mambaforge) or Conda
-
-#### Setup
-
-1. **Clone the Repository**
-
-    Start by cloning the repository to your local machine:
-
-    ```bash
-    git clone https://github.com/lacclab/OneStop-Eye-Movements.git
-    cd OneStop-Eye-Movements
-    ```
-
-2. **Create a Virtual Environment**
-
-    Create a new virtual environment using Mamba (or Conda) and install the dependencies:
-
-    ```bash
-    mamba env create -f environment.yaml
-    ```
-
-3. **Activate the Virtual Environment**
-
-    Activate the virtual environment:
-
-    ```bash
-    conda activate onestop
-    ```
-
-4. **Download spacy model**
-
-    Download the spacy model:
-
-    ```bash
-    python -m spacy download en_core_web_sm
-    ```
-
-### Running the Analyses
-
-TODO Fill in
-
-## Documentation
-
-### Variables
-
-The dataset contains three types of variables.
-
-* The data variables of the participant Questionnaire file are listed in Table 2 in the OneStop paper.
-* The variables included in the Session Summary file are provided in Table 3.
-* The eye movement features in the Fixation Reports and Interest Area Reports are documented in the Data Viewer user manual. Additional variables for the experiment, trials and linguistic annotations are listed in Table 4.
-
-### Technical Setup
-
-See Section "Eye-tracking Setup, Text Presentation and Calibration" in the onestop paper.
-
-### Known Issues
-
-See known issues with the dataset [here](known_issues.md).
+* [Scripts](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
 
 ## Citation
 
