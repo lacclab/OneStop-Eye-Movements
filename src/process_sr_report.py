@@ -106,7 +106,7 @@ class ArgsParser(Tap):
 
     save_path: Path = Path()  # The path to save the data.
     data_path: Path = Path()  # Path to data folder.
-    onestopqa_path: Path = Path("data/interim/onestop_qa.json")
+    onestopqa_path: Path = Path("data/onestop_qa.json")
     trial_level_paragraphs_path: Path = Path()
 
     add_prolific_qas_distribution: bool = (
@@ -1375,6 +1375,8 @@ def process_sequence_data(
     )
 
     # Add text version numbering
+    result = result.assign(paragraph_length=result[group_col].apply(len))
+    result = result.sort_values(by="paragraph_length", ascending=True)
     result[output_name] = result.groupby(
         [
             "article_batch",
@@ -1383,6 +1385,7 @@ def process_sequence_data(
             "difficulty_level",
         ]
     ).cumcount()
+    result = result.drop(columns=["paragraph_length"])
 
     # Explode participant lists to rows
     result = result.explode("participant_id").reset_index(drop=True)
@@ -1702,14 +1705,13 @@ def get_device() -> str:
 
 
 if __name__ == "__main__":
-    public_preprocess = False
+    public_preprocess = True
     lacclab_preprocess = True
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
-        # "gpt2",
         "gpt2",
         #   "gpt2-large", "gpt2-xl",
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
@@ -1753,7 +1755,7 @@ if __name__ == "__main__":
         if mode == Mode.FIXATION.value:
             data_path = base_data_path / f"Fixations reports/fixations_{report}.tsv"
         else:
-            data_path = base_data_path / f"IA reports/ia_{report}.tsv"
+            data_path = base_data_path / f"raw_ia_reports/ia_{report}.tsv"
         save_file = f"{mode}_{short_to_long_mapping[report]}.csv"
         trial_level_paragraphs_path = save_path / "trial_level_paragraphs.csv"
         args = [
