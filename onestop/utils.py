@@ -14,7 +14,7 @@ def load_df(path):
     elif str_path.endswith(".csv"):
         df = pd.read_csv(path, engine="pyarrow")
     else:
-        df = pd.read_table(path, engine="pyarrow")
+        df = pd.read_table(path, encoding="utf-16", engine="pyarrow")
     return df
 
 

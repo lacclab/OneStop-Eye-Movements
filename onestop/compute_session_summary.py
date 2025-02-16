@@ -140,6 +140,8 @@ if __name__ == "__main__":
             "201123_form_db_45.79.2223.150.json",
             "011023_form_db_json_from_lacclab-participant-survey.json",
             "050224_form_db_lacclab_survey.json",
+            "260724_form_db_lacclab_survey.json",
+            "05022025_survey.json",
         ]
         surveys = [
             utils.load_json(path=config.BASE_PATH / "raw_surveys" / survey_path)

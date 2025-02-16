@@ -1,6 +1,6 @@
 from pathlib import Path
 
-BASE_PATH = Path("../data")
+BASE_PATH = Path("../l2_data")
 
 METADATA_PATH = Path(BASE_PATH, "metadata.csv")
 FULL_REPORT_PATH = Path(BASE_PATH, "full_report.csv")

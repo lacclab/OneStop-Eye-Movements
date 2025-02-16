@@ -150,7 +150,7 @@ def check_if_participant_filled_survey(df):
     return not_filled_survey
 
 def add_data_collection_site(df): 
-    technion_experimenter = ["Aya", "Liz", "Nethanella"]
+    technion_experimenter = ["Aya", "Liz", "Nethanella", "Dima", "Ella", "Raquel", "Keren"]
     df["Data Collection Site"] = None
     for index, row in df.iterrows():
         if row["Experimenter"] in technion_experimenter:
@@ -179,6 +179,7 @@ def add_metadata(df, metadata):
     #metadata_to_add["Survey notes"] = metadata["Survey notes"]
     #metadata_to_add["Experimenter"] = metadata["Experimenter"]
     metadata_to_add["ID"] = metadata["ID"].astype(str)
+    metadata_to_add["ID"] = metadata_to_add["ID"].str.replace(r"\.0$", "", regex=True)
     metadata_to_add["dominant eye"] = metadata["dominant eye"].astype(str)
     metadata_to_add["Start Time"] = metadata["Start Time"].astype(str)
     add_data_collection_site(metadata)
@@ -505,6 +506,7 @@ def filter_survey_responses(survey_responses, full_report):
     """
     # Keep only relevant survey subject_ids
     filtered_survey_responses = []
+    full_report["ID"] = full_report["ID"].str.replace(r"\.0$", "", regex=True)
     for record in survey_responses:
         subject_id = record.get("subject_id", None)
         if subject_id and (subject_id in full_report["ID"].values):
