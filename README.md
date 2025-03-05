@@ -1,6 +1,6 @@
 # OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes
 
-[📄 Paper (Coming Soon)](https://arxiv.org) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data (Coming Soon)](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
+[📄 Paper](https://osf.io/preprints/psyarxiv/kgxv5_v1) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data (Coming Soon)](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
 
 ## Example
 
