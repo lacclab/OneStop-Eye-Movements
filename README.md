@@ -117,7 +117,7 @@ Basic usage to download the entire dataset:
    * Run this command to download the full dataset:
 
      ```bash
-     python download_data_files.py
+     python onestop/download_data_files.py
      ```
 
    * The data will be downloaded to a folder called "OneStop"
@@ -137,7 +137,7 @@ Example usage to download only the ordinary reading subset:
 
 ```python
 
-python download_data_files.py --mode ordinary
+python onestop/download_data_files.py --mode ordinary
 ```
 
 <!-- ### pymovements integration
