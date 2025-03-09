@@ -165,18 +165,14 @@ The repository is structured as follows:
 
 ## Citation
 
-Paper: OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes (TODO Add link)
+Paper: [OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes](https://osf.io/kgxv5_v1)
 
 ```bash
-@article{Berzak2024OneStop,
-  title={OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes},
-  author={TODO},
-  journal={TODO},
-  year={TODO},
-  volume={TODO},
-  number={TODO},
-  pages={TODO},
-  doi={TODO}
+@article{berzak2025onestop,
+  title={Onestop: A 360-participant english eye-tracking dataset with different reading regimes},
+  author={Berzak, Yevgeni and Malmaud, Jonathan and Shubi, Omer and Meiri, Yoav and Lion, Ella and Levy, Roger},
+  journal={PsyArXiv preprint},
+  year={2025}
 }
 ```
 
