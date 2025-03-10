@@ -12,14 +12,6 @@ author = "Yevgeni Berzak"
 release = "1.0"
 
 
-html_meta = {
-    # "description": "Comprehensive documentation for the OneStop Eye Movements platform",
-    "keywords": "OneStop, eye movements, LaCC Lab",
-    # "author": "LaCC Lab",
-    # "viewport": "width=device-width, initial-scale=1",
-    "google-site-verification": "FEUvYyUUeFoiAVgouYHaGdMKyTgLGUFLUe99oofr_DY",
-}
-
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
