@@ -153,15 +153,16 @@ dataset = pm.Dataset('OneStop', path='data/OneStop')
 dataset.download()
 ``` -->
 
-## Repository Structure
+## Documentation Structure
 
-The repository is structured as follows:
+The documentation is organized into the following sections:
 
-* [Data files and variables](variables.md) : Information about the data files and variables.
+- **[Data Files and Variables](https://lacclab.github.io/OneStop-Eye-Movements/variables)**: Provides detailed information about the data files and variables used in the project.
 
-* [Known issues](known_issues.md) : Documentation of known issues.
+- **[Known Issues](https://lacclab.github.io/OneStop-Eye-Movements/known_issues)**: Documents any known issues.
 
-* [Scripts](preprocessing_analyses.md) : Scripts for preprocessing the data and reproducing the analyses.
+- **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Contains scripts for data preprocessing and analysis reproduction.
+
 
 ## Citation
 
