@@ -10,9 +10,8 @@ title: Welcome to OneStop's documentation!
 :caption: Contents
 :hidden:
 
+self
 variables
-<!-- technical_setup -->
-<!-- directory_structure -->
 known_issues
 preprocessing_analyses
 
