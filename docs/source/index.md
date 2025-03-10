@@ -10,7 +10,7 @@ title: Welcome to OneStop's documentation!
 :caption: Contents
 :hidden:
 
-self
+Home <self>
 variables
 known_issues
 preprocessing_analyses
