@@ -1,4 +1,4 @@
-# OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes
+# OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes
 
 [📄 Paper](https://osf.io/preprints/psyarxiv/kgxv5_v1) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data (Coming Soon)](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
 
@@ -21,7 +21,7 @@ OneStop comprises four sub-corpora, one for each of the following reading regime
 ![OneStop Overview](images/overview.png)
 
 We provide the entire corpus, as well as each of the sub-corpora separately.
-If you are looking for a general purpose eye-tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
+If you are looking for a general purpose eye tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
 
 ## Key Features
 
@@ -48,13 +48,13 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 | | [GECO L1](https://link.springer.com/article/10.3758/s13428-016-0734-0) | 14 | 21.8±5.6 | 56,410 | 774,015 | NA | 14 | NA |
 | | [Provo](https://link.springer.com/article/10.3758/s13428-017-0908-4) | 84 | NA | 2,689 | 225,624 | 0 | 0 | 0 |
 | | [MECO En](https://link.springer.com/article/10.3758/s13428-021-01772-6) | 46 | 21.0±2.2 | 2,109 | 83,246 | 48 | 46 | 48 |
-| **Sentences** | [CELER L1](https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00054/110717/CELER-A-365-Participant-Corpus-of-Eye-Movements-in) | 69 | 26.3±6.7 | 61,233 | 122,423 | 78 | 69 | 78 |
+| **Sentences** | [CELER L1](https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00054/110717/CELER-A-365-Participant-Corpus-of-Movements-in) | 69 | 26.3±6.7 | 61,233 | 122,423 | 78 | 69 | 78 |
 | | [ZuCo](https://aclanthology.org/2020.lrec-1.18) | 18 | 34.3±8.0 | 15,138 | 272,484 | 42 | 18 | 42 |
 | | [UCL](https://link.springer.com/article/10.3758/s13428-012-0313-y) | 43 | 25.8±7.5 | 1,932 | 81,144 | 110 | 43 | 110 |
 
 <!-- ![Key Statistics](images/statistics.png) -->
  'Reading Comprehension' are datasets with a substantial reading comprehension component over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
- 'Words' is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which eye-tracking data was collected. 'NA': data not available.
+ 'Words' is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which tracking data was collected. 'NA': data not available.
 
 ### Controlled experimental manipulations
 
@@ -104,13 +104,13 @@ Basic usage to download the entire dataset:
    * Run this command to download the code:
 
      ```bash
-     git clone https://github.com/lacclab/OneStop-Eye-Movements.git
+     git clone https://github.com/lacclab/OneStop-Movements.git
      ```
 
    * Move into the downloaded folder:
 
      ```bash
-     cd OneStop-Eye-Movements
+     cd OneStop-Movements
      ```
 
 2. **Run the Download Script**
@@ -166,11 +166,11 @@ The documentation is organized into the following sections:
 
 ## Citation
 
-Paper: [OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimes](https://osf.io/kgxv5_v1)
+Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes](https://osf.io/kgxv5_v1)
 
 ```bash
 @article{berzak2025onestop,
-  title={Onestop: A 360-participant english eye-tracking dataset with different reading regimes},
+  title={Onestop: A 360-participant english eye tracking dataset with different reading regimes},
   author={Berzak, Yevgeni and Malmaud, Jonathan and Shubi, Omer and Meiri, Yoav and Lion, Ella and Levy, Roger},
   journal={PsyArXiv preprint},
   year={2025}
