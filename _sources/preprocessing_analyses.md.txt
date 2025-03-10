@@ -44,9 +44,9 @@ Preproccessing and reproducing analyses in the paper "OneStop: A 360-Participant
     ```
 
 ## Preprocessing Data
-The preprocess steps can be found in `onestop/process_sr_report.py` and `compute session summary.py`.
+The preprocess steps can be found in [onestop/process_sr_report.py](https://github.com/lacclab/OneStop-Eye-Movements/blob/main/onestop/process_sr_report.py) and [compute_session_summary.py](https://github.com/lacclab/OneStop-Eye-Movements/blob/main/onestop/compute_session_summary.py).
 
 
 ## Running the Analyses
 
-The analyses in the OneStop paper can be reproduced by running `onestop/analyses.ipynb`.
+The analyses in the OneStop paper can be reproduced by running [onestop/analyses.ipynb](https://github.com/lacclab/OneStop-Eye-Movements/blob/main/onestop/analyses.ipynb).
