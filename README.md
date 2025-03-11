@@ -13,7 +13,7 @@ The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).
 
 OneStop comprises four sub-corpora, one for each of the following reading regimes:
 
-* Ordinary reading
+* Ordinary reading for comprehension
 * Information seeking
 * Repeated reading
 * Information seeking in repeated reading
@@ -58,10 +58,10 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 
 ### Controlled experimental manipulations
 
-1. **Reading goal**: ordinary reading or information seeking.
+1. **Reading goal**: ordinary reading for comprehension or information seeking.
 2. **Prior exposure to the text**: first reading or repeated reading.
 3. **Amount of textual material between first and repeated reading**: consecutive or non-consecutive article presentation (2-9 articles).
-4. **Paragraph difficulty level**: original Guardian article (Advanced) or a simplified (Elementary).
+4. **Paragraph difficulty level**: original Guardian article (Advanced) or simplified (Elementary).
 5. **Question identity**: one of three possible questions for each paragraph.
 
 ## Experiment Structure
