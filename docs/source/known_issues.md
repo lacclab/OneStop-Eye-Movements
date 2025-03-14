@@ -12,6 +12,8 @@ Typos and cut-off text:
 | 1     | Google Introduces its Driverless Car               | 1          | 1        | 2        | Typo in Answer B: “food pedal” instead of “foot pedal”.                                                        |
 | 1     | The Greek Island Where Time Is Running Out                                      | 10          | 6         | 2        | Typo in Answer D: “fairies” instead of “ferries”                                                              |
 | 1     | Swarthy Blue-Eyed Caveman Revealed                 | 6          | 2         | 0        | Cut-off text: When Answer D "Since the time of the hunter-gatherers, immune systems have been dependent on a health diet" appears in the bottom position, the last word, “diet”, is cut off. |
+| 1     | Inky the Octopus Escapes from Aquarium                 | 7          | 2         | 2        | Typo in Answer C: "Inky always liked to explore *to* pipes" instead of "Inky always liked to explore *the* pipes". |
+
 
 Other issues:
 
