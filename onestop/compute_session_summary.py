@@ -176,16 +176,19 @@ if __name__ == "__main__":
     print(f"Saving session summary to {config.SESSION_SUMMARY_PATH}")
     session_summary.to_csv(config.SESSION_SUMMARY_PATH, index=False)
 
-
-    subjects_from_trial_report = pd.Series(trials["RECORDING_SESSION_LABEL"].str.lower().unique())
+    subjects_from_trial_report = pd.Series(
+        trials["RECORDING_SESSION_LABEL"].str.lower().unique()
+    )
     subjects_from_metadata = metadata["Filename"].dropna().str.lower()
     is_in_metadata = subjects_from_trial_report.isin(subjects_from_metadata)
     subjects_not_in_metadata = subjects_from_trial_report[~is_in_metadata]
     subjects_not_in_metadata.to_csv(
         config.BASE_PATH / "subjects_not_in_metadata.csv", index=False
     )
-    print(f"Found {len(subjects_not_in_metadata)} subjects not in metadata, saved to {config.BASE_PATH/'subjects_not_in_metadata.csv'}")
-    
+    print(
+        f"Found {len(subjects_not_in_metadata)} subjects not in metadata, saved to {config.BASE_PATH / 'subjects_not_in_metadata.csv'}"
+    )
+
     is_in_trial_report = subjects_from_metadata.isin(subjects_from_trial_report)
     subjects_not_in_trial_report = subjects_from_metadata[~is_in_trial_report]
     subjects_not_in_trial_report.to_csv(

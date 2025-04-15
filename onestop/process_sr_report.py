@@ -285,8 +285,10 @@ def add_lonely_and_coupled_questions_data_to_text(
                     "paragraphs"
                 ][row.paragraph_id - 1]["qas"]
             ).drop(["answers"], axis=1)
-            assert len(questions) == 3, f"Expected 3 questions for paragraph \
+            assert len(questions) == 3, (
+                f"Expected 3 questions for paragraph \
             {row.paragraph_id}, got {len(questions)}"
+            )
 
             lonely_question = questions.loc[
                 questions["question_prediction_label"] == 0, "question"
@@ -299,9 +301,9 @@ def add_lonely_and_coupled_questions_data_to_text(
             ].item()
 
             # make sure that the other questions are not the same
-            assert (
-                couple_question_1 != couple_question_2
-            ), f"Other questions are the same: {couple_question_1}"
+            assert couple_question_1 != couple_question_2, (
+                f"Other questions are the same: {couple_question_1}"
+            )
             # note the any of the couple questions and the lonely question can be row.question
 
         except ValueError:
@@ -685,9 +687,9 @@ def validate_files(config: ArgsParser) -> None:
         )
     if config.add_prolific_qas_distribution:
         qas_prolific_distribution_path = config.qas_prolific_distribution_path
-        assert os.path.exists(
-            qas_prolific_distribution_path
-        ), f"No question difficulty data found at {qas_prolific_distribution_path}"
+        assert os.path.exists(qas_prolific_distribution_path), (
+            f"No question difficulty data found at {qas_prolific_distribution_path}"
+        )
 
 
 def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -1200,9 +1202,9 @@ def compute_word_span_metrics(
     df.loc[df["is_in_aspan"], "auxiliary_span_type"] = "critical"
     logger.info("Span types determined.")
 
-    assert df.query(
-        "is_in_aspan == True & is_in_dspan == True"
-    ).empty, "Should not be in both spans!"
+    assert df.query("is_in_aspan == True & is_in_dspan == True").empty, (
+        "Should not be in both spans!"
+    )
     logger.info("Checked for overlapping a and d spans.")
 
     logger.info(

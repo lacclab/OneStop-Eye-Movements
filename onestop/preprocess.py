@@ -149,7 +149,8 @@ def check_if_participant_filled_survey(df):
     not_filled_survey = df.loc[df["age"] == -1]
     return not_filled_survey
 
-def add_data_collection_site(df): 
+
+def add_data_collection_site(df):
     technion_experimenter = ["Aya", "Liz", "Nethanella"]
     df["Data Collection Site"] = None
     for index, row in df.iterrows():
@@ -158,26 +159,27 @@ def add_data_collection_site(df):
         else:
             df.at[index, "Data Collection Site"] = "MIT"
 
+
 def add_metadata(df, metadata):
     columns = [
         "Filename",
         "ID",
         "dominant eye",
-        #"Start Time",
+        # "Start Time",
         "Data Collection Site",
-        #"MIT/Technion",
-        #"Experimenter",
+        # "MIT/Technion",
+        # "Experimenter",
         "LEXTALE",
-        #"Experiment Notes",
-        #"Survey notes",
+        # "Experiment Notes",
+        # "Survey notes",
     ]
     metadata_to_add = pd.DataFrame(columns=columns)
     metadata_to_add["Filename"] = metadata["Filename"]
-    #metadata_to_add["MIT/Technion"] = metadata["MIT/Technion"].map({"Yes": True, "No": False})
+    # metadata_to_add["MIT/Technion"] = metadata["MIT/Technion"].map({"Yes": True, "No": False})
     metadata_to_add["LEXTALE"] = metadata["LEXTALE"]
-    #metadata_to_add["Experiment Notes"] = metadata["Experiment Notes"]
-    #metadata_to_add["Survey notes"] = metadata["Survey notes"]
-    #metadata_to_add["Experimenter"] = metadata["Experimenter"]
+    # metadata_to_add["Experiment Notes"] = metadata["Experiment Notes"]
+    # metadata_to_add["Survey notes"] = metadata["Survey notes"]
+    # metadata_to_add["Experimenter"] = metadata["Experimenter"]
     metadata_to_add["ID"] = metadata["ID"].astype(str)
     metadata_to_add["dominant eye"] = metadata["dominant eye"].astype(str)
     metadata_to_add["Start Time"] = metadata["Start Time"].astype(str)
@@ -514,7 +516,11 @@ def filter_survey_responses(survey_responses, full_report):
 
 def process_full_report_to_session_summary(data, validation_error):
     data = data.copy()
-    validation_error["file_name"] = validation_error["file_name"].str.replace(".asc", "", case=False, regex=False).str.lower()
+    validation_error["file_name"] = (
+        validation_error["file_name"]
+        .str.replace(".asc", "", case=False, regex=False)
+        .str.lower()
+    )
     data = data.merge(
         validation_error,
         left_on="RECORDING_SESSION_LABEL",

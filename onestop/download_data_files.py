@@ -61,7 +61,7 @@ def download_data(
             continue
 
         pbar.set_description(
-            f'Downloading {"and extracting " if extract else ""}{data}'
+            f"Downloading {'and extracting ' if extract else ''}{data}"
         )
         # Downloading the file by sending the request to the URL
         url = base_url + resource
