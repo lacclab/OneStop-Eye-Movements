@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "onestop_eye_movements"
-version = "0.1.1"
+version = "0.1.2"
 description = "Code for the analyses in the paper 'OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimess'"
 readme = "README.md"
 requires-python = ">=3.7"

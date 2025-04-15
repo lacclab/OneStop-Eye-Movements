@@ -104,7 +104,7 @@ Basic usage to download the entire dataset:
    * Run this command to download the code:
 
      ```bash
-     git clone https://github.com/lacclab/OneStop-Movements.git
+     git clone https://github.com/lacclab/OneStop-Eye-Movements.git
      ```
 
    * Move into the downloaded folder:
