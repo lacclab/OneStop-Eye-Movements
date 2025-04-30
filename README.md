@@ -54,13 +54,13 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 
 <!-- ![Key Statistics](images/statistics.png) -->
  'Reading Comprehension' are datasets with a substantial reading comprehension component over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
- 'Words' is the number words in the textual corpus. 'Words Recorded' is the number of word tokens for which tracking data was collected. 'NA': data not available.
+ 'Words' is the number of words in the textual corpus. 'Words Recorded' is the number of word tokens for which tracking data was collected. 'NA': data not available.
 
 ### Controlled experimental manipulations
 
 1. **Reading goal**: ordinary reading for comprehension or information seeking.
 2. **Prior exposure to the text**: first reading or repeated reading.
-3. **Amount of textual material between first and repeated reading**: consecutive or non-consecutive article presentation (2-9 articles).
+3. **Amount of textual material between first and repeated reading**: consecutive or non-consecutive article presentation (1-9 articles).
 4. **Paragraph difficulty level**: original Guardian article (Advanced) or simplified (Elementary).
 5. **Question identity**: one of three possible questions for each paragraph.
 
@@ -94,8 +94,9 @@ The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility t
 The data can also be downloaded using the provided Python script. The script will download and extract the data files.
 
 Basic usage to download the entire dataset:
-0. Make sure you have python installed.
-    - If you don't have python installed, you can download it from [here](https://www.python.org/downloads/).
+
+0. Make sure you have Python installed.
+    - If you don't have Python installed, you can download it from [here](https://www.python.org/downloads/).
 
 1. **Get the Code**
    * Open your terminal/command prompt:
@@ -142,7 +143,7 @@ python onestop/download_data_files.py --mode ordinary
 
 <!-- ### pymovements integration
 
-OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. The package allows to easily download the raw data and further process it. The following code snippet shows how to download the data:
+OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. The package allows for easy download of the raw data and further processing it. The following code snippet shows how to download the data:
 
 ```python
 # pip install pymovements
