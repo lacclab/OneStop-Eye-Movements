@@ -75,8 +75,6 @@ Pages presented only in the information seeking regime are depicted in green.
 
 ## Obtaining the Data
 
-The data is not yet available. Instructions for downloading the data will be updated here.
-
 There are several ways to obtain the data:
 
 ### Direct Download from OSF
