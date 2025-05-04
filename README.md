@@ -1,6 +1,6 @@
 # OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes
 
-[📄 Paper](https://osf.io/preprints/psyarxiv/kgxv5_v1) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data (Coming Soon)](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
+[📄 Paper](https://osf.io/preprints/psyarxiv/kgxv5_v1) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
 
 ## Example
 
@@ -8,7 +8,7 @@
 
 ## Overview
 
-OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants** and **2.6 million word tokens**.
+OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants**, **2.6 million word tokens** and **152 hours of recorded eye tracking data**.
 The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).
 
 OneStop comprises four sub-corpora, one for each of the following reading regimes:
