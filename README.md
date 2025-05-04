@@ -167,7 +167,7 @@ Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different R
 
 ```bash
 @article{berzak2025onestop,
-  title={Onestop: A 360-participant english eye tracking dataset with different reading regimes},
+  title={OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes},
   author={Berzak, Yevgeni and Malmaud, Jonathan and Shubi, Omer and Meiri, Yoav and Lion, Ella and Levy, Roger},
   journal={PsyArXiv preprint},
   year={2025}
