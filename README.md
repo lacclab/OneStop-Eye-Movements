@@ -59,10 +59,9 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 ### Controlled experimental manipulations
 
 1. **Reading goal**: ordinary reading for comprehension or information seeking.
-2. **Prior exposure to the text**: first reading or repeated reading.
-3. **Amount of textual material between first and repeated reading**: consecutive or non-consecutive article presentation (1-9 articles).
-4. **Paragraph difficulty level**: original Guardian article (Advanced) or simplified (Elementary).
-5. **Question identity**: one of three possible questions for each paragraph.
+2. **Paragraph difficulty level**: original Guardian article (Advanced) or simplified (Elementary).
+3. **Question identity**: one of three possible questions for each paragraph.
+4. **Prior exposure to the text**: first reading or repeated reading.
 
 ## Experiment Structure
 
@@ -96,7 +95,7 @@ The data can also be downloaded using the provided Python script. The script wil
 Basic usage to download the entire dataset:
 
 0. Make sure you have Python installed.
-    - If you don't have Python installed, you can download it from [here](https://www.python.org/downloads/).
+    * If you don't have Python installed, you can download it from [here](https://www.python.org/downloads/).
 
 1. **Get the Code**
    * Open your terminal/command prompt:
@@ -158,12 +157,11 @@ dataset.download()
 
 The documentation is organized into the following sections:
 
-- **[Data Files and Variables](https://lacclab.github.io/OneStop-Eye-Movements/variables)**: Provides detailed information about the data files and variables used in the project.
+* **[Data Files and Variables](https://lacclab.github.io/OneStop-Eye-Movements/variables)**: Provides detailed information about the data files and variables used in the project.
 
-- **[Known Issues](https://lacclab.github.io/OneStop-Eye-Movements/known_issues)**: Documents any known issues.
+* **[Known Issues](https://lacclab.github.io/OneStop-Eye-Movements/known_issues)**: Documents any known issues.
 
-- **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Contains scripts for data preprocessing and analysis reproduction.
-
+* **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Contains scripts for data preprocessing and analysis reproduction.
 
 ## Citation
 
