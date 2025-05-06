@@ -73,6 +73,20 @@ COLUMNS_TO_DROP = [
     "RECALIBRATE",
     "ALL_ANSWERS",
     "ANSWER",
+    "GROUPING_VARIABLES",
+    "IA_DYNAMIC",
+    "IA_END_TIME",
+    "IA_GROUP",
+    "IA_INSTANCES_COUNT",
+    "IA_POINTS",
+    "IA_START_TIME",
+    "IA_TYPE",
+    "IP_END_EVENT_MATCHED",
+    "IP_INDEX",
+    "IP_LABEL",
+    "IP_START_EVENT_MATCHED",
+    "REPORTING_METHOD",
+    "TIME_SCALE",
 ]
 
 
@@ -200,11 +214,11 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
         df = add_word_metrics(df, args)
 
     df = clean_and_format_data(df)
-    df = remove_unused_columns(df, COLUMNS_TO_DROP)
-
     print(args.save_path)
     single_value_columns = find_single_value_columns(df)
     print(single_value_columns)
+
+    df = remove_unused_columns(df, COLUMNS_TO_DROP)
 
     save_processed_data(df, args)
 
@@ -226,12 +240,21 @@ def find_single_value_columns(df):
 
     # Check each column
     for column in df.columns:
-        unique_values = df[column].nunique(dropna=False)
-        if unique_values == 1:
-            # Get the single unique value
-            single_value = df[column].iloc[0]
-            single_value_cols[column] = single_value
-
+        try:
+            unique_values = df[column].nunique(dropna=False)
+            if unique_values == 1:
+                # Get the single unique value
+                single_value = df[column].iloc[0]
+                single_value_cols[column] = single_value
+        except TypeError:
+            # Handle unhashable columns
+            try:
+                unique_values = len(set(tuple(row) for row in df[column]))
+                if unique_values == 1:
+                    single_value = df[column].iloc[0]
+                    single_value_cols[column] = single_value
+            except Exception:
+                continue
     # Convert to Series for better display
     result = pd.Series(single_value_cols)
 
@@ -788,8 +811,6 @@ def save_processed_data(df: pd.DataFrame, config: ArgsParser) -> None:
     output_path = full_path / (config.save_path.stem + config.save_path.suffix)
     df.to_csv(output_path, index=False)
     split_save_sub_corpora(df, config.save_path)
-    if config.report == "P":
-        split_save_sub_corpora(df, config.save_path + "_paragraph")
     logger.info(f"Total rows: {len(df)}")
     logger.info(f"Data saved to {config.save_path}")
 
@@ -1825,7 +1846,7 @@ if __name__ == "__main__":
         "P": "Paragraph",
         "A": "Answers",
         "QA": "QA",
-        "Q_preview": "Question_review",
+        "Q_preview": "Question_Preview",
         "Q": "Questions",
         "F": "Feedback",
     }

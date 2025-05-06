@@ -124,3 +124,30 @@ Experiment and trial variables, and linguistic annotations in the Fixation and I
 | **STARC Auxiliary Spans**         | auxiliary_span_type          | Whether a word is part of the critical span or the distractor span                                                 | critical / distractor / outside                                                                     |
 |                                   | critical_span_indices        | Start and end word indices of the critical span                                                                    | list of tuples of integers                                                                          |
 |                                   | distractor_span_indices      | Start and end word indices of the distractor span                                                                  | list of tuples of integers                                                                          |
+
+Note that we remove the following SR variables from the reports as they are the same value:
+
+IA Report Variables:
+
+| **Variable**            | **Values**         |
+|-------------------------|--------------------|
+| GROUPING_VARIABLES      | RECORDING_SESSION  |
+| IA_DYNAMIC              | False              |
+| IA_END_TIME             | .                  |
+| IA_GROUP                | .                  |
+| IA_INSTANCES_COUNT      | .                  |
+| IA_POINTS               | .                  |
+| IA_START_TIME           | .                  |
+| IA_TYPE                 | RECTANGLE          |
+| IP_END_EVENT_MATCHED    | True               |
+| IP_INDEX                | 1                  |
+| IP_LABEL                | <SESSION_PAGE>     |
+| IP_START_EVENT_MATCHED  | True               |
+| REPORTING_METHOD        | Fixations          |
+| TIME_SCALE              | Trial Relative     |
+| DUMMY                   | NaN                |
+| LETTER_HIGHT            | 38                 |
+| LETTER_WIDTH            | 19                 |
+| RECALIBRATE             | False              |
+| TRIGGER_PADDING_X       | 10                 |
+| Trial_Recycled_         | False              |
