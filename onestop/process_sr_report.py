@@ -201,8 +201,46 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
     df = clean_and_format_data(df)
     df = remove_unused_columns(df, COLUMNS_TO_DROP)
+
+    print(args.save_path)
+    single_value_columns = find_single_value_columns(df)
+    print(single_value_columns)
+
     save_processed_data(df, args)
+
     return df
+
+
+def find_single_value_columns(df):
+    """
+    Identifies columns that have only one unique value in the DataFrame.
+
+    Args:
+        df (pandas.DataFrame): The DataFrame to analyze
+
+    Returns:
+        pandas.Series: Series containing column names and their single unique value
+    """
+    # Dictionary to store columns with single values
+    single_value_cols = {}
+
+    # Check each column
+    for column in df.columns:
+        unique_values = df[column].nunique(dropna=False)
+        if unique_values == 1:
+            # Get the single unique value
+            single_value = df[column].iloc[0]
+            single_value_cols[column] = single_value
+
+    # Convert to Series for better display
+    result = pd.Series(single_value_cols)
+
+    # Add count information
+    print(
+        f"Found {len(result)} columns with only one unique value out of {len(df.columns)} total columns"
+    )
+
+    return result
 
 
 def our_processing(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
@@ -724,6 +762,12 @@ def clean_and_format_data(df: pd.DataFrame) -> pd.DataFrame:
         lambda x: x["answers_order"][x["selected_answer_position"]], axis=1
     )
 
+    df["paragraph"] = (
+        df["paragraph"]
+        .str.replace(r'culture" .', r'culture".')
+        .str.replace(r'culture" .', r'culture".')
+    )
+
     return df
 
 
@@ -743,8 +787,9 @@ def save_processed_data(df: pd.DataFrame, config: ArgsParser) -> None:
 
     output_path = full_path / (config.save_path.stem + config.save_path.suffix)
     df.to_csv(output_path, index=False)
-
     split_save_sub_corpora(df, config.save_path)
+    if config.report == "P":
+        split_save_sub_corpora(df, config.save_path + "_paragraph")
     logger.info(f"Total rows: {len(df)}")
     logger.info(f"Data saved to {config.save_path}")
 
@@ -1173,23 +1218,38 @@ def compute_word_span_metrics(
     _, ia_field = get_constants_by_mode(mode)
 
     df[ia_field] = df[ia_field].replace({".": 0, np.nan: 0}).astype(int)
-    pattern = r"(\d+), ?(\d+)"  # Regex pattern to extract span indices
+    pattern = r"\((\d+), ?(\d+)\)"  # Regex pattern to extract all span indices
     logger.info("Determining whether word is in the answer (critical) span...")
     cs_field_name = "critical_span_indices"
     ds_field_name = "distractor_span_indices"
-    df[["aspan_ind_start", "aspan_ind_end"]] = (
-        df[cs_field_name].str.extract(pattern, expand=True).astype(int)
-    )  # TODO only the first span is extracted
-    df["is_in_aspan"] = (df[ia_field] >= df["aspan_ind_start"]) & (
-        df[ia_field] < df["aspan_ind_end"]
+
+    # Extract all critical span indices
+    aspan_indices = (
+        df[cs_field_name]
+        .str.findall(pattern)
+        .apply(lambda spans: [(int(start), int(end)) for start, end in spans])
+    )
+    df["is_in_aspan"] = df.apply(
+        lambda row: any(
+            (row[ia_field] >= start) & (row[ia_field] < end)
+            for start, end in aspan_indices[row.name]
+        ),
+        axis=1,
     )
 
     logger.info("Determining whether word is in the distractor span...")
-    df[["dspan_ind_start", "dspan_ind_end"]] = (
-        df[ds_field_name].str.extract(pattern, expand=True).astype(int)
-    )  # TODO only the first span is extracted
-    df["is_in_dspan"] = (df[ia_field] >= df["dspan_ind_start"]) & (
-        df[ia_field] < df["dspan_ind_end"]
+    # Extract all distractor span indices
+    dspan_indices = (
+        df[ds_field_name]
+        .str.findall(pattern)
+        .apply(lambda spans: [(int(start), int(end)) for start, end in spans])
+    )
+    df["is_in_dspan"] = df.apply(
+        lambda row: any(
+            (row[ia_field] >= start) & (row[ia_field] < end)
+            for start, end in dspan_indices[row.name]
+        ),
+        axis=1,
     )
 
     logger.info(
@@ -1204,10 +1264,24 @@ def compute_word_span_metrics(
         "is_in_aspan == True & is_in_dspan == True"
     ).empty, "Should not be in both spans!"
     logger.info("Checked for overlapping a and d spans.")
-
+    # TODO these only consider first cs and are dropped anyways (in public data)
     logger.info(
         "Determining whether word is in the critical span, before the span, or after the span..."
     )
+    df[["aspan_ind_start", "aspan_ind_end"]] = (
+        df[cs_field_name].str.extract(pattern, expand=True).astype(int)
+    )
+    df["is_in_aspan"] = (df[ia_field] >= df["aspan_ind_start"]) & (
+        df[ia_field] < df["aspan_ind_end"]
+    )
+
+    df[["dspan_ind_start", "dspan_ind_end"]] = (
+        df[ds_field_name].str.extract(pattern, expand=True).astype(int)
+    )
+    df["is_in_dspan"] = (df[ia_field] >= df["dspan_ind_start"]) & (
+        df[ia_field] < df["dspan_ind_end"]
+    )
+
     df["is_before_aspan"] = df[ia_field] < df["aspan_ind_start"]
     df["is_after_aspan"] = df[ia_field] >= df["aspan_ind_end"]
     df.loc[df["is_in_aspan"], "relative_to_aspan"] = "In Critical Span"
@@ -1715,7 +1789,7 @@ def get_device() -> str:
 
 if __name__ == "__main__":
     public_preprocess = True
-    lacclab_preprocess = True
+    lacclab_preprocess = False
     save_path = Path("processed_reports")
     base_data_path = Path("data/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
@@ -1726,7 +1800,7 @@ if __name__ == "__main__":
         # "EleutherAI/gpt-neo-125M", "EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-2.7B",
         # 'EleutherAI/gpt-j-6B',
         # "facebook/opt-350m", "facebook/opt-1.3b", "facebook/opt-2.7b", "facebook/opt-6.7b",
-        "EleutherAI/pythia-70m",
+        # "EleutherAI/pythia-70m",
         # "EleutherAI/pythia-160m", "EleutherAI/pythia-410m", "EleutherAI/pythia-1b",
         # "EleutherAI/pythia-1.4b", "EleutherAI/pythia-2.8b", "EleutherAI/pythia-6.9b", "EleutherAI/pythia-12b",
         # "state-spaces/mamba-370m-hf", "state-spaces/mamba-790m-hf", "state-spaces/mamba-1.4b-hf", "state-spaces/mamba-2.8b-hf",
@@ -1734,12 +1808,12 @@ if __name__ == "__main__":
 
     reports = [
         "P",
-        # "T",
-        # "A",
-        # "QA",
-        # "Q_preview",
-        # "Q",
-        # "F",
+        "T",
+        "A",
+        "QA",
+        "Q_preview",
+        "Q",
+        "F",
     ]
 
     modes = [
