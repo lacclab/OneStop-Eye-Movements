@@ -32,19 +32,21 @@ def download_data(
     base_url = "https://osf.io/download/"
 
     urls = {
-        "full": "",
-        "repeated": "",
+        "repeated": {"fixations": "qf5jp", "ia": "8mwse"},
         "information-seeking": "",
-        "ordinary": "",
-        "information-seeking-in-repeated": "",
+        "ordinary": "zn9sq",
+        "information-seeking-in-repeated": "6ra7t",
         "asc_files": "",
         "edf_files": "",
+        "all-regimes": "z7pyn",
+        "full": "",
     }
     subsets = [
         "repeated",
         "information-seeking",
         "ordinary",
         "information-seeking-in-repeated",
+        "all-regimes",
     ]
 
     folder = Path(__file__).parent / output_folder
@@ -52,46 +54,50 @@ def download_data(
         os.makedirs(folder)
 
     for data, resource in (pbar := tqdm(urls.items())):
-        if (
-            (data in subsets and mode != data)
-            or (data in subsets and mode == "full")
-            or (data == "asc_files" and not download_asc)
-            or (data == "edf_files" and not download_edf)
+        # Skip the data if it is not in the specified mode
+        if data in subsets and (mode != data or mode == "full"):
+            continue
+
+        if (data == "asc_files" and not download_asc) or (
+            data == "edf_files" and not download_edf
         ):
             continue
 
         pbar.set_description(
             f"Downloading {'and extracting ' if extract else ''}{data}"
         )
-        # Downloading the file by sending the request to the URL
-        url = base_url + resource
+        for resource in resource.values():
+            # Downloading the file by sending the request to the URL
+            url = base_url + resource
 
-        req = requests.get(url, stream=True)
+            req = requests.get(url, stream=True)
 
-        # create new paths for the downloaded files
-        filename = f"{data}.zip"
-        path = folder / filename
-        extract_path = folder / data
+            # create new paths for the downloaded files
+            filename = f"{data}.zip"
+            path = folder / filename
+            extract_path = folder / data
 
-        if os.path.exists(path):
-            print(f"\nPath for {data} already exists. Not downloaded to {path}")
-            continue
+            if os.path.exists(path):
+                print(f"\nPath for {data} already exists. Not downloaded to {path}")
+                continue
 
-        elif os.path.exists(extract_path):
-            print(f"\nPath for {data} already exists. Not downloaded to {extract_path}")
-            continue
+            if os.path.exists(extract_path):
+                print(
+                    f"\nPath for {data} already exists. Not downloaded to {extract_path}"
+                )
+                continue
 
-        # Writing the file to the local file system
-        with open(path, "wb") as output_file:
-            for chunk in req.iter_content(chunk_size=128):
-                output_file.write(chunk)
+            # Writing the file to the local file system
+            with open(path, "wb") as output_file:
+                for chunk in req.iter_content(chunk_size=128):
+                    output_file.write(chunk)
 
-        if extract:
-            extract_path = folder
-            with zipfile.ZipFile(path, "r") as zip_ref:
-                zip_ref.extractall(extract_path)
+            if extract:
+                extract_path = folder
+                with zipfile.ZipFile(path, "r") as zip_ref:
+                    zip_ref.extractall(extract_path)
 
-            os.remove(path)
+                os.remove(path)
 
 
 if __name__ == "__main__":
@@ -135,12 +141,13 @@ if __name__ == "__main__":
         type=str,
         choices=[
             "full",
+            "all-regimes",
             "repeated",
             "information-seeking",
             "ordinary",
             "information-seeking-in-repeated",
         ],
-        help="Mode of data to download. Options are full, repeated, information-seeking, ordinary, information-seeking-in-repeated. Default is full.",
+        help="Mode of data to download. Options are full, all-regimes, repeated, information-seeking, ordinary, information-seeking-in-repeated. Default is full.",
         default="full",
     )
 
