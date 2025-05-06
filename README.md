@@ -127,7 +127,7 @@ Basic usage to download the entire dataset:
       * `--edf`: Download EDF files (default: False)
       * `-o, --output-folder`: Specify output folder (default: "OneStop")
       * `--mode`: Choose dataset version to download (default: "full")
-        * Options: "full", "repeated", "information-seeking", "ordinary", "information-seeking-in-repeated"
+        * Options: "full", "all-regimes", "ordinary",   "information-seeking", "repeated","information-seeking-in-repeated"
 
 3. **Download Specific Parts** (Optional)  
 
@@ -138,18 +138,26 @@ Example usage to download only the ordinary reading subset:
 python onestop/download_data_files.py --mode ordinary
 ```
 
-<!-- ### pymovements integration
+### pymovements integration
 
 OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. The package allows for easy download of the raw data and further processing it. The following code snippet shows how to download the data:
 
-```python
-# pip install pymovements
-import pymovements as pm
+First, install the package in the terminal:
 
+```bash
+pip install pymovements
+```
+
+Then, use the following python code to download the data:
+
+```python
+import pymovements as pm
 dataset = pm.Dataset('OneStop', path='data/OneStop')
 
 dataset.download()
-``` -->
+```
+
+Note that currently only the paragraph data is available for download. The other data files are not yet available in the package.
 
 ## Documentation Structure
 
