@@ -83,7 +83,7 @@ Pages presented only in the information seeking regime are depicted in green.
 
 ![Trial Structure](images/trial_slides.png)
 
-Overall, the dataset includes 19,438 regular trials, 9,720 in the information seeking regime and 9,718 in the ordinary reading regime. The dataset also includes 3,888 repeated reading trials, split equally the two reading regimes.
+Overall, the dataset includes 19,438 regular trials, 9,720 in the information seeking regime and 9,718 in the ordinary reading regime. The dataset also includes 3,888 repeated reading trials, split equally between the two reading regimes.
 
 ## Obtaining the Data
 
@@ -100,8 +100,8 @@ The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility t
 
 and two versions of the full dataset:
 
-[OneStop](https://osf.io/azj2g/) - paragraph reading for all of the four sub-corpora.
-[OneStop - Full](https://osf.io/z7pyn/) - complete trials, divided into title, question preview, paragraph, question, QA and feedback (see further details below), for all of the four sub-corpora.
+1. [OneStop](https://osf.io/azj2g/) - paragraph reading for all four sub-corpora.
+2. [OneStop - Full](https://osf.io/z7pyn/) - complete trials, divided into title, question preview, paragraph, question, QA and feedback (see further details below), for all of the four sub-corpora.
 
 ### Python Script
 
