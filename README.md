@@ -73,11 +73,11 @@ Each participant reads 10 Guardian articles paragraph by paragraph, and answers 
 
 A single experimental trial consists of reading a paragraph and answering one reading comprehension question about it. Trials have the following Interest Periods, corresponding to pages in the experiment:
 
-1. Question Preview (only in the information seeking regime) - the participant reads the question (self-paced).
-2. Paragraph - the participant reads the paragraph (self-paced).
-3. Question - the participant reads the question again (self-paced).
-4. QA - retains the question, and also displays the four possible answers in a cross arrangement. Participants are then required to choose one of the answers and confirm their choice (self-paced).
-5. Feedback - informs the participants on whether they answered the question correctly (presented for one second).
+1. **Question Preview** (only in the information seeking regime) - the participant reads the question (self-paced).
+2. **Paragraph** - the participant reads the paragraph (self-paced).
+3. **Question** - the participant reads the question again (self-paced).
+4. **QA** - retains the question, and also displays the four possible answers in a cross arrangement. Participants are then required to choose one of the answers and confirm their choice (self-paced).
+5. **Feedback** - informs the participants on whether they answered the question correctly (presented for one second).
 
 Pages presented only in the information seeking regime are depicted in green.
 
