@@ -103,6 +103,8 @@ and two versions of the full dataset:
 1. [OneStop](https://osf.io/azj2g/) - paragraph reading for all four sub-corpora.
 2. [OneStop - Full](https://osf.io/z7pyn/) - complete trials, divided into title, question preview, paragraph, question, QA and feedback (see further details below), for all of the four sub-corpora.
 
+In addition, we release [metadata files](https://osf.io/jbd24/) which include the participant questionnaire and experiment summary statistics.
+
 ### Python Script
 
 The data can also be downloaded using the provided Python script. The script will download and extract the data files.

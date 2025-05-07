@@ -5,13 +5,13 @@
 
 We release the following data files:
 
-- **`questionnaire.json`**: Anonymized participant demographics and language history questionnaire.
+- **[questionnaire.json](https://osf.io/a765t):** Anonymized participant demographics and language history questionnaire.
 
-- **`session_summary.csv`**: Summary statistics and information on each participant's experiment session, such as reading comprehension accuracy and experiment duration.
+- **[session_summary.csv](https://osf.io/yvu5w)**: Summary statistics and information on each participant's experiment session, such as reading comprehension accuracy and experiment duration.
 
-- **`[preview]_b[batch]_l[list]_[subj_id].edf`**: The raw eye-tracking data for the entire eye-tracking session of each participant, in EDF format.
+- **`[preview]_b[batch]_l[list]_[subj_id].edf`**: The raw eye-tracking data for the entire eye-tracking session of each participant, in EDF format. (To be added).
 
-- **`[preview]_b[batch]_l[list]_[subj_id].asc`**: Gaze location and additional features at 1ms intervals for the entire eye-tracking session of each participant, in ASCII format.
+- **`[preview]_b[batch]_l[list]_[subj_id].asc`**: Gaze location and additional features at 1ms intervals for the entire eye-tracking session of each participant, in ASCII format. (To be added).
 
 - **Fixation Reports**: Eye movement features, experiment and trial information, and linguistic word properties aggregated at the level of individual fixations, in tab-separated CSV format. A separate report is available for each of the Interest Periods.
 

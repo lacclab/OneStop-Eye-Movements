@@ -33,13 +33,13 @@ def download_data(
 
     urls = {
         "repeated": {"fixations": "qf5jp", "ia": "8mwse"},
-        "information-seeking": "",
-        "ordinary": "zn9sq",
-        "information-seeking-in-repeated": "6ra7t",
-        "asc_files": "",
-        "edf_files": "",
-        "all-regimes": "z7pyn",
-        "full": "",
+        "information-seeking": {},
+        "ordinary": {'ia':'bhf5u'},
+        "information-seeking-in-repeated": {},
+        "asc_files": {},
+        "edf_files": {},
+        "all-regimes": {},
+        "full": {},
     }
     subsets = [
         "repeated",
@@ -69,7 +69,7 @@ def download_data(
         for resource in resource.values():
             # Downloading the file by sending the request to the URL
             url = base_url + resource
-
+            print(url)
             req = requests.get(url, stream=True)
 
             # create new paths for the downloaded files
