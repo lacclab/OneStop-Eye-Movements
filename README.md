@@ -67,11 +67,23 @@ Statistics of OneStop and other public broad-coverage eyetracking datasets for E
 
 ![OneStop Experiment Design](images/exp_design.png)
 
+Each participant reads 10 Guardian articles paragraph by paragraph, and answers a reading comprehension question after each paragraph. After reading a 10-article batch, participants read two of the previously presented articles for a second time. Half of the participants are in an information seeking regime where they are presented with the question prior to reading the paragraph.
+
 ## Trial Structure
+
+A single experimental trial consists of reading a paragraph and answering one reading comprehension question about it. Trials have the following Interest Periods, corresponding to pages in the experiment:
+
+1. Question Preview (only in the information seeking regime) - the participant reads the question (self-paced).
+2. Paragraph - the participant reads the paragraph (self-paced).
+3. Question - the participant reads the question again (self-paced).
+4. QA - retains the question, and also displays the four possible answers in a cross arrangement. Participants are then required to choose one of the answers and confirm their choice (self-paced).
+5. Feedback - informs the participants on whether they answered the question correctly (presented for one second).
 
 Pages presented only in the information seeking regime are depicted in green.
 
 ![Trial Structure](images/trial_slides.png)
+
+Overall, the dataset includes 19,438 regular trials, 9,720 in the information seeking regime and 9,718 in the ordinary reading regime. The dataset also includes 3,888 repeated reading trials, split equally the two reading regimes.
 
 ## Obtaining the Data
 
@@ -79,12 +91,17 @@ There are several ways to obtain the data:
 
 ### Direct Download from OSF
 
-The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility to download the [entire dataset](https://osf.io/z7pyn/), or any of four sub-corpora:
+The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility to download four sub-corpora with eye movement recordings from paragraph reading, one for each of the following reading regimes:
 
-1. [Ordinary reading](https://osf.io/zn9sq/) (download this data if you are interested in a general purpose eyetracking dataset)
-2. [Information seeking](https://osf.io/kpbgx/)
-3. [Repeated reading](https://osf.io/4ay3t/)
-4. [Information seeking in repeated reading](https://osf.io/6ra7t/)
+1. [OneStop Ordinary Reading](https://osf.io/zn9sq/) - download this data if you are interested in a general purpose eye tracking dataset
+2. [OneStop Information Seeking](https://osf.io/kpbgx/)
+3. [OneStop Repeated Reading](https://osf.io/4ay3t/)
+4. [OneStop Information Seeking in Repeated Reading](https://osf.io/6ra7t/)
+
+and two versions of the full dataset:
+
+[OneStop](https://osf.io/azj2g/) - paragraph reading for all of the four sub-corpora.
+[OneStop - Full](https://osf.io/z7pyn/) - complete trials, divided into title, question preview, paragraph, question, QA and feedback (see further details below), for all of the four sub-corpora.
 
 ### Python Script
 
