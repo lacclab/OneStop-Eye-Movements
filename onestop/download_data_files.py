@@ -32,14 +32,30 @@ def download_data(
     base_url = "https://osf.io/download/"
 
     urls = {
-        "repeated": {"fixations": "qf5jp", "ia": "8mwse"},
-        "information-seeking": {},
-        "ordinary": {'ia':'bhf5u'},
-        "information-seeking-in-repeated": {},
-        "asc_files": {},
-        "edf_files": {},
-        "all-regimes": {},
-        "full": {},
+        "ordinary": {"fixations": "9v2at", "ia": "bhf5u"},
+        "information-seeking": {"fixations": "2r3pd", "ia": "dmjs4"},
+        "repeated": {"fixations": "cj8rh", "ia": "e4h9a"},
+        "information-seeking-in-repeated": {"fixations": "cg67z", "ia": "eunvq"},
+        "asc_files": "",
+        "edf_files": "",
+        "metadata": {"session_summary": "yvu5w", "questionnaire": "a765t"},
+        "all-regimes": {"fixations": "6jbge", "ia": "p97e5"},
+        "full": {
+            "fixations_title": "hr4jv",
+            "ia_title": "7nsz4",
+            "fixations_question_preview": "p8mfs",
+            "ia_question_preview": "5fkr7",
+            "fixations_paragraph": "6jcsr",
+            "ia_paragraph": "m6jwy",
+            "fixations_questions": "a8xvd",
+            "ia_questions": "6b9f8",
+            "fixations_answers": "vc23j",
+            "ia_answers": "pvfdh",
+            "fixations_qa": "kv6r3",
+            "ia_qa": "qd4f6",
+            "fixations_feedback": "cvayd",
+            "ia_feedback": "a8ftm",
+        },
     }
     subsets = [
         "repeated",
