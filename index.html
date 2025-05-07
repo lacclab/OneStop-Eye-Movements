@@ -284,7 +284,7 @@ If you are looking for a general purpose eye tracking corpus (like Dundee, GECO,
 </section>
 <section id="obtaining-the-data">
 <h2>Obtaining the Data<a class="headerlink" href="#obtaining-the-data" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#obtaining-the-data'"><span>#</span></a></h2>
-<p>There are several ways to obtain the data:</p>
+
 <section id="direct-download-from-osf">
 <h3>Direct Download from OSF<a class="headerlink" href="#direct-download-from-osf" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#direct-download-from-osf'"><span>#</span></a></h3>
 <p>The data is hosted on <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">OSF<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>. We provide the possibility to download four sub-corpora with eye movement recordings from paragraph reading, one for each of the following reading regimes:</p>
@@ -300,83 +300,7 @@ If you are looking for a general purpose eye tracking corpus (like Dundee, GECO,
 <li><p><a class="reference external" href="https://osf.io/z7pyn/" rel="nofollow noopener">OneStop - Full<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> - complete trials, divided into title, question preview, paragraph, question, QA and feedback (see further details below), for all of the four sub-corpora.</p></li>
 </ol>
 <p>In addition, we release <a class="reference external" href="https://osf.io/jbd24/" rel="nofollow noopener">metadata files<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> which include the participant questionnaire and experiment summary statistics.</p>
-</section>
-<section id="python-script">
-<h3>Python Script<a class="headerlink" href="#python-script" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#python-script'"><span>#</span></a></h3>
-<p>The data can also be downloaded using the provided Python script. The script will download and extract the data files.</p>
-<p>Basic usage to download the entire dataset:</p>
-<ol class="arabic" start="0">
-<li><p>Make sure you have Python installed.</p>
-<ul class="simple">
-<li><p>If you don’t have Python installed, you can download it from <a class="reference external" href="https://www.python.org/downloads/" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p></li>
-</ul>
-</li>
-<li><p><strong>Get the Code</strong></p>
-<ul>
-<li><p>Open your terminal/command prompt:</p>
-<ul class="simple">
-<li><p>Windows: Press <code class="docutils literal notranslate"><span class="pre">Win</span> <span class="pre">+</span> <span class="pre">R</span></code>, type <code class="docutils literal notranslate"><span class="pre">cmd</span></code> and press Enter</p></li>
-<li><p>Mac: Press <code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">Space</span></code>, type <code class="docutils literal notranslate"><span class="pre">terminal</span></code> and press Enter</p></li>
-</ul>
-</li>
-<li><p>Run this command to download the code:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lacclab/OneStop-Eye-Movements.git
-</pre></div>
-</div>
-</li>
-<li><p>Move into the downloaded folder:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>OneStop-Movements
-</pre></div>
-</div>
-</li>
-</ul>
-</li>
-<li><p><strong>Run the Download Script</strong></p>
-<ul>
-<li><p>Run this command to download the full dataset:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>onestop/download_data_files.py
-</pre></div>
-</div>
-</li>
-<li><p>The data will be downloaded to a folder called “OneStop”</p></li>
-<li><p>Available options:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--extract</span></code>: Extract downloaded zip files (default: True)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--asc</span></code>: Download ASC files (default: False)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--edf</span></code>: Download EDF files (default: False)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-o,</span> <span class="pre">--output-folder</span></code>: Specify output folder (default: “OneStop”)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--mode</span></code>: Choose dataset version to download (default: “full”)</p>
-<ul>
-<li><p>Options: “full”, “all-regimes”, “ordinary”,   “information-seeking”, “repeated”,”information-seeking-in-repeated”</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Download Specific Parts</strong> (Optional)</p></li>
-</ol>
-<p>Example usage to download only the ordinary reading subset:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="n">python</span> <span class="n">onestop</span><span class="o">/</span><span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">mode</span> <span class="n">ordinary</span>
-</pre></div>
-</div>
-</section>
-<section id="pymovements-integration">
-<h3>pymovements integration<a class="headerlink" href="#pymovements-integration" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pymovements-integration'"><span>#</span></a></h3>
-<p>OneStop is integrated into the <a class="reference external" href="https://pymovements.readthedocs.io/en/stable/index.html" rel="nofollow noopener">pymovements<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> package. The package allows for easy download of the raw data and further processing it. The following code snippet shows how to download the data:</p>
-<p>First, install the package in the terminal:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pymovements
-</pre></div>
-</div>
-<p>Then, use the following python code to download the data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymovements</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pm</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">'OneStop'</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">'data/OneStop'</span><span class="p">)</span>
 
-<span class="n">dataset</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Note that currently only the paragraph data is available for download. The other data files are not yet available in the package.</p>
 </section>
 </section>
 <section id="documentation-structure">
@@ -432,8 +356,6 @@ If you are looking for a general purpose eye tracking corpus (like Dundee, GECO,
 <li><a :data-current="activeSection === '#trial-structure'" class="reference internal" href="#trial-structure">Trial Structure</a></li>
 <li><a :data-current="activeSection === '#obtaining-the-data'" class="reference internal" href="#obtaining-the-data">Obtaining the Data</a><ul>
 <li><a :data-current="activeSection === '#direct-download-from-osf'" class="reference internal" href="#direct-download-from-osf">Direct Download from OSF</a></li>
-<li><a :data-current="activeSection === '#python-script'" class="reference internal" href="#python-script">Python Script</a></li>
-<li><a :data-current="activeSection === '#pymovements-integration'" class="reference internal" href="#pymovements-integration">pymovements integration</a></li>
 </ul>
 </li>
 <li><a :data-current="activeSection === '#documentation-structure'" class="reference internal" href="#documentation-structure">Documentation Structure</a></li>
