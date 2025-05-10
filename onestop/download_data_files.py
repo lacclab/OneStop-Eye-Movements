@@ -82,10 +82,10 @@ def download_data(
         pbar.set_description(
             f"Downloading {'and extracting ' if extract else ''}{data}"
         )
-        for resource in resource.values():
+        for resource_name, resource in resource.items():
             # Downloading the file by sending the request to the URL
             url = base_url + resource
-            print(url)
+            print(f"Downloading {data} - {resource_name} ({url}) to {folder}")
             req = requests.get(url, stream=True)
 
             # create new paths for the downloaded files
@@ -110,9 +110,14 @@ def download_data(
 
             if extract:
                 extract_path = folder
-                with zipfile.ZipFile(path, "r") as zip_ref:
-                    zip_ref.extractall(extract_path)
-
+                try:
+                    with zipfile.ZipFile(path, "r") as zip_ref:
+                        zip_ref.extractall(extract_path)
+                    print(f"Extracted {data} to {extract_path}")
+                except zipfile.BadZipFile:
+                    print(f"Error: {path} is not a zip file.")
+                except Exception as e:
+                    print(f"Error extracting {path}: {e}")
                 os.remove(path)
 
 
