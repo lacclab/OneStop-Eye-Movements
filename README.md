@@ -104,7 +104,7 @@ and two versions of the full dataset:
 2. [OneStop - Full](https://osf.io/z7pyn/) - complete trials for the entire dataset, divided into title, question preview, paragraph, question, answers, QA (question + answers) and feedback.
 
 In addition, we release [metadata files](https://osf.io/jbd24/) which include the participant questionnaire and experiment summary statistics.
-<!-- 
+
 ### Python Script
 
 The data can also be downloaded using the provided Python script. The script will download and extract the data files.
@@ -165,7 +165,7 @@ First, install the package in the terminal:
 
 ```bash
 pip install pymovements
-``` 
+```
 
 Then, use the following python code to download the data:
 
@@ -176,7 +176,7 @@ dataset = pm.Dataset('OneStop', path='data/OneStop')
 dataset.download()
 ```
 
-Note that currently only the paragraph data is available for download. The other data files are not yet available in the package. -->
+Note that currently only the paragraph data is available for download. The other data files are only available on OSF / download script.
 
 ## Documentation Structure
 
