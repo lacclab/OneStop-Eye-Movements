@@ -44,7 +44,7 @@ def download_data(
             "fixations_title": "hr4jv",
             "ia_title": "7nsz4",
             "fixations_question_preview": "p8mfs",
-            "ia_question_preview": "5fkr7",
+            "ia_question_preview": "k457m",
             "fixations_paragraph": "6jcsr",
             "ia_paragraph": "m6jwy",
             "fixations_questions": "a8xvd",
