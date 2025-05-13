@@ -981,7 +981,9 @@ def compute_word_length(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame with added word length
     """
-    label_field = "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_LABEL"
+    label_field = (
+        "IA_LABEL" if args.mode == Mode.IA else "CURRENT_FIX_INTEREST_AREA_LABEL"
+    )
     df["word_length"] = df[label_field].str.len()
     return df
 

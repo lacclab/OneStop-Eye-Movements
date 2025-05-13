@@ -1,6 +1,6 @@
 # OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes
 
-[📄 Paper](https://osf.io/preprints/psyarxiv/kgxv5_v1) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
+[📄 Paper](https://osf.io/preprints/psyarxiv/kgxv5) | [📚 Documentation](https://lacclab.github.io/OneStop-Eye-Movements/) | [💾 Data](https://osf.io/2prdq/) | [🔬 More from LaCC Lab](https://lacclab.github.io/)
 
 ## Example
 
@@ -145,7 +145,7 @@ Basic usage to download the entire dataset:
       * `--asc`: Download ASC files (default: False)
       * `--edf`: Download EDF files (default: False)
       * `-o, --output-folder`: Specify output folder (default: "OneStop")
-      * `--mode`: Choose dataset version to download (default: "full")
+      * `--mode`: Choose dataset subcorpora to download (default: "full")
         * Options: "full", "all-regimes", "ordinary",   "information-seeking", "repeated","information-seeking-in-repeated"
 
 3. **Download Specific Parts** (Optional)  
@@ -159,7 +159,7 @@ python onestop/download_data_files.py --mode ordinary
 
 ### pymovements integration
 
-OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. The package allows for easy download of the raw data and further processing it. The following code snippet shows how to download the data:
+OneStop is partially integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. The package allows for easy download of the full paragraph corpora. The following code snippet shows how to download the data:
 
 First, install the package in the terminal:
 
@@ -176,7 +176,7 @@ dataset = pm.Dataset('OneStop', path='data/OneStop')
 dataset.download()
 ```
 
-Note that currently only the paragraph data is available for download. The other data files are only available on OSF / download script.
+This will download the data to the `data/OneStop` folder. You can also specify a different path by changing the `path` argument.
 
 ## Documentation Structure
 
@@ -190,7 +190,7 @@ The documentation is organized into the following sections:
 
 ## Citation
 
-Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes](https://osf.io/kgxv5_v1)
+Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes](https://osf.io/kgxv5)
 
 ```bash
 @article{berzak2025onestop,
