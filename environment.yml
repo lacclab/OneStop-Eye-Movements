@@ -31,4 +31,5 @@ dependencies:
     - juliacall
     - git+https://github.com/lacclab/text-metrics.git
     - typed-argument-parser
+    - pymovements
     - -e . # for development
