@@ -127,7 +127,7 @@ def create_full_report(df, metadata, survey):
 
 
 if __name__ == "__main__":
-    overwrite = True
+    overwrite = True 
     print("Preprocessing data")
     # Load the metadata spreadsheet
     metadata = utils.load_df(path=config.METADATA_PATH)
@@ -160,6 +160,9 @@ if __name__ == "__main__":
 
     print("Filtering survey responses")
     survey_responses = pre.filter_survey_responses(survey_responses, full_report)
+
+    print("Changing questionnaire id format")
+    survey_responses = pre.change_participant_id_to_session_label(survey_responses, full_report)
 
     print("Updating questionnaire format")
     survey_responses = pre.update_questionnaire_format(survey_responses)

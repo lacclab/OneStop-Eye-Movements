@@ -514,6 +514,21 @@ def filter_survey_responses(survey_responses, full_report):
     return filtered_survey_responses
 
 
+def change_participant_id_to_session_label(survey_responses, df):
+    """
+    Changes the participant_id in the survey responses to match the session label in the full report.
+    """
+    for record in survey_responses:
+        subject_id = record.get("subject_id", None)
+        if subject_id and (subject_id in df["ID"].values):
+            # Get the corresponding session label
+            session_label = df.loc[df["ID"] == subject_id, "RECORDING_SESSION_LABEL"].values[0]
+            print(f"Changing subject_id {subject_id} to session label {session_label}")
+            record["subject_id"] = session_label
+    return survey_responses
+
+
+
 def process_full_report_to_session_summary(data, validation_error):
     data = data.copy()
     validation_error["file_name"] = (
@@ -527,7 +542,7 @@ def process_full_report_to_session_summary(data, validation_error):
         right_on="file_name",
         how="left",
     )
-    data["Subject ID"] = data["RECORDING_SESSION_LABEL"].str.split("_").str[1]
+    data["Subject ID"] = data["RECORDING_SESSION_LABEL"]
     data = data.rename(
         columns={
             "Subject ID": "participant_id",
