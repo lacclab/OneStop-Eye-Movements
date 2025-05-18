@@ -42,7 +42,7 @@ We provide the entire dataset, as well as each of the sub-corpora separately.
 
 Statistics of OneStop and other public broad-coverage eyetracking datasets for English L1.
 
-| Category | Dataset | Subjects | Age | Words | Words Recorded | Qestions | Subjects per Question | Questions per Subject |
+| Category | Dataset | Subjects | Age | Words | Words Recorded | Questions | Subjects per Question | Questions per Subject |
 |----------|---------|-------|-----|-------|---------------|-----|-------------|-------------|
 | **Reading Comprehension** | OneStop | 360 | 22.8±5.6 | 19,425 (Advanced)<br> 15,737 (Elementary)<br>19,221 (QA) | 2,632,159 (Paragraphs)<br>1,311,752 (QA) | 486 | 20 | 54 |
 | | [SB-SAT L1](https://dl.acm.org/doi/10.1145/3379156.3391335) | 66 | NA | 2,539 | 167,574 | 20 | 95 | 20 |
