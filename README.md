@@ -11,7 +11,7 @@
 OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants**, **2.6 million word tokens** and **152 hours of recorded eye tracking data**.
 The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).
 
-The dataset release includes Interest Area Reports (features aggregated at the word level), Fixation Reports (features aggregated at the level of fixations/saccades), raw data in edf format and a detailed participant questionnaire. 
+The dataset release includes Interest Area Reports (features aggregated at the word level), Fixation Reports (features aggregated at the level of fixations/saccades), raw data in edf and ASCII formats, and a detailed participant questionnaire. 
 To facilitate analyses, we further provide precomputed text annotations: word length, frequency and surprisal (GPT2), as well as part-of-speech tags and syntactic dependency trees.
 
 OneStop comprises four sub-corpora, one for each of the following reading regimes:
