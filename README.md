@@ -4,7 +4,7 @@
 
 ## Example
 
-![Trial GIF](images/trial.gif)
+![Trial GIF](images/trial_inky.gif)
 
 ## Overview
 
