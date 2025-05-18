@@ -11,17 +11,19 @@
 OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants**, **2.6 million word tokens** and **152 hours of recorded eye tracking data**.
 The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).
 
+The dataset release includes Interest Area Reports (features aggregated at the word level), Fixation Reports (features aggregated at the level of fixations/saccades), raw data in edf format and a detailed participant questionnaire. 
+To facilitate analyses, we further provide precomputed text annotations: word length, frequency and surprisal (GPT2), as well as part-of-speech tags and syntactic dependency trees.
+
 OneStop comprises four sub-corpora, one for each of the following reading regimes:
 
-* Ordinary reading for comprehension
+* **Ordinary reading for comprehension** Download this data if you are interested in a general-purpose eye tracking dataset (like Dundee, GECO, MECO and others).
 * Information seeking
 * Repeated reading
 * Information seeking in repeated reading
 
 ![OneStop Overview](images/overview.png)
 
-We provide the entire corpus, as well as each of the sub-corpora separately.
-If you are looking for a general purpose eye tracking corpus (like Dundee, GECO, MECO and others), we recommend downloading the ordinary reading sub-corpus.
+We provide the entire dataset, as well as each of the sub-corpora separately.
 
 ## Key Features
 
@@ -29,7 +31,7 @@ If you are looking for a general purpose eye tracking corpus (like Dundee, GECO,
 
 * Taken from the OneStopQA dataset ([Paper](https://aclanthology.org/2020.acl-main.507/) [Data 🤗](https://huggingface.co/datasets/malmaud/onestop_qa))
 * 30 articles with 162 paragraphs in English from the Guardian.
-* Annotations of part-of-speech tags, syntactic dependency trees, word frequency and word surprisal.
+* Annotations of part-of-speech tags, syntactic dependency trees, word length, word frequency and word surprisal.
 * Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version.
 * Extensively piloted reading comprehension questions based on the [STARC](https://aclanthology.org/2020.acl-main.507/) (Structured Annotations for Reading Comprehension) annotation framework.
   * 3 multiple-choice reading comprehension questions per paragraph.
@@ -93,7 +95,7 @@ Overall, the dataset includes 19,438 regular trials, 9,720 in the information se
 
 The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility to download four sub-corpora with eye movement recordings from paragraph reading, one for each of the following reading regimes:
 
-1. [OneStop Ordinary Reading](https://osf.io/zn9sq/) - download this data if you are interested in a general purpose eye tracking dataset
+1. [OneStop Ordinary Reading](https://osf.io/zn9sq/) - download this data if you are interested in a general-purpose eye tracking dataset.
 2. [OneStop Information Seeking](https://osf.io/kpbgx/)
 3. [OneStop Repeated Reading](https://osf.io/4ay3t/)
 4. [OneStop Information Seeking in Repeated Reading](https://osf.io/6ra7t/)
@@ -159,7 +161,8 @@ python onestop/download_data_files.py --mode ordinary
 
 ### pymovements integration
 
-OneStop is partially integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. The package allows for easy download of the full paragraph corpora. The following code snippet shows how to download the data:
+OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. 
+The package enables easy download of the paragraph data for the complete dataset. The following code snippet shows how to download the data:
 
 First, install the package in the terminal:
 
@@ -178,15 +181,13 @@ dataset.download()
 
 This will download the data to the `data/OneStop` folder. You can also specify a different path by changing the `path` argument.
 
-## Documentation Structure
+## Documentation
 
-The documentation is organized into the following sections:
+* **[Data Files and Variables](https://lacclab.github.io/OneStop-Eye-Movements/variables)**: Detailed information about the data files and variables in the reports.
 
-* **[Data Files and Variables](https://lacclab.github.io/OneStop-Eye-Movements/variables)**: Provides detailed information about the data files and variables used in the project.
+* **[Known Issues](https://lacclab.github.io/OneStop-Eye-Movements/known_issues)**: Known issues with the dataset. If you identify an issue not listed here, please open a github issue specifying the problem.
 
-* **[Known Issues](https://lacclab.github.io/OneStop-Eye-Movements/known_issues)**: Documents any known issues.
-
-* **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Contains scripts for data preprocessing and analysis reproduction.
+* **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Scripts for data preprocessing and reproducing the analysis in the dataset paper (see below).
 
 ## Citation
 
