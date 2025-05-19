@@ -4,6 +4,7 @@ that is easier to work with."""
 import json
 import logging
 import os
+import platform
 from enum import Enum
 from itertools import product
 from pathlib import Path
@@ -19,7 +20,6 @@ from text_metrics.merge_metrics_with_eye_movements import (
 )
 from text_metrics.surprisal_extractors import extractor_switch
 from tqdm import tqdm
-import platform
 
 
 class Mode(Enum):

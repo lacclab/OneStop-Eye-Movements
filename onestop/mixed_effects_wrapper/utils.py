@@ -1,7 +1,6 @@
-import pandas as pd
 import re
-from pathlib import Path
-from io import BytesIO
+
+import pandas as pd
 
 
 def exclude_IAs(

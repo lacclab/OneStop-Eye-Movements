@@ -1,6 +1,7 @@
-import pandas as pd
 import re
+
 import numpy as np
+import pandas as pd
 
 dataset_options = ["onestop", "celer", "geco", "sbsat"]
 DEGREES_PER_CHAR_ONESTOP = 0.34

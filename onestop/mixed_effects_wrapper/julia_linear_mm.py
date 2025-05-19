@@ -1,8 +1,10 @@
-import scipy
-import pandas as pd
-import numpy as np
 import warnings
-from juliacall import Main as jl, convert as jlconvert  # type: ignore
+
+import numpy as np
+import pandas as pd
+import scipy
+from juliacall import Main as jl  # type: ignore
+from juliacall import convert as jlconvert
 
 # jl.seval("import Pkg")
 # jl.seval('Pkg.add("MixedModels")')

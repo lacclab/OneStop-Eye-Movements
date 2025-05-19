@@ -1,8 +1,9 @@
-import config
 import json
+from pathlib import Path
+
+import config
 import numpy as np
 import pandas as pd
-from pathlib import Path
 
 
 def correct_survey_ids(survey, mapping_path):

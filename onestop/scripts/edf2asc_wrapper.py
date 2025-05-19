@@ -1,6 +1,7 @@
-from pathlib import Path
-import subprocess
 import argparse
+import subprocess
+from pathlib import Path
+
 from loguru import logger
 
 
