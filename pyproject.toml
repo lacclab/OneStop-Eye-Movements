@@ -4,19 +4,15 @@ build-backend = "hatchling.build"
 
 [project]
 name = "onestop_eye_movements"
-version = "0.1.3"
-description = "Code for the analyses in the paper 'OneStop: A 360-Participant English Eye-Tracking Dataset with Different Reading Regimess'"
+version = "1.0.0"
+description = "Code for the paper 'OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes'"
 readme = "README.md"
 requires-python = ">=3.7"
 license = "CC-BY-4.0"
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: Other/Proprietary License",  # For Creative Commons licenses
+  "License :: Other/Proprietary License", # For Creative Commons licenses
   "Operating System :: OS Independent",
-]
-
-dependencies = [
-  # TODO add dependencies
 ]
 
 

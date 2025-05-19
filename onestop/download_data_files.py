@@ -1,15 +1,11 @@
 import argparse
 import os
+import zipfile
 from pathlib import Path
 
 import requests
-from tqdm import tqdm
-import zipfile
 
-
-"""
-Based on https://github.com/DiLi-Lab/PoTeC/blob/main/download_data_files.py
-"""
+# Based on https://github.com/DiLi-Lab/PoTeC/blob/main/download_data_files.py
 
 
 def download_data(
@@ -23,7 +19,7 @@ def download_data(
         download_asc (bool): Whether to download the asc files.
         download_edf (bool): Whether to download the edf files.
         output_folder (str): The folder where the downloaded files will be saved.
-        mode (str): The mode of data to download. Options are 'full', 'repeated',
+        mode (str): The mode of data to download. Options are 'onestop-full', 'onestop', 'repeated',
                     'information-seeking', 'ordinary', 'information-seeking-in-repeated'.
 
     Returns:
@@ -39,8 +35,8 @@ def download_data(
         "asc_files": "",
         "edf_files": "",
         "metadata": {"session_summary": "yvu5w", "questionnaire": "a765t"},
-        "all-regimes": {"fixations": "6jbge", "ia": "p97e5"},
-        "full": {
+        "onestop": {"fixations": "6jbge", "ia": "p97e5"},
+        "onestop-full": {
             "fixations_title": "hr4jv",
             "ia_title": "7nsz4",
             "fixations_question_preview": "p8mfs",
@@ -62,16 +58,15 @@ def download_data(
         "information-seeking",
         "ordinary",
         "information-seeking-in-repeated",
-        "all-regimes",
+        "onestop",
     ]
 
     folder = Path(__file__).parent / output_folder
-    if not os.path.exists(folder):
-        os.makedirs(folder)
+    folder.mkdir(parents=True, exist_ok=True)
 
-    for data, resource in (pbar := tqdm(urls.items())):
+    for data, resource in urls.items():
         # Skip the data if it is not in the specified mode
-        if data in subsets and (mode != data or mode == "full"):
+        if data in subsets and (mode != data or mode == "onestop-full"):
             continue
 
         if (data == "asc_files" and not download_asc) or (
@@ -79,9 +74,6 @@ def download_data(
         ):
             continue
 
-        pbar.set_description(
-            f"Downloading {'and extracting ' if extract else ''}{data}"
-        )
         for resource_name, resource in resource.items():
             # Downloading the file by sending the request to the URL
             url = base_url + resource
@@ -161,15 +153,15 @@ if __name__ == "__main__":
         "--mode",
         type=str,
         choices=[
-            "full",
-            "all-regimes",
+            "onestop-full",
+            "onestop",
             "repeated",
             "information-seeking",
             "ordinary",
             "information-seeking-in-repeated",
         ],
-        help="Mode of data to download. Options are full, all-regimes, repeated, information-seeking, ordinary, information-seeking-in-repeated. Default is full.",
-        default="full",
+        help="Mode of data to download. Options are onestop-full, onestop, repeated, information-seeking, ordinary, information-seeking-in-repeated. Default is ordinary.",
+        default="ordinary",
     )
 
     args = parser.parse_args()

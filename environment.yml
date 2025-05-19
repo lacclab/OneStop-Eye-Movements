@@ -6,21 +6,17 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.12 # TODO freeze all versions before release
+  - python=3.12
   - matplotlib
   - numpy
   - seaborn
   - pandas
   - datasets
-  - plotly
   - scipy
   - ipykernel
-  - dropbox # TODO remove?
   - ipywidgets
-  # - loguru
+  - loguru
   - openpyxl
-  - statsmodels
-  # - pyyaml
   - pytorch
   - pytorch-cuda=12.4
   - jupyter

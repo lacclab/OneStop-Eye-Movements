@@ -1,6 +1,5 @@
 import pandas as pd
 import re
-import dropbox
 from pathlib import Path
 from io import BytesIO
 
@@ -65,20 +64,3 @@ def exclude_IAs(
             ]
 
     return et_data_enriched
-
-
-def dropbox_upload(fig, project, path):
-    format = path.split(".")[-1]
-    img = BytesIO()
-    fig_svg = fig.to_image(format=format)
-    img.write(fig_svg)
-
-    token = Path("onestop/linear_mm_utils/dropbox_access_token.txt").read_text()
-    dbx = dropbox.Dropbox(token)
-
-    # Will throw an UploadError if it fails
-    dbx.files_upload(
-        f=img.getvalue(),
-        path=f"/Apps/Overleaf/{project}/{path}",
-        mode=dropbox.files.WriteMode.overwrite,
-    )

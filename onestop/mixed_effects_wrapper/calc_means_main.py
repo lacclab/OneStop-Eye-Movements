@@ -1,6 +1,6 @@
 import pandas as pd
 from tqdm import tqdm
-from onestop.linear_mm_utils.julia_linear_mm import jl, run_linear_mm
+from onestop.mixed_effects_wrapper.julia_linear_mm import jl, run_linear_mm
 
 
 def calc_mm_means(
