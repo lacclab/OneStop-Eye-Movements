@@ -87,6 +87,7 @@ COLUMNS_TO_DROP = [
     "IP_START_EVENT_MATCHED",
     "REPORTING_METHOD",
     "TIME_SCALE",
+    "is_content_word",
 ]
 
 
@@ -120,7 +121,8 @@ class ArgsParser(Tap):
 
     save_path: Path = Path()  # The path to save the data.
     data_path: Path = Path()  # Path to data folder.
-    onestopqa_path: Path = Path("data/onestop_qa.json")
+    ia_data_path: Path = Path()  # Path to ia data folder.
+    onestopqa_path: Path = Path("metadata/onestop_qa.json")
     trial_level_paragraphs_path: Path = Path()
 
     add_prolific_qas_distribution: bool = (
@@ -212,8 +214,11 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
     if args.mode == Mode.IA:
         df = add_word_metrics(df, args)
+    elif args.mode == Mode.FIXATION:
+        df = add_word_metrics_fixation(df, args)
 
     df = clean_and_format_data(df)
+    df = add_is_correct(df)
     print(args.save_path)
     single_value_columns = find_single_value_columns(df)
     print(single_value_columns)
@@ -222,6 +227,63 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
 
     save_processed_data(df, args)
 
+    return df
+
+
+def add_is_correct(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add is_correct column to the DataFrame.
+    """
+    df["is_correct"] = (df.selected_answer == "A").astype(int)
+    assert df.is_correct.nunique() == 2, "is_correct should be binary"
+    return df
+
+
+def add_word_metrics_fixation(df: pd.DataFrame, args: ArgsParser) -> pd.DataFrame:
+    """
+    Add word metrics for fixation data.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame
+        args (ArgsParser): Configuration parameters
+
+    Returns:
+        pd.DataFrame: DataFrame with added word metrics
+    """
+    ia_data = load_data(args.ia_data_path)
+    ia_data = ia_data.rename(columns={"IA_ID": FIXATION_ID_COL})
+    merge_keys = [
+        "article_batch",
+        "article_id",
+        "paragraph_id",
+        "difficulty_level",
+        "participant_id",
+        "repeated_reading_trial",
+        FIXATION_ID_COL,
+        "TRIAL_INDEX",
+    ]
+    features = [
+        "word_length",
+        "word_length_no_punctuation",
+        "subtlex_frequency",
+        "wordfreq_frequency",
+        "gpt2_surprisal",
+        "universal_pos",
+        "ptb_pos",
+        "head_word_index",
+        "dependency_relation",
+        "left_dependents_count",
+        "right_dependents_count",
+        "distance_to_head",
+        "morphological_features",
+        "entity_type",
+    ]
+    df = df.merge(
+        ia_data[merge_keys + features],
+        on=merge_keys,
+        how="left",
+        validate="m:1",
+    )
     return df
 
 
@@ -810,7 +872,8 @@ def save_processed_data(df: pd.DataFrame, config: ArgsParser) -> None:
 
     output_path = full_path / (config.save_path.stem + config.save_path.suffix)
     df.to_csv(output_path, index=False)
-    split_save_sub_corpora(df, config.save_path)
+    if config.report == "P":
+        split_save_sub_corpora(df, config.save_path)
     logger.info(f"Total rows: {len(df)}")
     logger.info(f"Data saved to {config.save_path}")
 
@@ -1777,7 +1840,7 @@ def validate_spacy_model(spacy_model_name: str) -> None:
             Please use one of the specified models."
         )
 
-    """Validates that the spacy model is downloaded"""
+    # Validates that the spacy model is downloaded
     if spacy.util.is_package(spacy_model_name):
         print(f"Using {spacy_model_name} as spacy model...")
     else:
@@ -1813,8 +1876,8 @@ def get_device() -> str:
 if __name__ == "__main__":
     public_preprocess = True
     lacclab_preprocess = False
-    save_path = Path("processed_reports")
-    base_data_path = Path("data/Outputs")
+    save_path = Path("to_osf")
+    base_data_path = Path("metadata/Outputs")
     hf_access_token = ""  # Add your huggingface access token here
     surprisal_models = [
         # "meta-llama/Llama-2-7b-hf",
@@ -1862,11 +1925,15 @@ if __name__ == "__main__":
             data_path = base_data_path / f"Fixations reports/fixations_{report}.tsv"
         else:
             data_path = base_data_path / f"raw_ia_reports/ia_{report}.tsv"
+
         save_file = f"{mode}_{short_to_long_mapping[report]}.csv"
+        ia_data_path = f"ia_{short_to_long_mapping[report]}.csv"
         trial_level_paragraphs_path = save_path / "trial_level_paragraphs.csv"
         args = [
             "--data_path",
             str(data_path),
+            "--ia_data_path",
+            str(save_path / "full" / ia_data_path),
             "--save_path",
             str(save_path / save_file),
             "--mode",
