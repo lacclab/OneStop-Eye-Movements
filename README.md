@@ -11,7 +11,7 @@
 OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with **360 L1 participants**, **2.6 million word tokens** and **152 hours of recorded eye tracking data**.
 The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).
 
-The dataset release includes Interest Area Reports (features aggregated at the word level), Fixation Reports (features aggregated at the level of fixations/saccades), raw data in edf and ASCII formats, and a detailed participant questionnaire. 
+The dataset release includes Interest Area Reports (features aggregated at the word level), Fixation Reports (features aggregated at the level of fixations/saccades), raw data in edf and ASCII formats, and a detailed participant questionnaire.
 To facilitate analyses, we further provide precomputed text annotations: word length, frequency and surprisal (GPT2), as well as part-of-speech tags and syntactic dependency trees.
 
 OneStop comprises four sub-corpora, one for each of the following reading regimes:
@@ -137,35 +137,31 @@ Basic usage to download the entire dataset:
      ```
 
 2. **Run the Download Script**
-   * Run this command to download the full dataset:
+   * Run this command to download the _OneStop Ordinary Reading_ subcorpus:
 
      ```bash
      python onestop/download_data_files.py
      ```
 
-   * The data will be downloaded to a folder called "OneStop"
+   * The data will be downloaded to a folder called "data/OneStop"
 
    * Available options:
 
       * `--extract`: Extract downloaded zip files (default: True)
-      * `--asc`: Download ASC files (default: False)
-      * `--edf`: Download EDF files (default: False)
-      * `-o, --output-folder`: Specify output folder (default: "OneStop")
-      * `--mode`: Choose dataset subcorpora to download (default: "full")
-        * Options: "full", "all-regimes", "ordinary",   "information-seeking", "repeated","information-seeking-in-repeated"
+      * `-o, --output-folder`: Specify output folder (default: "data/OneStop")
+      * `--mode`: Choose dataset subcorporus to download (default: "ordinary")
+        * Options: "onestop-full", "onestop", "ordinary",   "information-seeking", "repeated","information-seeking-in-repeated"
 
-3. **Download Specific Parts** (Optional)  
+   * Example usage to download the information-seeking subcorporus:
 
-Example usage to download only the ordinary reading subset:
+      ```python
 
-```python
-
-python onestop/download_data_files.py --mode ordinary
-```
+      python onestop/download_data_files.py --mode information-seeking
+      ```
 
 ### pymovements integration
 
-OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package. 
+OneStop is integrated into the [pymovements](https://pymovements.readthedocs.io/en/stable/index.html) package.
 The package enables easy download of the paragraph data for the complete dataset. The following code snippet shows how to download the data:
 
 First, install the package in the terminal:
@@ -205,26 +201,32 @@ Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different R
   year={2025}
 }
 ```
+
 ## Dataset Uses Examples
 
 Text Simplification and Text Readability
+
 * [Eye Tracking Based Cognitive Evaluation of Automatic Readability Assessment Measures](https://arxiv.org/pdf/2502.11150)
 * [The Effect of Text Simplification on Reading Fluency and Reading Comprehension in L1 English Speakers](https://osf.io/preprints/psyarxiv/dhk8c_v1?view_only=)
 
 Reading Comprehension
+
 * [Fine-Grained Prediction of Reading Comprehension from Eye Movements](https://aclanthology.org/2024.emnlp-main.198.pdf)
 * [Bridging Information-Seeking Human Gaze and Machine Reading Comprehension](https://aclanthology.org/2020.conll-1.11.pdf)
 
 Information Seeking
+
 * [Eye Movements in Information-Seeking Reading](https://escholarship.org/content/qt6019k40d/qt6019k40d.pdf)
 * [Decoding Reading Goals from Eye Movements](https://arxiv.org/pdf/2410.20779)
 * [Decoding Open-Ended Information Seeking Goals from Eye Movements in Reading](https://arxiv.org/pdf/2505.02872)
 
 Repeated Reading
+
 * [Déjà Vu? Decoding Repeated Reading from Eye Movements](https://arxiv.org/pdf/2502.11061)
 * [Déjà Vu: Eye Movements in Repeated Reading](https://escholarship.org/content/qt5fd0z5qs/qt5fd0z5qs.pdf)
-   
+
 Human-LLM Alignment and Memorization
+
 * [The Effect of Surprisal on Reading Times in Information Seeking and Repeated Reading](https://aclanthology.org/2024.conll-1.17.pdf)
 
 ## License
