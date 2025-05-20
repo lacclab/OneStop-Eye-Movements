@@ -93,19 +93,23 @@ Overall, the dataset includes 19,438 regular trials, 9,720 in the information se
 
 ### Direct Download from OSF
 
-The data is hosted on [OSF](https://osf.io/2prdq/). We provide the possibility to download four sub-corpora with eye movement recordings from paragraph reading, one for each of the following reading regimes:
+The data is hosted on [OSF](https://osf.io/2prdq/). 
 
+We provide the possibility to download four sub-corpora with eye movement recordings from paragraph reading, one for each of the following reading regimes:
 1. [OneStop Ordinary Reading](https://osf.io/zn9sq/) - download this data if you are interested in a general-purpose eye tracking dataset.
 2. [OneStop Information Seeking](https://osf.io/kpbgx/)
 3. [OneStop Repeated Reading](https://osf.io/4ay3t/)
 4. [OneStop Information Seeking in Repeated Reading](https://osf.io/6ra7t/)
 
-and two versions of the full dataset:
+Two versions of the complete dataset:
+* [OneStop](https://osf.io/azj2g/) - paragraph reading for the entire dataset.
+* [OneStop Full](https://osf.io/z7pyn/) - complete trials for the entire dataset, divided into title, question preview, paragraph, question, answers, QA (question + answers) and feedback.
 
-1. [OneStop](https://osf.io/azj2g/) - paragraph reading for the entire dataset.
-2. [OneStop - Full](https://osf.io/z7pyn/) - complete trials for the entire dataset, divided into title, question preview, paragraph, question, answers, QA (question + answers) and feedback.
+The raw data:
+* [OneStop Raw](https://osf.io/6f2km/) - edf and ASCII files.
 
-In addition, we release [metadata files](https://osf.io/jbd24/) which include the participant questionnaire and experiment summary statistics.
+Metadata:
+* [OneStop Metadata](https://osf.io/jbd24/) includes the participant questionnaire and experiment summary statistics.
 
 ### Python Script
 
