@@ -251,7 +251,12 @@ def add_word_metrics_fixation(df: pd.DataFrame, args: ArgsParser) -> pd.DataFram
         pd.DataFrame: DataFrame with added word metrics
     """
     ia_data = load_data(args.ia_data_path)
-    ia_data = ia_data.rename(columns={"IA_ID": FIXATION_ID_COL})
+    ia_data = ia_data.rename(
+        columns={
+            "IA_ID": FIXATION_ID_COL,
+            "IA_LABEL": "CURRENT_FIX_INTEREST_AREA_LABEL",
+        }
+    )
     merge_keys = [
         "article_batch",
         "article_id",
@@ -261,6 +266,7 @@ def add_word_metrics_fixation(df: pd.DataFrame, args: ArgsParser) -> pd.DataFram
         "repeated_reading_trial",
         FIXATION_ID_COL,
         "TRIAL_INDEX",
+        "CURRENT_FIX_INTEREST_AREA_LABEL",
     ]
     features = [
         "word_length",
@@ -279,7 +285,7 @@ def add_word_metrics_fixation(df: pd.DataFrame, args: ArgsParser) -> pd.DataFram
         "entity_type",
     ]
     df = df.merge(
-        ia_data[merge_keys + features],
+        ia_data[merge_keys + features].drop_duplicates(),
         on=merge_keys,
         how="left",
         validate="m:1",
