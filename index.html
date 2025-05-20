@@ -342,34 +342,32 @@ To facilitate analyses, we further provide precomputed text annotations: word le
 </li>
 <li><p><strong>Run the Download Script</strong></p>
 <ul>
-<li><p>Run this command to download the full dataset:</p>
+<li><p>Run this command to download the <em>OneStop Ordinary Reading</em> subcorpus:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>onestop/download_data_files.py
 </pre></div>
 </div>
 </li>
-<li><p>The data will be downloaded to a folder called “OneStop”</p></li>
+<li><p>The data will be downloaded to a folder called “data/OneStop”</p></li>
 <li><p>Available options:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--extract</span></code>: Extract downloaded zip files (default: True)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--asc</span></code>: Download ASC files (default: False)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--edf</span></code>: Download EDF files (default: False)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-o,</span> <span class="pre">--output-folder</span></code>: Specify output folder (default: “OneStop”)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--mode</span></code>: Choose dataset subcorpora to download (default: “full”)</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">-o,</span> <span class="pre">--output-folder</span></code>: Specify output folder (default: “data/OneStop”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mode</span></code>: Choose dataset subcorporus to download (default: “ordinary”)</p>
 <ul>
-<li><p>Options: “full”, “all-regimes”, “ordinary”,   “information-seeking”, “repeated”,”information-seeking-in-repeated”</p></li>
+<li><p>Options: “onestop-full”, “onestop”, “ordinary”,   “information-seeking”, “repeated”,”information-seeking-in-repeated”</p></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><strong>Download Specific Parts</strong> (Optional)</p></li>
-</ol>
-<p>Example usage to download only the ordinary reading subset:</p>
+<li><p>Example usage to download the information-seeking subcorporus:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="n">python</span> <span class="n">onestop</span><span class="o">/</span><span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">mode</span> <span class="n">ordinary</span>
+<span class="n">python</span> <span class="n">onestop</span><span class="o">/</span><span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">mode</span> <span class="n">information</span><span class="o">-</span><span class="n">seeking</span>
 </pre></div>
 </div>
+</li>
+</ul>
+</li>
+</ol>
 </section>
 <section id="pymovements-integration">
 <h3>pymovements integration<a class="headerlink" href="#pymovements-integration" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pymovements-integration'"><span>#</span></a></h3>
