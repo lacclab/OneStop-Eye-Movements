@@ -404,131 +404,136 @@
 <td><p>String</p></td>
 </tr>
 <tr class="row-even"><td><p></p></td>
+<td><p>onestopqa_question_id</p></td>
+<td><p>The unique identifier for the question presented in the trial</p></td>
+<td><p>0-2</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
 <td><p>same_critical_span</p></td>
 <td><p>Whether there was another question with the same critical span</p></td>
 <td><p>0 if no other question. 1 or 2 otherwise (arbitrarily per question set).</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>selected_answer</p></td>
 <td><p>The answer selected by the participant</p></td>
 <td><p>A/B/C/D</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>selected_answer_position</p></td>
 <td><p>The position on the page of the answer selected by the participant</p></td>
 <td><p>0/1/2/3 corresponding to answer positions: top, left, right, bottom</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>correct_answer_position</p></td>
 <td><p>The position on the page of the correct answer for the trial</p></td>
 <td><p>0/1/2/3 corresponding to answer positions: top, left, right, bottom</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>answers_order</p></td>
 <td><p>Mapping between position on page and A/B/C/D</p></td>
 <td><p>list of ABCD corresponding to answer positions: top, left, right, bottom</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>answer_1</p></td>
 <td><p>The answer presented in the trial in the top position</p></td>
 <td><p>String</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>answer_2</p></td>
 <td><p>The answer presented in the trial in the left position</p></td>
 <td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>answer_3</p></td>
 <td><p>The answer presented in the trial in the right position</p></td>
 <td><p>String</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>answer_4</p></td>
 <td><p>The answer presented in the trial in the bottom position</p></td>
 <td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Linguistic Annotations - Big Three</strong></p></td>
+<tr class="row-even"><td><p><strong>Linguistic Annotations - Big Three</strong></p></td>
 <td><p>word_length</p></td>
 <td><p>Number of characters in the word</p></td>
 <td><p>Integer</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>word_length_no_punctuation</p></td>
 <td><p>Number of characters in the word excluding punctuation</p></td>
 <td><p>Integer</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>subtlex_frequency</p></td>
 <td><p>Log word frequency from the SUBTLEX-US database</p></td>
 <td><p>Bits</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>wordfreq_frequency</p></td>
 <td><p>Log word frequency from the Wordfreq database</p></td>
 <td><p>Bits</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>gpt2_surprisal</p></td>
 <td><p>Word surprisal extracted from the GPT-2 language model</p></td>
 <td><p>Bits</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Linguistic Annotations - Universal Dependencies (UD)</strong></p></td>
+<tr class="row-odd"><td><p><strong>Linguistic Annotations - Universal Dependencies (UD)</strong></p></td>
 <td><p>universal_pos</p></td>
 <td><p>Universal part-of-speech tag</p></td>
 <td><p>17 <a class="reference external" href="https://universaldependencies.org/u/pos" rel="nofollow noopener">possible tags<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>ptb_pos</p></td>
 <td><p>Penn Treebank part-of-speech tag</p></td>
 <td><p>See Label Scheme - TAGGER <a class="reference external" href="https://spacy.io/models/en#en_core_web_sm" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>head_word_index</p></td>
 <td><p>Index of the syntactic head word in the dependency tree</p></td>
 <td><p>Integer, 0 for root - number of words in the sentence</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>dependency_relation</p></td>
 <td><p>Dependency relation label to the head word in the dependency tree</p></td>
 <td><p>See Label Scheme - PARSER <a class="reference external" href="https://spacy.io/models/en#en_core_web_sm" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>left_dependents_count</p></td>
 <td><p>Number of syntactic dependents to the left</p></td>
 <td><p>Integer</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>right_dependents_count</p></td>
 <td><p>Number of syntactic dependents to the right</p></td>
 <td><p>Integer</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>distance_to_head</p></td>
 <td><p>Distance in words to the syntactic head</p></td>
 <td><p>Integer, starting at 1 for adjacent words</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>morphological_features</p></td>
 <td><p>List of morphological features of the word</p></td>
 <td><p>See list <a class="reference external" href="https://universaldependencies.org/u/feat/index.html" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>entity_type</p></td>
 <td><p>The entity type of the word (if applicable)</p></td>
 <td><p>See Label Scheme NER <a class="reference external" href="https://spacy.io/models/en#en_core_web_sm" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>. <em>None</em> if not an entity.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>STARC Auxiliary Spans</strong></p></td>
+<tr class="row-even"><td><p><strong>STARC Auxiliary Spans</strong></p></td>
 <td><p>auxiliary_span_type</p></td>
 <td><p>Whether a word is part of the critical span or the distractor span</p></td>
 <td><p>critical / distractor / outside</p></td>
 </tr>
-<tr class="row-even"><td><p></p></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>critical_span_indices</p></td>
 <td><p>Start and end word indices of the critical span</p></td>
 <td><p>list of tuples of integers</p></td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>distractor_span_indices</p></td>
 <td><p>Start and end word indices of the distractor span</p></td>
 <td><p>list of tuples of integers</p></td>
