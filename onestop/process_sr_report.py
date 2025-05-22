@@ -88,6 +88,8 @@ COLUMNS_TO_DROP = [
     "REPORTING_METHOD",
     "TIME_SCALE",
     "is_content_word",
+    "text_onscreen_version",
+    "text_spacing_version",
 ]
 
 
@@ -206,7 +208,7 @@ def preprocess_data(args: ArgsParser) -> pd.DataFrame:
     df = rename_columns(df)
     df = compute_word_span_metrics(df=df, mode=args.mode)
     df = add_question_labels(df, args)
-    df = compute_word_length(df, args)
+    # df = compute_word_length(df, args)
 
     if args.mode == Mode.IA and args.report == "P":
         paragraph_per_trial_extraction(df, args)
@@ -1899,12 +1901,12 @@ if __name__ == "__main__":
     ]
 
     reports = [
-        "P",
-        "T",
-        "A",
-        "QA",
-        "Q_preview",
-        "Q",
+        # "P",
+        # "T",
+        # "A",
+        # "QA",
+        # "Q_preview",
+        # "Q",
         "F",
     ]
 
