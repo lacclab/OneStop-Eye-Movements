@@ -89,8 +89,6 @@ Overall, the dataset includes 19,438 regular trials, 9,720 in the information se
 
 ## Obtaining the Data
 
-<!-- There are several ways to obtain the data: -->
-
 ### Direct Download from OSF
 
 The data is hosted on [OSF](https://osf.io/2prdq/).
