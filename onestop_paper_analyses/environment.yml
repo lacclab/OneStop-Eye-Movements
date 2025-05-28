@@ -1,0 +1,23 @@
+name: onestop_analyses
+channels:
+  - pytorch
+  - huggingface
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - matplotlib
+  - numpy
+  - seaborn
+  - pandas
+  - datasets
+  - scipy
+  - ipykernel
+  - ipywidgets
+  - openpyxl
+  - jupyter
+  - pip
+  - pip:
+    - juliacall
+    - -e . # for development

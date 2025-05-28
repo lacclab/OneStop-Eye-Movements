@@ -1,0 +1,31 @@
+name: onestop
+channels:
+  - pytorch
+  - huggingface
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - matplotlib
+  - numpy
+  - seaborn
+  - pandas
+  - datasets
+  - scipy
+  - ipykernel
+  - ipywidgets
+  - loguru
+  - openpyxl
+  - pytorch
+  - pytorch-cuda=12.4
+  - jupyter
+  - transformers
+  - spacy
+  - pip
+  - pip:
+    - juliacall
+    - git+https://github.com/lacclab/text-metrics.git
+    - typed-argument-parser
+    - pymovements
+    - -e . # for development
