@@ -151,7 +151,7 @@ Basic usage to download the entire dataset:
 
    * Available options:
 
-      * `--extract`: Extract downloaded zip files (default: True)
+      * `--extract`: Extract downloaded zip files (default: False)
       * `-o, --output-folder`: Specify output folder (default: "data/OneStop")
       * `--mode`: Choose dataset subcorporus to download (default: "ordinary")
         * Options: "onestop-full", "onestop", "ordinary",   "information_seeking", "repeated","information_seeking_repeated"
@@ -160,7 +160,7 @@ Basic usage to download the entire dataset:
 
       ```python
 
-      python onestop/download_data_files.py --mode information-seeking
+      python onestop/download_data_files.py --mode information_seeking
       ```
 
 ### pymovements integration
