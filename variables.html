@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" data-content_root="./" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
+<head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Data Files and Variables | OneStop Eye Movements 1.0 documentation</title>
+<meta content="Data Files and Variables | OneStop Eye Movements 1.0 documentation" property="og:title"/>
+<meta content="Data Files and Variables | OneStop Eye Movements 1.0 documentation" name="twitter:title"/>
+<link href="_static/pygments.css?v=e72c8e07" rel="stylesheet" type="text/css"/>
+<link href="_static/theme.css?v=5b4133db" rel="stylesheet" type="text/css"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="known_issues.html" rel="next" title="Known Issues"/>
+<link href="index.html" rel="prev" title="OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<meta content="FEUvYyUUeFoiAVgouYHaGdMKyTgLGUFLUe99oofr_DY" name="google-site-verification"/>
+</head>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="index.html">
+<img alt="Logo" class="mr-2 dark:invert" height="24" src="_static/lacc_logo.jpeg" width="24"/><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">OneStop Eye Movements 1.0 documentation</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none"><form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+</div>
+<nav class="flex items-center space-x-1">
+<a href="https://github.com/lacclab/OneStop-Eye-Movements" rel="noopener nofollow" title="Visit repository on GitHub">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg fill="currentColor" height="26px" style="margin-top:-2px;display:inline" viewbox="0 0 45 44" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M22.477.927C10.485.927.76 10.65.76 22.647c0 9.596 6.223 17.736 14.853 20.608 1.087.2 1.483-.47 1.483-1.047 0-.516-.019-1.881-.03-3.693-6.04 1.312-7.315-2.912-7.315-2.912-.988-2.51-2.412-3.178-2.412-3.178-1.972-1.346.149-1.32.149-1.32 2.18.154 3.327 2.24 3.327 2.24 1.937 3.318 5.084 2.36 6.321 1.803.197-1.403.759-2.36 1.379-2.903-4.823-.548-9.894-2.412-9.894-10.734 0-2.37.847-4.31 2.236-5.828-.224-.55-.969-2.759.214-5.748 0 0 1.822-.584 5.972 2.226 1.732-.482 3.59-.722 5.437-.732 1.845.01 3.703.25 5.437.732 4.147-2.81 5.967-2.226 5.967-2.226 1.185 2.99.44 5.198.217 5.748 1.392 1.517 2.232 3.457 2.232 5.828 0 8.344-5.078 10.18-9.916 10.717.779.67 1.474 1.996 1.474 4.021 0 2.904-.027 5.247-.027 5.96 0 .58.392 1.256 1.493 1.044C37.981 40.375 44.2 32.24 44.2 22.647c0-11.996-9.726-21.72-21.722-21.72" fill="currentColor" fill-rule="evenodd"></path></svg>
+</div>
+</a>
+<a href="https://lacclab.github.io/" rel="noopener nofollow" title="Visit LaCC Lab">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg height="26px" style="margin-top:-2px;display:inline" xmlns="http://www.w3.org/2000/svg">
+<text fill="Orange" x="0" y="20">LaCC</text>
+</svg></div>
+</a>
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html">
+<img alt="Logo" class="mr-2 dark:invert" height="16" src="_static/lacc_logo.jpeg" width="16"/><span class="font-bold text-clip whitespace-nowrap">OneStop Eye Movements 1.0 documentation</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Files and Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing_analyses.html">Preproccessing and Reproducing Analyses</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
+<span class="hidden md:inline">OneStop Eye Movements 1.0 documentation</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Data Files and Variables</span>
+</nav>
+<div id="content" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="data-files-and-variables">
+<h1>Data Files and Variables<a class="headerlink" href="#data-files-and-variables" title="Link to this heading"><span>#</span></a></h1>
+<section id="data-files">
+<h2>Data Files<a class="headerlink" href="#data-files" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#data-files'"><span>#</span></a></h2>
+<p>We release the following data files:</p>
+<ul class="simple">
+<li><p><strong><a class="reference external" href="https://osf.io/a765t" rel="nofollow noopener">questionnaire.json<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>:</strong> Anonymized participant demographics and language history questionnaire.</p></li>
+<li><p><strong><a class="reference external" href="https://osf.io/yvu5w" rel="nofollow noopener">session_summary.csv<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></strong>: Summary statistics and information on each participant’s experiment session, such as reading comprehension accuracy and experiment duration.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">l[list]_[subj_id].edf</span></code></strong>: The raw eye-tracking data for the entire eye-tracking session of each participant, in EDF format. (To be added).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">l[list]_[subj_id].asc</span></code></strong>: Gaze location and additional features at 1ms intervals for the entire eye-tracking session of each participant, in ASCII format. (To be added).</p></li>
+<li><p><strong>Fixation Reports</strong>: Eye movement features, experiment and trial information, and linguistic word properties aggregated at the level of individual fixations, in tab-separated CSV format. A separate report is available for each of the Interest Periods.</p></li>
+<li><p><strong>Interest Area Reports</strong>: Eye movement features, experiment and trial information, and linguistic word properties aggregated at the word level, in tab-separated CSV format. A separate report is available for each of the Interest Periods.</p></li>
+</ul>
+<section id="fixation-and-interest-area-report-files">
+<h3>Fixation and Interest Area Report Files<a class="headerlink" href="#fixation-and-interest-area-report-files" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fixation-and-interest-area-report-files'"><span>#</span></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Interest Period</p></th>
+<th class="head"><p>Page</p></th>
+<th class="head"><p>Content</p></th>
+<th class="head"><p>Fixation Report</p></th>
+<th class="head"><p>Interest Area Report</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Title</p></td>
+<td><p>Title</p></td>
+<td><p>Article title</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fixations_Title.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ia_Title.csv</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Question Preview</p></td>
+<td><p>1</p></td>
+<td><p>Question</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fixations_Question_preview.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ia_Question_preview.csv</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Paragraph</p></td>
+<td><p>2</p></td>
+<td><p>Paragraph</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fixations_Paragraph.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ia_Paragraph.csv</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Question</p></td>
+<td><p>3</p></td>
+<td><p>Question</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fixations_Question.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ia_Question.csv</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Answers</p></td>
+<td><p>4</p></td>
+<td><p>Question and answers</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fixations_Answers.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ia_Answers.csv</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>QA</p></td>
+<td><p>3+4</p></td>
+<td><p>Question and answers</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fixations_QA.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ia_QA.csv</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Feedback</p></td>
+<td><p>5</p></td>
+<td><p>Correct/Incorrect</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fixations_Feedback.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ia_Feedback.csv</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<hr class="docutils"/>
+<section id="data-variables">
+<h2>Data Variables<a class="headerlink" href="#data-variables" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#data-variables'"><span>#</span></a></h2>
+<section id="participant-questionnaire-variables">
+<h3>Participant Questionnaire Variables<a class="headerlink" href="#participant-questionnaire-variables" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#participant-questionnaire-variables'"><span>#</span></a></h3>
+<p>Participant questionnaire variables. *Reading habits questions are based on Section 1 of the reading habits self-report of Acheson et al (2008).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Participant ID</p></td>
+<td><p>Participant’s ID</p></td>
+<td><p>String (360 unique values)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Age</p></td>
+<td><p>Participant’s age</p></td>
+<td><p>Years</p></td>
+</tr>
+<tr class="row-even"><td><p>Gender</p></td>
+<td><p>Participant’s gender</p></td>
+<td><p>Male / Female / Other</p></td>
+</tr>
+<tr class="row-odd"><td><p>Home Country</p></td>
+<td><p>Participant’s home country</p></td>
+<td><p>List of countries</p></td>
+</tr>
+<tr class="row-even"><td><p>Education Level</p></td>
+<td><p>Highest/current level of education</p></td>
+<td><p>Secondary, Undergraduate, Postgraduate</p></td>
+</tr>
+<tr class="row-odd"><td><p>Native English Speaker</p></td>
+<td><p>Native English speaker</p></td>
+<td><p>Yes / No</p></td>
+</tr>
+<tr class="row-even"><td><p>English AoA</p></td>
+<td><p>English Age of Acquisition</p></td>
+<td><p>Since birth, or numeric age</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reading Habits</p></td>
+<td><p>Weekly time spent reading in various categories</p></td>
+<td><p>0 to 7+ hours</p></td>
+</tr>
+<tr class="row-even"><td><p>Dyslexia</p></td>
+<td><p>Presence of dyslexia</p></td>
+<td><p>No / Dyslexia</p></td>
+</tr>
+<tr class="row-odd"><td><p>Language Impairments</p></td>
+<td><p>Language impairments</p></td>
+<td><p>No / Impairment (free text)</p></td>
+</tr>
+<tr class="row-even"><td><p>Eye Conditions</p></td>
+<td><p>Eye conditions</p></td>
+<td><p>No / Specific condition (Amblyopia, etc.)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="session-summary-variables">
+<h3>Session Summary Variables<a class="headerlink" href="#session-summary-variables" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#session-summary-variables'"><span>#</span></a></h3>
+<p>Session summary file variables.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Variable</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Values</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>participant_id</p></td>
+<td><p>Participant’s ID</p></td>
+<td><p>String (360 unique values)</p></td>
+</tr>
+<tr class="row-odd"><td><p>article_batch</p></td>
+<td><p>A 10-article batch assigned to the participant</p></td>
+<td><p>1 (articles 1-10) / 2 (articles 11-20) / 3 (articles 21-30)</p></td>
+</tr>
+<tr class="row-even"><td><p>list_number</p></td>
+<td><p>Experimental list</p></td>
+<td><p>1 - 60</p></td>
+</tr>
+<tr class="row-odd"><td><p>question_preview</p></td>
+<td><p>Was the question presented before the paragraph (i.e., the reading regime)</p></td>
+<td><p>True / False</p></td>
+</tr>
+<tr class="row-even"><td><p>data_collection_site</p></td>
+<td><p>Location of data collection</p></td>
+<td><p>MIT / Technion</p></td>
+</tr>
+<tr class="row-odd"><td><p>comprehension_score-regular_trials</p></td>
+<td><p>Participant’s overall reading comprehension score during first reading (10 articles, 54 regular trials)</p></td>
+<td><p>0-100%</p></td>
+</tr>
+<tr class="row-even"><td><p>comprehension_score-repeated_reading</p></td>
+<td><p>Participant’s overall reading comprehension score during repeated reading (2 articles, 8-14 repeated trials)</p></td>
+<td><p>0-100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>recalibration_count</p></td>
+<td><p>Number of times the session was interrupted to recalibrate the eye tracker</p></td>
+<td><p>0 or more</p></td>
+</tr>
+<tr class="row-even"><td><p>total_recalibrations</p></td>
+<td><p>Number of times the eye tracker was recalibrated during the session (in addition to the 3 obligatory calibrations)</p></td>
+<td><p>0 or more</p></td>
+</tr>
+<tr class="row-odd"><td><p>mean_validation_error</p></td>
+<td><p>Mean validation error across all calibrations immediately preceding text reading</p></td>
+<td><p>visual degrees</p></td>
+</tr>
+<tr class="row-even"><td><p>total_session_duration</p></td>
+<td><p>Total duration of the experimental session (including breaks and calibrations)</p></td>
+<td><p>minutes</p></td>
+</tr>
+<tr class="row-odd"><td><p>session_duration</p></td>
+<td><p>Duration of the experimental session excluding breaks and calibrations</p></td>
+<td><p>minutes</p></td>
+</tr>
+<tr class="row-even"><td><p>dominant_eye</p></td>
+<td><p>Participant’s dominant eye</p></td>
+<td><p>L / R</p></td>
+</tr>
+<tr class="row-odd"><td><p>tracked_eye</p></td>
+<td><p>Eye that was tracked (typically the dominant eye)</p></td>
+<td><p>L / R / LR **</p></td>
+</tr>
+<tr class="row-even"><td><p>lextale_score</p></td>
+<td><p>Participant’s score on the LexTALE vocabulary test *</p></td>
+<td><p>0 - 100</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>*LexTale scores are available for 100 participants.</p></li>
+<li><p>**L: left eye, R: right eye, LR: data was collected from both eyes (switched between eyes during the experiment).</p></li>
+</ul>
+</section>
+<section id="experiment-trial-and-linguistic-annotation-variables">
+<h3>Experiment, Trial, and Linguistic Annotation Variables<a class="headerlink" href="#experiment-trial-and-linguistic-annotation-variables" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#experiment-trial-and-linguistic-annotation-variables'"><span>#</span></a></h3>
+<p>Experiment and trial variables, and linguistic annotations in the Fixation and Interest Area reports. UD annotations are extracted using spaCy. See the SR Data Viewer user manual for documentation of eye movement variables in these reports. Note, missing values are denoted by “.”.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Category</strong></p></th>
+<th class="head"><p><strong>Feature</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Values</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Experiment Variables</strong></p></td>
+<td><p>participant_id</p></td>
+<td><p>Participant’s ID</p></td>
+<td><p>String (360 unique values)</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>list_number</p></td>
+<td><p>Experimental list</p></td>
+<td><p>1 - 60</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>question_preview</p></td>
+<td><p>Was the question presented before the paragraph (i.e., the reading regime)</p></td>
+<td><p>True / False</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>article_batch</p></td>
+<td><p>A 10-article batch assigned to the participant</p></td>
+<td><p>1 (articles 1-10) / 2 (articles 11-20) / 3 (articles 21-30)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Trial Variables</strong></p></td>
+<td><p>trial_index</p></td>
+<td><p>The trial index</p></td>
+<td><p>1 - 70</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>practice_trial</p></td>
+<td><p>Whether the trial was a practice trial</p></td>
+<td><p>True / False</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>article_id</p></td>
+<td><p>The unique identifier for an article in a batch. Article 0 is the practice article</p></td>
+<td><p>0-10</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>paragraph_id</p></td>
+<td><p>The unique identifier for a paragraph in an article</p></td>
+<td><p>1-7</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>difficulty_level</p></td>
+<td><p>Paragraph difficulty level</p></td>
+<td><p>Adv / Ele</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>repeated_reading_trial</p></td>
+<td><p>Whether the trial was a repeated reading trial</p></td>
+<td><p>True / False</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>article_index</p></td>
+<td><p>The index of the article in the session. Article 0 is the practice article</p></td>
+<td><p>0-12</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>article_title</p></td>
+<td><p>The article title, presented before the first paragraph of each article</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>paragraph</p></td>
+<td><p>The paragraph presented in the trial</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>question</p></td>
+<td><p>The question presented in the trial</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>onestopqa_question_id</p></td>
+<td><p>The unique identifier for the question presented in the trial</p></td>
+<td><p>0-2</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>same_critical_span</p></td>
+<td><p>Whether there was another question with the same critical span</p></td>
+<td><p>0 if no other question. 1 or 2 otherwise (arbitrarily per question set).</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>selected_answer</p></td>
+<td><p>The answer selected by the participant</p></td>
+<td><p>A/B/C/D</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>selected_answer_position</p></td>
+<td><p>The position on the page of the answer selected by the participant</p></td>
+<td><p>0/1/2/3 corresponding to answer positions: top, left, right, bottom</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>is_correct</p></td>
+<td><p>Whether the participant selected the correct answer (A)</p></td>
+<td><p>True / False</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>correct_answer_position</p></td>
+<td><p>The position on the page of the correct answer for the trial</p></td>
+<td><p>0/1/2/3 corresponding to answer positions: top, left, right, bottom</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>answers_order</p></td>
+<td><p>Mapping between position on page and A/B/C/D</p></td>
+<td><p>list of ABCD corresponding to answer positions: top, left, right, bottom</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>answer_1</p></td>
+<td><p>The answer presented in the trial in the top position</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>answer_2</p></td>
+<td><p>The answer presented in the trial in the left position</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>answer_3</p></td>
+<td><p>The answer presented in the trial in the right position</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>answer_4</p></td>
+<td><p>The answer presented in the trial in the bottom position</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Linguistic Annotations - Big Three</strong></p></td>
+<td><p>word_length</p></td>
+<td><p>Number of characters in the word</p></td>
+<td><p>Integer</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>word_length_no_punctuation</p></td>
+<td><p>Number of characters in the word excluding punctuation</p></td>
+<td><p>Integer</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>subtlex_frequency</p></td>
+<td><p>-log<span class="math notranslate nohighlight">\(_2\)</span> word frequency from the SUBTLEX-US database</p></td>
+<td><p>Bits</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>wordfreq_frequency</p></td>
+<td><p>-log<span class="math notranslate nohighlight">\(_2\)</span> word frequency from the Wordfreq database</p></td>
+<td><p>Bits</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>gpt2_surprisal</p></td>
+<td><p>Word surprisal extracted from the GPT-2 language model</p></td>
+<td><p>Bits</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Linguistic Annotations - Universal Dependencies (UD)</strong></p></td>
+<td><p>universal_pos</p></td>
+<td><p>Universal part-of-speech tag</p></td>
+<td><p>17 <a class="reference external" href="https://universaldependencies.org/u/pos" rel="nofollow noopener">possible tags<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>ptb_pos</p></td>
+<td><p>Penn Treebank part-of-speech tag</p></td>
+<td><p>See Label Scheme - TAGGER <a class="reference external" href="https://spacy.io/models/en#en_core_web_sm" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>head_word_index</p></td>
+<td><p>Index of the syntactic head word in the dependency tree</p></td>
+<td><p>Integer, 0 for root - number of words in the sentence</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>dependency_relation</p></td>
+<td><p>Dependency relation label to the head word in the dependency tree</p></td>
+<td><p>See Label Scheme - PARSER <a class="reference external" href="https://spacy.io/models/en#en_core_web_sm" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>left_dependents_count</p></td>
+<td><p>Number of syntactic dependents to the left</p></td>
+<td><p>Integer</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>right_dependents_count</p></td>
+<td><p>Number of syntactic dependents to the right</p></td>
+<td><p>Integer</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>distance_to_head</p></td>
+<td><p>Distance in words to the syntactic head</p></td>
+<td><p>Integer, starting at 1 for adjacent words</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>morphological_features</p></td>
+<td><p>List of morphological features of the word</p></td>
+<td><p>See list <a class="reference external" href="https://universaldependencies.org/u/feat/index.html" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>entity_type</p></td>
+<td><p>The entity type of the word (if applicable)</p></td>
+<td><p>See Label Scheme NER <a class="reference external" href="https://spacy.io/models/en#en_core_web_sm" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>. <em>None</em> if not an entity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>STARC Auxiliary Spans</strong></p></td>
+<td><p>auxiliary_span_type</p></td>
+<td><p>Whether a word is part of the critical span or the distractor span</p></td>
+<td><p>critical / distractor / outside</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>critical_span_indices</p></td>
+<td><p>Start and end word indices of the critical span</p></td>
+<td><p>list of tuples of integers</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>distractor_span_indices</p></td>
+<td><p>Start and end word indices of the distractor span</p></td>
+<td><p>list of tuples of integers</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that we remove the following SR variables from the reports as they are the same value:</p>
+<p>IA Report Variables:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Variable</strong></p></th>
+<th class="head"><p><strong>Values</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GROUPING_VARIABLES</p></td>
+<td><p>RECORDING_SESSION</p></td>
+</tr>
+<tr class="row-odd"><td><p>IA_DYNAMIC</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>IA_END_TIME</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>IA_GROUP</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-even"><td><p>IA_INSTANCES_COUNT</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>IA_POINTS</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-even"><td><p>IA_START_TIME</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>IA_TYPE</p></td>
+<td><p>RECTANGLE</p></td>
+</tr>
+<tr class="row-even"><td><p>IP_END_EVENT_MATCHED</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP_INDEX</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>IP_LABEL</p></td>
+<td><p>&lt;SESSION_PAGE&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP_START_EVENT_MATCHED</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-even"><td><p>REPORTING_METHOD</p></td>
+<td><p>Fixations</p></td>
+</tr>
+<tr class="row-odd"><td><p>TIME_SCALE</p></td>
+<td><p>Trial Relative</p></td>
+</tr>
+<tr class="row-even"><td><p>DUMMY</p></td>
+<td><p>NaN</p></td>
+</tr>
+<tr class="row-odd"><td><p>LETTER_HIGHT</p></td>
+<td><p>38</p></td>
+</tr>
+<tr class="row-even"><td><p>LETTER_WIDTH</p></td>
+<td><p>19</p></td>
+</tr>
+<tr class="row-odd"><td><p>RECALIBRATE</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>TRIGGER_PADDING_X</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Trial_Recycled_</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>X,Y answer coordinates</p></td>
+<td><p>{[(930, 414), (180, 756), (1680, 756), (930, 1098)]}</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
+<div class="mr-auto">
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="index.html">
+<svg class="mr-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+        OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes
+      </a>
+</div>
+<div class="ml-auto">
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="known_issues.html">
+        Known Issues
+        <svg class="ml-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</a>
+</div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#data-files'" class="reference internal" href="#data-files">Data Files</a><ul>
+<li><a :data-current="activeSection === '#fixation-and-interest-area-report-files'" class="reference internal" href="#fixation-and-interest-area-report-files">Fixation and Interest Area Report Files</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#data-variables'" class="reference internal" href="#data-variables">Data Variables</a><ul>
+<li><a :data-current="activeSection === '#participant-questionnaire-variables'" class="reference internal" href="#participant-questionnaire-variables">Participant Questionnaire Variables</a></li>
+<li><a :data-current="activeSection === '#session-summary-variables'" class="reference internal" href="#session-summary-variables">Session Summary Variables</a></li>
+<li><a :data-current="activeSection === '#experiment-trial-and-linguistic-annotation-variables'" class="reference internal" href="#experiment-trial-and-linguistic-annotation-variables">Experiment, Trial, and Linguistic Annotation Variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, LaCC Lab Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
+</div>
+</div>
+</footer>
+</div>
+<script src="_static/documentation_options.js?v=f2a433a1"></script>
+<script src="_static/doctools.js?v=888ff710"></script>
+<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+<script defer="defer" src="_static/theme.js?v=40b7bc71"></script>
+<script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>

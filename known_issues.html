@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" data-content_root="./" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
+<head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Known Issues | OneStop Eye Movements 1.0 documentation</title>
+<meta content="Known Issues | OneStop Eye Movements 1.0 documentation" property="og:title"/>
+<meta content="Known Issues | OneStop Eye Movements 1.0 documentation" name="twitter:title"/>
+<link href="_static/pygments.css?v=e72c8e07" rel="stylesheet" type="text/css"/>
+<link href="_static/theme.css?v=5b4133db" rel="stylesheet" type="text/css"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="preprocessing_analyses.html" rel="next" title="Preproccessing and Reproducing Analyses"/>
+<link href="variables.html" rel="prev" title="Data Files and Variables"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<meta content="FEUvYyUUeFoiAVgouYHaGdMKyTgLGUFLUe99oofr_DY" name="google-site-verification"/>
+</head>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="index.html">
+<img alt="Logo" class="mr-2 dark:invert" height="24" src="_static/lacc_logo.jpeg" width="24"/><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">OneStop Eye Movements 1.0 documentation</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none"><form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+</div>
+<nav class="flex items-center space-x-1">
+<a href="https://github.com/lacclab/OneStop-Eye-Movements" rel="noopener nofollow" title="Visit repository on GitHub">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg fill="currentColor" height="26px" style="margin-top:-2px;display:inline" viewbox="0 0 45 44" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M22.477.927C10.485.927.76 10.65.76 22.647c0 9.596 6.223 17.736 14.853 20.608 1.087.2 1.483-.47 1.483-1.047 0-.516-.019-1.881-.03-3.693-6.04 1.312-7.315-2.912-7.315-2.912-.988-2.51-2.412-3.178-2.412-3.178-1.972-1.346.149-1.32.149-1.32 2.18.154 3.327 2.24 3.327 2.24 1.937 3.318 5.084 2.36 6.321 1.803.197-1.403.759-2.36 1.379-2.903-4.823-.548-9.894-2.412-9.894-10.734 0-2.37.847-4.31 2.236-5.828-.224-.55-.969-2.759.214-5.748 0 0 1.822-.584 5.972 2.226 1.732-.482 3.59-.722 5.437-.732 1.845.01 3.703.25 5.437.732 4.147-2.81 5.967-2.226 5.967-2.226 1.185 2.99.44 5.198.217 5.748 1.392 1.517 2.232 3.457 2.232 5.828 0 8.344-5.078 10.18-9.916 10.717.779.67 1.474 1.996 1.474 4.021 0 2.904-.027 5.247-.027 5.96 0 .58.392 1.256 1.493 1.044C37.981 40.375 44.2 32.24 44.2 22.647c0-11.996-9.726-21.72-21.722-21.72" fill="currentColor" fill-rule="evenodd"></path></svg>
+</div>
+</a>
+<a href="https://lacclab.github.io/" rel="noopener nofollow" title="Visit LaCC Lab">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg height="26px" style="margin-top:-2px;display:inline" xmlns="http://www.w3.org/2000/svg">
+<text fill="Orange" x="0" y="20">LaCC</text>
+</svg></div>
+</a>
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html">
+<img alt="Logo" class="mr-2 dark:invert" height="16" src="_static/lacc_logo.jpeg" width="16"/><span class="font-bold text-clip whitespace-nowrap">OneStop Eye Movements 1.0 documentation</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variables.html">Data Files and Variables</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing_analyses.html">Preproccessing and Reproducing Analyses</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
+<span class="hidden md:inline">OneStop Eye Movements 1.0 documentation</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Known Issues</span>
+</nav>
+<div id="content" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="known-issues">
+<h1>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading"><span>#</span></a></h1>
+<p>This page lists known issues with the dataset. If you encounter any issues not listed here, please report them to the <a class="reference external" href="https://github.com/lacclab/OneStop-Eye-Movements/issues" rel="nofollow noopener">issue tracker<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
+<p>Typos and cut-off text:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Batch</p></th>
+<th class="head"><p>Article Title</p></th>
+<th class="head"><p>Article ID</p></th>
+<th class="head"><p>Paragraph</p></th>
+<th class="head"><p>Question</p></th>
+<th class="head"><p>Issue</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Rwandan Women Whip up Popular Ice Cream Business</p></td>
+<td><p>8</p></td>
+<td><p>5 (Adv)</p></td>
+<td><p>-</p></td>
+<td><p>Typo: <em>culture””.</em> instead of <em>culture”.</em>  for [‘l11_205’, ‘l13_206’, ‘l13_213’, ‘l15_210’, ‘l15_214’, ‘l17_219’, ‘l19_225’, ‘l19_230’, ‘l1_155’, ‘l1_161’, ‘l21_227’, ‘l21_232’, ‘l23_234’, ‘l23_235’, ‘l25_238’, ‘l25_243’, ‘l27_245’, ‘l27_270’, ‘l29_247’, ‘l29_248’, ‘l31_251’, ‘l31_257’, ‘l33_258’, ‘l33_276’, ‘l35_264’, ‘l35_278’, ‘l37_273’, ‘l39_289’, ‘l39_299’, ‘l3_163’, ‘l3_167’, ‘l41_295’, ‘l41_303’, ‘l43_302’, ‘l43_310’, ‘l45_306’, ‘l47_313’, ‘l47_319’, ‘l5_175’, ‘l5_179’, ‘l7_183’, ‘l7_199’, ‘l9_195’, ‘l9_201’]</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK</p></td>
+<td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>Cutoff question: “When was the hashtag” instead of “When was the hashtag #OnTheMoon released this year?” Only for participants <code class="docutils literal notranslate"><span class="pre">l3_325,</span> <span class="pre">l2_323,</span> <span class="pre">l3_327,</span> <span class="pre">l2_324</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>John Lewis Christmas Advertisement 2015: Raising Awareness for Age UK</p></td>
+<td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>Cutoff question: “Who used the” instead of “Who used the #OnTheMoon hashtag for their campaign?” Only for participants <code class="docutils literal notranslate"><span class="pre">l4_326</span></code> and <code class="docutils literal notranslate"><span class="pre">l5_328</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Google Introduces its Driverless Car</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>Typo in Answer B: “food pedal” instead of “foot pedal”.</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>The Greek Island Where Time Is Running Out</p></td>
+<td><p>10</p></td>
+<td><p>6</p></td>
+<td><p>2</p></td>
+<td><p>Typo in Answer D: “fairies” instead of “ferries”</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Swarthy Blue-Eyed Caveman Revealed</p></td>
+<td><p>6</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>Cut-off text: When Answer D “Since the time of the hunter-gatherers, immune systems have been dependent on a health diet” appears in the bottom position, the last word, “diet”, is cut off.</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Inky the Octopus Escapes from Aquarium</p></td>
+<td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>Typo in Answer C: “Inky always liked to explore <em>to</em> pipes” instead of “Inky always liked to explore <em>the</em> pipes”.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Other issues:</p>
+<ul>
+<li><p>Near-sightedness / Myopia was not in the eye conditions list and not everyone who had it necessarily marked it.</p></li>
+<li><p>There are 2 missing trials in the dataset:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">l13_213</span></code> missed trial <code class="docutils literal notranslate"><span class="pre">39</span></code>  (<code class="docutils literal notranslate"><span class="pre">paragraph_id=4</span></code> of <code class="docutils literal notranslate"><span class="pre">article_id=10</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l34_277</span></code> missed  trial <code class="docutils literal notranslate"><span class="pre">38</span></code> (<code class="docutils literal notranslate"><span class="pre">paragraph_id=5</span></code> of <code class="docutils literal notranslate"><span class="pre">article_id=2</span></code>)</p></li>
+</ul>
+</li>
+<li><p>Missing answers for participants <code class="docutils literal notranslate"><span class="pre">l55_519</span></code> (trial <code class="docutils literal notranslate"><span class="pre">33</span></code>) and <code class="docutils literal notranslate"><span class="pre">l56_489</span></code> (trial <code class="docutils literal notranslate"><span class="pre">11</span></code>).</p></li>
+<li><p>Due to a software bug, some trials had a screen width of 1 pixel higher than others. This resulted in slightly different text position in some paragraphs in some trials. In some cases this resulted in 11 lines of text instead of 10. Using <code class="docutils literal notranslate"><span class="pre">fix_ias.ipynb</span></code> we manually created the missing row of ias in the <code class="docutils literal notranslate"><span class="pre">.ias</span></code> files for these trials. Note, in cases where a hyphenated word was split across two lines this results in two different versions of text. To find these run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">text_onscreen_version</span> <span class="o">=</span> <span class="n">process_sequence_data</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">,</span> <span class="s2">"IA_LEFT"</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="s2">"text_onscreen_version"</span>
+    <span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">text_onscreen_version</span><span class="p">,</span>
+        <span class="n">on</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">"article_batch"</span><span class="p">,</span>
+            <span class="s2">"article_id"</span><span class="p">,</span>
+            <span class="s2">"paragraph_id"</span><span class="p">,</span>
+            <span class="s2">"difficulty_level"</span><span class="p">,</span>
+            <span class="s2">"participant_id"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>The following raw critical and distractor span annotations are incorrect in the raw files and are fixed in the processed files.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Article Title</p></th>
+<th class="head"><p>Paragraph ID</p></th>
+<th class="head"><p>Level</p></th>
+<th class="head"><p>Q Index</p></th>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Corrected Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Japan Calls Time on Long Hours Work Culture</p></td>
+<td><p>3</p></td>
+<td><p>Adv</p></td>
+<td><p>2</p></td>
+<td><p>dspan_inds</p></td>
+<td><p>[(79, 102)]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Japan Calls Time on Long Hours Work Culture</p></td>
+<td><p>3</p></td>
+<td><p>Ele</p></td>
+<td><p>2</p></td>
+<td><p>dspan_inds</p></td>
+<td><p>[(64, 80)]</p></td>
+</tr>
+<tr class="row-even"><td><p>Love Hormone Helps Autistic Children Bond with Others</p></td>
+<td><p>6</p></td>
+<td><p>Adv</p></td>
+<td><p>1</p></td>
+<td><p>aspan_inds</p></td>
+<td><p>[(49, 67)]</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>Fixed issues:</p>
+<ul>
+<li><p>Fixed: SR-generated <code class="docutils literal notranslate"><span class="pre">.ias</span></code> files incorrectly labeled split hyphenated words (e.g., “hunter-” and “gatherer” got full “hunter-gatherer” label). Now each part gets its correct segment via <code class="docutils literal notranslate"><span class="pre">fix_ias.ipynb</span></code>.</p></li>
+<li><p>For some reason, the <code class="docutils literal notranslate"><span class="pre">question</span></code> field in reports was not always correctly populated (last word or two were cutoff), even though the participants saw the full question. This was fixed by manually adding the missing words to the <code class="docutils literal notranslate"><span class="pre">question</span></code> field for the following cases:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Batch</p></th>
+<th class="head"><p>Article ID</p></th>
+<th class="head"><p>Paragraph ID</p></th>
+<th class="head"><p>Question Index</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>7</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>6</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>8</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>9</p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>9</p></td>
+<td><p>5</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+</div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
+<div class="mr-auto">
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="variables.html">
+<svg class="mr-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+        Data Files and Variables
+      </a>
+</div>
+<div class="ml-auto">
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="preprocessing_analyses.html">
+        Preproccessing and Reproducing Analyses
+        <svg class="ml-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</a>
+</div>
+</div></div>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, LaCC Lab Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
+</div>
+</div>
+</footer>
+</div>
+<script src="_static/documentation_options.js?v=f2a433a1"></script>
+<script src="_static/doctools.js?v=888ff710"></script>
+<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+<script defer="defer" src="_static/theme.js?v=40b7bc71"></script>
+</body>
+</html>

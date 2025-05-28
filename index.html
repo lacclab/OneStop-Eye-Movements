@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" data-content_root="./" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
+<head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation</title>
+<meta content="OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation" property="og:title"/>
+<meta content="OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes | OneStop Eye Movements 1.0 documentation" name="twitter:title"/>
+<link href="_static/pygments.css?v=e72c8e07" rel="stylesheet" type="text/css"/>
+<link href="_static/theme.css?v=5b4133db" rel="stylesheet" type="text/css"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="variables.html" rel="next" title="Data Files and Variables"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<meta content="FEUvYyUUeFoiAVgouYHaGdMKyTgLGUFLUe99oofr_DY" name="google-site-verification"/>
+</head>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="#">
+<img alt="Logo" class="mr-2 dark:invert" height="24" src="_static/lacc_logo.jpeg" width="24"/><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">OneStop Eye Movements 1.0 documentation</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none"><form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+</div>
+<nav class="flex items-center space-x-1">
+<a href="https://github.com/lacclab/OneStop-Eye-Movements" rel="noopener nofollow" title="Visit repository on GitHub">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg fill="currentColor" height="26px" style="margin-top:-2px;display:inline" viewbox="0 0 45 44" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M22.477.927C10.485.927.76 10.65.76 22.647c0 9.596 6.223 17.736 14.853 20.608 1.087.2 1.483-.47 1.483-1.047 0-.516-.019-1.881-.03-3.693-6.04 1.312-7.315-2.912-7.315-2.912-.988-2.51-2.412-3.178-2.412-3.178-1.972-1.346.149-1.32.149-1.32 2.18.154 3.327 2.24 3.327 2.24 1.937 3.318 5.084 2.36 6.321 1.803.197-1.403.759-2.36 1.379-2.903-4.823-.548-9.894-2.412-9.894-10.734 0-2.37.847-4.31 2.236-5.828-.224-.55-.969-2.759.214-5.748 0 0 1.822-.584 5.972 2.226 1.732-.482 3.59-.722 5.437-.732 1.845.01 3.703.25 5.437.732 4.147-2.81 5.967-2.226 5.967-2.226 1.185 2.99.44 5.198.217 5.748 1.392 1.517 2.232 3.457 2.232 5.828 0 8.344-5.078 10.18-9.916 10.717.779.67 1.474 1.996 1.474 4.021 0 2.904-.027 5.247-.027 5.96 0 .58.392 1.256 1.493 1.044C37.981 40.375 44.2 32.24 44.2 22.647c0-11.996-9.726-21.72-21.722-21.72" fill="currentColor" fill-rule="evenodd"></path></svg>
+</div>
+</a>
+<a href="https://lacclab.github.io/" rel="noopener nofollow" title="Visit LaCC Lab">
+<div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
+<svg height="26px" style="margin-top:-2px;display:inline" xmlns="http://www.w3.org/2000/svg">
+<text fill="Orange" x="0" y="20">LaCC</text>
+</svg></div>
+</a>
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="#">
+<img alt="Logo" class="mr-2 dark:invert" height="16" src="_static/lacc_logo.jpeg" width="16"/><span class="font-bold text-clip whitespace-nowrap">OneStop Eye Movements 1.0 documentation</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variables.html">Data Files and Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing_analyses.html">Preproccessing and Reproducing Analyses</a></li>
+</ul>
+</nav>
+</div>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<div id="content" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes">
+<h1>OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes<a class="headerlink" href="#onestop-a-360-participant-english-eye-tracking-dataset-with-different-reading-regimes" title="Link to this heading"><span>#</span></a></h1>
+<p><a class="reference external" href="https://osf.io/preprints/psyarxiv/kgxv5" rel="nofollow noopener">📄 Paper<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> | <a class="reference external" href="https://lacclab.github.io/OneStop-Eye-Movements/" rel="nofollow noopener">📚 Documentation<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> | <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">💾 Data<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> | <a class="reference external" href="https://lacclab.github.io/" rel="nofollow noopener">🔬 More from LaCC Lab<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example'"><span>#</span></a></h2>
+<p><img alt="Trial GIF" src="_images/trial_inky.gif"/></p>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#overview'"><span>#</span></a></h2>
+<p>OneStop Eye Movements (in short OneStop) is a large-scale English corpus of eye movements in reading with <strong>360 L1 participants</strong>, <strong>2.6 million word tokens</strong> and <strong>152 hours of recorded eye tracking data</strong>.
+The dataset was collected using an EyeLink 1000 Plus eyetracker (SR Research).</p>
+<p>The dataset release includes Interest Area Reports (features aggregated at the word level), Fixation Reports (features aggregated at the level of fixations/saccades), raw data in edf and ASCII formats, and a detailed participant questionnaire.
+To facilitate analyses, we further provide precomputed text annotations: word length, frequency and surprisal (GPT2), as well as part-of-speech tags and syntactic dependency trees.</p>
+<p>OneStop comprises four sub-corpora, one for each of the following reading regimes:</p>
+<ul class="simple">
+<li><p><strong>Ordinary reading for comprehension</strong> Download this data if you are interested in a general-purpose eye tracking dataset (like Dundee, GECO, MECO and others).</p></li>
+<li><p>Information seeking</p></li>
+<li><p>Repeated reading</p></li>
+<li><p>Information seeking in repeated reading</p></li>
+</ul>
+<p><img alt="OneStop Overview" src="_images/overview.png"/></p>
+<p>We provide the entire dataset, as well as each of the sub-corpora separately.</p>
+</section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-features'"><span>#</span></a></h2>
+<section id="texts-and-reading-comprehension-materials">
+<h3>Texts and Reading Comprehension Materials<a class="headerlink" href="#texts-and-reading-comprehension-materials" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#texts-and-reading-comprehension-materials'"><span>#</span></a></h3>
+<ul class="simple">
+<li><p>Taken from the OneStopQA dataset (<a class="reference external" href="https://aclanthology.org/2020.acl-main.507/" rel="nofollow noopener">Paper<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> <a class="reference external" href="https://huggingface.co/datasets/malmaud/onestop_qa" rel="nofollow noopener">Data 🤗<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>)</p></li>
+<li><p>30 articles with 162 paragraphs in English from the Guardian.</p></li>
+<li><p>Annotations of part-of-speech tags, syntactic dependency trees, word length, word frequency and word surprisal.</p></li>
+<li><p>Each paragraph has two versions: an Advanced version (original Guardian text) and a simplified Elementary version.</p></li>
+<li><p>Extensively piloted reading comprehension questions based on the <a class="reference external" href="https://aclanthology.org/2020.acl-main.507/" rel="nofollow noopener">STARC<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> (Structured Annotations for Reading Comprehension) annotation framework.</p>
+<ul>
+<li><p>3 multiple-choice reading comprehension questions per paragraph.</p></li>
+<li><p>486 reading comprehension questions in total.</p></li>
+<li><p>Auxiliary text annotations for answer choices.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="statistics">
+<h3>Statistics<a class="headerlink" href="#statistics" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#statistics'"><span>#</span></a></h3>
+<p>Statistics of OneStop and other public broad-coverage eyetracking datasets for English L1.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Category</p></th>
+<th class="head"><p>Dataset</p></th>
+<th class="head"><p>Subjects</p></th>
+<th class="head"><p>Age</p></th>
+<th class="head"><p>Words</p></th>
+<th class="head"><p>Words Recorded</p></th>
+<th class="head"><p>Questions</p></th>
+<th class="head"><p>Subjects per Question</p></th>
+<th class="head"><p>Questions per Subject</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reading Comprehension</strong></p></td>
+<td><p>OneStop</p></td>
+<td><p>360</p></td>
+<td><p>22.8±5.6</p></td>
+<td><p>19,425 (Advanced)<br/> 15,737 (Elementary)<br/>19,221 (QA)</p></td>
+<td><p>2,632,159 (Paragraphs)<br/>1,311,752 (QA)</p></td>
+<td><p>486</p></td>
+<td><p>20</p></td>
+<td><p>54</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><a class="reference external" href="https://dl.acm.org/doi/10.1145/3379156.3391335" rel="nofollow noopener">SB-SAT L1<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+<td><p>66</p></td>
+<td><p>NA</p></td>
+<td><p>2,539</p></td>
+<td><p>167,574</p></td>
+<td><p>20</p></td>
+<td><p>95</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Passages</strong></p></td>
+<td><p>Dundee</p></td>
+<td><p>10</p></td>
+<td><p>NA</p></td>
+<td><p>51,502</p></td>
+<td><p>307,214</p></td>
+<td><p>NA</p></td>
+<td><p>10</p></td>
+<td><p>NA</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><a class="reference external" href="https://link.springer.com/article/10.3758/s13428-016-0734-0" rel="nofollow noopener">GECO L1<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+<td><p>14</p></td>
+<td><p>21.8±5.6</p></td>
+<td><p>56,410</p></td>
+<td><p>774,015</p></td>
+<td><p>NA</p></td>
+<td><p>14</p></td>
+<td><p>NA</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><a class="reference external" href="https://link.springer.com/article/10.3758/s13428-017-0908-4" rel="nofollow noopener">Provo<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+<td><p>84</p></td>
+<td><p>NA</p></td>
+<td><p>2,689</p></td>
+<td><p>225,624</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><a class="reference external" href="https://link.springer.com/article/10.3758/s13428-021-01772-6" rel="nofollow noopener">MECO En<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+<td><p>46</p></td>
+<td><p>21.0±2.2</p></td>
+<td><p>2,109</p></td>
+<td><p>83,246</p></td>
+<td><p>48</p></td>
+<td><p>46</p></td>
+<td><p>48</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Sentences</strong></p></td>
+<td><p><a class="reference external" href="https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00054/110717/CELER-A-365-Participant-Corpus-of-Movements-in" rel="nofollow noopener">CELER L1<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+<td><p>69</p></td>
+<td><p>26.3±6.7</p></td>
+<td><p>61,233</p></td>
+<td><p>122,423</p></td>
+<td><p>78</p></td>
+<td><p>69</p></td>
+<td><p>78</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><a class="reference external" href="https://aclanthology.org/2020.lrec-1.18" rel="nofollow noopener">ZuCo<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+<td><p>18</p></td>
+<td><p>34.3±8.0</p></td>
+<td><p>15,138</p></td>
+<td><p>272,484</p></td>
+<td><p>42</p></td>
+<td><p>18</p></td>
+<td><p>42</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><a class="reference external" href="https://link.springer.com/article/10.3758/s13428-012-0313-y" rel="nofollow noopener">UCL<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></td>
+<td><p>43</p></td>
+<td><p>25.8±7.5</p></td>
+<td><p>1,932</p></td>
+<td><p>81,144</p></td>
+<td><p>110</p></td>
+<td><p>43</p></td>
+<td><p>110</p></td>
+</tr>
+</tbody>
+</table>
+
+<p>‘Reading Comprehension’ are datasets with a substantial reading comprehension component over piloted reading comprehension materials. The remaining datasets are general purpose datasets over passages or individual sentences.
+‘Words’ is the number of words in the textual corpus. ‘Words Recorded’ is the number of word tokens for which tracking data was collected. ‘NA’: data not available.</p>
+</section>
+<section id="controlled-experimental-manipulations">
+<h3>Controlled experimental manipulations<a class="headerlink" href="#controlled-experimental-manipulations" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#controlled-experimental-manipulations'"><span>#</span></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Reading goal</strong>: ordinary reading for comprehension or information seeking.</p></li>
+<li><p><strong>Paragraph difficulty level</strong>: original Guardian article (Advanced) or simplified (Elementary).</p></li>
+<li><p><strong>Question identity</strong>: one of three possible questions for each paragraph.</p></li>
+<li><p><strong>Prior exposure to the text</strong>: first reading or repeated reading.</p></li>
+</ol>
+</section>
+</section>
+<section id="experiment-structure">
+<h2>Experiment Structure<a class="headerlink" href="#experiment-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#experiment-structure'"><span>#</span></a></h2>
+<p><img alt="OneStop Experiment Design" src="_images/exp_design.png"/></p>
+<p>Each participant reads 10 Guardian articles paragraph by paragraph, and answers a reading comprehension question after each paragraph. After reading a 10-article batch, participants read two of the previously presented articles for a second time. Half of the participants are in an information seeking regime where they are presented with the question prior to reading the paragraph.</p>
+</section>
+<section id="trial-structure">
+<h2>Trial Structure<a class="headerlink" href="#trial-structure" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#trial-structure'"><span>#</span></a></h2>
+<p>A single experimental trial consists of reading a paragraph and answering one reading comprehension question about it. Trials have the following Interest Periods, corresponding to pages in the experiment:</p>
+<ol class="arabic simple">
+<li><p><strong>Question Preview</strong> (only in the information seeking regime) - the participant reads the question (self-paced).</p></li>
+<li><p><strong>Paragraph</strong> - the participant reads the paragraph (self-paced).</p></li>
+<li><p><strong>Question</strong> - the participant reads the question again (self-paced).</p></li>
+<li><p><strong>QA</strong> - retains the question, and also displays the four possible answers in a cross arrangement. Participants are then required to choose one of the answers and confirm their choice (self-paced).</p></li>
+<li><p><strong>Feedback</strong> - informs the participants on whether they answered the question correctly (presented for one second).</p></li>
+</ol>
+<p>Pages presented only in the information seeking regime are depicted in green.</p>
+<p><img alt="Trial Structure" src="_images/trial_slides.png"/></p>
+<p>Overall, the dataset includes 19,438 regular trials, 9,720 in the information seeking regime and 9,718 in the ordinary reading regime. The dataset also includes 3,888 repeated reading trials, split equally between the two reading regimes.</p>
+</section>
+<section id="obtaining-the-data">
+<h2>Obtaining the Data<a class="headerlink" href="#obtaining-the-data" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#obtaining-the-data'"><span>#</span></a></h2>
+<section id="direct-download-from-osf">
+<h3>Direct Download from OSF<a class="headerlink" href="#direct-download-from-osf" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#direct-download-from-osf'"><span>#</span></a></h3>
+<p>The data is hosted on <a class="reference external" href="https://osf.io/2prdq/" rel="nofollow noopener">OSF<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
+<p>We provide the possibility to download four sub-corpora with eye movement recordings from paragraph reading, one for each of the following reading regimes:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://osf.io/zn9sq/" rel="nofollow noopener">OneStop Ordinary Reading<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> - download this data if you are interested in a general-purpose eye tracking dataset.</p></li>
+<li><p><a class="reference external" href="https://osf.io/kpbgx/" rel="nofollow noopener">OneStop Information Seeking<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+<li><p><a class="reference external" href="https://osf.io/4ay3t/" rel="nofollow noopener">OneStop Repeated Reading<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+<li><p><a class="reference external" href="https://osf.io/6ra7t/" rel="nofollow noopener">OneStop Information Seeking in Repeated Reading<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+</ol>
+<p>Two versions of the complete dataset:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://osf.io/azj2g/" rel="nofollow noopener">OneStop<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> - paragraph reading for the entire dataset.</p></li>
+<li><p><a class="reference external" href="https://osf.io/z7pyn/" rel="nofollow noopener">OneStop Full<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> - complete trials for the entire dataset, divided into title, question preview, paragraph, question, answers, QA (question + answers) and feedback.</p></li>
+</ul>
+<p>The raw data:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://osf.io/6f2km/" rel="nofollow noopener">OneStop Raw<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> - edf and ASCII files.</p></li>
+</ul>
+<p>Metadata:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://osf.io/jbd24/" rel="nofollow noopener">OneStop Metadata<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> includes the participant questionnaire and experiment summary statistics.</p></li>
+</ul>
+</section>
+<section id="python-script">
+<h3>Python Script<a class="headerlink" href="#python-script" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#python-script'"><span>#</span></a></h3>
+<p>The data can also be downloaded using the provided Python script. The script will download and extract the data files.</p>
+<p>Basic usage to download the entire dataset:</p>
+<ol class="arabic" start="0">
+<li><p>Make sure you have Python installed.</p>
+<ul class="simple">
+<li><p>If you don’t have Python installed, you can download it from <a class="reference external" href="https://www.python.org/downloads/" rel="nofollow noopener">here<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>Get the Code</strong></p>
+<ul>
+<li><p>Open your terminal/command prompt:</p>
+<ul class="simple">
+<li><p>Windows: Press <code class="docutils literal notranslate"><span class="pre">Win</span> <span class="pre">+</span> <span class="pre">R</span></code>, type <code class="docutils literal notranslate"><span class="pre">cmd</span></code> and press Enter</p></li>
+<li><p>Mac: Press <code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">Space</span></code>, type <code class="docutils literal notranslate"><span class="pre">terminal</span></code> and press Enter</p></li>
+</ul>
+</li>
+<li><p>Run this command to download the code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lacclab/OneStop-Eye-Movements.git
+</pre></div>
+</div>
+</li>
+<li><p>Move into the downloaded folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>OneStop-Movements
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Run the Download Script</strong></p>
+<ul>
+<li><p>Run this command to download the <em>OneStop Ordinary Reading</em> subcorpus:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>onestop/download_data_files.py
+</pre></div>
+</div>
+</li>
+<li><p>The data will be downloaded to a folder called “data/OneStop”</p></li>
+<li><p>Available options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--extract</span></code>: Extract downloaded zip files (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-o,</span> <span class="pre">--output-folder</span></code>: Specify output folder (default: “data/OneStop”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mode</span></code>: Choose dataset subcorporus to download (default: “ordinary”)</p>
+<ul>
+<li><p>Options: “onestop-full”, “onestop”, “ordinary”,   “information_seeking”, “repeated”,”information_seeking_repeated”</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Example usage to download the information-seeking subcorporus:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">python</span> <span class="n">onestop</span><span class="o">/</span><span class="n">download_data_files</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">mode</span> <span class="n">information_seeking</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="pymovements-integration">
+<h3>pymovements integration<a class="headerlink" href="#pymovements-integration" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pymovements-integration'"><span>#</span></a></h3>
+<p>OneStop is integrated into the <a class="reference external" href="https://pymovements.readthedocs.io/en/stable/index.html" rel="nofollow noopener">pymovements<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a> package.
+The package enables easy download of the paragraph data for the complete dataset. The following code snippet shows how to download the data:</p>
+<p>First, install the package in the terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pymovements
+</pre></div>
+</div>
+<p>Then, use the following python code to download the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymovements</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pm</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">'OneStop'</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">'data/OneStop'</span><span class="p">)</span>
+
+<span class="n">dataset</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will download the data to the <code class="docutils literal notranslate"><span class="pre">data/OneStop</span></code> folder. You can also specify a different path by changing the <code class="docutils literal notranslate"><span class="pre">path</span></code> argument.</p>
+</section>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#documentation'"><span>#</span></a></h2>
+<ul class="simple">
+<li><p><strong><a class="reference external" href="https://lacclab.github.io/OneStop-Eye-Movements/variables" rel="nofollow noopener">Data Files and Variables<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></strong>: Detailed information about the data files and variables in the reports.</p></li>
+<li><p><strong><a class="reference external" href="https://lacclab.github.io/OneStop-Eye-Movements/known_issues" rel="nofollow noopener">Known Issues<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></strong>: Known issues with the dataset. If you identify an issue not listed here, please open a github issue specifying the problem.</p></li>
+<li><p><strong><a class="reference external" href="https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses" rel="nofollow noopener">Scripts<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></strong>: Scripts for data preprocessing and reproducing the analysis in the dataset paper (see below).</p></li>
+</ul>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#citation'"><span>#</span></a></h2>
+<p>Paper: <a class="reference external" href="https://osf.io/kgxv5" rel="nofollow noopener">OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>@article<span class="o">{</span>berzak2025onestop,
+<span class="w">  </span><span class="nv">title</span><span class="o">={</span>OneStop:<span class="w"> </span>A<span class="w"> </span><span class="m">360</span>-Participant<span class="w"> </span>English<span class="w"> </span>Eye<span class="w"> </span>Tracking<span class="w"> </span>Dataset<span class="w"> </span>with<span class="w"> </span>Different<span class="w"> </span>Reading<span class="w"> </span>Regimes<span class="o">}</span>,
+<span class="w">  </span><span class="nv">author</span><span class="o">={</span>Berzak,<span class="w"> </span>Yevgeni<span class="w"> </span>and<span class="w"> </span>Malmaud,<span class="w"> </span>Jonathan<span class="w"> </span>and<span class="w"> </span>Shubi,<span class="w"> </span>Omer<span class="w"> </span>and<span class="w"> </span>Meiri,<span class="w"> </span>Yoav<span class="w"> </span>and<span class="w"> </span>Lion,<span class="w"> </span>Ella<span class="w"> </span>and<span class="w"> </span>Levy,<span class="w"> </span>Roger<span class="o">}</span>,
+<span class="w">  </span><span class="nv">journal</span><span class="o">={</span>PsyArXiv<span class="w"> </span>preprint<span class="o">}</span>,
+<span class="w">  </span><span class="nv">year</span><span class="o">={</span><span class="m">2025</span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="dataset-uses-examples">
+<h2>Dataset Uses Examples<a class="headerlink" href="#dataset-uses-examples" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dataset-uses-examples'"><span>#</span></a></h2>
+<p>Text Simplification and Text Readability</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2502.11150" rel="nofollow noopener">Eye Tracking Based Cognitive Evaluation of Automatic Readability Assessment Measures<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+<li><p><a class="reference external" href="https://osf.io/preprints/psyarxiv/dhk8c_v1?view_only=" rel="nofollow noopener">The Effect of Text Simplification on Reading Fluency and Reading Comprehension in L1 English Speakers<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+</ul>
+<p>Reading Comprehension</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://aclanthology.org/2024.emnlp-main.198.pdf" rel="nofollow noopener">Fine-Grained Prediction of Reading Comprehension from Eye Movements<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+<li><p><a class="reference external" href="https://aclanthology.org/2020.conll-1.11.pdf" rel="nofollow noopener">Bridging Information-Seeking Human Gaze and Machine Reading Comprehension<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+</ul>
+<p>Information Seeking</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://escholarship.org/content/qt6019k40d/qt6019k40d.pdf" rel="nofollow noopener">Eye Movements in Information-Seeking Reading<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2410.20779" rel="nofollow noopener">Decoding Reading Goals from Eye Movements<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2505.02872" rel="nofollow noopener">Decoding Open-Ended Information Seeking Goals from Eye Movements in Reading<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+</ul>
+<p>Repeated Reading</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2502.11061" rel="nofollow noopener">Déjà Vu? Decoding Repeated Reading from Eye Movements<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+<li><p><a class="reference external" href="https://escholarship.org/content/qt5fd0z5qs/qt5fd0z5qs.pdf" rel="nofollow noopener">Déjà Vu: Eye Movements in Repeated Reading<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+</ul>
+<p>Human-LLM Alignment and Memorization</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://aclanthology.org/2024.conll-1.17.pdf" rel="nofollow noopener">The Effect of Surprisal on Reading Times in Information Seeking and Repeated Reading<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a></p></li>
+</ul>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#license'"><span>#</span></a></h2>
+<p>The data and code are licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/" rel="nofollow noopener">Creative Commons Attribution 4.0 International License<svg fill="currentColor" height="1em" stroke="none" viewbox="0 96 960 960" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M188 868q-11-11-11-28t11-28l436-436H400q-17 0-28.5-11.5T360 336q0-17 11.5-28.5T400 296h320q17 0 28.5 11.5T760 336v320q0 17-11.5 28.5T720 696q-17 0-28.5-11.5T680 656V432L244 868q-11 11-28 11t-28-11Z"></path></svg></a>.</p>
+<p><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></p>
+
+
+</section>
+</section>
+</div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
+<div class="ml-auto">
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="variables.html">
+        Data Files and Variables
+        <svg class="ml-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</a>
+</div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#example'" class="reference internal" href="#example">Example</a></li>
+<li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a></li>
+<li><a :data-current="activeSection === '#key-features'" class="reference internal" href="#key-features">Key Features</a><ul>
+<li><a :data-current="activeSection === '#texts-and-reading-comprehension-materials'" class="reference internal" href="#texts-and-reading-comprehension-materials">Texts and Reading Comprehension Materials</a></li>
+<li><a :data-current="activeSection === '#statistics'" class="reference internal" href="#statistics">Statistics</a></li>
+<li><a :data-current="activeSection === '#controlled-experimental-manipulations'" class="reference internal" href="#controlled-experimental-manipulations">Controlled experimental manipulations</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#experiment-structure'" class="reference internal" href="#experiment-structure">Experiment Structure</a></li>
+<li><a :data-current="activeSection === '#trial-structure'" class="reference internal" href="#trial-structure">Trial Structure</a></li>
+<li><a :data-current="activeSection === '#obtaining-the-data'" class="reference internal" href="#obtaining-the-data">Obtaining the Data</a><ul>
+<li><a :data-current="activeSection === '#direct-download-from-osf'" class="reference internal" href="#direct-download-from-osf">Direct Download from OSF</a></li>
+<li><a :data-current="activeSection === '#python-script'" class="reference internal" href="#python-script">Python Script</a></li>
+<li><a :data-current="activeSection === '#pymovements-integration'" class="reference internal" href="#pymovements-integration">pymovements integration</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#documentation'" class="reference internal" href="#documentation">Documentation</a></li>
+<li><a :data-current="activeSection === '#citation'" class="reference internal" href="#citation">Citation</a></li>
+<li><a :data-current="activeSection === '#dataset-uses-examples'" class="reference internal" href="#dataset-uses-examples">Dataset Uses Examples</a></li>
+<li><a :data-current="activeSection === '#license'" class="reference internal" href="#license">License</a></li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, LaCC Lab Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
+</div>
+</div>
+</footer>
+</div>
+<script src="_static/documentation_options.js?v=f2a433a1"></script>
+<script src="_static/doctools.js?v=888ff710"></script>
+<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+<script defer="defer" src="_static/theme.js?v=40b7bc71"></script>
+</body>
+</html>
