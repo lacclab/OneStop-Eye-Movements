@@ -208,28 +208,28 @@ Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different R
 
 Text Simplification and Text Readability
 
-* [Eye Tracking Based Cognitive Evaluation of Automatic Readability Assessment Measures](https://arxiv.org/pdf/2502.11150)
-* [The Effect of Text Simplification on Reading Fluency and Reading Comprehension in L1 English Speakers](https://osf.io/preprints/psyarxiv/dhk8c_v1?view_only=)
+* [Eye Tracking Based Cognitive Evaluation of Automatic Readability Assessment Measures (arXiv 2025)](https://arxiv.org/pdf/2502.11150)
+* [The Effect of Text Simplification on Reading Fluency and Reading Comprehension in L1 English Speakers (CogSci 2025)](https://osf.io/preprints/psyarxiv/dhk8c_v1?view_only=)
 
 Reading Comprehension
 
-* [Fine-Grained Prediction of Reading Comprehension from Eye Movements](https://aclanthology.org/2024.emnlp-main.198.pdf)
-* [Bridging Information-Seeking Human Gaze and Machine Reading Comprehension](https://aclanthology.org/2020.conll-1.11.pdf)
+* [Fine-Grained Prediction of Reading Comprehension from Eye Movements (EMNLP 2024)](https://aclanthology.org/2024.emnlp-main.198.pdf)
+* [Bridging Information-Seeking Human Gaze and Machine Reading Comprehension (CoNLL 2020)](https://aclanthology.org/2020.conll-1.11.pdf)
 
 Information Seeking
 
-* [Eye Movements in Information-Seeking Reading](https://escholarship.org/content/qt6019k40d/qt6019k40d.pdf)
-* [Decoding Reading Goals from Eye Movements](https://arxiv.org/pdf/2410.20779)
-* [Decoding Open-Ended Information Seeking Goals from Eye Movements in Reading](https://arxiv.org/pdf/2505.02872)
+* [Eye Movements in Information-Seeking Reading (CogSci 2023)](https://escholarship.org/content/qt6019k40d/qt6019k40d.pdf)
+* [Decoding Reading Goals from Eye Movements (ACL 2025)](https://arxiv.org/pdf/2410.20779)
+* [Decoding Open-Ended Information Seeking Goals from Eye Movements in Reading (arXiv 2025)](https://arxiv.org/pdf/2505.02872)
 
 Repeated Reading
 
-* [Déjà Vu? Decoding Repeated Reading from Eye Movements](https://arxiv.org/pdf/2502.11061)
-* [Déjà Vu: Eye Movements in Repeated Reading](https://escholarship.org/content/qt5fd0z5qs/qt5fd0z5qs.pdf)
+* [Déjà Vu? Decoding Repeated Reading from Eye Movements (ACL 2025)](https://arxiv.org/pdf/2502.11061)
+* [Déjà Vu: Eye Movements in Repeated Reading (CogSci 2024)](https://escholarship.org/content/qt5fd0z5qs/qt5fd0z5qs.pdf)
 
 Human-LLM Alignment and Memorization
 
-* [The Effect of Surprisal on Reading Times in Information Seeking and Repeated Reading](https://aclanthology.org/2024.conll-1.17.pdf)
+* [The Effect of Surprisal on Reading Times in Information Seeking and Repeated Reading (CoNLL 2024)](https://aclanthology.org/2024.conll-1.17.pdf)
 
 ## License
 
