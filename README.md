@@ -135,7 +135,7 @@ Basic usage to download the entire dataset:
    * Move into the downloaded folder:
 
      ```bash
-     cd OneStop-Movements
+     cd OneStop-Eye-Movements
      ```
 
 2. **Run the Download Script**
