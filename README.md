@@ -91,7 +91,7 @@ Overall, the dataset includes 19,438 regular trials, 9,720 in the information se
 
 ### Direct Download from OSF
 
-The data is hosted on [OSF](https://osf.io/2prdq/).
+The data is hosted on OSF, and can be downloaded [**here**](https://osf.io/2prdq/).
 
 We provide the possibility to download four sub-corpora with eye movement recordings from paragraph reading, one for each of the following reading regimes:
 
@@ -109,7 +109,7 @@ The raw data:
 
 * [OneStop Raw](https://osf.io/6f2km/) - edf and ASCII files.
 
-Metadata:
+and the Metadata:
 
 * [OneStop Metadata](https://osf.io/jbd24/) includes the participant questionnaire and experiment summary statistics.
 
