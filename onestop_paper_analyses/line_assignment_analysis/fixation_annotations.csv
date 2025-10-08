@@ -1,4 +1,4 @@
-filename,num_lines,number,participant_id,trial_index,other_line_annotator1,other_line_annotator2,incorrect_line_annotator1,incorrect_line_annotator2
+file_name,num_lines,number_of_fixations,participant_id,trial_index,other_annotator1,other_annotator2,incorrect_line_annotator1,incorrect_line_annotator2
 10_056_l2_324_40.pdf,10,56,l2_324,40,"[5, 9, 12, 18, 19, 20, 21, 26, 31, 32, 33, 41, 46, 49, 50, 54, 55]","[5, 9, 12, 18, 19, 26, 31, 33, 40, 41, 46, 49, 50, 54, 55]",[36],[]
 10_056_l48_535_44.pdf,10,56,l48_535,44,"[6, 11, 12, 14, 15, 16, 22, 27, 31, 38, 39, 44, 50, 53]","[6, 11, 12, 16, 17, 22, 27, 31, 38, 39, 44, 50, 53]","[36, 42, 43]","[36, 42, 43]"
 10_057_l36_280_56.pdf,10,57,l36_280,56,"[8, 9, 12, 16, 22, 26, 27, 29, 36, 42, 46, 47, 51, 52, 53, 54, 55, 56]","[8, 9, 12, 13, 16, 22, 26, 27, 32, 36, 37, 42, 46, 47, 51, 52]","[7, 20, 41]","[7, 20, 41]"

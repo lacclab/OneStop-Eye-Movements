@@ -235,5 +235,7 @@ def load_and_process_dataset(dataset: str):
     )
     ia_fixated_only = get_ia_fixated_only(ia_rep, dataset)
     if dataset == "sbsat":
-        ia_fixated_only.to_csv("other_datasets/sb-sat/18sat_fixfinal_ia_fixated_only.csv", index=False)
+        ia_fixated_only.to_csv(
+            "other_datasets/sb-sat/18sat_fixfinal_ia_fixated_only.csv", index=False
+        )
     return ia_rep, fix_rep, ia_fixated_only

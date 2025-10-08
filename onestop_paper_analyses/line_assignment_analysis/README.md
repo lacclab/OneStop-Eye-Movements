@@ -8,7 +8,7 @@ We divide fixations into three categories:
 
 1. **Line-reading fixations assigned to the correct line**
 2. **Line-reading fixations assigned to an incorrect line** (errors due to vertical drift)
-   
+
    Line-reading fixations are part of fixation sequences (typically at at least three fixations) that exhibit an approximately horizontal progressive and/or regressive reading pattern.
 3. **Other**
 
@@ -20,17 +20,19 @@ We divide fixations into three categories:
 ## Folder content
 
 **`fixation_annotations.csv`** - Manual annotation of fixation categories for 20 trials with 10 lines each (1,296 fixations in total) by two annotators. See further details on trial selection criteria in the paper.
-  - `other_annotator[annotator_id]` fixations marked as other by an annotator.
-  - `incorrect_line_annotator[annotator_id]` fixations marked as line-reading assigned to an incorrect line by an annotator.
-  - `filename` name of the file with the trial visualization in the `scanpath_visualizations/` folder.
+
+- `other_annotator[annotator_id]` fixations marked as other by an annotator.
+- `incorrect_line_annotator[annotator_id]` fixations marked as line-reading assigned to an incorrect line by an annotator.
+- `filename` name of the file with the trial visualization in the `scanpath_visualizations/` folder.
 
 **`scanpath_visualizations/`** - Scanpath visualizations of the 20 annotated trials.
-  - Each Fixation is represented with a circle.
-  - In the center of each circle is the fixation number (the index in the trial's fixation sequence, starting with 1).
-  - Fixations are color-coded by their assigned line.
-  - Horizontal lines indicate line boundaries.
-  - Fixations shorter than 50ms or longer than 500ms are colored in blue.
+
+- Each Fixation is represented with a circle.
+- In the center of each circle is the fixation number (the index in the trial's fixation sequence, starting with 1).
+- Fixations are color-coded by their assigned line.
+- Horizontal lines indicate line boundaries.
+- Fixations shorter than 50ms or longer than 500ms are colored in blue.
 
 **`stats.ipynb`** - Statistical analysis notebook.
-  - Computes fixation category statistics and inter-annotator agreement.
 
+- Computes fixation category statistics and inter-annotator agreement.
