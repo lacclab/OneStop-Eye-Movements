@@ -2,7 +2,7 @@
 
 This folder contains an analysis that quantifies the prevalence of erroneous line assignments for fixations due to vertical drift in OneStop Eye Movements.
 
-## Annotation Scheme
+## Annotation scheme
 
 We divide fixations into three categories:
 
@@ -15,7 +15,7 @@ We divide fixations into three categories:
    - Fixations outside the trial's interest areas.
    - Fixations shorter than 50ms or longer than 500ms.
 
-## Content
+## Folder content
 
 **`fixation_annotations.csv`** - Manual annotation of fixation categories for 20 trials with 10 lines each (1,296 fixations in total) by two annotators. See further details on trial selection criteria in the paper.
   - `other_annotator[#]` fixations marked as other by annotator #.
