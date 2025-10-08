@@ -9,7 +9,7 @@ We divide fixations into three categories:
 1. **Line-reading fixations assigned to the correct line**
 2. **Line-reading fixations assigned to an incorrect line** (errors due to vertical drift)
 
-   Line-reading fixations are part of fixation sequences (typically at at least three fixations) that exhibit an approximately horizontal progressive and/or regressive reading pattern.
+   Line-reading fixations are part of fixation sequences (typically of at least three fixations) that exhibit an approximately horizontal progressive and/or regressive reading pattern.
 3. **Other**
 
    Includes the following cases:
@@ -23,12 +23,12 @@ We divide fixations into three categories:
 
 - `other_annotator[annotator_id]` fixations marked as other by an annotator.
 - `incorrect_line_annotator[annotator_id]` fixations marked as line-reading assigned to an incorrect line by an annotator.
-- `filename` name of the file with the trial visualization in the `scanpath_visualizations/` folder.
+- `file_name` name of the file with the trial visualization in the `scanpath_visualizations/` folder.
 
 **`scanpath_visualizations/`** - Scanpath visualizations of the 20 annotated trials.
 
-- Each Fixation is represented with a circle.
-- In the center of each circle is the fixation number (the index in the trial's fixation sequence, starting with 1).
+- Each fixation is represented with a circle.
+- In the center of each circle is the fixation number (the index in the trial's fixation sequence, starting with 0).
 - Fixations are color-coded by their assigned line.
 - Horizontal lines indicate line boundaries.
 - Fixations shorter than 50ms or longer than 500ms are colored in blue.
