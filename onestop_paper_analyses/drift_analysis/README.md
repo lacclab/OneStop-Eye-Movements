@@ -1,6 +1,6 @@
 # Accuracy of fixation assignments to lines
 
-This folder contains an analysis that quantifies the prevalence of erroneous line assignments for fixations due to vertical drift in OneStop Eye Movements.
+This folder contains data and code for analysis that quantifies the prevalence of erroneous line assignments for fixations due to vertical drift in OneStop Eye Movements.
 
 ## Annotation scheme
 
@@ -10,7 +10,7 @@ We divide fixations into three categories:
 2. **Line-reading fixations assigned to an incorrect line** (errors due to vertical drift)
    
    Line reading fixations are part of fixation sequences (typically at at least three fixations) that exhibit an approximately horizontal progressive and/or regressive reading pattern.
-4. **Other**:
+3. **Other**:
    - Return sweep completion sequences. These sequences start with the landing fixation of a return sweep saccade from the end of a line to the beginning of the next line, or the landing fixation of an abrupt, typically long, saccade from any location on a line to another line. They end with the last fixation before proceeding to the right on the new line to a sequence of at least two line reading fixations or with the last fixation of the trial. 
    - Fixations outside the trial's interest areas.
    - Fixations shorter than 50ms or longer than 500ms.
