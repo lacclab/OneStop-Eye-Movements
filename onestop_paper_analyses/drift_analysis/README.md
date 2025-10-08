@@ -1,6 +1,6 @@
 # Accuracy of fixation assignments to lines
 
-This folder contains data and code for analysis that quantifies the prevalence of erroneous line assignments for fixations due to vertical drift in OneStop Eye Movements.
+This folder contains data and code for an analysis that quantifies the prevalence of erroneous line assignments for fixations due to vertical drift in OneStop Eye Movements.
 
 ## Annotation scheme
 
