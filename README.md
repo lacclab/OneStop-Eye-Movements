@@ -142,7 +142,7 @@ Basic usage to download the entire dataset:
    * Run this command to download the _OneStop Ordinary Reading_ subcorpus:
 
      ```bash
-     python onestop/download_data_files.py
+     python download_data_files.py
      ```
 
    * The data will be downloaded to a folder called "data/OneStop"
@@ -158,7 +158,7 @@ Basic usage to download the entire dataset:
 
       ```python
 
-      python onestop/download_data_files.py --mode information_seeking
+      python download_data_files.py --mode information_seeking
       ```
 
 ### pymovements integration
@@ -189,7 +189,7 @@ This will download the data to the `data/OneStop` folder. You can also specify a
 
 * **[Known Issues](https://lacclab.github.io/OneStop-Eye-Movements/known_issues)**: Known issues with the dataset. If you identify an issue not listed here, please open a github issue specifying the problem.
 
-* **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Scripts for data preprocessing and reproducing the analysis in the dataset paper (see below).
+* **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Scripts for data preprocessing and reproducing the analysis in the dataset paper.
 
 ## Citation
 

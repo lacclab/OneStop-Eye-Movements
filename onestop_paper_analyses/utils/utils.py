@@ -84,3 +84,80 @@ def normalize_eye_conditions(df, condition_column):
     df[["Condition1", "Condition2"]] = df["Normalized Condition"].apply(pd.Series)
 
     return df
+
+
+def count_sentences(paragraph):
+    """
+    Count the number of sentences in a given paragraph.
+
+    Args:
+        paragraph (str): The text to analyze
+
+    Returns:
+        int: Number of sentences found
+
+    Note: Considers '.', '!', and '?' as sentence endings.
+    """
+    if not isinstance(paragraph, str):
+        raise TypeError("Input must be a string")
+
+    if not paragraph.strip():
+        return 0
+
+    # Split on common sentence endings
+    sentence_endings = [
+        ". ",
+        "! ",
+        "? ",
+        ".\n",
+        "!\n",
+        "?\n",
+        ".” ",
+        "!” ",
+        "?” ",
+        ".”\n",
+        "!”\n",
+        "?”\n",
+    ]
+    count = 0
+
+    # Handle the case where the paragraph ends without space
+    if paragraph.strip()[-1] in ".!?”":
+        count = 1
+
+    for ending in sentence_endings:
+        count += paragraph.count(ending)
+
+    return count
+
+
+def analyze_text_series(series):
+    """
+    Analyze a pandas series containing text data.
+
+    Args:
+        series (pd.Series): Series containing text data
+
+    Returns:
+        pd.DataFrame: DataFrame with text analysis metrics
+    """
+    # Count sentences for each row
+    sentence_counts = series.apply(count_sentences)
+
+    # Count words for each row
+    word_counts = series.str.split().str.len()
+
+    # Calculate average sentence length (words per sentence)
+    avg_sentence_length = word_counts / sentence_counts
+
+    # Create results DataFrame
+    results = pd.DataFrame(
+        {
+            "text": series,
+            "sentence_count": sentence_counts,
+            "word_count": word_counts,
+            "avg_words_per_sentence": avg_sentence_length.round(2),
+        }
+    )
+
+    return results

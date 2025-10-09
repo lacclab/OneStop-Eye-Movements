@@ -49,4 +49,4 @@ The preprocess steps can be found in [process_sr_report.py](https://github.com/l
 
 ## Running the Analyses
 
-The analyses in the OneStop paper can be reproduced by running [analyses.ipynb](https://github.com/lacclab/OneStop-Eye-Movements/blob/main/onestop_paper_analyses/onstop_paper_analyses.ipynb).
+The analyses in the OneStop paper can be reproduced by running [paper_analyses.ipynb](https://github.com/lacclab/OneStop-Eye-Movements/blob/main/onestop_paper_analyses/paper_analyses.ipynb).
