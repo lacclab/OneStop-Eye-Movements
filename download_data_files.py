@@ -15,7 +15,7 @@ def download_data(extract: bool, output_folder: str, mode: str) -> None:
     Args:
         extract (bool): Whether to extract the downloaded zip files.
         output_folder (str): The folder where the downloaded files will be saved.
-        mode (str): The mode of data to download. Options are 'onestop-full', 'onestop', 'repeated',
+        mode (str): The mode of data to download. Options are 'onestop-full', 'onestop_all_regimes', 'repeated',
                     'information_seeking', 'ordinary', 'information_seeking_repeated'. Default is 'ordinary'.
 
     Returns:
@@ -34,7 +34,7 @@ def download_data(extract: bool, output_folder: str, mode: str) -> None:
             "fixations_Paragraph": "paqn8",
             "ia_Paragraph": "ygjup",
         },
-        "onestop": {"fixations_Paragraph": "dq935", "ia_Paragraph": "4ajc8"},
+        "onestop_all_regimes": {"fixations_Paragraph": "dq935", "ia_Paragraph": "4ajc8"},
         "onestop-full": {
             "fixations_title": "uwz2e",
             "ia_title": "u7f9b",
@@ -132,7 +132,7 @@ if __name__ == "__main__":
             "ordinary",
             "information_seeking_repeated",
         ],
-        help="Mode of data to download. Options are onestop-full, onestop, ordinary, repeated, "
+        help="Mode of data to download. Options are onestop-full, onestop_all_regimes, ordinary, repeated, "
         "information_seeking, information_seeking_repeated. Default is ordinary.",
         default="ordinary",
     )
