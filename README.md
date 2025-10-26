@@ -102,7 +102,7 @@ We provide the possibility to download four sub-corpora with eye movement record
 
 Two versions of the complete dataset:
 
-* [OneStop](https://osf.io/azj2g/) - paragraph reading for the entire dataset.
+* [OneStop All Regimes](https://osf.io/azj2g/) - paragraph reading for the entire dataset.
 * [OneStop Full](https://osf.io/z7pyn/) - complete trials for the entire dataset, divided into title, question preview, paragraph, question, answers, QA (question + answers) and feedback.
 
 The raw data:
@@ -152,7 +152,7 @@ Basic usage to download the entire dataset:
       * `--extract`: Extract downloaded zip files (default: False)
       * `-o, --output-folder`: Specify output folder (default: "data/OneStop")
       * `--mode`: Choose dataset subcorporus to download (default: "ordinary")
-        * Options: "onestop-full", "onestop", "ordinary",   "information_seeking", "repeated","information_seeking_repeated"
+        * Options: "onestop-full", "onestop_all_regimes", "ordinary",   "information_seeking", "repeated","information_seeking_repeated"
 
    * Example usage to download the information-seeking subcorporus:
 
