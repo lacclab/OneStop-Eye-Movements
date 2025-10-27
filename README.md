@@ -191,6 +191,9 @@ This will download the data to the `data/OneStop` folder. You can also specify a
 
 * **[Scripts](https://lacclab.github.io/OneStop-Eye-Movements/preprocessing_analyses)**: Scripts for data preprocessing and reproducing the analysis in the dataset paper.
 
+## Release Versions
+Releases correspond to the [data release version](https://osf.io/wdjzu).
+
 ## Citation
 
 Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes](https://osf.io/kgxv5)
