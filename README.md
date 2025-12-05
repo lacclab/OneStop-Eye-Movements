@@ -196,14 +196,15 @@ Releases correspond to the [data release version](https://osf.io/wdjzu).
 
 ## Citation
 
-Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes](https://osf.io/kgxv5)
+Paper: [OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes](https://www.nature.com/articles/s41597-025-06272-2)
 
 ```bash
-@article{berzak2025onestop,
-  title={OneStop: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes},
-  author={Berzak, Yevgeni and Malmaud, Jonathan and Shubi, Omer and Meiri, Yoav and Lion, Ella and Levy, Roger},
-  journal={PsyArXiv preprint},
-  year={2025}
+@Article{Berzak2025,
+author={Berzak, Yevgeni and Malmaud, Jonathan and Shubi, Omer and Meiri, Yoav and Lion, Ella and Levy, Roger},
+title={{OneStop}: A 360-Participant English Eye Tracking Dataset with Different Reading Regimes},
+journal={Scientific Data},
+year={2025},
+doi={10.1038/s41597-025-06272-2},
 }
 ```
 
