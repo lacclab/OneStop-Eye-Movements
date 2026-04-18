@@ -17,6 +17,7 @@ Typos and cut-off text:
 Other issues:
 
 - Near-sightedness / Myopia was not in the eye conditions list and not everyone who had it necessarily marked it.
+- Participant `l38_104` is saved as `l38_97`. 
 - There are 2 missing trials in the dataset:
   - `l13_213` missed trial `39`  (`paragraph_id=4` of `article_id=10`)
   - `l34_277` missed  trial `38` (`paragraph_id=5` of `article_id=2`)
