@@ -237,6 +237,10 @@ Human-LLM Alignment and Memorization
 
 ## License
 
-The data and code are licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+The eye tracking data, code, and anonymized participant questionnaire responses are released under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+The underlying textual materials and auxiliary text annotations of OneStopQA are provided under the [OneStopQA Creative Commons Attribution-ShareAlike 4.0 International License](https://github.com/berzak/onestop-qa/blob/master/LICENSE.md).
+
+
+
 
 ![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png)
