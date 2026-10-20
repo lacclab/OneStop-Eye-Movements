@@ -3,4 +3,12 @@
 {% block extrahead %}
 {{ super() }}
 <meta name="google-site-verification" content="FEUvYyUUeFoiAVgouYHaGdMKyTgLGUFLUe99oofr_DY" />
+<style>
+  a[title="Visit LaCC Lab"] > div { width: auto; padding: 0 0.25rem; }
+  .lacc-header-link { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+  .lacc-header-link img { height: 22px; width: auto; }
+  .lacc-header-link .lacc-logo-dark, .dark .lacc-header-link .lacc-logo-light { display: none; }
+  .dark .lacc-header-link .lacc-logo-dark { display: block; }
+  .lacc-header-link span { font-size: 10px; font-weight: 600; margin-top: 2px; white-space: nowrap; }
+</style>
 {% endblock %}

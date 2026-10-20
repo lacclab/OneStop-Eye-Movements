@@ -75,9 +75,11 @@ html_theme_options = {
         "LaCC Lab": {
             "link": "https://lacclab.github.io/",
             "icon": (
-                """
-<svg height="26px" style="margin-top:-2px;display:inline" xmlns="http://www.w3.org/2000/svg">
-  <text x="0" y="20" fill="Orange">LaCC</text>"""
+                '<span class="lacc-header-link">'
+                '<img src="_static/lacc_logo.jpeg" alt="LaCC Lab logo" class="lacc-logo-light">'
+                '<img src="_static/lacc_logo_dark.png" alt="LaCC Lab logo" class="lacc-logo-dark">'
+                "<span>LaCC Lab</span>"
+                "</span>"
             ),
         },
     },
