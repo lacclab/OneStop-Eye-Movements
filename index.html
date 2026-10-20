@@ -28,6 +28,14 @@
       if (!userPreference) {localStorage.setItem('darkMode', mode)}
     </script>
 <meta content="FEUvYyUUeFoiAVgouYHaGdMKyTgLGUFLUe99oofr_DY" name="google-site-verification"/>
+<style>
+  a[title="Visit LaCC Lab"] > div { width: auto; padding: 0 0.25rem; }
+  .lacc-header-link { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+  .lacc-header-link img { height: 22px; width: auto; }
+  .lacc-header-link .lacc-logo-dark, .dark .lacc-header-link .lacc-logo-light { display: none; }
+  .dark .lacc-header-link .lacc-logo-dark { display: block; }
+  .lacc-header-link span { font-size: 10px; font-weight: 600; margin-top: 2px; white-space: nowrap; }
+</style>
 </head>
 <body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
 <div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
@@ -59,9 +67,8 @@
 </a>
 <a href="https://lacclab.github.io/" rel="noopener nofollow" title="Visit LaCC Lab">
 <div class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md disabled:opacity-50 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-9 w-9">
-<svg height="26px" style="margin-top:-2px;display:inline" xmlns="http://www.w3.org/2000/svg">
-<text fill="Orange" x="0" y="20">LaCC</text>
-</svg></div>
+<span class="lacc-header-link"><img alt="LaCC Lab logo" class="lacc-logo-light" src="_static/lacc_logo.jpeg"/><img alt="LaCC Lab logo" class="lacc-logo-dark" src="_static/lacc_logo_dark.png"/><span>LaCC Lab</span></span>
+</div>
 </a>
 <button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
 <svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
